@@ -1,0 +1,87 @@
+name: mushroom_identification
+description: AI-based mushroom identification mobile application using Flutter.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  get: ^4.6.5
+  provider: ^6.0.0
+
+  # HTTP & API
+  dio: ^5.3.1
+  retrofit: ^4.0.1
+
+  # Image Handling
+  image_picker: ^1.0.4
+  cached_network_image: ^3.3.1
+  image: ^4.1.1
+
+  # Local Storage
+  shared_preferences: ^2.2.2
+  sqflite: ^2.3.0+4
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # UI & Styling
+  google_fonts: ^6.1.0
+  flutter_svg: ^2.0.10+1
+  smooth_page_indicator: ^1.1.0
+  flutter_rating_bar: ^4.0.1
+  intl: ^0.19.0
+
+  # Logging & Analytics
+  logger: ^2.0.1
+  firebase_core: ^2.24.2
+  firebase_analytics: ^10.7.0
+
+  # Utilities
+  equatable: ^2.0.5
+  uuid: ^4.0.0
+  connectivity_plus: ^5.0.2
+
+  # Maps (optional, for future features)
+  google_maps_flutter: ^2.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Testing
+  mockito: ^5.4.4
+  mocktail: ^1.0.0
+
+  # Code Generation
+  build_runner: ^2.4.6
+  retrofit_generator: ^7.0.5
+  hive_generator: ^2.0.1
+
+  # Linting
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Asset directories are commented out until they are added to the project.
+  # Re-enable these entries once assets/images, assets/icons, and assets/data exist.
+  # assets:
+  #   - assets/images/
+  #   - assets/icons/
+  #   - assets/data/
+
+  # Custom font configuration is commented out until the font files are added.
+  # Re-enable this section once assets/fonts/CustomFont-Regular.ttf and
+  # assets/fonts/CustomFont-Bold.ttf are present.
+  # fonts:
+  #   - family: CustomFont
+  #     fonts:
+  #       - asset: assets/fonts/CustomFont-Regular.ttf
+  #       - asset: assets/fonts/CustomFont-Bold.ttf
+  #         weight: 700
