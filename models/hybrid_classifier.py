@@ -226,7 +226,7 @@ class LookalikeMatcher:
         ('Chanterelle', 'False Chanterelle', 0.8, 'Similar funnel shape and yellow color'),
         ('Chanterelle', "Pig's Ear", 0.7, 'Both funnel-shaped with ridges'),
         ('Black Trumpet', 'Chanterelle', 0.6, 'Both funnel-shaped but different colors'),
-        ('Fly Agaric', 'Amanita virosa', 0.9, 'Both red with spots, very dangerous confusion'),
+        ('Fly Agaric', 'Amanita virosa', 0.9, 'Both deadly Amanita species; confusion by inexperienced foragers can be very dangerous'),
         ('Porcini', 'Other Boletus', 0.8, 'Similar pore structure'),
         ('Slippery Jack', 'Other Boletus', 0.7, 'Slimy cap, pores underneath'),
     ]
