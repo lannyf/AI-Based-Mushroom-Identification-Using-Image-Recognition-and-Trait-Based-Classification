@@ -7,7 +7,10 @@ import 'package:logger/logger.dart';
 import 'pages/camera_page.dart';
 import 'pages/questionnaire_page.dart';
 import 'pages/results_page.dart';
+import 'pages/history_page.dart';
+import 'pages/settings_page.dart';
 import 'providers/identification_provider.dart';
+import 'providers/history_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +22,7 @@ void main() async {
   // Register GetX controllers once before runApp to avoid re-registration
   // on widget rebuilds.
   Get.put(IdentificationProvider());
+  Get.put(HistoryProvider());
 
   runApp(const MushroomIdentificationApp());
 }
@@ -171,9 +175,14 @@ class MushroomIdentificationApp extends StatelessWidget {
           name: '/results',
           page: () => const ResultsPage(),
         ),
-        // Add more routes here as pages are created
-        // GetPage(name: '/history', page: () => const HistoryPage()),
-        // GetPage(name: '/settings', page: () => const SettingsPage()),
+        GetPage(
+          name: '/history',
+          page: () => const HistoryPage(),
+        ),
+        GetPage(
+          name: '/settings',
+          page: () => const SettingsPage(),
+        ),
       ],
       debugShowCheckedModeBanner: false,
     );
@@ -197,10 +206,7 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {
-              // TODO: Navigate to settings
-              Get.snackbar('Coming Soon', 'Settings page not yet implemented');
-            },
+            onPressed: () => Get.toNamed('/settings'),
           ),
         ],
       ),
@@ -272,12 +278,7 @@ class HomePage extends StatelessWidget {
                   width: double.infinity,
                   height: 56,
                   child: OutlinedButton.icon(
-                    onPressed: () {
-                      Get.snackbar(
-                        'Coming Soon',
-                        'View history feature coming in next update',
-                      );
-                    },
+                    onPressed: () => Get.toNamed('/history'),
                     icon: const Icon(Icons.history, size: 24),
                     label: const Text('View History'),
                     style: OutlinedButton.styleFrom(

@@ -22,6 +22,29 @@ class ImageService {
 
   ImageService._internal();
 
+  /// Returns true if the file path has a supported image extension.
+  /// This is a synchronous, path-only check (no file existence or size check).
+  bool isValidExtension(String filePath) {
+    final String extension = _getFileExtension(filePath).toLowerCase();
+    return supportedFormats.contains(extension);
+  }
+
+  /// Formats a raw byte count to a human-readable string (e.g., '1.5 KB').
+  String formatFileSize(int bytes) {
+    return _formatBytes(bytes);
+  }
+
+  /// Returns an error message for a path with an unsupported extension,
+  /// or an empty string if the extension is supported.
+  /// This is a synchronous, path-only check (no file existence or size check).
+  String validateExtension(String filePath) {
+    final String extension = _getFileExtension(filePath).toLowerCase();
+    if (!supportedFormats.contains(extension)) {
+      return 'Unsupported image format ($extension). Supported: ${supportedFormats.join(", ")}';
+    }
+    return '';
+  }
+
   /// Validates if a file is a valid image
   /// 
   /// Checks:
