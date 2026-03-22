@@ -34,6 +34,20 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     _provider = Get.find<IdentificationProvider>();
     _notesController = TextEditingController();
     _pageController = PageController();
+
+    // Initialize selected image from navigation arguments, if provided.
+    // Expected keys (via Get.toNamed): 'imageFile' (File) or 'imagePath' (String).
+    final args = Get.arguments;
+    if (args is Map) {
+      final File? imageFile = args['imageFile'] is File ? args['imageFile'] as File : null;
+      final String? imagePath = args['imagePath'] is String ? args['imagePath'] as String : null;
+
+      if (imageFile != null) {
+        _provider.setSelectedImage(imageFile);
+      } else if (imagePath != null && imagePath.isNotEmpty) {
+        _provider.setSelectedImage(File(imagePath));
+      }
+    }
   }
 
   @override

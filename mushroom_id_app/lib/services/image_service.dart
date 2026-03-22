@@ -4,10 +4,8 @@ import 'package:logger/logger.dart';
 /// Service for image handling operations.
 /// 
 /// Provides functionality for:
-/// - Image validation
-/// - Image compression
-/// - File size checking
-/// - Metadata extraction
+/// - Image validation (format, file existence, size)
+/// - File size checking and formatting
 /// - Image format validation
 class ImageService {
   static final ImageService _instance = ImageService._internal();

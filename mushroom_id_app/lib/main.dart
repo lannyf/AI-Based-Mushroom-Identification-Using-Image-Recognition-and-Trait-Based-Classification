@@ -16,6 +16,10 @@ void main() async {
   final logger = Logger();
   logger.i('Mushroom Identification App - Starting');
 
+  // Register GetX controllers once before runApp to avoid re-registration
+  // on widget rebuilds.
+  Get.put(IdentificationProvider());
+
   runApp(const MushroomIdentificationApp());
 }
 
@@ -143,9 +147,6 @@ class MushroomIdentificationApp extends StatelessWidget {
       // Scaffold background
       scaffoldBackgroundColor: backgroundColor,
     );
-
-    // Initialize GetX controllers
-    Get.put(IdentificationProvider());
 
     return GetMaterialApp(
       title: 'Mushroom Identification',

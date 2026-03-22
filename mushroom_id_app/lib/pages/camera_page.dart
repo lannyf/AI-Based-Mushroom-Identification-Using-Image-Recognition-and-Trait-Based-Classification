@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' show pi;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -313,7 +314,7 @@ class _CameraPageState extends State<CameraPage> {
                     minScale: 0.5,
                     maxScale: 4,
                     child: Transform.rotate(
-                      angle: _rotationAngle * 3.14159 / 180,
+                      angle: _rotationAngle * pi / 180,
                       child: Image.file(File(_selectedImage!.path)),
                     ),
                   ),

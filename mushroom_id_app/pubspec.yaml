@@ -69,14 +69,19 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  assets:
-    - assets/images/
-    - assets/icons/
-    - assets/data/
+  # Asset directories are commented out until they are added to the project.
+  # Re-enable these entries once assets/images, assets/icons, and assets/data exist.
+  # assets:
+  #   - assets/images/
+  #   - assets/icons/
+  #   - assets/data/
 
-  fonts:
-    - family: CustomFont
-      fonts:
-        - asset: assets/fonts/CustomFont-Regular.ttf
-        - asset: assets/fonts/CustomFont-Bold.ttf
-          weight: 700
+  # Custom font configuration is commented out until the font files are added.
+  # Re-enable this section once assets/fonts/CustomFont-Regular.ttf and
+  # assets/fonts/CustomFont-Bold.ttf are present.
+  # fonts:
+  #   - family: CustomFont
+  #     fonts:
+  #       - asset: assets/fonts/CustomFont-Regular.ttf
+  #       - asset: assets/fonts/CustomFont-Bold.ttf
+  #         weight: 700

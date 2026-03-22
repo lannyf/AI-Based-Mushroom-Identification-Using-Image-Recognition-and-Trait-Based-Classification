@@ -17,7 +17,7 @@ class IdentificationProvider extends GetxController {
   final Rx<File?> selectedImage = Rx<File?>(null);
   final RxMap<String, dynamic> selectedTraits = RxMap<String, dynamic>({});
   final RxBool isProcessing = RxBool(false);
-  final RxString? errorMessage = RxString(null);
+  final RxnString errorMessage = RxnString();
   final RxInt currentStep = RxInt(0); // 0: camera, 1: questionnaire, 2: results
 
   // Trait categories
@@ -145,9 +145,9 @@ class IdentificationProvider extends GetxController {
 
   /// Validates that required traits are selected
   /// 
-  /// Required traits: cap_shape, color, gill_type, habitat
+  /// Required traits: cap_shape, color, gill_type, stem_type, habitat, season
   bool validateTraitsCompleted() {
-    final requiredTraits = ['cap_shape', 'color', 'gill_type', 'habitat'];
+    final requiredTraits = ['cap_shape', 'color', 'gill_type', 'stem_type', 'habitat', 'season'];
     final allSelected = requiredTraits.every((trait) => selectedTraits.containsKey(trait));
 
     if (!allSelected) {
@@ -193,7 +193,7 @@ class IdentificationProvider extends GetxController {
 
   /// Sets error message
   void setError(String? error) {
-    errorMessage?.value = error;
+    errorMessage.value = error;
     if (error != null) {
       _logger.e('Error: $error');
     }
@@ -201,7 +201,7 @@ class IdentificationProvider extends GetxController {
 
   /// Clears error message
   void clearError() {
-    errorMessage?.value = null;
+    errorMessage.value = null;
   }
 
   /// Gets all selected data for API submission
@@ -223,7 +223,7 @@ class IdentificationProvider extends GetxController {
     selectedImage.value = null;
     selectedTraits.clear();
     isProcessing.value = false;
-    errorMessage?.value = null;
+    errorMessage.value = null;
     currentStep.value = 0;
     _logger.i('Identification provider reset');
   }
