@@ -228,7 +228,7 @@ class HomePage extends StatelessWidget {
                     color: primaryColor.withOpacity(0.1),
                   ),
                   child: Icon(
-                    Icons.mushroom,
+                    Icons.eco,
                     size: 50,
                     color: primaryColor,
                   ),

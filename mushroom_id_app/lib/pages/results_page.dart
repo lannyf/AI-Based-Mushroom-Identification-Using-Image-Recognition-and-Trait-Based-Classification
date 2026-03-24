@@ -192,7 +192,7 @@ class _ResultsPageState extends State<ResultsPage> {
                   // Progress arc
                   CircularProgressIndicator(
                     value: overall,
-                    minHeight: 12,
+                    strokeWidth: 12,
                     strokeCap: StrokeCap.round,
                     valueColor: AlwaysStoppedAnimation<Color>(
                       _getConfidenceColor(overall),

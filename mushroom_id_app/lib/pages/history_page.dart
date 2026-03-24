@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -78,7 +79,7 @@ class _HistoryPageState extends State<HistoryPage> {
         );
       }),
       floatingActionButton: Obx(() {
-        if (_historyProvider.isEmpty) return null;
+        if (_historyProvider.isEmpty) return const SizedBox.shrink();
         return FloatingActionButton(
           onPressed: _showClearConfirmation,
           tooltip: 'Clear history',
@@ -577,7 +578,12 @@ class HistoryDetailPage extends StatelessWidget {
   }
 
   String _formatJson(Map<String, dynamic> json) {
-    return const JsonEncoder.withIndent('  ').convert(json);
+    try {
+      return const JsonEncoder.withIndent('  ').convert(json);
+    } on JsonUnsupportedObjectError {
+      // Fallback when the map contains non-JSON-serializable values (e.g. Uint8List, custom objects)
+      return json.toString();
+    }
   }
 
   Color _getSafetyColor(String safety) {
