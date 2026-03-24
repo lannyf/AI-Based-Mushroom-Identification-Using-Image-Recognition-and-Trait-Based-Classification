@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
 import '../providers/history_provider.dart';
 import '../services/storage_service.dart';
 
@@ -78,7 +79,7 @@ class _HistoryPageState extends State<HistoryPage> {
         );
       }),
       floatingActionButton: Obx(() {
-        if (_historyProvider.isEmpty) return null;
+        if (_historyProvider.isEmpty) return const SizedBox.shrink();
         return FloatingActionButton(
           onPressed: _showClearConfirmation,
           tooltip: 'Clear history',
@@ -484,7 +485,6 @@ class HistoryDetailPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.grey[100],
                       borderRadius: BorderRadius.circular(8),
-                      fontFamily: 'Courier',
                     ),
                     child: Text(
                       _formatJson(entry.results),
@@ -560,7 +560,12 @@ class HistoryDetailPage extends StatelessWidget {
   }
 
   String _formatJson(Map<String, dynamic> json) {
-    return const JsonEncoder.withIndent('  ').convert(json);
+    try {
+      return const JsonEncoder.withIndent('  ').convert(json);
+    } catch (_) {
+      // Fallback for web platform where withIndent is not available
+      return jsonEncode(json);
+    }
   }
 
   Color _getSafetyColor(String safety) {
