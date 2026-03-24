@@ -1,7 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'dart:convert';
 import '../providers/history_provider.dart';
 import '../services/storage_service.dart';
 
@@ -580,9 +580,9 @@ class HistoryDetailPage extends StatelessWidget {
   String _formatJson(Map<String, dynamic> json) {
     try {
       return const JsonEncoder.withIndent('  ').convert(json);
-    } catch (_) {
-      // Fallback for web platform where withIndent is not available
-      return jsonEncode(json);
+    } on JsonUnsupportedObjectError {
+      // Fallback when the map contains non-JSON-serializable values (e.g. Uint8List, custom objects)
+      return json.toString();
     }
   }
 

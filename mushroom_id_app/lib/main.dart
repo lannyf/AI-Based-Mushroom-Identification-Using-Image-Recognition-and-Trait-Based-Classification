@@ -103,7 +103,7 @@ class MushroomIdentificationApp extends StatelessWidget {
       ),
 
       // Card styling
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -132,7 +132,7 @@ class MushroomIdentificationApp extends StatelessWidget {
       ),
 
       // Dialog theme
-      dialogTheme: DialogThemeData(
+      dialogTheme: DialogTheme(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
