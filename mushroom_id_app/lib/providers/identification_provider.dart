@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
@@ -14,7 +14,8 @@ class IdentificationProvider extends GetxController {
   final Logger _logger = Logger();
 
   // Observable state variables
-  final Rx<File?> selectedImage = Rx<File?>(null);
+  final RxnString selectedImagePath = RxnString();
+  final Rx<Uint8List?> selectedImageBytes = Rx<Uint8List?>(null);
   final RxMap<String, dynamic> selectedTraits = RxMap<String, dynamic>({});
   final RxBool isProcessing = RxBool(false);
   final RxnString errorMessage = RxnString();
@@ -96,11 +97,15 @@ class IdentificationProvider extends GetxController {
     ];
   }
 
-  /// Sets the selected image from camera or gallery
-  void setSelectedImage(File imageFile) {
+  /// Sets selected image metadata from camera or gallery.
+  void setSelectedImage({
+    required String imagePath,
+    Uint8List? imageBytes,
+  }) {
     try {
-      selectedImage.value = imageFile;
-      _logger.i('Image selected: ${imageFile.path}');
+      selectedImagePath.value = imagePath;
+      selectedImageBytes.value = imageBytes;
+      _logger.i('Image selected: $imagePath');
     } catch (e) {
       _logger.e('Error setting selected image: $e');
       setError('Failed to select image');
@@ -109,7 +114,8 @@ class IdentificationProvider extends GetxController {
 
   /// Clears the selected image and resets to camera step
   void clearImage() {
-    selectedImage.value = null;
+    selectedImagePath.value = null;
+    selectedImageBytes.value = null;
     selectedTraits.clear();
     currentStep.value = 0;
     _logger.i('Image cleared, reset to camera step');
@@ -207,20 +213,21 @@ class IdentificationProvider extends GetxController {
   /// Gets all selected data for API submission
   /// 
   /// Returns a map containing:
-  /// - imageFile: File object for image
   /// - imagePath: Path to image file
+  /// - imageBytes: Raw image bytes when available (used on web)
   /// - traits: Selected traits dictionary
   Map<String, dynamic> getIdentificationData() {
     return {
-      'imageFile': selectedImage.value,
-      'imagePath': selectedImage.value?.path,
+      'imagePath': selectedImagePath.value,
+      'imageBytes': selectedImageBytes.value,
       'traits': Map.from(selectedTraits),
     };
   }
 
   /// Resets all state to initial values
   void reset() {
-    selectedImage.value = null;
+    selectedImagePath.value = null;
+    selectedImageBytes.value = null;
     selectedTraits.clear();
     isProcessing.value = false;
     errorMessage.value = null;
@@ -256,7 +263,7 @@ class IdentificationProvider extends GetxController {
     _logger.i(
       'Current state: '
       'Step=${currentStep.value}, '
-      'Image=${selectedImage.value?.path}, '
+      'Image=${selectedImagePath.value}, '
       'Traits=${selectedTraits.length} selected, '
       'Processing=$isProcessing',
     );

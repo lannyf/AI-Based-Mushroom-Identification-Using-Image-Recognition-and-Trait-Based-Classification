@@ -579,7 +579,7 @@ class HistoryDetailPage extends StatelessWidget {
 
   String _formatJson(Map<String, dynamic> json) {
     try {
-      return const JsonEncoder.withIndent('  ').convert(json);
+      return JsonEncoder.withIndent('  ').convert(json);
     } on JsonUnsupportedObjectError {
       // Fallback when the map contains non-JSON-serializable values (e.g. Uint8List, custom objects)
       return json.toString();

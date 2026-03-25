@@ -1,5 +1,6 @@
-import 'dart:io';
 import 'dart:math' show pi;
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +23,7 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
   final ImagePicker _imagePicker = ImagePicker();
   XFile? _selectedImage;
+  Uint8List? _selectedImageBytes;
   double _rotationAngle = 0;
   late TransformationController _transformationController;
 
@@ -45,11 +47,7 @@ class _CameraPageState extends State<CameraPage> {
         imageQuality: 85,
       );
       if (photo != null) {
-        setState(() {
-          _selectedImage = photo;
-          _rotationAngle = 0;
-          _transformationController.value = Matrix4.identity();
-        });
+        await _setSelectedImage(photo);
       }
     } catch (e) {
       _showErrorSnackBar('Failed to capture photo: $e');
@@ -64,15 +62,21 @@ class _CameraPageState extends State<CameraPage> {
         imageQuality: 85,
       );
       if (image != null) {
-        setState(() {
-          _selectedImage = image;
-          _rotationAngle = 0;
-          _transformationController.value = Matrix4.identity();
-        });
+        await _setSelectedImage(image);
       }
     } catch (e) {
       _showErrorSnackBar('Failed to pick image: $e');
     }
+  }
+
+  Future<void> _setSelectedImage(XFile image) async {
+    final imageBytes = await image.readAsBytes();
+    setState(() {
+      _selectedImage = image;
+      _selectedImageBytes = imageBytes;
+      _rotationAngle = 0;
+      _transformationController.value = Matrix4.identity();
+    });
   }
 
   /// Rotates image by 90 degrees clockwise
@@ -94,6 +98,7 @@ class _CameraPageState extends State<CameraPage> {
   void _retakePhoto() {
     setState(() {
       _selectedImage = null;
+      _selectedImageBytes = null;
       _rotationAngle = 0;
       _transformationController.value = Matrix4.identity();
     });
@@ -112,8 +117,8 @@ class _CameraPageState extends State<CameraPage> {
     }
 
     try {
-      final File imageFile = File(_selectedImage!.path);
-      final int fileSizeInBytes = await imageFile.length();
+      final int fileSizeInBytes =
+          _selectedImageBytes?.lengthInBytes ?? await _selectedImage!.length();
       const int maxSizeInBytes = 5 * 1024 * 1024; // 5MB
 
       if (fileSizeInBytes > maxSizeInBytes) {
@@ -129,7 +134,8 @@ class _CameraPageState extends State<CameraPage> {
         '/questionnaire',
         arguments: {
           'imagePath': _selectedImage!.path,
-          'imageFile': imageFile,
+          'imageName': _selectedImage!.name,
+          'imageBytes': _selectedImageBytes,
         },
       );
     } catch (e) {
@@ -310,15 +316,15 @@ class _CameraPageState extends State<CameraPage> {
                 color: Colors.black87,
                 child: Center(
                   child: InteractiveViewer(
-                    transformationController: _transformationController,
-                    minScale: 0.5,
-                    maxScale: 4,
-                    child: Transform.rotate(
-                      angle: _rotationAngle * pi / 180,
-                      child: Image.file(File(_selectedImage!.path)),
-                    ),
-                  ),
-                ),
+                     transformationController: _transformationController,
+                     minScale: 0.5,
+                     maxScale: 4,
+                     child: Transform.rotate(
+                       angle: _rotationAngle * pi / 180,
+                       child: _buildPreviewImage(),
+                     ),
+                   ),
+                 ),
               ),
             ),
 
@@ -427,5 +433,33 @@ class _CameraPageState extends State<CameraPage> {
         ),
       ],
     );
+  }
+
+  Widget _buildPreviewImage() {
+    if (_selectedImage == null) {
+      return const SizedBox.shrink();
+    }
+
+    if (kIsWeb) {
+      return Image.network(
+        _selectedImage!.path,
+        errorBuilder: (context, error, stackTrace) {
+          if (_selectedImageBytes != null) {
+            return Image.memory(_selectedImageBytes!);
+          }
+          return const Icon(
+            Icons.broken_image_outlined,
+            color: Colors.white70,
+            size: 80,
+          );
+        },
+      );
+    }
+
+    if (_selectedImageBytes != null) {
+      return Image.memory(_selectedImageBytes!);
+    }
+
+    return const SizedBox.shrink();
   }
 }

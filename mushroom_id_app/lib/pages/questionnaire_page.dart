@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:io';
+import 'dart:typed_data';
 
 import '../providers/identification_provider.dart';
 
@@ -36,16 +36,19 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     _pageController = PageController();
 
     // Initialize selected image from navigation arguments, if provided.
-    // Expected keys (via Get.toNamed): 'imageFile' (File) or 'imagePath' (String).
+    // Expected keys (via Get.toNamed): 'imagePath' (String), optional
+    // 'imageName' (String) and 'imageBytes' (Uint8List).
     final args = Get.arguments;
     if (args is Map) {
-      final File? imageFile = args['imageFile'] is File ? args['imageFile'] as File : null;
       final String? imagePath = args['imagePath'] is String ? args['imagePath'] as String : null;
+      final Uint8List? imageBytes =
+          args['imageBytes'] is Uint8List ? args['imageBytes'] as Uint8List : null;
 
-      if (imageFile != null) {
-        _provider.setSelectedImage(imageFile);
-      } else if (imagePath != null && imagePath.isNotEmpty) {
-        _provider.setSelectedImage(File(imagePath));
+      if (imagePath != null && imagePath.isNotEmpty) {
+        _provider.setSelectedImage(
+          imagePath: imagePath,
+          imageBytes: imageBytes,
+        );
       }
     }
   }
