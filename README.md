@@ -2,10 +2,10 @@
 
 ## 🚀 Quick Start - Run the Web App
 
-Copy and paste this ONE command into your terminal:
+From the root of this repository, run:
 
 ```bash
-cd ~/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification/mushroom_id_app/build/web && python3 -m http.server 8080
+cd mushroom_id_app && flutter build web && cd build/web && python3 -m http.server 8080
 ```
 
 Then open your browser to:
@@ -15,6 +15,11 @@ http://localhost:8080
 
 ✅ The app will load with full Material Design 3 interface  
 ⏹️ To stop: Press **Ctrl + C** in terminal
+
+> **Tip:** You can also run the app directly in Chrome without building first:
+> ```bash
+> cd mushroom_id_app && flutter run -d chrome --web-port 8080
+> ```
 
 ---
 
@@ -50,7 +55,6 @@ Example: Use `Mushroom_examples/svamp.png` for testing
 │   │   ├── providers/         # GetX state management
 │   │   └── services/          # Business logic (image, storage)
 │   ├── test/                  # 40+ automated tests
-│   ├── build/web/             # Web build output (2.8 MB)
 │   └── pubspec.yaml           # Dependencies
 ├── models/                    # Python ML models (Phase 1-5)
 ├── scripts/                   # Processing & utility scripts
