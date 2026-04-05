@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../providers/history_provider.dart';
+import '../providers/language_provider.dart';
 import '../services/storage_service.dart';
+import '../widgets/language_flag_button.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -25,9 +27,10 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Identification History'),
+        title: Text('identification_history'.tr),
         centerTitle: true,
         elevation: 0,
+        actions: const [LanguageFlagButton()],
       ),
       body: Obx(() {
         if (_historyProvider.isLoading.value) {
@@ -48,14 +51,14 @@ class _HistoryPageState extends State<HistoryPage> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'No identifications yet',
+                  'no_history'.tr,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: Colors.grey[600],
                       ),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Start by taking a photo of a mushroom',
+                  'no_history_subtitle'.tr,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.grey[500],
                       ),
@@ -82,7 +85,7 @@ class _HistoryPageState extends State<HistoryPage> {
         if (_historyProvider.isEmpty) return const SizedBox.shrink();
         return FloatingActionButton(
           onPressed: _showClearConfirmation,
-          tooltip: 'Clear history',
+          tooltip: 'clear_history_tooltip'.tr,
           child: const Icon(Icons.delete_sweep),
         );
       }),
@@ -100,14 +103,12 @@ class _HistoryPageState extends State<HistoryPage> {
   void _deleteEntry(HistoryEntry entry) {
     Get.dialog(
       AlertDialog(
-        title: const Text('Delete Entry?'),
-        content: Text(
-          'Are you sure you want to delete this identification of ${entry.topSpecies}?',
-        ),
+        title: Text('delete_entry_title'.tr),
+        content: Text('delete_entry_confirm'.tr),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: const Text('Cancel'),
+            child: Text('cancel'.tr),
           ),
           TextButton(
             onPressed: () async {
@@ -116,17 +117,17 @@ class _HistoryPageState extends State<HistoryPage> {
                 if (!mounted) return;
                 Get.back();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Identification deleted')),
+                  SnackBar(content: Text('identification_deleted'.tr)),
                 );
               } catch (e) {
                 if (!mounted) return;
                 Get.back();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Failed to delete identification')),
+                  SnackBar(content: Text('failed_delete'.tr)),
                 );
               }
             },
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+            child: Text('delete'.tr, style: const TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -136,14 +137,12 @@ class _HistoryPageState extends State<HistoryPage> {
   void _showClearConfirmation() {
     Get.dialog(
       AlertDialog(
-        title: const Text('Clear History?'),
-        content: const Text(
-          'This will permanently delete all saved identifications. This action cannot be undone.',
-        ),
+        title: Text('clear_history_title'.tr),
+        content: Text('clear_history_confirm'.tr),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: const Text('Cancel'),
+            child: Text('cancel'.tr),
           ),
           TextButton(
             onPressed: () async {
@@ -152,17 +151,17 @@ class _HistoryPageState extends State<HistoryPage> {
                 if (!mounted) return;
                 Get.back();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('History cleared')),
+                  SnackBar(content: Text('history_cleared'.tr)),
                 );
               } catch (e) {
                 if (!mounted) return;
                 Get.back();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Failed to clear history')),
+                  SnackBar(content: Text('failed_clear'.tr)),
                 );
               }
             },
-            child: const Text('Clear', style: TextStyle(color: Colors.red)),
+            child: Text('clear'.tr, style: const TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -189,6 +188,7 @@ class _HistoryCard extends StatelessWidget {
     final safetyRating = entry.safetyRating ?? 'Unknown';
     final dateFormat = DateFormat('MMM d, yyyy • HH:mm');
     final formattedDate = dateFormat.format(entry.createdAt);
+    final langProvider = Get.find<LanguageProvider>();
 
     Color getSafetyColor() {
       switch (safetyRating.toLowerCase()) {
@@ -203,7 +203,12 @@ class _HistoryCard extends StatelessWidget {
       }
     }
 
-    return Card(
+    return Obx(() {
+      final commonName = langProvider.isSwedish
+          ? entry.topSwedishName.isNotEmpty ? entry.topSwedishName : entry.topCommonName
+          : entry.topCommonName;
+
+      return Card(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
       child: InkWell(
         onTap: onTap,
@@ -220,14 +225,27 @@ class _HistoryCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Local name first (bold), Latin second (italic grey)
                         Text(
-                          species,
+                          commonName.isNotEmpty ? commonName : species,
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        if (commonName.isNotEmpty) ...[
+                          const SizedBox(height: 2),
+                          Text(
+                            species,
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: Colors.grey[600],
+                                  fontStyle: FontStyle.italic,
+                                ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                         const SizedBox(height: 4),
                         Text(
                           formattedDate,
@@ -308,7 +326,7 @@ class _HistoryCard extends StatelessWidget {
               if (entry.notes != null && entry.notes!.isNotEmpty) ...[
                 const SizedBox(height: 12),
                 Text(
-                  'Notes: ${entry.notes}',
+                  '${'notes_label'.tr}: ${entry.notes}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Colors.grey[700],
                         fontStyle: FontStyle.italic,
@@ -326,7 +344,7 @@ class _HistoryCard extends StatelessWidget {
                   TextButton.icon(
                     onPressed: onDelete,
                     icon: const Icon(Icons.delete_outline, size: 18),
-                    label: const Text('Delete'),
+                    label: Text('delete'.tr),
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.red,
                     ),
@@ -335,7 +353,7 @@ class _HistoryCard extends StatelessWidget {
                   TextButton.icon(
                     onPressed: onTap,
                     icon: const Icon(Icons.arrow_forward, size: 18),
-                    label: const Text('View'),
+                    label: Text('view_label'.tr),
                   ),
                 ],
               ),
@@ -344,6 +362,7 @@ class _HistoryCard extends StatelessWidget {
         ),
       ),
     );
+    }); // Obx
   }
 }
 
@@ -359,13 +378,18 @@ class HistoryDetailPage extends StatelessWidget {
     final safetyRating = entry.safetyRating ?? 'Unknown';
     final dateFormat = DateFormat('MMMM d, yyyy • HH:mm:ss');
     final formattedDate = dateFormat.format(entry.createdAt);
+    final langProvider = Get.find<LanguageProvider>();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Identification Details'),
+        title: Text('identification_details_title'.tr),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
+      body: Obx(() {
+        final commonName = langProvider.isSwedish
+            ? entry.topSwedishName.isNotEmpty ? entry.topSwedishName : entry.topCommonName
+            : entry.topCommonName;
+        return SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -378,19 +402,30 @@ class HistoryDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Species Identified',
+                      'species_identified'.tr,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w600,
                           ),
                     ),
                     const SizedBox(height: 8),
+                    // Local name first (bold headline), Latin second (italic grey)
                     Text(
-                      species,
+                      commonName.isNotEmpty ? commonName : species,
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                     ),
+                    if (commonName.isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        species,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.grey[600],
+                              fontStyle: FontStyle.italic,
+                            ),
+                      ),
+                    ],
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -399,7 +434,7 @@ class HistoryDetailPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Confidence',
+                              'confidence'.tr,
                               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                     color: Colors.grey[600],
                                   ),
@@ -417,7 +452,7 @@ class HistoryDetailPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Safety',
+                              'safety_label'.tr,
                               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                     color: Colors.grey[600],
                                   ),
@@ -452,7 +487,7 @@ class HistoryDetailPage extends StatelessWidget {
 
             // Traits used
             Text(
-              'Traits Selected',
+              'traits_selected'.tr,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -463,7 +498,7 @@ class HistoryDetailPage extends StatelessWidget {
 
             // Timestamp
             Text(
-              'Identification Details',
+              'identification_details_title'.tr,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -479,12 +514,12 @@ class HistoryDetailPage extends StatelessWidget {
                     const Divider(),
                     _detailRow(
                       context,
-                      'Image',
+                      'image_label'.tr,
                       entry.imagePath.split('/').last,
                     ),
                     if (entry.notes != null && entry.notes!.isNotEmpty) ...[
                       const Divider(),
-                      _detailRow(context, 'Notes', entry.notes!),
+                      _detailRow(context, 'notes_label'.tr, entry.notes!),
                     ],
                   ],
                 ),
@@ -495,7 +530,7 @@ class HistoryDetailPage extends StatelessWidget {
             // Full results JSON (for debugging)
             if (entry.results.isNotEmpty)
               Expandable(
-                title: 'Full Results Data',
+                title: 'full_results_data'.tr,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Container(
@@ -516,11 +551,12 @@ class HistoryDetailPage extends StatelessWidget {
               ),
           ],
         ),
-      ),
+      );
+      }),  // Obx body
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _shareIdentification(context),
         icon: const Icon(Icons.share),
-        label: const Text('Share'),
+        label: Text('share'.tr),
       ),
     );
   }
@@ -532,7 +568,7 @@ class HistoryDetailPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
-            'No traits recorded',
+            'no_traits_recorded'.tr,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Colors.grey[600],
                 ),
@@ -545,8 +581,12 @@ class HistoryDetailPage extends StatelessWidget {
       spacing: 8,
       runSpacing: 8,
       children: traits.entries.map((entry) {
+        final keyKey = 'cap_${entry.key}_title';
+        final localizedKey = keyKey.tr == keyKey ? entry.key : keyKey.tr;
+        final valueKey = 'trait_${entry.value}';
+        final localizedValue = valueKey.tr == valueKey ? '${entry.value}' : valueKey.tr;
         return Chip(
-          label: Text('${entry.key}: ${entry.value}'),
+          label: Text('$localizedKey: $localizedValue'),
           backgroundColor: Colors.blue[50],
           labelStyle: TextStyle(color: Colors.blue[900]),
         );
@@ -610,7 +650,7 @@ Date: ${entry.createdAt}
 
     // TODO: Integrate with share_plus package
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Share functionality coming soon')),
+      SnackBar(content: Text('share_coming_soon_history'.tr)),
     );
   }
 }

@@ -11,6 +11,9 @@ import 'pages/history_page.dart';
 import 'pages/settings_page.dart';
 import 'providers/identification_provider.dart';
 import 'providers/history_provider.dart';
+import 'providers/language_provider.dart';
+import 'utils/app_translations.dart';
+import 'widgets/language_flag_button.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +24,7 @@ void main() async {
 
   // Register GetX controllers once before runApp to avoid re-registration
   // on widget rebuilds.
+  Get.put(LanguageProvider());
   Get.put(IdentificationProvider());
   Get.put(HistoryProvider());
 
@@ -157,6 +161,9 @@ class MushroomIdentificationApp extends StatelessWidget {
       theme: appTheme,
       darkTheme: appTheme, // Can customize dark theme later
       themeMode: ThemeMode.light,
+      translations: AppTranslations(),
+      locale: const Locale('en', 'US'),
+      fallbackLocale: const Locale('en', 'US'),
       home: const HomePage(),
       getPages: [
         GetPage(
@@ -201,9 +208,10 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mushroom ID'),
+        title: Text('app_title'.tr),
         elevation: 0,
         actions: [
+          const LanguageFlagButton(),
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () => Get.toNamed('/settings'),
@@ -237,7 +245,7 @@ class HomePage extends StatelessWidget {
 
                 // Title
                 Text(
-                  'Identify Mushrooms',
+                  'identify_mushrooms'.tr,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -247,7 +255,7 @@ class HomePage extends StatelessWidget {
 
                 // Subtitle
                 Text(
-                  'Use AI to identify mushroom species from photos',
+                  'home_subtitle'.tr,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: Colors.grey[600],
                       ),
@@ -262,7 +270,7 @@ class HomePage extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: () => Get.toNamed('/camera'),
                     icon: const Icon(Icons.camera_alt, size: 24),
-                    label: const Text('Take Photo'),
+                    label: Text('take_photo'.tr),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
                       foregroundColor: Colors.white,
@@ -280,7 +288,7 @@ class HomePage extends StatelessWidget {
                   child: OutlinedButton.icon(
                     onPressed: () => Get.toNamed('/history'),
                     icon: const Icon(Icons.history, size: 24),
-                    label: const Text('View History'),
+                    label: Text('view_history'.tr),
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(color: primaryColor, width: 2),
                       foregroundColor: primaryColor,
@@ -305,14 +313,14 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Recent Identifications',
+                        'recent_identifications'.tr,
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'Your previous identifications will appear here',
+                        'recent_identifications_empty'.tr,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Colors.grey[600],
                             ),
@@ -341,7 +349,7 @@ class HomePage extends StatelessWidget {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Safety Disclaimer',
+                            'safety_disclaimer'.tr,
                             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                                   color: Colors.orange[900],
                                   fontWeight: FontWeight.bold,
@@ -351,10 +359,7 @@ class HomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'This app is for educational and informational purposes only. '
-                        'Do NOT rely solely on this app for mushroom identification. '
-                        'Always consult with expert mycologists or your local poison control '
-                        'before consuming any wild mushroom.',
+                        'safety_disclaimer_text'.tr,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Colors.orange[900],
                             ),

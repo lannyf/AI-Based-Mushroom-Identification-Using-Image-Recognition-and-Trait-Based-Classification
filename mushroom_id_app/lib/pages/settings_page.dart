@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import '../services/storage_service.dart';
+import '../widgets/language_flag_button.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -53,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
     } catch (e) {
       _logger.e('Error saving setting: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error saving setting: $e')),
+        SnackBar(content: Text('${'error_saving_setting'.tr}: $e')),
       );
     }
   }
@@ -62,8 +64,9 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text('settings'.tr),
         centerTitle: true,
+        actions: const [LanguageFlagButton()],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -71,13 +74,13 @@ class _SettingsPageState extends State<SettingsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // App Settings Section
-            _SectionTitle('App Settings'),
+            _SectionTitle('app_settings'.tr),
             Card(
               child: Column(
                 children: [
                   _SwitchTile(
-                    title: 'Enable Notifications',
-                    subtitle: 'Get alerts for identification results',
+                    title: 'enable_notifications'.tr,
+                    subtitle: 'notifications_subtitle'.tr,
                     value: _notificationsEnabled,
                     onChanged: (value) async {
                       setState(() => _notificationsEnabled = value);
@@ -86,8 +89,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   const Divider(height: 0),
                   _DropdownTile(
-                    title: 'Language',
-                    subtitle: 'Select app language',
+                    title: 'language'.tr,
+                    subtitle: 'language_subtitle'.tr,
                     value: _language,
                     options: const ['English', 'Swedish', 'German', 'French'],
                     onChanged: (value) async {
@@ -99,8 +102,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   const Divider(height: 0),
                   _SwitchTile(
-                    title: 'Dark Mode',
-                    subtitle: 'Use dark theme (beta)',
+                    title: 'dark_mode'.tr,
+                    subtitle: 'dark_mode_subtitle'.tr,
                     value: _darkModeEnabled,
                     onChanged: (value) async {
                       setState(() => _darkModeEnabled = value);
@@ -114,7 +117,7 @@ class _SettingsPageState extends State<SettingsPage> {
             const SizedBox(height: 24),
 
             // API Settings Section
-            _SectionTitle('API Configuration'),
+            _SectionTitle('api_settings'.tr),
             Card(
               child: Column(
                 children: [
@@ -133,7 +136,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: ElevatedButton.icon(
                       onPressed: _testConnection,
                       icon: const Icon(Icons.cloud_queue),
-                      label: const Text('Test Connection'),
+                      label: Text('test_connection'.tr),
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(48),
                       ),
@@ -145,27 +148,27 @@ class _SettingsPageState extends State<SettingsPage> {
             const SizedBox(height: 24),
 
             // Storage Settings Section
-            _SectionTitle('Storage & Data'),
+            _SectionTitle('storage_data'.tr),
             Card(
               child: Column(
                 children: [
                   _SettingsTile(
-                    title: 'Clear Cache',
-                    subtitle: 'Remove cached images and data',
+                    title: 'clear_cache'.tr,
+                    subtitle: 'clear_cache_subtitle'.tr,
                     trailing: const Icon(Icons.chevron_right),
                     onTap: _showClearCacheDialog,
                   ),
                   const Divider(height: 0),
                   _SettingsTile(
-                    title: 'Export History',
-                    subtitle: 'Export identification history as JSON',
+                    title: 'export_history'.tr,
+                    subtitle: 'export_subtitle'.tr,
                     trailing: const Icon(Icons.chevron_right),
                     onTap: _exportHistory,
                   ),
                   const Divider(height: 0),
                   _SettingsTile(
-                    title: 'Clear All Data',
-                    subtitle: 'Permanently delete all saved identifications',
+                    title: 'clear_all_data'.tr,
+                    subtitle: 'clear_all_subtitle'.tr,
                     trailing: Icon(Icons.warning, color: Colors.red[700]),
                     onTap: _showClearAllDialog,
                   ),
@@ -178,20 +181,20 @@ class _SettingsPageState extends State<SettingsPage> {
             if (_debugMode)
               Column(
                 children: [
-                  _SectionTitle('Developer Tools'),
+                  _SectionTitle('developer_tools'.tr),
                   Card(
                     child: Column(
                       children: [
                         _SettingsTile(
-                          title: 'View Logs',
-                          subtitle: 'View application logs',
+                          title: 'view_logs'.tr,
+                          subtitle: 'view_logs_subtitle'.tr,
                           trailing: const Icon(Icons.chevron_right),
                           onTap: _showLogsDialog,
                         ),
                         const Divider(height: 0),
                         _SettingsTile(
-                          title: 'Database Info',
-                          subtitle: 'View database statistics',
+                          title: 'database_info'.tr,
+                          subtitle: 'database_info_subtitle'.tr,
                           trailing: const Icon(Icons.chevron_right),
                           onTap: _showDatabaseInfo,
                         ),
@@ -203,31 +206,31 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
 
             // About Section
-            _SectionTitle('About'),
+            _SectionTitle('about'.tr),
             Card(
               child: Column(
                 children: [
                   _SettingsTile(
-                    title: 'App Version',
+                    title: 'app_version'.tr,
                     subtitle: '1.0.0',
-                    trailing: const Text('Build 1'),
+                    trailing: Text('build_number'.tr),
                   ),
                   const Divider(height: 0),
                   _SettingsTile(
-                    title: 'Privacy Policy',
+                    title: 'privacy_policy'.tr,
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => _showPrivacyPolicy(context),
                   ),
                   const Divider(height: 0),
                   _SettingsTile(
-                    title: 'Terms of Service',
+                    title: 'terms_of_service'.tr,
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => _showTermsOfService(context),
                   ),
                   const Divider(height: 0),
                   _SettingsTile(
-                    title: 'About',
-                    subtitle: 'AI-based Mushroom Identification System',
+                    title: 'about'.tr,
+                    subtitle: 'about_subtitle'.tr,
                     trailing: const Icon(Icons.chevron_right),
                     onTap: _showAbout,
                   ),
@@ -246,7 +249,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
-                    'Debug Mode: ${_debugMode ? "ON" : "OFF"}',
+                    _debugMode ? 'debug_mode_on'.tr : 'debug_mode_off'.tr,
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey[500],
@@ -268,12 +271,12 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Connection Test'),
-        content: const Text('Testing connection to API server...'),
+        title: Text('connection_test_title'.tr),
+        content: Text('connection_test_content'.tr),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text('ok'.tr),
           ),
         ],
       ),
@@ -284,24 +287,22 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Clear Cache?'),
-        content: const Text(
-          'This will remove cached images and data. Your identification history will not be affected.',
-        ),
+        title: Text('clear_cache_confirm_title'.tr),
+        content: Text('clear_cache_confirm_text'.tr),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text('cancel'.tr),
           ),
           TextButton(
             onPressed: () {
               // TODO: Implement cache clearing
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Cache cleared')),
+                SnackBar(content: Text('cache_cleared'.tr)),
               );
             },
-            child: const Text('Clear'),
+            child: Text('clear'.tr),
           ),
         ],
       ),
@@ -312,24 +313,22 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete All Data?'),
-        content: const Text(
-          'This will permanently delete all saved identifications, history, and preferences. This action cannot be undone.',
-        ),
+        title: Text('clear_all_data_title'.tr),
+        content: Text('clear_all_data_text'.tr),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text('cancel'.tr),
           ),
           TextButton(
             onPressed: () {
               // TODO: Implement full data deletion
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('All data deleted')),
+                SnackBar(content: Text('all_data_deleted'.tr)),
               );
             },
-            child: const Text('Delete All', style: TextStyle(color: Colors.red)),
+            child: Text('delete_all'.tr, style: const TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -339,7 +338,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void _exportHistory() {
     // TODO: Implement history export
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Export functionality coming soon')),
+      SnackBar(content: Text('export_coming_soon'.tr)),
     );
   }
 
@@ -347,17 +346,17 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Application Logs'),
-        content: const SingleChildScrollView(
+        title: Text('application_logs_title'.tr),
+        content: SingleChildScrollView(
           child: Text(
-            'Logs would be displayed here.\nFeature in development.',
-            style: TextStyle(fontFamily: 'Courier', fontSize: 11),
+            'logs_placeholder'.tr,
+            style: const TextStyle(fontFamily: 'Courier', fontSize: 11),
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text('close'.tr),
           ),
         ],
       ),
@@ -368,16 +367,14 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Database Information'),
-        content: const SingleChildScrollView(
-          child: Text(
-            'Database: mushroom_identification.db\nTables: history, preferences\nFeature in development.',
-          ),
+        title: Text('database_information_title'.tr),
+        content: SingleChildScrollView(
+          child: Text('database_placeholder'.tr),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text('close'.tr),
           ),
         ],
       ),
@@ -388,19 +385,14 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Privacy Policy'),
-        content: const SingleChildScrollView(
-          child: Text(
-            'Your privacy is important to us.\n\n'
-            'This app processes images locally and sends them to our API server for analysis.\n\n'
-            'We do not store images longer than necessary for processing.\n\n'
-            'Your identification history is stored locally on your device.',
-          ),
+        title: Text('privacy_policy'.tr),
+        content: SingleChildScrollView(
+          child: Text('privacy_policy_text'.tr),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text('close'.tr),
           ),
         ],
       ),
@@ -411,21 +403,14 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Terms of Service'),
-        content: const SingleChildScrollView(
-          child: Text(
-            '1. Use License\n'
-            'This app is provided "as is" without warranty.\n\n'
-            '2. Identification Disclaimer\n'
-            'Identifications provided by this app are for reference only. Always verify with experts before consuming any mushroom.\n\n'
-            '3. Liability\n'
-            'We are not liable for any consequences from using this app.',
-          ),
+        title: Text('terms_of_service'.tr),
+        content: SingleChildScrollView(
+          child: Text('terms_text'.tr),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text('close'.tr),
           ),
         ],
       ),
@@ -436,38 +421,31 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('About'),
-        content: const SingleChildScrollView(
+        title: Text('about'.tr),
+        content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Mushroom Identification System',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                'about_app_name'.tr,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
+              Text('about_app_desc'.tr),
+              const SizedBox(height: 12),
               Text(
-                'An AI-powered application that uses image recognition and machine learning to identify mushroom species.',
+                'about_features'.tr,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 12),
-              Text(
-                'Features:',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text('• Image-based identification\n'
-                  '• Trait-based classification\n'
-                  '• LLM-powered analysis\n'
-                  '• Safety warnings\n'
-                  '• Identification history\n'
-                  '• Offline support'),
+              Text('about_features_list'.tr),
             ],
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text('close'.tr),
           ),
         ],
       ),

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'dart:typed_data';
 
 import '../providers/identification_provider.dart';
+import '../services/identification_api_service.dart';
+import '../widgets/language_flag_button.dart';
 
 /// Questionnaire page for trait selection.
 /// 
@@ -26,6 +28,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   late IdentificationProvider _provider;
   late TextEditingController _notesController;
   late PageController _pageController;
+  final IdentificationApiService _apiService = IdentificationApiService();
   int _currentPage = 0;
 
   @override
@@ -84,8 +87,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   void _submitQuestionnaire() {
     if (!_provider.validateTraitsCompleted()) {
       Get.snackbar(
-        'Missing Information',
-        'Please select all required traits',
+        'missing_info'.tr,
+        'missing_traits'.tr,
         backgroundColor: Colors.red[700],
         colorText: Colors.white,
       );
@@ -97,28 +100,66 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
       _provider.setTrait('notes', _notesController.text);
     }
 
-    // Show loading
+    final identificationData = _provider.getIdentificationData();
+    final String? imagePath = identificationData['imagePath'] as String?;
+    final Uint8List? imageBytes = identificationData['imageBytes'] as Uint8List?;
+    final Map<String, dynamic> traits =
+        Map<String, dynamic>.from(identificationData['traits'] as Map);
+
+    if (imagePath == null || imagePath.isEmpty) {
+      Get.snackbar(
+        'missing_image'.tr,
+        'missing_image_desc'.tr,
+        backgroundColor: Colors.red[700],
+        colorText: Colors.white,
+      );
+      return;
+    }
+
     _provider.setProcessing(true);
 
-    // TODO: Call API to identify mushroom
-    Get.snackbar(
-      'Success',
-      'Submitting for identification...',
-      backgroundColor: Colors.green[700],
-      colorText: Colors.white,
-    );
-
-    // Simulate API call
-    Future.delayed(const Duration(seconds: 2), () {
-      _provider.setProcessing(false);
-      // Navigate to results page once created
-      Get.toNamed('/results');
-    });
+    _apiService
+        .identifyMushroom(
+          imagePath: imagePath,
+          imageBytes: imageBytes,
+          traits: traits,
+        )
+        .then((results) {
+          _provider.setProcessing(false);
+          Get.toNamed(
+            '/results',
+            arguments: {
+              'demoMode': false,
+              'results': results,
+              'imagePath': imagePath,
+              'traits': traits,
+              'notes': _notesController.text.trim(),
+            },
+          );
+        })
+        .catchError((error) {
+          _provider.setProcessing(false);
+          Get.snackbar(
+            'identification_failed'.tr,
+            error.toString(),
+            backgroundColor: Colors.red[700],
+            colorText: Colors.white,
+          );
+        });
   }
 
   /// Handles trait selection from radio group
   void _selectTrait(String category, String value) {
     _provider.setTrait(category, value);
+  }
+
+  /// Returns the localised display label for a trait option value.
+  /// The provider always stores the English value (used by the API).
+  String _localizeTraitOption(String value) {
+    final key = 'trait_$value';
+    final translated = key.tr;
+    // If GetX found no translation, it returns the key itself – fall back to value.
+    return translated == key ? value : translated;
   }
 
   @override
@@ -136,7 +177,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Mushroom Details'),
+          title: Text('mushroom_details'.tr),
           centerTitle: true,
           elevation: 0,
           leading: _currentPage == 0
@@ -148,6 +189,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                   icon: const Icon(Icons.arrow_back),
                   onPressed: _previousPage,
                 ),
+          actions: const [LanguageFlagButton()],
         ),
         body: Column(
           children: [
@@ -189,7 +231,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                   if (_currentPage == 5) ...[
                     // Notes field (only on last page)
                     Text(
-                      'Additional Notes (Optional)',
+                      'notes_optional'.tr,
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
@@ -199,7 +241,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                       controller: _notesController,
                       maxLines: 3,
                       decoration: InputDecoration(
-                        hintText: 'Any other observations about the mushroom?',
+                        hintText: 'notes_hint'.tr,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -216,7 +258,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                         Expanded(
                           child: OutlinedButton(
                             onPressed: _previousPage,
-                            child: const Text('Previous'),
+                            child: Text('previous'.tr),
                           ),
                         ),
                       if (_currentPage > 0) const SizedBox(width: 12),
@@ -226,11 +268,11 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                         child: _currentPage < 5
                             ? ElevatedButton(
                                 onPressed: _nextPage,
-                                child: const Text('Next'),
+                                child: Text('next'.tr),
                               )
                             : ElevatedButton(
                                 onPressed: _submitQuestionnaire,
-                                child: const Text('Identify Mushroom'),
+                                child: Text('identify_mushroom'.tr),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: primaryColor,
                                   foregroundColor: Colors.white,
@@ -252,8 +294,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   Widget _buildCapShapePage() {
     final options = _provider.getTraitOptions('cap_shape');
     return _buildTraitPage(
-      title: 'Cap Shape',
-      description: 'What shape is the mushroom cap?',
+      title: 'cap_shape_title'.tr,
+      description: 'cap_shape_desc'.tr,
       imagePath: 'assets/images/cap-shapes.png', // TODO: Add image asset
       category: 'cap_shape',
       options: options,
@@ -264,8 +306,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   Widget _buildColorPage() {
     final options = _provider.getTraitOptions('color');
     return _buildTraitPage(
-      title: 'Cap Color',
-      description: 'What color is the mushroom cap?',
+      title: 'cap_color_title'.tr,
+      description: 'cap_color_desc'.tr,
       imagePath: 'assets/images/colors.png', // TODO: Add image asset
       category: 'color',
       options: options,
@@ -276,8 +318,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   Widget _buildGillTypePage() {
     final options = _provider.getTraitOptions('gill_type');
     return _buildTraitPage(
-      title: 'Gill Type',
-      description: 'How are the gills attached to the stem?',
+      title: 'gill_type_title'.tr,
+      description: 'gill_type_desc'.tr,
       imagePath: 'assets/images/gill-types.png', // TODO: Add image asset
       category: 'gill_type',
       options: options,
@@ -288,8 +330,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   Widget _buildStemTypePage() {
     final options = _provider.getTraitOptions('stem_type');
     return _buildTraitPage(
-      title: 'Stem Type',
-      description: 'What is the stem structure like?',
+      title: 'stem_type_title'.tr,
+      description: 'stem_type_desc'.tr,
       imagePath: 'assets/images/stem-types.png', // TODO: Add image asset
       category: 'stem_type',
       options: options,
@@ -300,8 +342,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   Widget _buildHabitatPage() {
     final options = _provider.getTraitOptions('habitat');
     return _buildTraitPage(
-      title: 'Habitat',
-      description: 'Where did you find the mushroom?',
+      title: 'habitat_title'.tr,
+      description: 'habitat_desc'.tr,
       imagePath: 'assets/images/habitats.png', // TODO: Add image asset
       category: 'habitat',
       options: options,
@@ -312,8 +354,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   Widget _buildSeasonPage() {
     final options = _provider.getTraitOptions('season');
     return _buildTraitPage(
-      title: 'Season',
-      description: 'When did you find the mushroom?',
+      title: 'season_title'.tr,
+      description: 'season_desc'.tr,
       imagePath: 'assets/images/seasons.png', // TODO: Add image asset
       category: 'season',
       options: options,
@@ -376,7 +418,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
 
               // Radio group options
               Text(
-                'Select one:',
+                'select_one'.tr,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -400,7 +442,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                         : Colors.white,
                   ),
                   child: RadioListTile<String>(
-                    title: Text(option),
+                    title: Text(_localizeTraitOption(option)),
                     value: option,
                     groupValue: selectedValue,
                     onChanged: (value) {

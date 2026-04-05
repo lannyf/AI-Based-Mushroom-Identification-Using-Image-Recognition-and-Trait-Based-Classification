@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../providers/history_provider.dart';
+import '../providers/language_provider.dart';
+import '../services/storage_service.dart';
+import '../widgets/language_flag_button.dart';
+
 /// Results page displaying mushroom identification results.
 /// 
 /// Shows:
@@ -20,11 +25,28 @@ class ResultsPage extends StatefulWidget {
 class _ResultsPageState extends State<ResultsPage> {
   // Mock data - replace with actual API results
   late Map<String, dynamic> _results;
+  bool _isDemoMode = false;
+  String? _imagePath;
+  Map<String, dynamic> _traits = {};
+  String? _notes;
+  late HistoryProvider _historyProvider;
 
   @override
   void initState() {
     super.initState();
-    _results = {
+    _historyProvider = Get.find<HistoryProvider>();
+    final args = Get.arguments;
+    final providedResults =
+        args is Map<String, dynamic> ? args['results'] as Map<String, dynamic>? : null;
+    _isDemoMode = args is Map<String, dynamic> && args['demoMode'] == true;
+    _imagePath = args is Map<String, dynamic> ? args['imagePath'] as String? : null;
+    _traits = args is Map<String, dynamic> && args['traits'] is Map
+        ? Map<String, dynamic>.from(args['traits'] as Map)
+        : {};
+    _notes = args is Map<String, dynamic> ? args['notes'] as String? : null;
+
+    _results = providedResults ??
+        {
       'top_prediction': 'Boletus edulis',
       'overall_confidence': 0.87,
       'method_confidences': {
@@ -33,18 +55,20 @@ class _ResultsPageState extends State<ResultsPage> {
         'llm': 0.88,
       },
       'predictions': [
-        {'species': 'Boletus edulis', 'confidence': 0.87, 'common': 'Porcini'},
+        {'species': 'Boletus edulis', 'confidence': 0.87, 'common': 'Porcini', 'swedish_name': 'Karljohan'},
         {
           'species': 'Boletus reticulatus',
           'confidence': 0.78,
-          'common': 'Summer Porcini'
+          'common': 'Summer Porcini',
+          'swedish_name': 'Sommarsopp',
         },
-        {'species': 'Xerocomelellus chrysenteron', 'confidence': 0.65, 'common': 'Red-Foot Bolete'},
-        {'species': 'Cep species', 'confidence': 0.62, 'common': 'King Bolete'},
+        {'species': 'Xerocomelellus chrysenteron', 'confidence': 0.65, 'common': 'Red-Foot Bolete', 'swedish_name': 'Rödfotsopp'},
+        {'species': 'Cep species', 'confidence': 0.62, 'common': 'King Bolete', 'swedish_name': 'Kungsopp'},
         {
           'species': 'Boletus luteus',
           'confidence': 0.55,
-          'common': 'Slippery Jack'
+          'common': 'Slippery Jack',
+          'swedish_name': 'Smörsopp',
         },
       ],
       'lookalikes': [
@@ -105,20 +129,21 @@ class _ResultsPageState extends State<ResultsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Identification Results'),
+        title: Text('identification_results'.tr),
         centerTitle: true,
         elevation: 0,
         actions: [
           IconButton(
             icon: const Icon(Icons.share),
             onPressed: _shareResults,
-            tooltip: 'Share results',
+            tooltip: 'share_results'.tr,
           ),
           IconButton(
             icon: const Icon(Icons.bookmark),
             onPressed: _saveResults,
-            tooltip: 'Save to history',
+            tooltip: 'save_to_history'.tr,
           ),
+          const LanguageFlagButton(),
         ],
       ),
       body: SingleChildScrollView(
@@ -127,8 +152,21 @@ class _ResultsPageState extends State<ResultsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if (_isDemoMode) ...[
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.withOpacity(0.12),
+                    border: Border.all(color: Colors.orange),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text('demo_notice'.tr),
+                ),
+                const SizedBox(height: 16),
+              ],
               // Overall confidence section
-              _buildConfidenceCard(),
+              Obx(() => _buildConfidenceCard()),
               const SizedBox(height: 24),
 
               // Method breakdown section
@@ -140,7 +178,7 @@ class _ResultsPageState extends State<ResultsPage> {
               const SizedBox(height: 24),
 
               // Top predictions
-              _buildPredictionsSection(),
+              Obx(() => _buildPredictionsSection()),
               const SizedBox(height: 24),
 
               // Lookalike warnings
@@ -166,6 +204,17 @@ class _ResultsPageState extends State<ResultsPage> {
     final topSpecies = _results['top_prediction'] as String;
     final confidencePercent = (overall * 100).toStringAsFixed(1);
 
+    // Get common name for the top prediction
+    final predictions = _results['top_predictions'] as List? ?? _results['predictions'] as List? ?? [];
+    String commonName = '';
+    if (predictions.isNotEmpty && predictions[0] is Map) {
+      final top = predictions[0] as Map;
+      final langProvider = Get.find<LanguageProvider>();
+      final swedishName = top['swedish_name'] as String? ?? '';
+      final englishName = top['common'] as String? ?? '';
+      commonName = langProvider.isSwedish && swedishName.isNotEmpty ? swedishName : englishName;
+    }
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -174,6 +223,14 @@ class _ResultsPageState extends State<ResultsPage> {
         child: Column(
           children: [
             // Circular progress
+            Text(
+              '$confidencePercent%',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: _getConfidenceColor(overall),
+                  ),
+            ),
+            const SizedBox(height: 12),
             SizedBox(
               width: 150,
               height: 150,
@@ -198,40 +255,46 @@ class _ResultsPageState extends State<ResultsPage> {
                       _getConfidenceColor(overall),
                     ),
                   ),
-                  // Center text
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '$confidencePercent%',
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: _getConfidenceColor(overall),
-                            ),
-                      ),
-                      Text(
-                        'Confidence',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ],
+                  // Center label
+                  Text(
+                    'confidence'.tr,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 20),
 
-            // Top species name
-            Text(
-              topSpecies,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-              textAlign: TextAlign.center,
-            ),
+            // Top species name — local name first, Latin second
+            if (commonName.isNotEmpty) ...[
+              Text(
+                commonName,
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                topSpecies,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.grey[600],
+                      fontStyle: FontStyle.italic,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+            ] else
+              Text(
+                topSpecies,
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                textAlign: TextAlign.center,
+              ),
             const SizedBox(height: 8),
 
             Text(
-              'Most likely identification',
+              'most_likely'.tr,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.grey[600],
                   ),
@@ -250,16 +313,16 @@ class _ResultsPageState extends State<ResultsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Confidence by Method',
+          'confidence_by_method'.tr,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
         ),
         const SizedBox(height: 16),
         ...[
-          ('Image Recognition', methods['image'] ?? 0.0),
-          ('Trait Analysis', methods['trait'] ?? 0.0),
-          ('Language Model', methods['llm'] ?? 0.0),
+          ('image_recognition'.tr, methods['image'] ?? 0.0),
+          ('trait_analysis'.tr, methods['trait'] ?? 0.0),
+          ('language_model'.tr, methods['llm'] ?? 0.0),
         ].map((item) {
           final label = item.$1;
           final confidence = item.$2 as double;
@@ -306,27 +369,25 @@ class _ResultsPageState extends State<ResultsPage> {
     final color = _getSafetyColor(safetyRating);
     final icon = _getSafetyIcon(safetyRating);
 
-    String safetyText = 'Safety information unavailable';
+    String safetyText = 'safety_unavailable'.tr;
     String safetyDescription = '';
 
     switch (safetyRating) {
       case 'edible':
-        safetyText = 'Likely Edible';
-        safetyDescription =
-            'This species is generally recognized as edible if properly identified.';
+        safetyText = 'likely_edible'.tr;
+        safetyDescription = 'likely_edible_desc'.tr;
         break;
       case 'caution':
-        safetyText = 'Caution Advised';
-        safetyDescription =
-            'This species requires careful identification. Some similar species may be toxic.';
+        safetyText = 'caution_advised'.tr;
+        safetyDescription = 'caution_desc'.tr;
         break;
       case 'inedible':
-        safetyText = 'NOT Recommended';
-        safetyDescription = 'This species is toxic or inedible. Do not consume.';
+        safetyText = 'not_recommended'.tr;
+        safetyDescription = 'not_recommended_desc'.tr;
         break;
       case 'unknown':
-        safetyText = 'Safety Unknown';
-        safetyDescription = 'Insufficient data. Do not consume without expert verification.';
+        safetyText = 'safety_unknown'.tr;
+        safetyDescription = 'safety_unknown_desc'.tr;
         break;
     }
 
@@ -391,7 +452,7 @@ class _ResultsPageState extends State<ResultsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Top Predictions',
+          'top_predictions_label'.tr,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -402,7 +463,13 @@ class _ResultsPageState extends State<ResultsPage> {
           final prediction = entry.value as Map<String, dynamic>;
           final species = prediction['species'] as String;
           final confidence = prediction['confidence'] as double;
-          final common = prediction['common'] as String;
+          final commonRaw = prediction['common'] as String? ?? '';
+          final swedishRaw = prediction['swedish_name'] as String? ?? '';
+          // Use swedish_name field directly when Swedish locale is active.
+          final langProvider = Get.find<LanguageProvider>();
+          final common = langProvider.isSwedish && swedishRaw.isNotEmpty
+              ? swedishRaw
+              : commonRaw;
           final percent = (confidence * 100).toStringAsFixed(0);
 
           return Container(
@@ -435,7 +502,7 @@ class _ResultsPageState extends State<ResultsPage> {
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  species,
+                                  common.isNotEmpty ? common : species,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -448,10 +515,11 @@ class _ResultsPageState extends State<ResultsPage> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            common,
+                            species,
                             style: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 13,
+                              fontStyle: FontStyle.italic,
                             ),
                           ),
                         ],
@@ -511,7 +579,7 @@ class _ResultsPageState extends State<ResultsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '⚠️ Lookalike Warnings',
+          '⚠️ ${'lookalike_warning'.tr}',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Colors.red[700],
@@ -522,7 +590,15 @@ class _ResultsPageState extends State<ResultsPage> {
           final lookalike = item as Map<String, dynamic>;
           final species = lookalike['species'] as String;
           final risk = lookalike['risk'] as String;
-          final reason = lookalike['reason'] as String;
+          final reasonRaw = lookalike['reason'] as String;
+          // Translate known demo reasons; fall back to raw value for real API.
+          final reasonKey = species.contains('calopus')
+              ? 'lookalike_reason_calopus'
+              : species.contains('sensibilis')
+                  ? 'lookalike_reason_sensibilis'
+                  : null;
+          final reason =
+              reasonKey != null ? reasonKey.tr : reasonRaw;
 
           Color riskColor = Colors.red;
           if (risk == 'medium') riskColor = Colors.orange;
@@ -607,7 +683,7 @@ class _ResultsPageState extends State<ResultsPage> {
               Icon(Icons.info_outline, color: Colors.blue[700]),
               const SizedBox(width: 8),
               Text(
-                'Important Safety Notice',
+                'important_safety_notice'.tr,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: Colors.blue[900],
                       fontWeight: FontWeight.bold,
@@ -617,15 +693,17 @@ class _ResultsPageState extends State<ResultsPage> {
           ),
           const SizedBox(height: 12),
           Text(
-            'This app is for educational and informational purposes only. '
-            'DO NOT rely solely on this app for mushroom identification or consumption decisions. '
-            'Always consult with:',
+            'safety_notice_text'.tr,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Colors.blue[900],
                 ),
           ),
           const SizedBox(height: 8),
-          ...['Expert mycologists', 'Local poison control centers', 'Multiple field guides']
+          ...[
+            'safety_expert_mycologists'.tr,
+            'safety_expert_poison'.tr,
+            'safety_expert_guides'.tr,
+          ]
               .map((item) => Padding(
                     padding: const EdgeInsets.only(bottom: 4, left: 16),
                     child: Text(
@@ -643,19 +721,32 @@ class _ResultsPageState extends State<ResultsPage> {
 
   /// Builds action buttons at bottom
   Widget _buildActionButtons() {
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: OutlinedButton(
-            onPressed: () => Get.back(),
-            child: const Text('Try Again'),
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: OutlinedButton(
+                onPressed: () => Get.back(),
+                child: Text('try_again'.tr),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: _saveResults,
+                child: Text('save_result'.tr),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: ElevatedButton(
-            onPressed: _saveResults,
-            child: const Text('Save Result'),
+        const SizedBox(height: 12),
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton.icon(
+            onPressed: () => Get.offAllNamed('/'),
+            icon: const Icon(Icons.home),
+            label: Text('back_to_home'.tr),
           ),
         ),
       ],
@@ -665,8 +756,8 @@ class _ResultsPageState extends State<ResultsPage> {
   /// Shares results with other apps
   void _shareResults() {
     Get.snackbar(
-      'Share',
-      'Result sharing feature coming soon',
+      'share'.tr,
+      'share_coming_soon'.tr,
       backgroundColor: Colors.blue[700],
       colorText: Colors.white,
     );
@@ -675,12 +766,47 @@ class _ResultsPageState extends State<ResultsPage> {
 
   /// Saves result to history
   void _saveResults() {
-    Get.snackbar(
-      'Saved',
-      'Result saved to history',
-      backgroundColor: Colors.green[700],
-      colorText: Colors.white,
-    );
-    // TODO: Implement save functionality
+    if (_imagePath == null || _imagePath!.isEmpty) {
+      Get.snackbar(
+        'save_failed'.tr,
+        'no_image_path'.tr,
+        backgroundColor: Colors.red[700],
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    final historyResult = {
+      ..._results,
+      'top_predictions': _results['predictions'] ?? _results['top_predictions'] ?? [],
+      'confidence': _results['overall_confidence'] ?? _results['confidence'] ?? 0.0,
+    };
+
+    _historyProvider
+        .saveIdentification(
+          HistoryEntry(
+            imagePath: _imagePath!,
+            traits: _traits,
+            results: historyResult,
+            createdAt: DateTime.now(),
+            notes: (_notes == null || _notes!.isEmpty) ? null : _notes,
+          ),
+        )
+        .then((_) {
+          Get.snackbar(
+            'saved'.tr,
+            'result_saved'.tr,
+            backgroundColor: Colors.green[700],
+            colorText: Colors.white,
+          );
+        })
+        .catchError((error) {
+          Get.snackbar(
+            'save_failed'.tr,
+            error.toString(),
+            backgroundColor: Colors.red[700],
+            colorText: Colors.white,
+          );
+        });
   }
 }

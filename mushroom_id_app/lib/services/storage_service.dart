@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:logger/logger.dart';
@@ -52,6 +54,28 @@ class HistoryEntry {
     return 'Unknown';
   }
 
+  /// English common name of the top prediction (e.g. "Porcini").
+  String get topCommonName {
+    if (results['top_predictions'] is List && (results['top_predictions'] as List).isNotEmpty) {
+      final predictions = results['top_predictions'] as List;
+      if (predictions.isNotEmpty && predictions[0] is Map) {
+        return (predictions[0] as Map)['common'] as String? ?? '';
+      }
+    }
+    return '';
+  }
+
+  /// Swedish name of the top prediction (e.g. "Karljohan").
+  String get topSwedishName {
+    if (results['top_predictions'] is List && (results['top_predictions'] as List).isNotEmpty) {
+      final predictions = results['top_predictions'] as List;
+      if (predictions.isNotEmpty && predictions[0] is Map) {
+        return (predictions[0] as Map)['swedish_name'] as String? ?? '';
+      }
+    }
+    return '';
+  }
+
   double get confidence {
     final conf = results['confidence'];
     if (conf == null) {
@@ -83,6 +107,8 @@ class HistoryEntry {
 class StorageService {
   static final StorageService _instance = StorageService._internal();
   static Database? _database;
+  static const String _webHistoryKey = 'history_entries';
+  static const String _webPreferencePrefix = 'pref_';
   final _logger = Logger();
 
   StorageService._internal();
@@ -147,6 +173,35 @@ class StorageService {
 
   // History Operations
   Future<int> saveIdentification(HistoryEntry entry) async {
+    if (kIsWeb) {
+      final prefs = await SharedPreferences.getInstance();
+      final existing = await getHistory();
+      final nextId = existing.isEmpty
+          ? 1
+          : existing
+                  .map((item) => item.id ?? 0)
+                  .reduce((a, b) => a > b ? a : b) +
+              1;
+
+      final updated = [
+        HistoryEntry(
+          id: nextId,
+          imagePath: entry.imagePath,
+          traits: entry.traits,
+          results: entry.results,
+          createdAt: entry.createdAt,
+          notes: entry.notes,
+        ),
+        ...existing,
+      ];
+
+      await prefs.setString(
+        _webHistoryKey,
+        jsonEncode(updated.map((item) => item.toMap()).toList()),
+      );
+      return nextId;
+    }
+
     try {
       final db = await database;
       final id = await db.insert(
@@ -169,6 +224,19 @@ class StorageService {
   }
 
   Future<List<HistoryEntry>> getHistory() async {
+    if (kIsWeb) {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getString(_webHistoryKey);
+      if (raw == null || raw.isEmpty) {
+        return [];
+      }
+
+      final decoded = jsonDecode(raw) as List<dynamic>;
+      return decoded
+          .map((item) => HistoryEntry.fromMap(Map<String, dynamic>.from(item as Map)))
+          .toList();
+    }
+
     try {
       final db = await database;
       final maps = await db.query(
@@ -186,6 +254,16 @@ class StorageService {
   }
 
   Future<HistoryEntry?> getHistoryEntry(int id) async {
+    if (kIsWeb) {
+      final entries = await getHistory();
+      for (final entry in entries) {
+        if (entry.id == id) {
+          return entry;
+        }
+      }
+      return null;
+    }
+
     try {
       final db = await database;
       final maps = await db.query(
@@ -203,6 +281,17 @@ class StorageService {
   }
 
   Future<void> deleteHistoryEntry(int id) async {
+    if (kIsWeb) {
+      final prefs = await SharedPreferences.getInstance();
+      final entries = await getHistory();
+      final updated = entries.where((entry) => entry.id != id).toList();
+      await prefs.setString(
+        _webHistoryKey,
+        jsonEncode(updated.map((item) => item.toMap()).toList()),
+      );
+      return;
+    }
+
     try {
       final db = await database;
       await db.delete(
@@ -218,6 +307,12 @@ class StorageService {
   }
 
   Future<void> clearHistory() async {
+    if (kIsWeb) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(_webHistoryKey);
+      return;
+    }
+
     try {
       final db = await database;
       await db.delete('history');
@@ -230,6 +325,12 @@ class StorageService {
 
   // Preferences Operations
   Future<void> setPreference(String key, String value) async {
+    if (kIsWeb) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('$_webPreferencePrefix$key', value);
+      return;
+    }
+
     try {
       final db = await database;
       await db.insert(
@@ -245,6 +346,11 @@ class StorageService {
   }
 
   Future<String?> getPreference(String key) async {
+    if (kIsWeb) {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getString('$_webPreferencePrefix$key');
+    }
+
     try {
       final db = await database;
       final maps = await db.query(
@@ -262,6 +368,14 @@ class StorageService {
   }
 
   Future<Map<String, String>> getAllPreferences() async {
+    if (kIsWeb) {
+      final prefs = await SharedPreferences.getInstance();
+      final keys = prefs.getKeys().where((key) => key.startsWith(_webPreferencePrefix));
+      return {
+        for (final key in keys) key.substring(_webPreferencePrefix.length): prefs.getString(key) ?? '',
+      };
+    }
+
     try {
       final db = await database;
       final maps = await db.query('preferences');
@@ -274,6 +388,12 @@ class StorageService {
   }
 
   Future<void> deletePreference(String key) async {
+    if (kIsWeb) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('$_webPreferencePrefix$key');
+      return;
+    }
+
     try {
       final db = await database;
       await db.delete(

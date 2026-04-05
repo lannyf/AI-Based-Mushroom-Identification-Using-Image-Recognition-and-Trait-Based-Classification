@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../widgets/language_flag_button.dart';
+
 /// Camera page for capturing or uploading mushroom images.
 /// 
 /// Allows users to:
@@ -112,7 +114,7 @@ class _CameraPageState extends State<CameraPage> {
   /// - File size is within limits (5MB max)
   void _confirmAndContinue() async {
     if (_selectedImage == null) {
-      _showErrorSnackBar('No image selected');
+      _showErrorSnackBar('no_image_selected'.tr);
       return;
     }
 
@@ -123,8 +125,7 @@ class _CameraPageState extends State<CameraPage> {
 
       if (fileSizeInBytes > maxSizeInBytes) {
         _showErrorSnackBar(
-          'Image is too large (${(fileSizeInBytes / 1024 / 1024).toStringAsFixed(1)}MB). '
-          'Maximum size is 5MB.',
+          '${'image_too_large'.tr} (${(fileSizeInBytes / 1024 / 1024).toStringAsFixed(1)}MB).',
         );
         return;
       }
@@ -139,7 +140,7 @@ class _CameraPageState extends State<CameraPage> {
         },
       );
     } catch (e) {
-      _showErrorSnackBar('Error validating image: $e');
+      _showErrorSnackBar('${'error_validating'.tr}: $e');
     }
   }
 
@@ -163,9 +164,10 @@ class _CameraPageState extends State<CameraPage> {
     if (_selectedImage == null) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Capture Mushroom Image'),
+          title: Text('capture_mushroom_image'.tr),
           centerTitle: true,
           elevation: 0,
+          actions: const [LanguageFlagButton()],
         ),
         body: Center(
           child: SingleChildScrollView(
@@ -192,7 +194,7 @@ class _CameraPageState extends State<CameraPage> {
 
                   // Instructions
                   Text(
-                    'Capture a Mushroom Image',
+                    'capture_title'.tr,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -200,8 +202,7 @@ class _CameraPageState extends State<CameraPage> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Take a clear photo of the mushroom from above. '
-                    'Include the cap, gills (if visible), and stem for best results.',
+                    'capture_desc'.tr,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Colors.grey[600],
                         ),
@@ -216,7 +217,7 @@ class _CameraPageState extends State<CameraPage> {
                     child: ElevatedButton.icon(
                       onPressed: _capturePhoto,
                       icon: const Icon(Icons.camera_alt, size: 24),
-                      label: const Text('Take Photo'),
+                      label: Text('take_photo'.tr),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         foregroundColor: Colors.white,
@@ -235,7 +236,7 @@ class _CameraPageState extends State<CameraPage> {
                     child: OutlinedButton.icon(
                       onPressed: _pickFromGallery,
                       icon: const Icon(Icons.image, size: 24),
-                      label: const Text('Upload from Gallery'),
+                      label: Text('gallery'.tr),
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(color: primaryColor, width: 2),
                         foregroundColor: primaryColor,
@@ -263,7 +264,7 @@ class _CameraPageState extends State<CameraPage> {
                             Icon(Icons.info_outline, color: Colors.blue[700]),
                             const SizedBox(width: 8),
                             Text(
-                              'Photography Tips',
+                              'photo_tips'.tr,
                               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                                     color: Colors.blue[900],
                                     fontWeight: FontWeight.bold,
@@ -273,23 +274,23 @@ class _CameraPageState extends State<CameraPage> {
                         ),
                         const SizedBox(height: 12),
                         _buildTipItem(
-                          '✓ Use good natural lighting',
-                          'Avoid shadows and backlighting',
+                          '✓ ${'tip_lighting'.tr}',
+                          'tip_no_shadows'.tr,
                         ),
                         const SizedBox(height: 8),
                         _buildTipItem(
-                          '✓ Center the mushroom in frame',
-                          'Leave some space around edges',
+                          '✓ ${'tip_center'.tr}',
+                          'tip_leave_space'.tr,
                         ),
                         const SizedBox(height: 8),
                         _buildTipItem(
-                          '✓ Capture multiple angles',
-                          'Show cap, gills, and stem if possible',
+                          '✓ ${'tip_angles'.tr}',
+                          'tip_show_parts'.tr,
                         ),
                         const SizedBox(height: 8),
                         _buildTipItem(
-                          '✓ Keep image sharp',
-                          'Hold steady or use tripod',
+                          '✓ ${'tip_sharp'.tr}',
+                          'tip_hold_steady'.tr,
                         ),
                       ],
                     ),
@@ -304,9 +305,10 @@ class _CameraPageState extends State<CameraPage> {
       // Image preview and editing mode
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Preview & Adjust'),
+          title: Text('preview_adjust'.tr),
           centerTitle: true,
           elevation: 0,
+          actions: const [LanguageFlagButton()],
         ),
         body: Column(
           children: [
@@ -354,7 +356,7 @@ class _CameraPageState extends State<CameraPage> {
                         child: OutlinedButton.icon(
                           onPressed: _resetTransformation,
                           icon: const Icon(Icons.refresh),
-                          label: const Text('Reset'),
+                          label: Text('reset'.tr),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -364,7 +366,7 @@ class _CameraPageState extends State<CameraPage> {
                         child: OutlinedButton.icon(
                           onPressed: _rotateImage,
                           icon: const Icon(Icons.rotate_90_degrees_ccw),
-                          label: const Text('Rotate'),
+                          label: Text('rotate'.tr),
                         ),
                       ),
                     ],
@@ -379,7 +381,7 @@ class _CameraPageState extends State<CameraPage> {
                         child: OutlinedButton.icon(
                           onPressed: _retakePhoto,
                           icon: const Icon(Icons.close),
-                          label: const Text('Retake'),
+                          label: Text('retake'.tr),
                           style: OutlinedButton.styleFrom(
                             foregroundColor: Colors.red[700],
                             side: BorderSide(color: Colors.red[700]!),
@@ -393,7 +395,7 @@ class _CameraPageState extends State<CameraPage> {
                         child: ElevatedButton.icon(
                           onPressed: _confirmAndContinue,
                           icon: const Icon(Icons.check),
-                          label: const Text('Continue'),
+                          label: Text('continue_btn'.tr),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).primaryColor,
                             foregroundColor: Colors.white,
