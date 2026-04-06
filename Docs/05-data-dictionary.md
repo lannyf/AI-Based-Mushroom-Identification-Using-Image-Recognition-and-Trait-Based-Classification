@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes all data files and their schemas for the mushroom identification system. The dataset contains structured information about 20 mushroom species, including taxonomic data, morphological traits, images, and lookalike relationships.
+This document describes all data files and their schemas for the mushroom identification system. The dataset contains structured information about 50 mushroom species, including taxonomic data, morphological traits, images, and lookalike relationships.
 
 ---
 
@@ -16,13 +16,13 @@ This document describes all data files and their schemas for the mushroom identi
 
 | Column | Type | Required | Description | Example |
 |--------|------|----------|-------------|---------|
-| `species_id` | String (6 chars) | Yes | Unique identifier for the species. Format: 2-3 letter code + numbers. | `CH001`, `BU001`, `DEATH` |
+| `species_id` | String (5 chars) | Yes | Unique identifier for the species. Format: 2-letter genus abbreviation + `.` + 2-letter species abbreviation (e.g. `CA.CI` = *Cantharellus cibarius*). | `CA.CI`, `AM.PH`, `GY.ES` |
 | `scientific_name` | String | Yes | Full scientific binomial nomenclature. | `Cantharellus cibarius` |
 | `swedish_name` | String | Yes | Common name in Swedish. | `Kantarell` |
 | `english_name` | String | Yes | Common name in English. | `Chanterelle` |
 | `edible` | Boolean | Yes | Whether the species is safe to eat. `TRUE` or `FALSE`. | `TRUE`, `FALSE` |
 | `toxicity_level` | Enum | Yes | Toxicity rating. Values: `SAFE`, `TOXIC`, `EXTREMELY_TOXIC`. | `SAFE`, `EXTREMELY_TOXIC` |
-| `priority_lookalike` | String | Yes | ID of the primary dangerous lookalike species. Use `NONE` if no lookalike. | `FALSE_CH`, `DEATH_CAP`, `NONE` |
+| `priority_lookalike` | String | Yes | ID of the primary dangerous lookalike species. Use `NONE` if no lookalike. | `HY.PS`, `AM.PH`, `NONE` |
 
 ### Constraints
 
@@ -35,8 +35,8 @@ This document describes all data files and their schemas for the mushroom identi
 ### Example Rows
 
 ```csv
-CH001,Cantharellus cibarius,Kantarell,Chanterelle,TRUE,SAFE,FALSE_CH
-DEATH,Amanita phalloides,Dödskallesvamp,Death Cap,FALSE,EXTREMELY_TOXIC,NONE
+CA.CI,Cantharellus cibarius,Kantarell,Chanterelle,TRUE,SAFE,HY.PS
+AM.PH,Amanita phalloides,Dödskallesvamp,Death Cap,FALSE,EXTREMELY_TOXIC,NONE
 ```
 
 ---
@@ -51,7 +51,7 @@ DEATH,Amanita phalloides,Dödskallesvamp,Death Cap,FALSE,EXTREMELY_TOXIC,NONE
 
 | Column | Type | Required | Description | Example |
 |--------|------|----------|-------------|---------|
-| `species_id` | String | Yes | Reference to `species.csv`. Foreign key. | `CH001` |
+| `species_id` | String | Yes | Reference to `species.csv`. Foreign key. | `CA.CI` |
 | `trait_category` | Enum | Yes | Morphological category. Values: `CAP`, `GILLS`, `STEM`, `FLESH`, `HABITAT`, `SEASON`, `GROWTH`. | `CAP`, `GILLS` |
 | `trait_name` | String | Yes | Specific trait within category. | `shape`, `color`, `attachment` |
 | `trait_value` | String | Yes | The actual value for this trait. Can be single value or pipe-separated alternatives. | `funnel-shaped`, `yellow\|orange`, `3-7` |
@@ -114,11 +114,11 @@ DEATH,Amanita phalloides,Dödskallesvamp,Death Cap,FALSE,EXTREMELY_TOXIC,NONE
 ### Example Rows
 
 ```csv
-CH001,CAP,shape,funnel-shaped,categorical,consistent
-CH001,CAP,color,yellow-orange,categorical,yellow to deep orange
-CH001,CAP,size_cm,3-7,range,varies with age
-BU001,STEM,color,white|brown,categorical,white with brown network
-DEATH,FLESH,smell,radish,categorical,distinctive radish smell
+CA.CI,CAP,shape,funnel-shaped,categorical,consistent
+CA.CI,CAP,color,yellow-orange,categorical,yellow to deep orange
+CA.CI,CAP,size_cm,3-7,range,varies with age
+BO.ED,STEM,color,white|brown,categorical,white with brown network
+AM.PH,FLESH,smell,radish,categorical,distinctive radish smell
 ```
 
 ---
@@ -133,9 +133,9 @@ DEATH,FLESH,smell,radish,categorical,distinctive radish smell
 
 | Column | Type | Required | Description | Example |
 |--------|------|----------|-------------|---------|
-| `image_id` | String | Yes | Unique identifier for the image. Format: `IMG_<species_id>_<number>`. | `IMG_CH001_001`, `IMG_DEATH_005` |
-| `species_id` | String | Yes | Reference to `species.csv`. | `CH001` |
-| `file_path` | String | Yes | Relative path to image file from `data/raw/`. | `images/CH001/CH001_001_young_sunny_top.jpg` |
+| `image_id` | String | Yes | Unique identifier for the image. Format: `IMG_<species_id>_<number>`. | `IMG_CA.CI_001`, `IMG_AM.PH_005` |
+| `species_id` | String | Yes | Reference to `species.csv`. | `CA.CI` |
+| `file_path` | String | Yes | Relative path to image file from `data/raw/`. | `images/CA.CI/CA.CI_001_young_sunny_top.jpg` |
 | `image_stage` | Enum | Yes | Growth stage of mushroom in image. Values: `young`, `developing`, `mature`. | `young`, `mature` |
 | `lighting` | Enum | Yes | Lighting conditions. Values: `direct_sunlight`, `dappled`, `shade`, `artificial`. | `dappled`, `artificial` |
 | `angle` | Enum | Yes | Camera angle/perspective. Values: `top-down`, `side`, `ground-level`, `close-up`. | `top-down`, `close-up` |
@@ -148,9 +148,9 @@ DEATH,FLESH,smell,radish,categorical,distinctive radish smell
 File names follow the pattern: `<species_id>_<sequence>_<stage>_<lighting>_<angle>.jpg`
 
 Examples:
-- `CH001_001_young_sunny_top.jpg` - Chanterelle, image 1, young stage, sunny lighting, top-down angle
-- `DEATH_003_mature_artificial_closeup.jpg` - Death cap, image 3, mature, artificial lighting, close-up
-- `BU001_002_developing_shade_side.jpg` - Porcini, image 2, developing, shaded, side angle
+- `CA.CI_001_young_sunny_top.jpg` - Chanterelle, image 1, young stage, sunny lighting, top-down angle
+- `AM.PH_003_mature_artificial_closeup.jpg` - Death cap, image 3, mature, artificial lighting, close-up
+- `BO.ED_002_developing_shade_side.jpg` - Porcini, image 2, developing, shaded, side angle
 
 ### Constraints
 
@@ -171,9 +171,9 @@ Examples:
 ### Example Rows
 
 ```csv
-IMG_CH001_001,CH001,images/CH001/CH001_001_young_sunny_top.jpg,young,direct_sunlight,top-down,user_photo,HIGH,TRUE
-IMG_CH001_005,CH001,images/CH001/CH001_005_habitat_context.jpg,mature,natural,ground-level,user_photo,MEDIUM,TRUE
-IMG_DEATH_001,DEATH,images/DEATH/DEATH_001_young_stage.jpg,young,natural,top-down,field_guide,HIGH,TRUE
+IMG_CA.CI_001,CA.CI,images/CA.CI/CA.CI_001_young_sunny_top.jpg,young,direct_sunlight,top-down,user_photo,HIGH,TRUE
+IMG_CA.CI_005,CA.CI,images/CA.CI/CA.CI_005_habitat_context.jpg,mature,natural,ground-level,user_photo,MEDIUM,TRUE
+IMG_AM.PH_001,AM.PH,images/AM.PH/AM.PH_001_young_stage.jpg,young,natural,top-down,field_guide,HIGH,TRUE
 ```
 
 ---
@@ -189,8 +189,8 @@ IMG_DEATH_001,DEATH,images/DEATH/DEATH_001_young_stage.jpg,young,natural,top-dow
 | Column | Type | Required | Description | Example |
 |--------|------|----------|-------------|---------|
 | `lookalike_id` | String | Yes | Unique identifier. Format: `LA<number>`. | `LA001`, `LA008` |
-| `edible_species_id` | String | Yes | Reference to edible species (should have `edible=TRUE`). | `CH001`, `BU001` |
-| `toxic_species_id` | String | Yes | Reference to toxic lookalike species (should have `edible=FALSE`). | `FALSE_CH`, `DEATH` |
+| `edible_species_id` | String | Yes | Reference to edible species (should have `edible=TRUE`). | `CA.CI`, `BO.ED` |
+| `toxic_species_id` | String | Yes | Reference to toxic lookalike species (should have `edible=FALSE`). | `HY.PS`, `AM.PH` |
 | `confusion_likelihood` | Enum | Yes | How often these are confused. Values: `LOW`, `MEDIUM`, `HIGH`, `CRITICAL`. | `HIGH`, `CRITICAL` |
 | `distinguishing_features` | String | Yes | Detailed text describing key differences for identification. | "Chanterelle: thick meaty ridges..." |
 
