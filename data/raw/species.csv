@@ -1,21 +1,51 @@
 species_id,scientific_name,swedish_name,english_name,edible,toxicity_level,priority_lookalike
-CH001,Cantharellus cibarius,Kantarell,Chanterelle,TRUE,SAFE,FALSE_CH
-BU001,Boletus edulis,Karljohan,Porcini,TRUE,SAFE,BITTER_BOLETE
-MO001,Morchella esculenta,Morkel,Morel,TRUE,SAFE,FALSE_MOREL
-BA001,Boletus badius,Brunsopp,Bay Bolete,TRUE,SAFE,BITTER_BOLETE
-HO001,Armillaria mellea,Hallon,Honey Mushroom,TRUE,SAFE,FUNERAL_BELL
-WO001,Auricularia auricula-judae,Träöra,Wood Ear,TRUE,SAFE,NONE
-PU001,Lycoperdon perlatum,Rökslöjpa,Puffball,TRUE,SAFE,DEATH_CAP
-OY001,Pleurotus ostreatus,Ostronskivling,Oyster Mushroom,TRUE,SAFE,NONE
-OR001,Lactarius deliciosus,Smörkantarell,Orange Milk Cap,TRUE,SAFE,FALSE_MILK_CAP
-CH002,Laetiporus sulphureus,Kejsarsvamp,Chicken of the Woods,TRUE,SAFE,NONE
-SI001,Coprinellus comatus,Spindelskivling,Shaggy Inkcap,TRUE,SAFE,NONE
-PA001,Macrolepiota procera,Parasolsvamp,Parasol Mushroom,TRUE,SAFE,AMANITA_SPECIES
-ME001,Agaricus campestris,Ängssvamp,Meadow Mushroom,TRUE,SAFE,DEATH_CAP
-DEATH,Amanita phalloides,Dödskallesvamp,Death Cap,FALSE,EXTREMELY_TOXIC,NONE
-DESTROY,Amanita virosa,Änglsvamp,Destroying Angel,FALSE,EXTREMELY_TOXIC,NONE
-FLY,Amanita muscaria,Flugsvamp,Fly Agaric,FALSE,TOXIC,NONE
-FALSE_CH,Hygrophorellus pseudoaurantiacus,Falsk kantarell,False Chanterelle,FALSE,TOXIC,CH001
-BITTER_BOLETE,Caloboletus castaniceps,Bitter karljohan,Bitter Bolete,FALSE,TOXIC,BU001
-FALSE_MOREL,Gyromitra esculenta,Falsk morkel,False Morel,FALSE,TOXIC,MO001
-FUNERAL_BELL,Galerina marginata,Små änglsvamp,Funeral Bell,FALSE,EXTREMELY_TOXIC,HO001
+CA.CI,Cantharellus cibarius,Kantarell,Chanterelle,TRUE,SAFE,HY.PS
+BO.ED,Boletus edulis,Karljohan,Porcini,TRUE,SAFE,CA.CA
+MO.ES,Morchella esculenta,Morkel,Morel,TRUE,SAFE,GY.ES
+BO.BA,Boletus badius,Brunsopp,Bay Bolete,TRUE,SAFE,CA.CA
+AR.ME,Armillaria mellea,Hallon,Honey Mushroom,TRUE,SAFE,GA.MA
+AU.AU,Auricularia auricula-judae,Träöra,Wood Ear,TRUE,SAFE,NONE
+LY.PE,Lycoperdon perlatum,Rökslöjpa,Puffball,TRUE,SAFE,AM.PH
+PL.OS,Pleurotus ostreatus,Ostronskivling,Oyster Mushroom,TRUE,SAFE,NONE
+LA.DE,Lactarius deliciosus,Smörkantarell,Orange Milk Cap,TRUE,SAFE,NONE
+LA.SU,Laetiporus sulphureus,Kejsarsvamp,Chicken of the Woods,TRUE,SAFE,NONE
+CO.CO,Coprinellus comatus,Spindelskivling,Shaggy Inkcap,TRUE,SAFE,NONE
+MA.PR,Macrolepiota procera,Parasolsvamp,Parasol Mushroom,TRUE,SAFE,AM.PH
+AG.CA,Agaricus campestris,Ängssvamp,Meadow Mushroom,TRUE,SAFE,AM.PH
+AM.PH,Amanita phalloides,Dödskallesvamp,Death Cap,FALSE,EXTREMELY_TOXIC,NONE
+AM.VI,Amanita virosa,Änglsvamp,Destroying Angel,FALSE,EXTREMELY_TOXIC,NONE
+AM.MU,Amanita muscaria,Flugsvamp,Fly Agaric,FALSE,TOXIC,NONE
+HY.PS,Hygrophorellus pseudoaurantiacus,Falsk kantarell,False Chanterelle,FALSE,TOXIC,CA.CI
+CA.CA,Caloboletus castaniceps,Bitter karljohan,Bitter Bolete,FALSE,TOXIC,BO.ED
+GY.ES,Gyromitra esculenta,Falsk morkel,False Morel,FALSE,TOXIC,MO.ES
+GA.MA,Galerina marginata,Små änglsvamp,Funeral Bell,FALSE,EXTREMELY_TOXIC,AR.ME
+CR.CO,Craterellus cornucopioides,svart trumpetsvamp,Black Trumpet,TRUE,SAFE,CA.CN
+CA.CN,Cantharellus cinereus,Grå Kantarell,Grey Chanterelle,TRUE,SAFE,CR.CO
+CA.AU,Cantharellus aurora,Rödgul trumpetsvamp,Aurora Chanterelle,TRUE,SAFE,LE.LU
+LE.LU,leotia lubrica,slemmurkling,Jelly Baby,FALSE,SAFE,CA.AU
+CA.TU,Cantharellus tubaeformis,Trattkantarell,Funnel Chanterelle,TRUE,SAFE,LE.LU
+HY.RE,Hydnum repandum,Blek taggsvamp,Hedgehog Mushroom,TRUE,SAFE,HY.RU
+HY.RU,Hydnum rufescens,Rödgul taggsvamp,Ruddy Hedgehog,TRUE,SAFE,HY.RE
+RA.BO,Ramaria botrytis,Druvfingersvamp,Clustered Coral,TRUE,SAFE,RA.PA
+RA.PA,Ramaria pallida,Blek fingersvamp,Pale Coral Fungus,FALSE,TOXIC,RA.BO
+SP.CR,Sparassis crispa,Blomkålssvamp,Cauliflower Mushroom,TRUE,SAFE,NONE
+AL.OV,Albatrellus ovinus,Fårticka,Sheep Polypore,TRUE,SAFE,BO.GR
+BO.GR,Boletopsis grisea,Tallgråticka,Grey False Bolete,FALSE,SAFE,NONE
+AL.CO,Albatrellus confluens,Brödticka,Confluent Polypore,TRUE,SAFE,NONE
+TY.FE,Tylopilus felleus,Gallsopp,Gall Bolete,FALSE,SAFE,BO.ED
+BO.RE,Boletus reticulatus,Finluden stenssopp,Summer Porcini,TRUE,SAFE,NONE
+BO.PI,Boletus Pinophilus,Rödbrun stensopp,Pine Bolete,TRUE,SAFE,BO.ED
+BO.LU,Boletus luridiformis,Blodsopp,Scarletina Bolete,TRUE,SAFE,BO.SA
+BO.SA,Boletus Satanas,Djävulssopp,Satan's Bolete,FALSE,EXTREMELY_TOXIC,BO.LU
+BO.SU,Boletus subtomentosus,Sammetssopp,Suede Bolete,TRUE,SAFE,BO.BA
+BO.PA,Boletus pascuus,Åkersopp,Pasture Bolete,TRUE,SAFE,BO.BA
+LE.VE,Leccinum versipelle,Tegelsopp,Orange Birch Bolete,TRUE,SAFE,NONE
+LE.AU,Leccinum aurantiacum,Aspsopp,Aspen Bolete,TRUE,SAFE,NONE
+LE.VU,Leccinum vulpinum,Tallsopp,Foxy Bolete,TRUE,SAFE,NONE
+SU.LU,Suillus luteus,Smörsopp,Slippery Jack,TRUE,SAFE,SU.FL
+SU.FL,Suillus flavidus,Slemsopp,Bog Bolete,FALSE,SAFE,SU.LU
+GO.GL,Gomphidius glutinosus,Citronslemskivling,Slimy Spike,TRUE,SAFE,SU.LU
+HY.CA,Hygrophorus camarophyllus,Sotvaxning,Charcoal Waxy Cap,TRUE,SAFE,HY.AT
+HY.AT,Hygrophorus atramentosus,Streckvaxning,Streaked Waxcap,FALSE,SAFE,NONE
+PL.PO,Pleurocybella porrigens,Öronmussling,Angel Wings,TRUE,SAFE,PA.MI
+PA.MI,Panellus mitis,Vintermussling,Winter Oysterling,FALSE,SAFE,PL.PO

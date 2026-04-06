@@ -59,7 +59,7 @@ class SpeciesDatabase:
     def __init__(self):
         """Initialize with 20 mushroom species from Nya Svampboken."""
         self.species = {
-            'CH001': {
+            'CA.CI': {
                 'swedish': 'Kantarell',
                 'english': 'Chanterelle',
                 'scientific': 'Cantharellus cibarius',
@@ -74,7 +74,7 @@ class SpeciesDatabase:
                     'season': 'summer to autumn'
                 }
             },
-            'CR001': {
+            'CR.CO': {
                 'swedish': 'Svart Trumpetsvamp',
                 'english': 'Black Trumpet',
                 'scientific': 'Craterellus cinereus',
@@ -89,7 +89,7 @@ class SpeciesDatabase:
                     'season': 'summer to autumn'
                 }
             },
-            'BU001': {
+            'BO.ED': {
                 'swedish': 'Karljohan',
                 'english': 'Porcini',
                 'scientific': 'Boletus edulis',
@@ -104,7 +104,7 @@ class SpeciesDatabase:
                     'season': 'summer to autumn'
                 }
             },
-            'AM001': {
+            'AM.MU': {
                 'swedish': 'Flugsvamp',
                 'english': 'Fly Agaric',
                 'scientific': 'Amanita muscaria',
@@ -119,7 +119,7 @@ class SpeciesDatabase:
                     'season': 'autumn'
                 }
             },
-            'AM002': {
+            'AM.VI': {
                 'swedish': 'Vit Flugsvamp',
                 'english': 'Destroying Angel',
                 'scientific': 'Amanita virosa',
@@ -164,7 +164,7 @@ class SpeciesDatabase:
                     'season': 'summer to autumn'
                 }
             },
-            'LE001': {
+            'SU.LU': {
                 'swedish': 'Smörsopp',
                 'english': 'Slippery Jack',
                 'scientific': 'Suillus luteus',
@@ -179,7 +179,7 @@ class SpeciesDatabase:
                     'season': 'summer to autumn'
                 }
             },
-            'LY001': {
+            'LY.PE': {
                 'swedish': 'Behandlad Behandling',
                 'english': 'Common Puffball',
                 'scientific': 'Lycoperdon perlatum',
@@ -224,7 +224,7 @@ class SpeciesDatabase:
                     'season': 'summer to autumn'
                 }
             },
-            'TR001': {
+            'CA.TU': {
                 'swedish': 'Trattkantarell',
                 'english': 'Trumpet Chanterelle',
                 'scientific': 'Craterellus tubaeformis',
@@ -254,7 +254,7 @@ class SpeciesDatabase:
                     'season': 'autumn to spring'
                 }
             },
-            'HE001': {
+            'HY.RE': {
                 'swedish': 'Behandlad Boletaceae',
                 'english': 'Hedgehog Mushroom',
                 'scientific': 'Hydnum repandum',
@@ -284,7 +284,7 @@ class SpeciesDatabase:
                     'season': 'summer to autumn'
                 }
             },
-            'ME001': {
+            'LA.TU': {
                 'swedish': 'Behandlad Milk Cap',
                 'english': 'Milky Cap',
                 'scientific': 'Lactarius turpis',
@@ -344,7 +344,7 @@ class SpeciesDatabase:
                     'season': 'year-round'
                 }
             },
-            'WX001': {
+            'AU.AU': {
                 'swedish': 'Behandlad Wood Ear',
                 'english': 'Wood Ear',
                 'scientific': 'Auricularia auricula',

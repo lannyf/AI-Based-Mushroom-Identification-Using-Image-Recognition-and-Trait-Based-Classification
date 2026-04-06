@@ -1,84 +1,1050 @@
 species_id,trait_category,trait_name,trait_value,value_type,variability
-CH001,CAP,shape,funnel-shaped,categorical,consistent
-CH001,CAP,color,yellow-orange,categorical,yellow to deep orange
-CH001,CAP,surface_texture,smooth,categorical,smooth with wavy edges
-CH001,CAP,size_cm,3-7,range,varies with age
-CH001,CAP,margin,wavy,categorical,often wavy or grooved
-CH001,GILLS,attachment,decurrent,categorical,decurrent ridges not true gills
-CH001,GILLS,density,distant,categorical,thick and widely spaced
-CH001,GILLS,color,pale-yellow,categorical,yellow to orange
-CH001,GILLS,edge,smooth,categorical,smooth edge
-CH001,STEM,shape,cylindrical,categorical,equal thickness
-CH001,STEM,color,yellow-orange,categorical,matches cap
-CH001,STEM,surface,smooth,categorical,smooth
-CH001,STEM,hollow_solid,solid,categorical,solid flesh
-CH001,STEM,size_cm,3-5,range,varies with age
-CH001,FLESH,color,pale-yellow,categorical,white to pale yellow
-CH001,FLESH,texture,firm,categorical,firm and meaty
-CH001,FLESH,smell,pleasant,categorical,fruity pleasant smell
-CH001,HABITAT,substrate_type,soil,categorical,forest soil
-CH001,HABITAT,tree_association,hardwood|coniferous,categorical,oak birch spruce
-CH001,SEASON,season,"july|august|september",categorical,summer to early autumn
-CH001,GROWTH,pattern,scattered|gregarious,categorical,groups or scattered
-BU001,CAP,shape,convex|flat,categorical,convex when young flattening
-BU001,CAP,color,brown,categorical,tan to dark brown
-BU001,CAP,surface_texture,smooth,categorical,slightly sticky when moist
-BU001,CAP,size_cm,5-30,range,large fruiting bodies
-BU001,CAP,margin,smooth,categorical,margin smooth
-BU001,GILLS,attachment,pores,categorical,yellow pores not gills
-BU001,GILLS,density,small,categorical,3-4mm diameter
-BU001,GILLS,color,yellow,categorical,yellow bruising blue-green
-BU001,GILLS,edge,blunt,categorical,no bruising on edges
-BU001,STEM,shape,bulbous,categorical,bulbous base
-BU001,STEM,color,white|brown,categorical,white with brown network
-BU001,STEM,surface,reticulate,categorical,network pattern on surface
-BU001,STEM,hollow_solid,solid,categorical,solid white flesh
-BU001,STEM,size_cm,8-20,range,tall substantial stem
-BU001,FLESH,color,white,categorical,white throughout
-BU001,FLESH,texture,firm,categorical,firm meat
-BU001,FLESH,smell,pleasant,categorical,mild mushroom smell
-BU001,HABITAT,substrate_type,soil,categorical,forest soil
-BU001,HABITAT,tree_association,coniferous,categorical,pine spruce fir
-BU001,SEASON,season,"july|august|september|october",categorical,summer autumn
-BU001,GROWTH,pattern,solitary|scattered,categorical,usually solitary
-MO001,CAP,shape,conical|ovoid,categorical,bell or cone-shaped
-MO001,CAP,color,tan|brown,categorical,tan to brown pitted
-MO001,CAP,surface_texture,honeycomb,categorical,honeycomb pit pattern
-MO001,CAP,size_cm,4-8,range,height of fruiting body
-MO001,CAP,margin,free,categorical,margin attached at sides
-MO001,GILLS,attachment,pits,categorical,honeycomb pits not gills
-MO001,GILLS,color,gray|brown,categorical,gray to brown
-MO001,GILLS,edge,blunt,categorical,edges of pits blunt
-MO001,STEM,shape,cylindrical,categorical,cylindrical hollow
-MO001,STEM,color,pale,categorical,pale whitish
-MO001,STEM,surface,smooth,categorical,smooth surface
-MO001,STEM,hollow_solid,hollow,categorical,completely hollow
-MO001,STEM,size_cm,3-5,range,shorter than cap
-MO001,FLESH,color,hollow,categorical,no flesh hollow inside
-MO001,FLESH,texture,fragile,categorical,fragile delicate
-MO001,FLESH,smell,pleasant,categorical,pleasant smell
-MO001,HABITAT,substrate_type,soil,categorical,rich soil
-MO001,HABITAT,tree_association,hardwood,categorical,ash elm poplar
-MO001,SEASON,season,"april|may",categorical,spring morel season
-MO001,GROWTH,pattern,scattered|gregarious,categorical,can be gregarious
-DEATH,CAP,shape,convex|flat,categorical,hemispherical when young
-DEATH,CAP,color,white|cream|pale-green,categorical,pale white to olive
-DEATH,CAP,surface_texture,smooth,categorical,smooth shiny surface
-DEATH,CAP,size_cm,4-10,range,medium to large
-DEATH,CAP,margin,smooth,categorical,margin smooth and entire
-DEATH,GILLS,attachment,free,categorical,free not attached to stem
-DEATH,GILLS,density,crowded,categorical,very crowded
-DEATH,GILLS,color,white,categorical,bright white
-DEATH,GILLS,edge,smooth,categorical,smooth edges
-DEATH,STEM,shape,cylindrical,categorical,cylindrical with bulbous base
-DEATH,STEM,color,white,categorical,pure white
-DEATH,STEM,surface,smooth,categorical,smooth with ring
-DEATH,STEM,hollow_solid,hollow,categorical,hollow inside
-DEATH,STEM,size_cm,8-15,range,tall with cup at base
-DEATH,FLESH,color,white,categorical,white flesh
-DEATH,FLESH,texture,firm,categorical,firm meaty
-DEATH,FLESH,smell,radish,categorical,distinctive radish smell
-DEATH,HABITAT,substrate_type,soil,categorical,forest soil
-DEATH,HABITAT,tree_association,hardwood,categorical,oak beech chestnut
-DEATH,SEASON,season,"august|september|october",categorical,late summer autumn
-DEATH,GROWTH,pattern,solitary|scattered,categorical,usually solitary
+CA.CI,CAP,shape,funnel-shaped,categorical,consistent
+CA.CI,CAP,color,yellow-orange,categorical,yellow to deep orange
+CA.CI,CAP,surface_texture,smooth,categorical,smooth with wavy edges
+CA.CI,CAP,size_cm,3-7,range,varies with age
+CA.CI,CAP,margin,wavy,categorical,often wavy or grooved
+CA.CI,GILLS,attachment,decurrent,categorical,decurrent ridges not true gills
+CA.CI,GILLS,density,distant,categorical,thick and widely spaced
+CA.CI,GILLS,color,pale-yellow,categorical,yellow to orange
+CA.CI,GILLS,edge,smooth,categorical,smooth edge
+CA.CI,STEM,shape,cylindrical,categorical,equal thickness
+CA.CI,STEM,color,yellow-orange,categorical,matches cap
+CA.CI,STEM,surface,smooth,categorical,smooth
+CA.CI,STEM,hollow_solid,solid,categorical,solid flesh
+CA.CI,STEM,size_cm,3-5,range,varies with age
+CA.CI,FLESH,color,pale-yellow,categorical,white to pale yellow
+CA.CI,FLESH,texture,firm,categorical,firm and meaty
+CA.CI,FLESH,smell,pleasant,categorical,fruity pleasant smell
+CA.CI,HABITAT,substrate_type,soil,categorical,forest soil
+CA.CI,HABITAT,tree_association,hardwood|coniferous,categorical,oak birch spruce
+CA.CI,SEASON,season,july|august|september,categorical,summer to early autumn
+CA.CI,GROWTH,pattern,scattered|gregarious,categorical,groups or scattered
+BO.ED,CAP,shape,convex|flat,categorical,convex when young flattening
+BO.ED,CAP,color,brown,categorical,tan to dark brown
+BO.ED,CAP,surface_texture,smooth,categorical,slightly sticky when moist
+BO.ED,CAP,size_cm,5-30,range,large fruiting bodies
+BO.ED,CAP,margin,smooth,categorical,margin smooth
+BO.ED,GILLS,attachment,pores,categorical,yellow pores not gills
+BO.ED,GILLS,density,small,categorical,3-4mm diameter
+BO.ED,GILLS,color,yellow,categorical,yellow bruising blue-green
+BO.ED,GILLS,edge,blunt,categorical,no bruising on edges
+BO.ED,STEM,shape,bulbous,categorical,bulbous base
+BO.ED,STEM,color,white|brown,categorical,white with brown network
+BO.ED,STEM,surface,reticulate,categorical,network pattern on surface
+BO.ED,STEM,hollow_solid,solid,categorical,solid white flesh
+BO.ED,STEM,size_cm,8-20,range,tall substantial stem
+BO.ED,FLESH,color,white,categorical,white throughout
+BO.ED,FLESH,texture,firm,categorical,firm meat
+BO.ED,FLESH,smell,pleasant,categorical,mild mushroom smell
+BO.ED,HABITAT,substrate_type,soil,categorical,forest soil
+BO.ED,HABITAT,tree_association,coniferous,categorical,pine spruce fir
+BO.ED,SEASON,season,july|august|september|october,categorical,summer autumn
+BO.ED,GROWTH,pattern,solitary|scattered,categorical,usually solitary
+MO.ES,CAP,shape,conical|ovoid,categorical,bell or cone-shaped
+MO.ES,CAP,color,tan|brown,categorical,tan to brown pitted
+MO.ES,CAP,surface_texture,honeycomb,categorical,honeycomb pit pattern
+MO.ES,CAP,size_cm,4-8,range,height of fruiting body
+MO.ES,CAP,margin,free,categorical,margin attached at sides
+MO.ES,GILLS,attachment,pits,categorical,honeycomb pits not gills
+MO.ES,GILLS,color,gray|brown,categorical,gray to brown
+MO.ES,GILLS,edge,blunt,categorical,edges of pits blunt
+MO.ES,STEM,shape,cylindrical,categorical,cylindrical hollow
+MO.ES,STEM,color,pale,categorical,pale whitish
+MO.ES,STEM,surface,smooth,categorical,smooth surface
+MO.ES,STEM,hollow_solid,hollow,categorical,completely hollow
+MO.ES,STEM,size_cm,3-5,range,shorter than cap
+MO.ES,FLESH,color,hollow,categorical,no flesh hollow inside
+MO.ES,FLESH,texture,fragile,categorical,fragile delicate
+MO.ES,FLESH,smell,pleasant,categorical,pleasant smell
+MO.ES,HABITAT,substrate_type,soil,categorical,rich soil
+MO.ES,HABITAT,tree_association,hardwood,categorical,ash elm poplar
+MO.ES,SEASON,season,april|may,categorical,spring morel season
+MO.ES,GROWTH,pattern,scattered|gregarious,categorical,can be gregarious
+AM.PH,CAP,shape,convex|flat,categorical,hemispherical when young
+AM.PH,CAP,color,white|cream|pale-green,categorical,pale white to olive
+AM.PH,CAP,surface_texture,smooth,categorical,smooth shiny surface
+AM.PH,CAP,size_cm,4-10,range,medium to large
+AM.PH,CAP,margin,smooth,categorical,margin smooth and entire
+AM.PH,GILLS,attachment,free,categorical,free not attached to stem
+AM.PH,GILLS,density,crowded,categorical,very crowded
+AM.PH,GILLS,color,white,categorical,bright white
+AM.PH,GILLS,edge,smooth,categorical,smooth edges
+AM.PH,STEM,shape,cylindrical,categorical,cylindrical with bulbous base
+AM.PH,STEM,color,white,categorical,pure white
+AM.PH,STEM,surface,smooth,categorical,smooth with ring
+AM.PH,STEM,hollow_solid,hollow,categorical,hollow inside
+AM.PH,STEM,size_cm,8-15,range,tall with cup at base
+AM.PH,FLESH,color,white,categorical,white flesh
+AM.PH,FLESH,texture,firm,categorical,firm meaty
+AM.PH,FLESH,smell,radish,categorical,distinctive radish smell
+AM.PH,HABITAT,substrate_type,soil,categorical,forest soil
+AM.PH,HABITAT,tree_association,hardwood,categorical,oak beech chestnut
+AM.PH,SEASON,season,august|september|october,categorical,late summer autumn
+AM.PH,GROWTH,pattern,solitary|scattered,categorical,usually solitary
+AL.CO,CAP,shape,convex|irregular,categorical,can merge with neighbours
+AL.CO,CAP,color,pale-yellow|orange-brown,categorical,darkens with age
+AL.CO,CAP,surface_texture,smooth|cracked,categorical,cracks when dry
+AL.CO,CAP,size_cm,5-15,range,varies with age
+AL.CO,CAP,margin,wavy,categorical,often lobed
+AL.CO,GILLS,attachment,pores,categorical,fine white pores
+AL.CO,GILLS,density,small,categorical,2-3 per mm
+AL.CO,GILLS,color,white|cream,categorical,yellowing with age
+AL.CO,GILLS,edge,blunt,categorical,smooth blunt edge
+AL.CO,STEM,shape,eccentric|cylindrical,categorical,may fuse with others
+AL.CO,STEM,color,white|pale-yellow,categorical,consistent
+AL.CO,STEM,surface,smooth,categorical,smooth
+AL.CO,STEM,hollow_solid,solid,categorical,solid flesh
+AL.CO,STEM,size_cm,3-8,range,varies
+AL.CO,FLESH,color,white,categorical,white throughout
+AL.CO,FLESH,texture,firm,categorical,firm and tough
+AL.CO,FLESH,smell,pleasant,categorical,faintly aromatic
+AL.CO,HABITAT,substrate_type,soil,categorical,forest soil
+AL.CO,HABITAT,tree_association,coniferous,categorical,pine and spruce
+AL.CO,SEASON,season,august|september|october,categorical,late summer to autumn
+AL.CO,GROWTH,pattern,gregarious|clustered,categorical,often fused groups
+AL.OV,CAP,shape,convex|flat,categorical,flattening with age
+AL.OV,CAP,color,white|cream|gray,categorical,pallid to grayish
+AL.OV,CAP,surface_texture,smooth|cracked,categorical,cracks when dry
+AL.OV,CAP,size_cm,5-15,range,varies
+AL.OV,CAP,margin,wavy,categorical,often irregular
+AL.OV,GILLS,attachment,pores,categorical,fine white pores
+AL.OV,GILLS,density,small,categorical,2-3 per mm
+AL.OV,GILLS,color,white,categorical,remains white
+AL.OV,GILLS,edge,blunt,categorical,smooth
+AL.OV,STEM,shape,cylindrical,categorical,central to slightly off-centre
+AL.OV,STEM,color,white,categorical,consistent
+AL.OV,STEM,surface,smooth,categorical,smooth
+AL.OV,STEM,hollow_solid,solid,categorical,solid
+AL.OV,STEM,size_cm,3-7,range,varies
+AL.OV,FLESH,color,white,categorical,white
+AL.OV,FLESH,texture,firm,categorical,firm
+AL.OV,FLESH,smell,pleasant,categorical,faint pleasant smell
+AL.OV,HABITAT,substrate_type,soil,categorical,forest soil
+AL.OV,HABITAT,tree_association,coniferous,categorical,pine and spruce
+AL.OV,SEASON,season,august|september|october,categorical,late summer to autumn
+AL.OV,GROWTH,pattern,scattered|gregarious,categorical,often in groups
+BO.GR,CAP,shape,convex|flat,categorical,flattening with age
+BO.GR,CAP,color,gray|gray-brown,categorical,consistent
+BO.GR,CAP,surface_texture,smooth|dry,categorical,dry surface
+BO.GR,CAP,size_cm,5-15,range,varies
+BO.GR,CAP,margin,smooth,categorical,even margin
+BO.GR,GILLS,attachment,pores,categorical,fine grayish pores
+BO.GR,GILLS,density,small,categorical,2-3 per mm
+BO.GR,GILLS,color,white|gray,categorical,darkening with age
+BO.GR,GILLS,edge,blunt,categorical,blunt
+BO.GR,STEM,shape,cylindrical,categorical,equal or tapering
+BO.GR,STEM,color,gray,categorical,consistent
+BO.GR,STEM,surface,smooth,categorical,smooth
+BO.GR,STEM,hollow_solid,solid,categorical,solid
+BO.GR,STEM,size_cm,3-7,range,varies
+BO.GR,FLESH,color,white|gray,categorical,whitish with gray tinge
+BO.GR,FLESH,texture,firm,categorical,firm and tough
+BO.GR,FLESH,smell,not distinctive,categorical,no distinctive smell
+BO.GR,HABITAT,substrate_type,soil,categorical,forest soil
+BO.GR,HABITAT,tree_association,coniferous,categorical,pine forests
+BO.GR,SEASON,season,august|september|october,categorical,late summer to autumn
+BO.GR,GROWTH,pattern,scattered|solitary,categorical,usually scattered
+BO.LU,CAP,shape,convex,categorical,convex young flattening
+BO.LU,CAP,color,brown|reddish-brown,categorical,darker with age
+BO.LU,CAP,surface_texture,smooth|dry,categorical,dry surface
+BO.LU,CAP,size_cm,5-15,range,varies
+BO.LU,CAP,margin,smooth,categorical,even margin
+BO.LU,GILLS,attachment,pores,categorical,orange-red pores bruising blue
+BO.LU,GILLS,density,small,categorical,1-2 per mm
+BO.LU,GILLS,color,yellow|orange-red,categorical,intensely orange-red
+BO.LU,GILLS,edge,blunt,categorical,blunt
+BO.LU,STEM,shape,cylindrical|bulbous,categorical,bulbous base
+BO.LU,STEM,color,yellow|red,categorical,red base yellow apex
+BO.LU,STEM,surface,reticulate,categorical,reddish network
+BO.LU,STEM,hollow_solid,solid,categorical,solid flesh
+BO.LU,STEM,size_cm,5-12,range,varies
+BO.LU,FLESH,color,yellow|blue-on-cut,categorical,instantly blues when cut
+BO.LU,FLESH,texture,firm,categorical,firm
+BO.LU,FLESH,smell,pleasant,categorical,mild mushroom smell
+BO.LU,HABITAT,substrate_type,soil,categorical,forest soil
+BO.LU,HABITAT,tree_association,hardwood|coniferous,categorical,oak birch spruce
+BO.LU,SEASON,season,june|july|august|september,categorical,summer to early autumn
+BO.LU,GROWTH,pattern,scattered|solitary,categorical,usually scattered
+BO.PA,CAP,shape,convex,categorical,convex to flat
+BO.PA,CAP,color,gray-brown|pale-brown,categorical,pale grayish brown
+BO.PA,CAP,surface_texture,dry|velvety,categorical,velvety when young
+BO.PA,CAP,size_cm,3-8,range,relatively small
+BO.PA,CAP,margin,smooth,categorical,even
+BO.PA,GILLS,attachment,pores,categorical,white to yellow pores
+BO.PA,GILLS,density,small,categorical,1-2 per mm
+BO.PA,GILLS,color,white|yellow,categorical,yellowing with age
+BO.PA,GILLS,edge,blunt,categorical,blunt
+BO.PA,STEM,shape,cylindrical,categorical,equal
+BO.PA,STEM,color,pale|yellow-brown,categorical,pale brown
+BO.PA,STEM,surface,smooth,categorical,smooth
+BO.PA,STEM,hollow_solid,solid,categorical,solid
+BO.PA,STEM,size_cm,3-7,range,varies
+BO.PA,FLESH,color,white|pale-yellow,categorical,whitish
+BO.PA,FLESH,texture,firm,categorical,firm
+BO.PA,FLESH,smell,not distinctive,categorical,faint smell
+BO.PA,HABITAT,substrate_type,soil,categorical,open grassland and forest edge
+BO.PA,HABITAT,tree_association,mixed|hardwood,categorical,deciduous trees
+BO.PA,SEASON,season,july|august|september,categorical,summer to early autumn
+BO.PA,GROWTH,pattern,scattered|solitary,categorical,usually scattered
+BO.PI,CAP,shape,convex,categorical,broadly convex
+BO.PI,CAP,color,reddish-brown|dark-brown,categorical,dark reddish brown
+BO.PI,CAP,surface_texture,smooth|dry,categorical,dry matte surface
+BO.PI,CAP,size_cm,5-20,range,large fruiting body
+BO.PI,CAP,margin,smooth,categorical,even
+BO.PI,GILLS,attachment,pores,categorical,white to yellow pores
+BO.PI,GILLS,density,small,categorical,1-2 per mm
+BO.PI,GILLS,color,white|yellow,categorical,yellowing with age
+BO.PI,GILLS,edge,blunt,categorical,blunt
+BO.PI,STEM,shape,bulbous|cylindrical,categorical,bulbous base
+BO.PI,STEM,color,brown|pale-brown,categorical,brown with pale network
+BO.PI,STEM,surface,reticulate,categorical,network pattern
+BO.PI,STEM,hollow_solid,solid,categorical,solid white flesh
+BO.PI,STEM,size_cm,6-15,range,tall stem
+BO.PI,FLESH,color,white,categorical,white throughout
+BO.PI,FLESH,texture,firm,categorical,firm
+BO.PI,FLESH,smell,pleasant,categorical,mild mushroom smell
+BO.PI,HABITAT,substrate_type,soil,categorical,forest soil
+BO.PI,HABITAT,tree_association,coniferous,categorical,pine forests primarily
+BO.PI,SEASON,season,june|july|august|september,categorical,early summer to autumn
+BO.PI,GROWTH,pattern,scattered|solitary,categorical,usually solitary
+BO.RE,CAP,shape,convex|flat,categorical,broad and flat when mature
+BO.RE,CAP,color,tan|pale-brown,categorical,pale tan to brown
+BO.RE,CAP,surface_texture,smooth|dry,categorical,dry cracking in heat
+BO.RE,CAP,size_cm,5-20,range,large cap
+BO.RE,CAP,margin,smooth,categorical,even
+BO.RE,GILLS,attachment,pores,categorical,white pores
+BO.RE,GILLS,density,small,categorical,1-2 per mm
+BO.RE,GILLS,color,white|yellow,categorical,whitish yellowing
+BO.RE,GILLS,edge,blunt,categorical,blunt
+BO.RE,STEM,shape,bulbous|cylindrical,categorical,bulbous base tapering
+BO.RE,STEM,color,pale-brown,categorical,pale brown network
+BO.RE,STEM,surface,reticulate,categorical,fine network
+BO.RE,STEM,hollow_solid,solid,categorical,solid
+BO.RE,STEM,size_cm,6-15,range,tall stem
+BO.RE,FLESH,color,white,categorical,white throughout
+BO.RE,FLESH,texture,firm,categorical,firm
+BO.RE,FLESH,smell,pleasant,categorical,pleasant mild smell
+BO.RE,HABITAT,substrate_type,soil,categorical,forest soil
+BO.RE,HABITAT,tree_association,hardwood,categorical,oak beech
+BO.RE,SEASON,season,may|june|july|august,categorical,late spring to summer
+BO.RE,GROWTH,pattern,scattered|solitary,categorical,usually solitary
+BO.SA,CAP,shape,convex,categorical,broadly convex
+BO.SA,CAP,color,white|pale-gray,categorical,pallid white to gray
+BO.SA,CAP,surface_texture,smooth,categorical,smooth surface
+BO.SA,CAP,size_cm,8-25,range,very large cap
+BO.SA,CAP,margin,smooth,categorical,even
+BO.SA,GILLS,attachment,pores,categorical,blood-red pores bruising blue
+BO.SA,GILLS,density,small,categorical,1-2 per mm
+BO.SA,GILLS,color,red|orange-red,categorical,bright red pores
+BO.SA,GILLS,edge,blunt,categorical,blunt
+BO.SA,STEM,shape,bulbous,categorical,swollen bulbous base
+BO.SA,STEM,color,yellow|red,categorical,yellow apex red base network
+BO.SA,STEM,surface,reticulate,categorical,red network pattern
+BO.SA,STEM,hollow_solid,solid,categorical,solid flesh
+BO.SA,STEM,size_cm,6-12,range,varies
+BO.SA,FLESH,color,white|blue-on-cut,categorical,blues rapidly when cut
+BO.SA,FLESH,texture,firm,categorical,firm
+BO.SA,FLESH,smell,unpleasant,categorical,unpleasant carrion smell when old
+BO.SA,HABITAT,substrate_type,soil,categorical,alkaline forest soil
+BO.SA,HABITAT,tree_association,hardwood,categorical,oak chestnut beech
+BO.SA,SEASON,season,june|july|august|september,categorical,summer to early autumn
+BO.SA,GROWTH,pattern,scattered|solitary,categorical,usually solitary
+BO.SU,CAP,shape,convex,categorical,broad convex
+BO.SU,CAP,color,olive-brown|yellow-brown,categorical,olive to yellowish brown
+BO.SU,CAP,surface_texture,dry|velvety,categorical,suede-like texture
+BO.SU,CAP,size_cm,4-12,range,medium sized
+BO.SU,CAP,margin,smooth,categorical,even
+BO.SU,GILLS,attachment,pores,categorical,yellow pores
+BO.SU,GILLS,density,small,categorical,1-2 per mm
+BO.SU,GILLS,color,yellow|greenish-yellow,categorical,bright yellow
+BO.SU,GILLS,edge,blunt,categorical,blunt
+BO.SU,STEM,shape,cylindrical,categorical,equal
+BO.SU,STEM,color,yellow-brown,categorical,yellowish brown with ridges
+BO.SU,STEM,surface,ridged,categorical,longitudinal ridges not network
+BO.SU,STEM,hollow_solid,solid,categorical,solid
+BO.SU,STEM,size_cm,4-10,range,varies
+BO.SU,FLESH,color,pale-yellow|white,categorical,whitish pale yellow
+BO.SU,FLESH,texture,firm,categorical,firm
+BO.SU,FLESH,smell,pleasant,categorical,mild pleasant
+BO.SU,HABITAT,substrate_type,soil,categorical,forest soil
+BO.SU,HABITAT,tree_association,mixed,categorical,mixed forests
+BO.SU,SEASON,season,july|august|september|october,categorical,summer to autumn
+BO.SU,GROWTH,pattern,scattered|solitary,categorical,scattered
+CA.AU,CAP,shape,funnel-shaped,categorical,deeply funnel shaped
+CA.AU,CAP,color,yellow-orange,categorical,vivid yellow orange
+CA.AU,CAP,surface_texture,smooth,categorical,smooth
+CA.AU,CAP,size_cm,2-6,range,small to medium
+CA.AU,CAP,margin,wavy,categorical,wavy irregular
+CA.AU,GILLS,attachment,decurrent,categorical,decurrent ridges
+CA.AU,GILLS,density,distant,categorical,widely spaced
+CA.AU,GILLS,color,yellow-orange,categorical,matching cap
+CA.AU,GILLS,edge,smooth,categorical,smooth
+CA.AU,STEM,shape,cylindrical,categorical,hollow cylindrical
+CA.AU,STEM,color,yellow-orange,categorical,matching cap
+CA.AU,STEM,surface,smooth,categorical,smooth
+CA.AU,STEM,hollow_solid,hollow,categorical,hollow
+CA.AU,STEM,size_cm,3-6,range,varies
+CA.AU,FLESH,color,pale-yellow,categorical,pale yellow
+CA.AU,FLESH,texture,thin,categorical,thin fragile
+CA.AU,FLESH,smell,pleasant,categorical,pleasant fruity
+CA.AU,HABITAT,substrate_type,soil,categorical,forest soil
+CA.AU,HABITAT,tree_association,hardwood|coniferous,categorical,mixed forests
+CA.AU,SEASON,season,august|september|october,categorical,late summer to autumn
+CA.AU,GROWTH,pattern,scattered|gregarious,categorical,often in groups
+CA.CN,CAP,shape,funnel-shaped,categorical,deeply funnel shaped
+CA.CN,CAP,color,gray|dark-gray,categorical,ash gray to dark gray
+CA.CN,CAP,surface_texture,smooth,categorical,smooth or finely scaly
+CA.CN,CAP,size_cm,2-6,range,small to medium
+CA.CN,CAP,margin,wavy,categorical,wavy irregular
+CA.CN,GILLS,attachment,decurrent,categorical,decurrent ridges
+CA.CN,GILLS,density,distant,categorical,widely spaced
+CA.CN,GILLS,color,gray|pale-gray,categorical,gray ridges
+CA.CN,GILLS,edge,smooth,categorical,smooth
+CA.CN,STEM,shape,cylindrical,categorical,hollow
+CA.CN,STEM,color,gray,categorical,gray
+CA.CN,STEM,surface,smooth,categorical,smooth
+CA.CN,STEM,hollow_solid,hollow,categorical,hollow
+CA.CN,STEM,size_cm,2-5,range,shorter than cap
+CA.CN,FLESH,color,gray,categorical,grayish
+CA.CN,FLESH,texture,thin,categorical,thin fragile
+CA.CN,FLESH,smell,pleasant,categorical,mild pleasant
+CA.CN,HABITAT,substrate_type,soil,categorical,forest soil
+CA.CN,HABITAT,tree_association,hardwood|coniferous,categorical,mixed forests
+CA.CN,SEASON,season,august|september|october,categorical,late summer to autumn
+CA.CN,GROWTH,pattern,scattered|gregarious,categorical,often gregarious
+CA.TU,CAP,shape,funnel-shaped,categorical,narrow deep funnel
+CA.TU,CAP,color,yellow-brown|gray-brown,categorical,brownish
+CA.TU,CAP,surface_texture,smooth,categorical,smooth
+CA.TU,CAP,size_cm,2-6,range,small
+CA.TU,CAP,margin,wavy,categorical,wavy and irregular
+CA.TU,GILLS,attachment,decurrent,categorical,decurrent ridges
+CA.TU,GILLS,density,distant,categorical,distant ridges not true gills
+CA.TU,GILLS,color,pale-yellow|gray,categorical,pale to grayish
+CA.TU,GILLS,edge,smooth,categorical,smooth
+CA.TU,STEM,shape,cylindrical,categorical,hollow slender
+CA.TU,STEM,color,yellow,categorical,bright yellow
+CA.TU,STEM,surface,smooth,categorical,smooth
+CA.TU,STEM,hollow_solid,hollow,categorical,distinctly hollow
+CA.TU,STEM,size_cm,3-8,range,slender
+CA.TU,FLESH,color,pale-yellow,categorical,pale yellowish
+CA.TU,FLESH,texture,thin,categorical,thin
+CA.TU,FLESH,smell,pleasant,categorical,mild pleasant
+CA.TU,HABITAT,substrate_type,soil,categorical,mossy forest soil
+CA.TU,HABITAT,tree_association,coniferous,categorical,spruce and pine
+CA.TU,SEASON,season,august|september|october|november,categorical,late summer to late autumn
+CA.TU,GROWTH,pattern,gregarious|scattered,categorical,often in large groups
+CR.CO,CAP,shape,trumpet|funnel-shaped,categorical,deep trumpet shaped
+CR.CO,CAP,color,gray|black|dark-gray,categorical,gray to near black
+CR.CO,CAP,surface_texture,smooth,categorical,thin smooth
+CR.CO,CAP,size_cm,3-8,range,varies
+CR.CO,CAP,margin,wavy|irregular,categorical,very wavy
+CR.CO,GILLS,attachment,decurrent,categorical,smooth or faint ridges on outside
+CR.CO,GILLS,density,smooth,categorical,nearly smooth outer surface
+CR.CO,GILLS,color,gray|pale,categorical,paler than cap
+CR.CO,GILLS,edge,smooth,categorical,smooth
+CR.CO,STEM,shape,cylindrical|hollow,categorical,merges into cap funnel
+CR.CO,STEM,color,gray|black,categorical,dark
+CR.CO,STEM,surface,smooth,categorical,smooth
+CR.CO,STEM,hollow_solid,hollow,categorical,completely hollow
+CR.CO,STEM,size_cm,3-8,range,varies
+CR.CO,FLESH,color,gray,categorical,thin gray flesh
+CR.CO,FLESH,texture,thin,categorical,thin and fragile
+CR.CO,FLESH,smell,pleasant,categorical,pleasant aromatic
+CR.CO,HABITAT,substrate_type,soil,categorical,leaf litter and soil
+CR.CO,HABITAT,tree_association,hardwood,categorical,oak and beech
+CR.CO,SEASON,season,july|august|september|october,categorical,summer to autumn
+CR.CO,GROWTH,pattern,gregarious|clustered,categorical,dense groups often hard to spot
+GO.GL,CAP,shape,convex|flat,categorical,broadly convex
+GO.GL,CAP,color,gray|purple-gray,categorical,dark smoky gray
+GO.GL,CAP,surface_texture,sticky|slimy,categorical,very slimy when wet
+GO.GL,CAP,size_cm,4-12,range,medium to large
+GO.GL,CAP,margin,inrolled,categorical,inrolled when young
+GO.GL,GILLS,attachment,decurrent,categorical,decurrent thick gills
+GO.GL,GILLS,density,distant,categorical,widely spaced thick
+GO.GL,GILLS,color,white|gray,categorical,white darkening to black
+GO.GL,GILLS,edge,smooth,categorical,smooth
+GO.GL,STEM,shape,cylindrical,categorical,equal or tapering
+GO.GL,STEM,color,white|yellow,categorical,white above yellow base
+GO.GL,STEM,surface,slimy,categorical,slimy below ring zone
+GO.GL,STEM,hollow_solid,solid,categorical,solid
+GO.GL,STEM,size_cm,4-8,range,varies
+GO.GL,FLESH,color,white|yellow,categorical,white with yellow base
+GO.GL,FLESH,texture,firm,categorical,firm
+GO.GL,FLESH,smell,not distinctive,categorical,faint
+GO.GL,HABITAT,substrate_type,soil,categorical,forest soil
+GO.GL,HABITAT,tree_association,coniferous,categorical,spruce and pine
+GO.GL,SEASON,season,august|september|october,categorical,late summer to autumn
+GO.GL,GROWTH,pattern,scattered|solitary,categorical,usually scattered
+HY.AT,CAP,shape,convex,categorical,broadly convex
+HY.AT,CAP,color,gray|dark-gray,categorical,smoky dark gray
+HY.AT,CAP,surface_texture,smooth|slimy,categorical,slimy when wet
+HY.AT,CAP,size_cm,3-8,range,medium
+HY.AT,CAP,margin,smooth,categorical,even
+HY.AT,GILLS,attachment,decurrent,categorical,decurrent
+HY.AT,GILLS,density,distant,categorical,widely spaced
+HY.AT,GILLS,color,white|gray,categorical,white to pale gray
+HY.AT,GILLS,edge,smooth,categorical,smooth
+HY.AT,STEM,shape,cylindrical,categorical,equal
+HY.AT,STEM,color,white|gray,categorical,white with gray streaks
+HY.AT,STEM,surface,fibrous,categorical,streaked fibrous
+HY.AT,STEM,hollow_solid,solid,categorical,solid
+HY.AT,STEM,size_cm,4-9,range,varies
+HY.AT,FLESH,color,white,categorical,white
+HY.AT,FLESH,texture,firm,categorical,firm waxy
+HY.AT,FLESH,smell,not distinctive,categorical,faint
+HY.AT,HABITAT,substrate_type,soil,categorical,forest soil
+HY.AT,HABITAT,tree_association,coniferous,categorical,spruce and pine
+HY.AT,SEASON,season,september|october|november,categorical,autumn to late autumn
+HY.AT,GROWTH,pattern,scattered|solitary,categorical,scattered
+HY.CA,CAP,shape,convex|flat,categorical,flattening with age
+HY.CA,CAP,color,gray|dark-gray|black,categorical,sooty dark gray to black
+HY.CA,CAP,surface_texture,smooth|dry,categorical,dry with radial streaks
+HY.CA,CAP,size_cm,4-10,range,medium
+HY.CA,CAP,margin,smooth,categorical,even slightly inrolled
+HY.CA,GILLS,attachment,decurrent,categorical,decurrent
+HY.CA,GILLS,density,distant,categorical,widely spaced
+HY.CA,GILLS,color,white|gray,categorical,white to pale gray
+HY.CA,GILLS,edge,smooth,categorical,smooth
+HY.CA,STEM,shape,cylindrical,categorical,equal
+HY.CA,STEM,color,white|gray,categorical,white to gray
+HY.CA,STEM,surface,fibrous,categorical,dry fibrous streaked
+HY.CA,STEM,hollow_solid,solid,categorical,solid
+HY.CA,STEM,size_cm,5-10,range,tall
+HY.CA,FLESH,color,white,categorical,white
+HY.CA,FLESH,texture,firm,categorical,firm waxy
+HY.CA,FLESH,smell,pleasant,categorical,pleasant faint
+HY.CA,HABITAT,substrate_type,soil,categorical,forest soil
+HY.CA,HABITAT,tree_association,coniferous,categorical,pine and spruce
+HY.CA,SEASON,season,september|october|november,categorical,autumn to late autumn
+HY.CA,GROWTH,pattern,scattered|solitary,categorical,scattered
+HY.RE,CAP,shape,convex|irregular,categorical,irregular wavy surface
+HY.RE,CAP,color,white|cream|pale-orange,categorical,pale cream to buff
+HY.RE,CAP,surface_texture,smooth|dry,categorical,dry
+HY.RE,CAP,size_cm,4-15,range,medium to large
+HY.RE,CAP,margin,wavy,categorical,wavy irregular
+HY.RE,GILLS,attachment,spines,categorical,distinctive spines instead of gills
+HY.RE,GILLS,density,crowded,categorical,densely packed spines
+HY.RE,GILLS,color,white|cream,categorical,pale cream
+HY.RE,GILLS,edge,pointed,categorical,spine-like pointed
+HY.RE,STEM,shape,cylindrical,categorical,equal or slightly eccentric
+HY.RE,STEM,color,white|cream,categorical,matching cap
+HY.RE,STEM,surface,smooth,categorical,smooth
+HY.RE,STEM,hollow_solid,solid,categorical,solid
+HY.RE,STEM,size_cm,3-7,range,varies
+HY.RE,FLESH,color,white,categorical,white
+HY.RE,FLESH,texture,firm,categorical,firm brittle
+HY.RE,FLESH,smell,pleasant,categorical,pleasant mild
+HY.RE,HABITAT,substrate_type,soil,categorical,forest soil
+HY.RE,HABITAT,tree_association,hardwood|coniferous,categorical,mixed forests
+HY.RE,SEASON,season,july|august|september|october,categorical,summer to autumn
+HY.RE,GROWTH,pattern,scattered|gregarious,categorical,often gregarious
+HY.RU,CAP,shape,convex,categorical,regularly convex
+HY.RU,CAP,color,orange|reddish-orange,categorical,warm reddish orange
+HY.RU,CAP,surface_texture,smooth|dry,categorical,dry
+HY.RU,CAP,size_cm,3-8,range,smaller than HY.RE
+HY.RU,CAP,margin,wavy,categorical,wavy
+HY.RU,GILLS,attachment,spines,categorical,spines not gills
+HY.RU,GILLS,density,crowded,categorical,densely packed
+HY.RU,GILLS,color,pale-orange,categorical,same colour as cap
+HY.RU,GILLS,edge,pointed,categorical,pointed spines
+HY.RU,STEM,shape,cylindrical,categorical,equal
+HY.RU,STEM,color,orange|pale-orange,categorical,matching cap
+HY.RU,STEM,surface,smooth,categorical,smooth
+HY.RU,STEM,hollow_solid,solid,categorical,solid
+HY.RU,STEM,size_cm,2-6,range,varies
+HY.RU,FLESH,color,white|pale-orange,categorical,whitish with orange tinge
+HY.RU,FLESH,texture,firm,categorical,firm brittle
+HY.RU,FLESH,smell,pleasant,categorical,mild pleasant
+HY.RU,HABITAT,substrate_type,soil,categorical,forest soil
+HY.RU,HABITAT,tree_association,hardwood|coniferous,categorical,mixed forests
+HY.RU,SEASON,season,july|august|september|october,categorical,summer to autumn
+HY.RU,GROWTH,pattern,scattered|gregarious,categorical,often gregarious
+LE.AU,CAP,shape,convex,categorical,broadly convex
+LE.AU,CAP,color,orange|reddish-orange,categorical,vivid orange red
+LE.AU,CAP,surface_texture,smooth|dry,categorical,dry slightly sticky
+LE.AU,CAP,size_cm,5-15,range,medium to large
+LE.AU,CAP,margin,smooth,categorical,even
+LE.AU,GILLS,attachment,pores,categorical,small white pores
+LE.AU,GILLS,density,small,categorical,2-3 per mm
+LE.AU,GILLS,color,white|gray,categorical,white graying
+LE.AU,GILLS,edge,blunt,categorical,blunt
+LE.AU,STEM,shape,cylindrical,categorical,tall slim
+LE.AU,STEM,color,white,categorical,white with brown scales
+LE.AU,STEM,surface,scaly,categorical,brown woolly scales
+LE.AU,STEM,hollow_solid,solid,categorical,solid firm
+LE.AU,STEM,size_cm,8-18,range,tall
+LE.AU,FLESH,color,white|blue-on-cut,categorical,blues to black when cut
+LE.AU,FLESH,texture,firm,categorical,firm
+LE.AU,FLESH,smell,pleasant,categorical,mild mushroom
+LE.AU,HABITAT,substrate_type,soil,categorical,forest soil
+LE.AU,HABITAT,tree_association,hardwood,categorical,aspen and poplar
+LE.AU,SEASON,season,july|august|september,categorical,summer to early autumn
+LE.AU,GROWTH,pattern,scattered|solitary,categorical,usually solitary
+LE.LU,CAP,shape,irregular|wavy,categorical,lobed irregular head
+LE.LU,CAP,color,yellow|olive-yellow,categorical,yellowish to olive
+LE.LU,CAP,surface_texture,smooth|slimy,categorical,slimy surface
+LE.LU,CAP,size_cm,1-2,range,small
+LE.LU,CAP,margin,wavy,categorical,irregular lobed
+LE.LU,GILLS,attachment,none,categorical,no gills ascomycete
+LE.LU,GILLS,density,none,categorical,n/a
+LE.LU,GILLS,color,yellow,categorical,yellow head
+LE.LU,GILLS,edge,smooth,categorical,smooth
+LE.LU,STEM,shape,cylindrical,categorical,slender
+LE.LU,STEM,color,yellow|pale,categorical,yellow to pale orange
+LE.LU,STEM,surface,smooth|slimy,categorical,slimy
+LE.LU,STEM,hollow_solid,solid,categorical,solid
+LE.LU,STEM,size_cm,2-5,range,slender
+LE.LU,FLESH,color,yellow,categorical,yellow
+LE.LU,FLESH,texture,gelatinous,categorical,jelly-like
+LE.LU,FLESH,smell,not distinctive,categorical,no distinctive smell
+LE.LU,HABITAT,substrate_type,soil|leaf-litter,categorical,humus rich soil
+LE.LU,HABITAT,tree_association,mixed,categorical,mixed and coniferous
+LE.LU,SEASON,season,august|september|october,categorical,late summer to autumn
+LE.LU,GROWTH,pattern,gregarious|clustered,categorical,dense clusters
+LE.VE,CAP,shape,convex,categorical,broadly convex
+LE.VE,CAP,color,orange|orange-brown,categorical,bright orange
+LE.VE,CAP,surface_texture,smooth|dry,categorical,dry slightly cottony edge
+LE.VE,CAP,size_cm,5-18,range,large
+LE.VE,CAP,margin,smooth,categorical,even
+LE.VE,GILLS,attachment,pores,categorical,small whitish pores
+LE.VE,GILLS,density,small,categorical,2-3 per mm
+LE.VE,GILLS,color,white|gray,categorical,darkening with age
+LE.VE,GILLS,edge,blunt,categorical,blunt
+LE.VE,STEM,shape,cylindrical,categorical,tall
+LE.VE,STEM,color,white,categorical,white with black scales
+LE.VE,STEM,surface,scaly,categorical,black woolly scales
+LE.VE,STEM,hollow_solid,solid,categorical,solid
+LE.VE,STEM,size_cm,8-20,range,tall
+LE.VE,FLESH,color,white|gray-on-cut,categorical,grays to black when cut
+LE.VE,FLESH,texture,firm,categorical,firm
+LE.VE,FLESH,smell,pleasant,categorical,mild
+LE.VE,HABITAT,substrate_type,soil,categorical,forest soil
+LE.VE,HABITAT,tree_association,hardwood,categorical,birch forests
+LE.VE,SEASON,season,july|august|september,categorical,summer to early autumn
+LE.VE,GROWTH,pattern,scattered|solitary,categorical,solitary or scattered
+LE.VU,CAP,shape,convex,categorical,broadly convex
+LE.VU,CAP,color,reddish-brown|dark-brown,categorical,russet to dark brown
+LE.VU,CAP,surface_texture,smooth|dry,categorical,dry
+LE.VU,CAP,size_cm,4-15,range,medium to large
+LE.VU,CAP,margin,smooth,categorical,even
+LE.VU,GILLS,attachment,pores,categorical,small pores
+LE.VU,GILLS,density,small,categorical,2-3 per mm
+LE.VU,GILLS,color,white|gray,categorical,pale graying
+LE.VU,GILLS,edge,blunt,categorical,blunt
+LE.VU,STEM,shape,cylindrical,categorical,tall
+LE.VU,STEM,color,white,categorical,white with brown scales
+LE.VU,STEM,surface,scaly,categorical,brown woolly scales
+LE.VU,STEM,hollow_solid,solid,categorical,solid
+LE.VU,STEM,size_cm,7-15,range,tall
+LE.VU,FLESH,color,white|blue-on-cut,categorical,blues to gray when cut
+LE.VU,FLESH,texture,firm,categorical,firm
+LE.VU,FLESH,smell,pleasant,categorical,mild
+LE.VU,HABITAT,substrate_type,soil,categorical,forest soil
+LE.VU,HABITAT,tree_association,coniferous,categorical,pine forests
+LE.VU,SEASON,season,july|august|september,categorical,summer to early autumn
+LE.VU,GROWTH,pattern,scattered|solitary,categorical,scattered
+PA.MI,CAP,shape,kidney-shaped|fan-shaped,categorical,small fan or kidney shaped
+PA.MI,CAP,color,white|cream|pale-gray,categorical,whitish to pale
+PA.MI,CAP,surface_texture,smooth,categorical,smooth
+PA.MI,CAP,size_cm,1-4,range,small
+PA.MI,CAP,margin,smooth,categorical,even
+PA.MI,GILLS,attachment,decurrent,categorical,crowded decurrent
+PA.MI,GILLS,density,crowded,categorical,densely crowded
+PA.MI,GILLS,color,white,categorical,white
+PA.MI,GILLS,edge,smooth,categorical,smooth
+PA.MI,STEM,shape,lateral|absent,categorical,very short lateral stem or absent
+PA.MI,STEM,color,white,categorical,white
+PA.MI,STEM,surface,smooth,categorical,smooth
+PA.MI,STEM,hollow_solid,solid,categorical,solid small
+PA.MI,STEM,size_cm,0-1,range,very short
+PA.MI,FLESH,color,white,categorical,white
+PA.MI,FLESH,texture,tough,categorical,tough rubbery
+PA.MI,FLESH,smell,not distinctive,categorical,faint
+PA.MI,HABITAT,substrate_type,wood,categorical,dead coniferous wood
+PA.MI,HABITAT,tree_association,coniferous,categorical,pine and spruce logs
+PA.MI,SEASON,season,october|november|december|january|february|march,categorical,autumn to spring overwinters
+PA.MI,GROWTH,pattern,gregarious|clustered,categorical,dense overlapping clusters
+PL.PO,CAP,shape,fan-shaped|spatula,categorical,pure white fan
+PL.PO,CAP,color,white,categorical,pure white
+PL.PO,CAP,surface_texture,smooth,categorical,smooth
+PL.PO,CAP,size_cm,2-8,range,varies
+PL.PO,CAP,margin,smooth|wavy,categorical,wavy
+PL.PO,GILLS,attachment,decurrent,categorical,crowded white gills
+PL.PO,GILLS,density,crowded,categorical,very crowded
+PL.PO,GILLS,color,white,categorical,pure white
+PL.PO,GILLS,edge,smooth,categorical,smooth
+PL.PO,STEM,shape,lateral|absent,categorical,very short or no stem
+PL.PO,STEM,color,white,categorical,white
+PL.PO,STEM,surface,smooth,categorical,smooth
+PL.PO,STEM,hollow_solid,solid,categorical,solid tiny
+PL.PO,STEM,size_cm,0-1,range,vestigial
+PL.PO,FLESH,color,white,categorical,white
+PL.PO,FLESH,texture,thin|fragile,categorical,thin fragile
+PL.PO,FLESH,smell,not distinctive,categorical,faint
+PL.PO,HABITAT,substrate_type,wood,categorical,dead coniferous wood
+PL.PO,HABITAT,tree_association,coniferous,categorical,conifer logs and stumps
+PL.PO,SEASON,season,august|september|october,categorical,summer to autumn
+PL.PO,GROWTH,pattern,gregarious|clustered,categorical,overlapping clusters
+RA.BO,CAP,shape,branched-coral,categorical,coral-like branching
+RA.BO,CAP,color,white|cream|pink-tipped,categorical,white body pink branch tips
+RA.BO,CAP,surface_texture,smooth,categorical,smooth branches
+RA.BO,CAP,size_cm,8-20,range,large fruiting body
+RA.BO,CAP,margin,pointed-tips,categorical,tips rounded to pointed
+RA.BO,GILLS,attachment,none,categorical,no gills on branches
+RA.BO,GILLS,density,none,categorical,n/a
+RA.BO,GILLS,color,white|pink,categorical,white to pale pink
+RA.BO,GILLS,edge,smooth,categorical,smooth
+RA.BO,STEM,shape,thick-base,categorical,massive white base
+RA.BO,STEM,color,white,categorical,white
+RA.BO,STEM,surface,smooth,categorical,smooth
+RA.BO,STEM,hollow_solid,solid,categorical,solid
+RA.BO,STEM,size_cm,4-10,range,base height
+RA.BO,FLESH,color,white,categorical,white
+RA.BO,FLESH,texture,firm,categorical,firm brittle
+RA.BO,FLESH,smell,pleasant,categorical,pleasant mild
+RA.BO,HABITAT,substrate_type,soil,categorical,forest soil
+RA.BO,HABITAT,tree_association,hardwood|coniferous,categorical,mixed forests
+RA.BO,SEASON,season,august|september|october,categorical,late summer to autumn
+RA.BO,GROWTH,pattern,solitary|scattered,categorical,usually solitary
+RA.PA,CAP,shape,branched-coral,categorical,coral-like branching
+RA.PA,CAP,color,pale|cream|white,categorical,entirely pale whitish
+RA.PA,CAP,surface_texture,smooth,categorical,smooth
+RA.PA,CAP,size_cm,5-15,range,medium
+RA.PA,CAP,margin,pointed-tips,categorical,blunt to pointed tips
+RA.PA,GILLS,attachment,none,categorical,no gills
+RA.PA,GILLS,density,none,categorical,n/a
+RA.PA,GILLS,color,white|pale,categorical,pale throughout
+RA.PA,GILLS,edge,smooth,categorical,smooth
+RA.PA,STEM,shape,thick-base,categorical,solid base
+RA.PA,STEM,color,white,categorical,white
+RA.PA,STEM,surface,smooth,categorical,smooth
+RA.PA,STEM,hollow_solid,solid,categorical,solid
+RA.PA,STEM,size_cm,3-7,range,base height
+RA.PA,FLESH,color,white,categorical,white
+RA.PA,FLESH,texture,firm,categorical,firm
+RA.PA,FLESH,smell,unpleasant,categorical,unpleasant acrid smell
+RA.PA,HABITAT,substrate_type,soil,categorical,forest soil
+RA.PA,HABITAT,tree_association,coniferous,categorical,coniferous forests
+RA.PA,SEASON,season,august|september|october,categorical,late summer to autumn
+RA.PA,GROWTH,pattern,solitary|scattered,categorical,usually solitary
+SP.CR,CAP,shape,cauliflower|frond-like,categorical,dense wavy fronds
+SP.CR,CAP,color,white|cream|pale-yellow,categorical,pale cream yellowing with age
+SP.CR,CAP,surface_texture,wavy|curled,categorical,crispy wavy fronds
+SP.CR,CAP,size_cm,15-40,range,very large
+SP.CR,CAP,margin,wavy,categorical,highly wavy
+SP.CR,GILLS,attachment,none,categorical,no gills frond-like
+SP.CR,GILLS,density,none,categorical,n/a
+SP.CR,GILLS,color,white|cream,categorical,pale cream
+SP.CR,GILLS,edge,smooth,categorical,smooth
+SP.CR,STEM,shape,thick-base,categorical,single large rooting base
+SP.CR,STEM,color,white,categorical,white
+SP.CR,STEM,surface,smooth,categorical,smooth
+SP.CR,STEM,hollow_solid,solid,categorical,solid rooting base
+SP.CR,STEM,size_cm,5-15,range,base size
+SP.CR,FLESH,color,white,categorical,white
+SP.CR,FLESH,texture,firm|crisp,categorical,firm and crisp
+SP.CR,FLESH,smell,pleasant,categorical,pleasant nutty smell
+SP.CR,HABITAT,substrate_type,soil,categorical,at base of trees
+SP.CR,HABITAT,tree_association,coniferous,categorical,pine and spruce base
+SP.CR,SEASON,season,august|september|october,categorical,late summer to autumn
+SP.CR,GROWTH,pattern,solitary,categorical,usually solitary
+SU.FL,CAP,shape,convex,categorical,broadly convex
+SU.FL,CAP,color,yellow|pale-yellow,categorical,pale yellow
+SU.FL,CAP,surface_texture,slimy|sticky,categorical,very slimy
+SU.FL,CAP,size_cm,3-8,range,medium
+SU.FL,CAP,margin,smooth,categorical,even
+SU.FL,GILLS,attachment,pores,categorical,yellow pores
+SU.FL,GILLS,density,small,categorical,1-2 per mm
+SU.FL,GILLS,color,yellow,categorical,bright yellow
+SU.FL,GILLS,edge,blunt,categorical,blunt
+SU.FL,STEM,shape,cylindrical,categorical,equal
+SU.FL,STEM,color,yellow,categorical,yellow with ring zone
+SU.FL,STEM,surface,slimy|dotted,categorical,slimy with glandular dots
+SU.FL,STEM,hollow_solid,solid,categorical,solid
+SU.FL,STEM,size_cm,3-7,range,varies
+SU.FL,FLESH,color,pale-yellow,categorical,pale yellow
+SU.FL,FLESH,texture,soft,categorical,soft
+SU.FL,FLESH,smell,not distinctive,categorical,faint
+SU.FL,HABITAT,substrate_type,soil|moss,categorical,boggy mossy conifer forest
+SU.FL,HABITAT,tree_association,coniferous,categorical,pine in boggy areas
+SU.FL,SEASON,season,july|august|september,categorical,summer to early autumn
+SU.FL,GROWTH,pattern,scattered|solitary,categorical,scattered
+SU.LU,CAP,shape,convex,categorical,broadly convex
+SU.LU,CAP,color,brown|chocolate-brown,categorical,rich chocolate brown
+SU.LU,CAP,surface_texture,slimy|sticky,categorical,very slimy when wet
+SU.LU,CAP,size_cm,4-12,range,medium to large
+SU.LU,CAP,margin,smooth,categorical,even
+SU.LU,GILLS,attachment,pores,categorical,pale yellow pores
+SU.LU,GILLS,density,small,categorical,1-2 per mm
+SU.LU,GILLS,color,yellow|white,categorical,pale yellow
+SU.LU,GILLS,edge,blunt,categorical,blunt
+SU.LU,STEM,shape,cylindrical,categorical,equal with ring
+SU.LU,STEM,color,white|yellow,categorical,white above ring yellow below
+SU.LU,STEM,surface,slimy,categorical,slimy below ring
+SU.LU,STEM,hollow_solid,solid,categorical,solid
+SU.LU,STEM,size_cm,4-10,range,varies
+SU.LU,FLESH,color,pale-yellow|white,categorical,whitish yellow
+SU.LU,FLESH,texture,soft,categorical,soft
+SU.LU,FLESH,smell,not distinctive,categorical,faint
+SU.LU,HABITAT,substrate_type,soil,categorical,forest soil
+SU.LU,HABITAT,tree_association,coniferous,categorical,pine forests
+SU.LU,SEASON,season,august|september|october,categorical,late summer to autumn
+SU.LU,GROWTH,pattern,scattered|gregarious,categorical,often gregarious
+TY.FE,CAP,shape,convex,categorical,broadly convex
+TY.FE,CAP,color,tan|pale-brown,categorical,pale tan to brown
+TY.FE,CAP,surface_texture,smooth|dry,categorical,dry
+TY.FE,CAP,size_cm,5-15,range,medium to large
+TY.FE,CAP,margin,smooth,categorical,even
+TY.FE,GILLS,attachment,pores,categorical,pores becoming pink with age
+TY.FE,GILLS,density,small,categorical,1-2 per mm
+TY.FE,GILLS,color,white|pink,categorical,whitish then pink
+TY.FE,GILLS,edge,blunt,categorical,blunt
+TY.FE,STEM,shape,cylindrical|bulbous,categorical,bulbous base
+TY.FE,STEM,color,pale-brown,categorical,pale brown network
+TY.FE,STEM,surface,reticulate,categorical,brown network similar to porcini
+TY.FE,STEM,hollow_solid,solid,categorical,solid
+TY.FE,STEM,size_cm,5-12,range,varies
+TY.FE,FLESH,color,white,categorical,white
+TY.FE,FLESH,texture,firm,categorical,firm
+TY.FE,FLESH,smell,not distinctive,categorical,no smell but intensely bitter taste
+TY.FE,HABITAT,substrate_type,soil,categorical,forest soil
+TY.FE,HABITAT,tree_association,coniferous,categorical,pine and spruce
+TY.FE,SEASON,season,july|august|september,categorical,summer to early autumn
+TY.FE,GROWTH,pattern,scattered|solitary,categorical,usually scattered
+BO.BA,CAP,shape,convex|flat,categorical,flattening with age
+BO.BA,CAP,color,brown|bay-brown,categorical,chestnut to dark bay brown
+BO.BA,CAP,surface_texture,smooth|sticky,categorical,slightly sticky when moist
+BO.BA,CAP,size_cm,4-14,range,varies
+BO.BA,CAP,margin,smooth,categorical,even
+BO.BA,GILLS,attachment,pores,categorical,yellow pores bruising blue-green
+BO.BA,GILLS,density,small,categorical,1-2 per mm
+BO.BA,GILLS,color,yellow,categorical,bright yellow
+BO.BA,GILLS,edge,blunt,categorical,blunt
+BO.BA,STEM,shape,cylindrical,categorical,equal or slightly bulbous
+BO.BA,STEM,color,brown|pale-brown,categorical,brownish streaked
+BO.BA,STEM,surface,smooth,categorical,no network
+BO.BA,STEM,hollow_solid,solid,categorical,solid
+BO.BA,STEM,size_cm,5-12,range,varies
+BO.BA,FLESH,color,white|pale-yellow,categorical,blueing slightly when cut
+BO.BA,FLESH,texture,firm,categorical,firm
+BO.BA,FLESH,smell,pleasant,categorical,mild mushroom smell
+BO.BA,HABITAT,substrate_type,soil,categorical,forest soil
+BO.BA,HABITAT,tree_association,coniferous,categorical,pine and spruce
+BO.BA,SEASON,season,july|august|september|october,categorical,summer to autumn
+BO.BA,GROWTH,pattern,scattered|solitary,categorical,scattered
+AR.ME,CAP,shape,convex|flat,categorical,convex flattening
+AR.ME,CAP,color,yellow-brown|honey,categorical,honey yellow to olive brown
+AR.ME,CAP,surface_texture,scaly,categorical,fine brown scales at centre
+AR.ME,CAP,size_cm,3-10,range,varies
+AR.ME,CAP,margin,smooth,categorical,even
+AR.ME,GILLS,attachment,adnate|decurrent,categorical,adnate to slightly decurrent
+AR.ME,GILLS,density,crowded,categorical,crowded
+AR.ME,GILLS,color,white|cream,categorical,whitish with spots
+AR.ME,GILLS,edge,smooth,categorical,smooth
+AR.ME,STEM,shape,cylindrical,categorical,equal with ring
+AR.ME,STEM,color,pale-brown,categorical,brownish with ring
+AR.ME,STEM,surface,fibrous,categorical,fibrous with cottony ring
+AR.ME,STEM,hollow_solid,solid,categorical,solid tough
+AR.ME,STEM,size_cm,5-15,range,tall
+AR.ME,FLESH,color,white,categorical,white firm
+AR.ME,FLESH,texture,firm,categorical,firm tough
+AR.ME,FLESH,smell,pleasant,categorical,pleasant mild
+AR.ME,HABITAT,substrate_type,wood,categorical,base of trees and stumps
+AR.ME,HABITAT,tree_association,hardwood|coniferous,categorical,many tree species
+AR.ME,SEASON,season,september|october|november,categorical,autumn
+AR.ME,GROWTH,pattern,clustered|caespitose,categorical,dense tufts at tree base
+AU.AU,CAP,shape,ear-shaped,categorical,cup or ear shaped
+AU.AU,CAP,color,brown|dark-brown,categorical,reddish to dark brown
+AU.AU,CAP,surface_texture,smooth|wrinkled,categorical,gelatinous when fresh wrinkled
+AU.AU,CAP,size_cm,3-10,range,varies
+AU.AU,CAP,margin,wavy,categorical,wavy lobed
+AU.AU,GILLS,attachment,none,categorical,no gills smooth underside
+AU.AU,GILLS,density,none,categorical,n/a
+AU.AU,GILLS,color,brown|gray,categorical,pale gray underside
+AU.AU,GILLS,edge,smooth,categorical,smooth
+AU.AU,STEM,shape,lateral|absent,categorical,attached directly to wood
+AU.AU,STEM,color,brown,categorical,same as cap
+AU.AU,STEM,surface,smooth,categorical,smooth
+AU.AU,STEM,hollow_solid,solid,categorical,no stem
+AU.AU,STEM,size_cm,0-1,range,minimal
+AU.AU,FLESH,color,brown,categorical,translucent brown
+AU.AU,FLESH,texture,gelatinous,categorical,rubbery gelatinous
+AU.AU,FLESH,smell,not distinctive,categorical,faint
+AU.AU,HABITAT,substrate_type,wood,categorical,dead and living elder wood
+AU.AU,HABITAT,tree_association,hardwood,categorical,elder sambucus mainly
+AU.AU,SEASON,season,january|february|march|october|november|december,categorical,year round peak autumn winter
+AU.AU,GROWTH,pattern,gregarious|clustered,categorical,overlapping clusters
+LY.PE,CAP,shape,round|pear-shaped,categorical,round to pear shaped
+LY.PE,CAP,color,white,categorical,pure white when young
+LY.PE,CAP,surface_texture,scaly,categorical,covered in white spines warts
+LY.PE,CAP,size_cm,3-7,range,varies
+LY.PE,CAP,margin,smooth,categorical,tapers to stem base
+LY.PE,GILLS,attachment,none,categorical,no gills spore sac
+LY.PE,GILLS,density,none,categorical,n/a
+LY.PE,GILLS,color,white,categorical,white inside when young
+LY.PE,GILLS,edge,smooth,categorical,smooth
+LY.PE,STEM,shape,tapering,categorical,narrow sterile base
+LY.PE,STEM,color,white,categorical,white
+LY.PE,STEM,surface,smooth,categorical,smooth
+LY.PE,STEM,hollow_solid,solid,categorical,solid sterile base
+LY.PE,STEM,size_cm,2-6,range,varies
+LY.PE,FLESH,color,white,categorical,pure white edible when fully white inside
+LY.PE,FLESH,texture,firm,categorical,firm becoming powdery
+LY.PE,FLESH,smell,pleasant,categorical,mild pleasant
+LY.PE,HABITAT,substrate_type,soil,categorical,grassland and open forest
+LY.PE,HABITAT,tree_association,hardwood|coniferous,categorical,mixed or open habitat
+LY.PE,SEASON,season,july|august|september|october,categorical,summer to autumn
+LY.PE,GROWTH,pattern,scattered|gregarious,categorical,groups or scattered
+PL.OS,CAP,shape,fan-shaped|oyster,categorical,oyster fan shaped
+PL.OS,CAP,color,gray|blue-gray|brown,categorical,gray to blue gray
+PL.OS,CAP,surface_texture,smooth,categorical,smooth
+PL.OS,CAP,size_cm,5-20,range,large
+PL.OS,CAP,margin,smooth|wavy,categorical,smooth wavy
+PL.OS,GILLS,attachment,decurrent,categorical,decurrent crowded
+PL.OS,GILLS,density,crowded,categorical,very crowded
+PL.OS,GILLS,color,white,categorical,white
+PL.OS,GILLS,edge,smooth,categorical,smooth
+PL.OS,STEM,shape,lateral|short,categorical,very short off-centre
+PL.OS,STEM,color,white,categorical,white
+PL.OS,STEM,surface,smooth,categorical,smooth
+PL.OS,STEM,hollow_solid,solid,categorical,solid
+PL.OS,STEM,size_cm,1-3,range,very short
+PL.OS,FLESH,color,white,categorical,white firm
+PL.OS,FLESH,texture,firm,categorical,firm
+PL.OS,FLESH,smell,pleasant,categorical,mild anise smell
+PL.OS,HABITAT,substrate_type,wood,categorical,dead and dying trees
+PL.OS,HABITAT,tree_association,hardwood,categorical,beech oak elm
+PL.OS,SEASON,season,october|november|december|january|february|march,categorical,autumn to spring
+PL.OS,GROWTH,pattern,clustered|caespitose,categorical,overlapping clusters
+LA.DE,CAP,shape,convex|flat,categorical,broadly convex with depression
+LA.DE,CAP,color,orange,categorical,vivid orange with rings
+LA.DE,CAP,surface_texture,smooth,categorical,smooth with concentric rings
+LA.DE,CAP,size_cm,4-12,range,varies
+LA.DE,CAP,margin,inrolled,categorical,inrolled when young
+LA.DE,GILLS,attachment,decurrent,categorical,decurrent crowded
+LA.DE,GILLS,density,crowded,categorical,crowded
+LA.DE,GILLS,color,orange,categorical,vivid orange
+LA.DE,GILLS,edge,smooth,categorical,smooth
+LA.DE,STEM,shape,cylindrical,categorical,equal with pits
+LA.DE,STEM,color,orange,categorical,orange with darker pits
+LA.DE,STEM,surface,smooth,categorical,smooth with scrobiculate pits
+LA.DE,STEM,hollow_solid,hollow,categorical,hollow
+LA.DE,STEM,size_cm,3-8,range,varies
+LA.DE,FLESH,color,orange,categorical,orange latex when cut
+LA.DE,FLESH,texture,firm,categorical,firm brittle
+LA.DE,FLESH,smell,pleasant,categorical,fruity pleasant
+LA.DE,HABITAT,substrate_type,soil,categorical,forest soil
+LA.DE,HABITAT,tree_association,coniferous,categorical,pine mycorrhizal
+LA.DE,SEASON,season,august|september|october,categorical,late summer to autumn
+LA.DE,GROWTH,pattern,scattered|gregarious,categorical,scattered to gregarious
+LA.SU,CAP,shape,fan-shaped|bracket,categorical,overlapping shelf brackets
+LA.SU,CAP,color,orange|yellow,categorical,bright orange-yellow
+LA.SU,CAP,surface_texture,smooth,categorical,smooth
+LA.SU,CAP,size_cm,10-40,range,very large
+LA.SU,CAP,margin,wavy,categorical,wavy bright yellow
+LA.SU,GILLS,attachment,pores,categorical,fine pale yellow pores
+LA.SU,GILLS,density,small,categorical,3-4 per mm
+LA.SU,GILLS,color,yellow|white,categorical,pale yellow
+LA.SU,GILLS,edge,blunt,categorical,blunt
+LA.SU,STEM,shape,lateral|absent,categorical,bracket no stem
+LA.SU,STEM,color,orange,categorical,matching cap
+LA.SU,STEM,surface,smooth,categorical,smooth
+LA.SU,STEM,hollow_solid,solid,categorical,solid flesh
+LA.SU,STEM,size_cm,0-2,range,minimal
+LA.SU,FLESH,color,white|pale-yellow,categorical,white when young
+LA.SU,FLESH,texture,firm,categorical,firm juicy when young
+LA.SU,FLESH,smell,pleasant,categorical,lemony pleasant
+LA.SU,HABITAT,substrate_type,wood,categorical,living and dead trees
+LA.SU,HABITAT,tree_association,hardwood,categorical,oak cherry yew
+LA.SU,SEASON,season,july|august|september|october,categorical,summer to autumn
+LA.SU,GROWTH,pattern,clustered,categorical,large overlapping clusters
+CO.CO,CAP,shape,cylindrical|conical,categorical,tall cylindrical when young
+CO.CO,CAP,color,white,categorical,white with brown central scale
+CO.CO,CAP,surface_texture,scaly,categorical,shaggy white scales
+CO.CO,CAP,size_cm,5-15,range,tall cap
+CO.CO,CAP,margin,smooth,categorical,auto-digests from margin inward
+CO.CO,GILLS,attachment,free,categorical,free crowded
+CO.CO,GILLS,density,crowded,categorical,very crowded
+CO.CO,GILLS,color,white|pink|black,categorical,white to pink to black with age
+CO.CO,GILLS,edge,smooth,categorical,smooth
+CO.CO,STEM,shape,cylindrical,categorical,tall with ring
+CO.CO,STEM,color,white,categorical,white hollow
+CO.CO,STEM,surface,smooth,categorical,smooth with moveable ring
+CO.CO,STEM,hollow_solid,hollow,categorical,hollow
+CO.CO,STEM,size_cm,10-20,range,tall
+CO.CO,FLESH,color,white,categorical,white must eat young
+CO.CO,FLESH,texture,soft,categorical,soft
+CO.CO,FLESH,smell,pleasant,categorical,mild pleasant
+CO.CO,HABITAT,substrate_type,soil,categorical,disturbed ground
+CO.CO,HABITAT,tree_association,none,categorical,roadsides lawns meadows
+CO.CO,SEASON,season,april|may|june|july|august|september|october,categorical,spring to autumn
+CO.CO,GROWTH,pattern,gregarious|scattered,categorical,groups in disturbed soil
+MA.PR,CAP,shape,convex|flat,categorical,egg-shaped opening to flat parasol
+MA.PR,CAP,color,pale-brown|white,categorical,pale with brown scales
+MA.PR,CAP,surface_texture,scaly,categorical,prominent brown scales on white
+MA.PR,CAP,size_cm,10-30,range,very large
+MA.PR,CAP,margin,smooth,categorical,even
+MA.PR,GILLS,attachment,free,categorical,free soft white
+MA.PR,GILLS,density,crowded,categorical,crowded
+MA.PR,GILLS,color,white,categorical,white
+MA.PR,GILLS,edge,smooth,categorical,smooth
+MA.PR,STEM,shape,cylindrical,categorical,tall with double ring
+MA.PR,STEM,color,brown|white,categorical,brown snakeskin pattern
+MA.PR,STEM,surface,scaly,categorical,snakeskin pattern scales
+MA.PR,STEM,hollow_solid,hollow,categorical,hollow
+MA.PR,STEM,size_cm,15-35,range,very tall
+MA.PR,FLESH,color,white,categorical,white firm
+MA.PR,FLESH,texture,firm,categorical,firm meaty
+MA.PR,FLESH,smell,pleasant,categorical,pleasant mild
+MA.PR,HABITAT,substrate_type,soil,categorical,open grassland forest edge
+MA.PR,HABITAT,tree_association,hardwood,categorical,edges of deciduous woods
+MA.PR,SEASON,season,august|september|october,categorical,late summer to autumn
+MA.PR,GROWTH,pattern,scattered|solitary,categorical,scattered
+AG.CA,CAP,shape,convex|flat,categorical,convex flattening
+AG.CA,CAP,color,white|cream,categorical,white to cream
+AG.CA,CAP,surface_texture,smooth|scaly,categorical,smooth to slightly fibrous
+AG.CA,CAP,size_cm,4-12,range,varies
+AG.CA,CAP,margin,smooth,categorical,even
+AG.CA,GILLS,attachment,free,categorical,free not attached
+AG.CA,GILLS,density,crowded,categorical,crowded
+AG.CA,GILLS,color,pink|brown,categorical,pink when young dark brown old
+AG.CA,GILLS,edge,smooth,categorical,smooth
+AG.CA,STEM,shape,cylindrical,categorical,equal with thin ring
+AG.CA,STEM,color,white,categorical,white
+AG.CA,STEM,surface,smooth,categorical,smooth with thin ring
+AG.CA,STEM,hollow_solid,solid,categorical,solid
+AG.CA,STEM,size_cm,3-7,range,short
+AG.CA,FLESH,color,white,categorical,white slight pinking
+AG.CA,FLESH,texture,firm,categorical,firm
+AG.CA,FLESH,smell,pleasant,categorical,pleasant mushroom smell
+AG.CA,HABITAT,substrate_type,soil,categorical,grassland pastures
+AG.CA,HABITAT,tree_association,none,categorical,open meadows no tree association
+AG.CA,SEASON,season,august|september|october,categorical,late summer to autumn
+AG.CA,GROWTH,pattern,scattered|gregarious,categorical,scattered to gregarious
+AM.VI,CAP,shape,convex|flat,categorical,hemispherical to flat
+AM.VI,CAP,color,white,categorical,pure white
+AM.VI,CAP,surface_texture,smooth,categorical,smooth shiny
+AM.VI,CAP,size_cm,5-11,range,medium
+AM.VI,CAP,margin,smooth,categorical,even
+AM.VI,GILLS,attachment,free,categorical,free crowded white
+AM.VI,GILLS,density,crowded,categorical,very crowded
+AM.VI,GILLS,color,white,categorical,pure white
+AM.VI,GILLS,edge,smooth,categorical,smooth
+AM.VI,STEM,shape,cylindrical,categorical,with volva and ring
+AM.VI,STEM,color,white,categorical,pure white
+AM.VI,STEM,surface,fibrous,categorical,fibrous woolly with ring and volva
+AM.VI,STEM,hollow_solid,hollow,categorical,hollow
+AM.VI,STEM,size_cm,8-15,range,tall
+AM.VI,FLESH,color,white,categorical,white throughout
+AM.VI,FLESH,texture,firm,categorical,firm
+AM.VI,FLESH,smell,not distinctive,categorical,faint or unpleasant
+AM.VI,HABITAT,substrate_type,soil,categorical,forest soil
+AM.VI,HABITAT,tree_association,hardwood|coniferous,categorical,mixed forests
+AM.VI,SEASON,season,july|august|september,categorical,summer to early autumn
+AM.VI,GROWTH,pattern,solitary|scattered,categorical,usually solitary
+AM.MU,CAP,shape,convex|flat,categorical,hemispherical flattening
+AM.MU,CAP,color,red|scarlet,categorical,vivid red with white warts
+AM.MU,CAP,surface_texture,smooth,categorical,smooth with white patches
+AM.MU,CAP,size_cm,8-20,range,large
+AM.MU,CAP,margin,grooved,categorical,finely grooved margin
+AM.MU,GILLS,attachment,free,categorical,free crowded white
+AM.MU,GILLS,density,crowded,categorical,crowded
+AM.MU,GILLS,color,white,categorical,white
+AM.MU,GILLS,edge,smooth,categorical,smooth
+AM.MU,STEM,shape,cylindrical,categorical,bulbous base with ring and volva
+AM.MU,STEM,color,white,categorical,white with ring and scaly base
+AM.MU,STEM,surface,smooth,categorical,smooth with ring and warts at base
+AM.MU,STEM,hollow_solid,hollow,categorical,hollow
+AM.MU,STEM,size_cm,8-18,range,tall
+AM.MU,FLESH,color,white,categorical,white under red cuticle
+AM.MU,FLESH,texture,firm,categorical,firm soft
+AM.MU,FLESH,smell,not distinctive,categorical,faint
+AM.MU,HABITAT,substrate_type,soil,categorical,forest soil
+AM.MU,HABITAT,tree_association,hardwood|coniferous,categorical,birch and pine mainly
+AM.MU,SEASON,season,august|september|october,categorical,late summer to autumn
+AM.MU,GROWTH,pattern,scattered|solitary,categorical,usually scattered
+HY.PS,CAP,shape,convex|funnel-shaped,categorical,convex to funnel shaped
+HY.PS,CAP,color,orange|yellow-orange,categorical,vivid orange
+HY.PS,CAP,surface_texture,smooth,categorical,smooth
+HY.PS,CAP,size_cm,3-8,range,varies
+HY.PS,CAP,margin,inrolled,categorical,inrolled when young
+HY.PS,GILLS,attachment,decurrent,categorical,true blade gills not ridges
+HY.PS,GILLS,density,crowded,categorical,crowded thin gills
+HY.PS,GILLS,color,orange,categorical,orange thin blade gills
+HY.PS,GILLS,edge,serrated,categorical,serrated edge
+HY.PS,STEM,shape,cylindrical,categorical,equal
+HY.PS,STEM,color,orange,categorical,matching cap
+HY.PS,STEM,surface,smooth,categorical,smooth
+HY.PS,STEM,hollow_solid,hollow,categorical,hollow
+HY.PS,STEM,size_cm,3-6,range,varies
+HY.PS,FLESH,color,orange,categorical,orange throughout
+HY.PS,FLESH,texture,soft,categorical,thin fragile soft
+HY.PS,FLESH,smell,not distinctive,categorical,no distinctive smell
+HY.PS,HABITAT,substrate_type,soil,categorical,forest soil
+HY.PS,HABITAT,tree_association,coniferous,categorical,coniferous forests
+HY.PS,SEASON,season,august|september|october,categorical,late summer to autumn
+HY.PS,GROWTH,pattern,scattered|gregarious,categorical,scattered to gregarious
+CA.CA,CAP,shape,convex,categorical,broadly convex
+CA.CA,CAP,color,brown|gray-brown,categorical,gray to brown
+CA.CA,CAP,surface_texture,smooth|dry,categorical,dry matte
+CA.CA,CAP,size_cm,5-20,range,medium to large
+CA.CA,CAP,margin,smooth,categorical,even
+CA.CA,GILLS,attachment,pores,categorical,white pores blue bruising
+CA.CA,GILLS,density,small,categorical,1-2 per mm
+CA.CA,GILLS,color,white|pink,categorical,white to pink
+CA.CA,GILLS,edge,blunt,categorical,blunt
+CA.CA,STEM,shape,cylindrical|bulbous,categorical,bulbous base thinner above
+CA.CA,STEM,color,pale-brown,categorical,pale with network
+CA.CA,STEM,surface,reticulate,categorical,network pattern like porcini
+CA.CA,STEM,hollow_solid,solid,categorical,solid
+CA.CA,STEM,size_cm,5-12,range,varies
+CA.CA,FLESH,color,white,categorical,white no blueing
+CA.CA,FLESH,texture,firm,categorical,firm
+CA.CA,FLESH,smell,not distinctive,categorical,intensely bitter taste no smell
+CA.CA,HABITAT,substrate_type,soil,categorical,forest soil
+CA.CA,HABITAT,tree_association,coniferous,categorical,pine and spruce
+CA.CA,SEASON,season,july|august|september,categorical,summer to early autumn
+CA.CA,GROWTH,pattern,scattered|solitary,categorical,scattered
+GY.ES,CAP,shape,irregular|brain-like,categorical,brain-like convoluted ridges
+GY.ES,CAP,color,brown|reddish-brown,categorical,dark reddish brown
+GY.ES,CAP,surface_texture,wrinkled,categorical,heavily wrinkled brain-like
+GY.ES,CAP,size_cm,3-10,range,varies
+GY.ES,CAP,margin,attached,categorical,margin attached to sides of stem
+GY.ES,GILLS,attachment,folds,categorical,brain-like folds not pits
+GY.ES,GILLS,density,irregular,categorical,irregular convolutions
+GY.ES,GILLS,color,brown,categorical,brown
+GY.ES,GILLS,edge,irregular,categorical,irregular
+GY.ES,STEM,shape,cylindrical,categorical,chambered inside
+GY.ES,STEM,color,pale,categorical,pale whitish
+GY.ES,STEM,surface,smooth,categorical,smooth
+GY.ES,STEM,hollow_solid,hollow,categorical,chambered hollow
+GY.ES,STEM,size_cm,2-5,range,short
+GY.ES,FLESH,color,hollow,categorical,no flesh hollow inside
+GY.ES,FLESH,texture,fragile,categorical,fragile
+GY.ES,FLESH,smell,not distinctive,categorical,faint
+GY.ES,HABITAT,substrate_type,soil,categorical,sandy soil
+GY.ES,HABITAT,tree_association,coniferous,categorical,pine forests
+GY.ES,SEASON,season,march|april|may,categorical,spring only
+GY.ES,GROWTH,pattern,scattered|solitary,categorical,scattered
+GA.MA,CAP,shape,convex|flat,categorical,small convex to flat
+GA.MA,CAP,color,brown|honey-brown,categorical,honey brown drying paler
+GA.MA,CAP,surface_texture,smooth,categorical,smooth hygrophanous
+GA.MA,CAP,size_cm,1-4,range,small
+GA.MA,CAP,margin,smooth,categorical,slightly striate when moist
+GA.MA,GILLS,attachment,adnate,categorical,adnate to slightly decurrent
+GA.MA,GILLS,density,crowded,categorical,crowded
+GA.MA,GILLS,color,brown,categorical,rusty brown with age
+GA.MA,GILLS,edge,smooth,categorical,smooth
+GA.MA,STEM,shape,cylindrical,categorical,slender with ring
+GA.MA,STEM,color,brown,categorical,brown fibrous with faint ring
+GA.MA,STEM,surface,fibrous,categorical,fibrous with thin ring
+GA.MA,STEM,hollow_solid,hollow,categorical,hollow slender
+GA.MA,STEM,size_cm,2-6,range,slender
+GA.MA,FLESH,color,brown,categorical,pale brown thin
+GA.MA,FLESH,texture,thin,categorical,thin fragile
+GA.MA,FLESH,smell,not distinctive,categorical,faint earthy
+GA.MA,HABITAT,substrate_type,wood,categorical,dead coniferous wood stumps
+GA.MA,HABITAT,tree_association,coniferous,categorical,pine spruce logs
+GA.MA,SEASON,season,august|september|october|november,categorical,late summer to late autumn
+GA.MA,GROWTH,pattern,gregarious|clustered,categorical,clusters on wood
