@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../providers/identification_provider.dart';
 import '../widgets/language_flag_button.dart';
 
 /// Camera page for capturing or uploading mushroom images.
@@ -27,6 +28,7 @@ class _CameraPageState extends State<CameraPage> {
   XFile? _selectedImage;
   Uint8List? _selectedImageBytes;
   double _rotationAngle = 0;
+  bool _isAnalysing = false;
   late TransformationController _transformationController;
 
   @override
@@ -106,12 +108,7 @@ class _CameraPageState extends State<CameraPage> {
     });
   }
 
-  /// Validates image and navigates to questionnaire page
-  /// 
-  /// Validation checks:
-  /// - Image is not null
-  /// - Image file exists
-  /// - File size is within limits (5MB max)
+  /// Validates image, runs Step 1 analysis, and navigates to tree traversal page.
   void _confirmAndContinue() async {
     if (_selectedImage == null) {
       _showErrorSnackBar('no_image_selected'.tr);
@@ -130,16 +127,28 @@ class _CameraPageState extends State<CameraPage> {
         return;
       }
 
-      // Store selected image in arguments for questionnaire page
-      Get.toNamed(
-        '/questionnaire',
-        arguments: {
-          'imagePath': _selectedImage!.path,
-          'imageName': _selectedImage!.name,
-          'imageBytes': _selectedImageBytes,
-        },
+      // Store image in provider and run Step 1 visual analysis
+      final provider = Get.find<IdentificationProvider>();
+      provider.setSelectedImage(
+        imagePath: _selectedImage!.path,
+        imageBytes: _selectedImageBytes,
       );
+
+      setState(() => _isAnalysing = true);
+      await provider.runStep1();
+      if (!mounted) return;
+      setState(() => _isAnalysing = false);
+
+      if (provider.errorMessage.value != null) {
+        _showErrorSnackBar(provider.errorMessage.value!);
+        return;
+      }
+
+      // Step 1 done — proceed to Step 2 tree traversal
+      Get.toNamed('/tree-traversal');
     } catch (e) {
+      if (!mounted) return;
+      setState(() => _isAnalysing = false);
       _showErrorSnackBar('${'error_validating'.tr}: $e');
     }
   }
@@ -393,9 +402,14 @@ class _CameraPageState extends State<CameraPage> {
                       // Continue button
                       Expanded(
                         child: ElevatedButton.icon(
-                          onPressed: _confirmAndContinue,
-                          icon: const Icon(Icons.check),
-                          label: Text('continue_btn'.tr),
+                          onPressed: _isAnalysing ? null : _confirmAndContinue,
+                          icon: _isAnalysing
+                              ? const SizedBox(
+                                  width: 18, height: 18,
+                                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                )
+                              : const Icon(Icons.check),
+                          label: Text(_isAnalysing ? 'Analysing…' : 'continue_btn'.tr),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).primaryColor,
                             foregroundColor: Colors.white,

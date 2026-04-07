@@ -9,6 +9,7 @@ import 'pages/questionnaire_page.dart';
 import 'pages/results_page.dart';
 import 'pages/history_page.dart';
 import 'pages/settings_page.dart';
+import 'pages/tree_traversal_page.dart';
 import 'providers/identification_provider.dart';
 import 'providers/history_provider.dart';
 import 'providers/language_provider.dart';
@@ -174,14 +175,9 @@ class MushroomIdentificationApp extends StatelessWidget {
           name: '/camera',
           page: () => const CameraPage(),
         ),
-        GetPage(
-          name: '/questionnaire',
-          page: () => const QuestionnairePage(),
-        ),
-        GetPage(
-          name: '/results',
-          page: () => const ResultsPage(),
-        ),
+        GetPage(name: '/questionnaire', page: () => const QuestionnairePage()),
+        GetPage(name: '/tree-traversal', page: () => const TreeTraversalPage()),
+        GetPage(name: '/results',        page: () => const ResultsPage()),
         GetPage(
           name: '/history',
           page: () => const HistoryPage(),

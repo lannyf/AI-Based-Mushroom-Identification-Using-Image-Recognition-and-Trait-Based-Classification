@@ -36,7 +36,7 @@ class _ResultsPageState extends State<ResultsPage> {
     super.initState();
     _historyProvider = Get.find<HistoryProvider>();
     final args = Get.arguments;
-    final providedResults =
+    final rawResults =
         args is Map<String, dynamic> ? args['results'] as Map<String, dynamic>? : null;
     _isDemoMode = args is Map<String, dynamic> && args['demoMode'] == true;
     _imagePath = args is Map<String, dynamic> ? args['imagePath'] as String? : null;
@@ -45,47 +45,98 @@ class _ResultsPageState extends State<ResultsPage> {
         : {};
     _notes = args is Map<String, dynamic> ? args['notes'] as String? : null;
 
-    _results = providedResults ??
-        {
-      'top_prediction': 'Boletus edulis',
-      'overall_confidence': 0.87,
-      'method_confidences': {
-        'image': 0.92,
-        'trait': 0.81,
-        'llm': 0.88,
-      },
-      'predictions': [
-        {'species': 'Boletus edulis', 'confidence': 0.87, 'common': 'Porcini', 'swedish_name': 'Karljohan'},
-        {
-          'species': 'Boletus reticulatus',
-          'confidence': 0.78,
-          'common': 'Summer Porcini',
-          'swedish_name': 'Sommarsopp',
-        },
-        {'species': 'Xerocomelellus chrysenteron', 'confidence': 0.65, 'common': 'Red-Foot Bolete', 'swedish_name': 'Rödfotsopp'},
-        {'species': 'Cep species', 'confidence': 0.62, 'common': 'King Bolete', 'swedish_name': 'Kungsopp'},
-        {
-          'species': 'Boletus luteus',
-          'confidence': 0.55,
-          'common': 'Slippery Jack',
-          'swedish_name': 'Smörsopp',
-        },
-      ],
-      'lookalikes': [
-        {
-          'species': 'Caloboletus calopus',
-          'risk': 'high',
-          'reason': 'Inedible, can cause stomach upset'
-        },
-        {
-          'species': 'Boletus sensibilis',
-          'risk': 'medium',
-          'reason': 'Mild toxin, similar appearance'
-        },
-      ],
-      'safety_rating': 'edible', // edible, caution, inedible, unknown
-    };
+    _results = rawResults != null
+        ? _normaliseResults(rawResults)
+        : _demoResults();
   }
+
+  /// Normalises both the legacy /identify response and the new Step 4
+  /// /step4/finalize response into a single internal shape so that
+  /// all _build* methods work unchanged.
+  Map<String, dynamic> _normaliseResults(Map<String, dynamic> raw) {
+    // Step 4 format has final_recommendation key
+    if (raw.containsKey('final_recommendation')) {
+      final rec = Map<String, dynamic>.from(
+        raw['final_recommendation'] as Map,
+      );
+      final alts  = raw['ml_alternatives']     as List? ?? [];
+      final looks = raw['exchangeable_species'] as List? ?? [];
+      final warns = raw['safety_warnings']      as List? ?? [];
+      final breakdown = rec['confidence_breakdown'] is Map
+          ? Map<String, dynamic>.from(rec['confidence_breakdown'] as Map)
+          : <String, dynamic>{};
+
+      return {
+        // Core fields used by existing _build* methods
+        'top_prediction':     rec['scientific_name'] ?? rec['english_name'] ?? '',
+        'overall_confidence': (rec['overall_confidence'] as num?)?.toDouble() ?? 0.0,
+        'method_confidences': {
+          'image': (breakdown['image_analysis'] as num?)?.toDouble() ?? 0.0,
+          'tree':  (breakdown['tree_traversal'] as num?)?.toDouble() ?? 0.0,
+          'trait': (breakdown['trait_match']    as num?)?.toDouble() ?? 0.0,
+        },
+        'predictions': alts.map((a) {
+          final m = a as Map;
+          return {
+            'species':      m['species']      ?? '',
+            'confidence':   (m['confidence'] as num?)?.toDouble() ?? 0.0,
+            'common':       m['english_name'] ?? m['species'] ?? '',
+            'swedish_name': m['swedish_name'] ?? '',
+          };
+        }).toList(),
+        'top_predictions': alts.map((a) {
+          final m = a as Map;
+          return {
+            'species':      m['species']      ?? '',
+            'confidence':   (m['confidence'] as num?)?.toDouble() ?? 0.0,
+            'common':       m['english_name'] ?? m['species'] ?? '',
+            'swedish_name': m['swedish_name'] ?? '',
+          };
+        }).toList(),
+        'lookalikes': looks.map((l) {
+          final m = l as Map;
+          final tox = (m['toxicity_level'] as String? ?? '').toUpperCase();
+          return {
+            'species':  m['swedish_name'] ?? m['english_name'] ?? '',
+            'risk':     tox.contains('EXTREMELY') || tox.contains('TOXIC') ? 'high'
+                      : tox == 'CAUTION' ? 'medium' : 'low',
+            'reason':   (m['distinguishing_features'] ?? m['confusion_likelihood'] ?? '') as String,
+          };
+        }).toList(),
+        'safety_rating': raw['verdict'] as String? ?? 'unknown',
+        // New Step 4 extra fields
+        'safety_warnings':  warns.map((w) => w.toString()).toList(),
+        'method_agreement': raw['method_agreement'] ?? 'unknown',
+        'reasoning':        rec['reasoning'] ?? '',
+        'swedish_name':     rec['swedish_name'] ?? '',
+        'english_name':     rec['english_name'] ?? '',
+      };
+    }
+
+    // Legacy format — return as-is
+    return raw;
+  }
+
+  Map<String, dynamic> _demoResults() => {
+    'top_prediction': 'Boletus edulis',
+    'overall_confidence': 0.87,
+    'method_confidences': {'image': 0.92, 'tree': 0.88, 'trait': 0.81},
+    'predictions': [
+      {'species': 'Boletus edulis', 'confidence': 0.87, 'common': 'Porcini', 'swedish_name': 'Karljohan'},
+      {'species': 'Boletus reticulatus', 'confidence': 0.78, 'common': 'Summer Porcini', 'swedish_name': 'Sommarsopp'},
+      {'species': 'Xerocomelellus chrysenteron', 'confidence': 0.65, 'common': 'Red-Foot Bolete', 'swedish_name': 'Rödfotsopp'},
+    ],
+    'lookalikes': [
+      {'species': 'Caloboletus calopus', 'risk': 'high',   'reason': 'Inedible, can cause stomach upset'},
+      {'species': 'Boletus sensibilis',  'risk': 'medium', 'reason': 'Mild toxin, similar appearance'},
+    ],
+    'safety_rating':    'edible',
+    'safety_warnings':  [],
+    'method_agreement': 'full',
+    'reasoning':        'Demo mode — no real analysis performed.',
+    'swedish_name':     'Karljohan',
+    'english_name':     'Porcini',
+  };
 
   /// Gets color based on confidence level
   Color _getConfidenceColor(double confidence) {
@@ -177,7 +228,11 @@ class _ResultsPageState extends State<ResultsPage> {
               _buildSafetyIndicator(),
               const SizedBox(height: 24),
 
-              // Top predictions
+              // Reasoning (Step 4)
+              _buildReasoningSection(),
+              const SizedBox(height: 24),
+
+              // Top predictions (ML alternatives from Step 4)
               Obx(() => _buildPredictionsSection()),
               const SizedBox(height: 24),
 
@@ -200,19 +255,28 @@ class _ResultsPageState extends State<ResultsPage> {
 
   /// Builds main confidence display card
   Widget _buildConfidenceCard() {
-    final overall = _results['overall_confidence'] as double;
-    final topSpecies = _results['top_prediction'] as String;
+    final overall = (_results['overall_confidence'] as num?)?.toDouble() ?? 0.0;
+    final topSpecies = _results['top_prediction'] as String? ?? '';
     final confidencePercent = (overall * 100).toStringAsFixed(1);
 
-    // Get common name for the top prediction
-    final predictions = _results['top_predictions'] as List? ?? _results['predictions'] as List? ?? [];
-    String commonName = '';
-    if (predictions.isNotEmpty && predictions[0] is Map) {
-      final top = predictions[0] as Map;
-      final langProvider = Get.find<LanguageProvider>();
-      final swedishName = top['swedish_name'] as String? ?? '';
-      final englishName = top['common'] as String? ?? '';
-      commonName = langProvider.isSwedish && swedishName.isNotEmpty ? swedishName : englishName;
+    // Prefer direct swedish/english name from normalised Step 4 data
+    final langProvider = Get.find<LanguageProvider>();
+    final swedishDirect = _results['swedish_name'] as String? ?? '';
+    final englishDirect = _results['english_name'] as String? ?? '';
+
+    String commonName = langProvider.isSwedish && swedishDirect.isNotEmpty
+        ? swedishDirect
+        : englishDirect.isNotEmpty ? englishDirect : '';
+
+    // Fall back to top prediction list if direct names not available
+    if (commonName.isEmpty) {
+      final predictions = _results['top_predictions'] as List? ?? _results['predictions'] as List? ?? [];
+      if (predictions.isNotEmpty && predictions[0] is Map) {
+        final top = predictions[0] as Map;
+        final swedishName = top['swedish_name'] as String? ?? '';
+        final englishName = top['common'] as String? ?? '';
+        commonName = langProvider.isSwedish && swedishName.isNotEmpty ? swedishName : englishName;
+      }
     }
 
     return Card(
@@ -309,6 +373,16 @@ class _ResultsPageState extends State<ResultsPage> {
   Widget _buildMethodBreakdown() {
     final methods = _results['method_confidences'] as Map<String, dynamic>;
 
+    // Label mapping — tree traversal replaces old 'llm'
+    final methodLabels = <String, String>{
+      'image': 'image_recognition'.tr,
+      'tree':  Get.find<LanguageProvider>().isSwedish ? 'Artnyckeln' : 'Species key',
+      'trait': 'trait_analysis'.tr,
+      'llm':   'language_model'.tr, // legacy fallback
+    };
+
+    final entries = methods.entries.toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -319,15 +393,10 @@ class _ResultsPageState extends State<ResultsPage> {
               ),
         ),
         const SizedBox(height: 16),
-        ...[
-          ('image_recognition'.tr, methods['image'] ?? 0.0),
-          ('trait_analysis'.tr, methods['trait'] ?? 0.0),
-          ('language_model'.tr, methods['llm'] ?? 0.0),
-        ].map((item) {
-          final label = item.$1;
-          final confidence = item.$2 as double;
-          final percent = (confidence * 100).toStringAsFixed(0);
-
+        ...entries.map((e) {
+          final label      = methodLabels[e.key] ?? e.key;
+          final confidence = (e.value as num).toDouble();
+          final percent    = (confidence * 100).toStringAsFixed(0);
           return Container(
             margin: const EdgeInsets.only(bottom: 12),
             child: Column(
@@ -337,10 +406,7 @@ class _ResultsPageState extends State<ResultsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(label),
-                    Text(
-                      '$percent%',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    Text('$percent%', style: const TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),
                 const SizedBox(height: 6),
@@ -350,15 +416,75 @@ class _ResultsPageState extends State<ResultsPage> {
                     value: confidence,
                     minHeight: 8,
                     backgroundColor: Colors.grey[300],
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      _getConfidenceColor(confidence),
-                    ),
+                    valueColor: AlwaysStoppedAnimation<Color>(_getConfidenceColor(confidence)),
                   ),
                 ),
               ],
             ),
           );
         }).toList(),
+        // Method agreement badge
+        if (_results.containsKey('method_agreement')) ...[
+          const SizedBox(height: 8),
+          _buildAgreementBadge(_results['method_agreement'] as String),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildAgreementBadge(String agreement) {
+    final isSwedish = Get.find<LanguageProvider>().isSwedish;
+    Color color;
+    String label;
+    IconData icon;
+    switch (agreement) {
+      case 'full':
+        color = Colors.green;
+        label = isSwedish ? 'Alla metoder överens' : 'All methods agree';
+        icon  = Icons.check_circle_outline;
+        break;
+      case 'partial':
+        color = Colors.orange;
+        label = isSwedish ? 'Metoder delvis överens' : 'Methods partially agree';
+        icon  = Icons.remove_circle_outline;
+        break;
+      default:
+        color = Colors.red;
+        label = isSwedish ? 'Metoder ej överens' : 'Methods disagree';
+        icon  = Icons.cancel_outlined;
+    }
+    return Row(
+      children: [
+        Icon(icon, size: 16, color: color),
+        const SizedBox(width: 6),
+        Text(label, style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600)),
+      ],
+    );
+  }
+
+  /// Builds reasoning section (from Step 4)
+  Widget _buildReasoningSection() {
+    final reasoning = _results['reasoning'] as String? ?? '';
+    if (reasoning.isEmpty) return const SizedBox.shrink();
+    final isSwedish = Get.find<LanguageProvider>().isSwedish;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          isSwedish ? 'Motivering' : 'Reasoning',
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.grey[50],
+            border: Border.all(color: Colors.grey[300]!),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(reasoning, style: Theme.of(context).textTheme.bodySmall),
+        ),
       ],
     );
   }

@@ -1,30 +1,38 @@
 """
 FastAPI backend for mushroom identification.
 
-This uses the existing HybridClassifier aggregation logic and combines
-deterministic image/trait heuristics into real API responses that the Flutter
-app can consume. It is a practical inference backend for local development
-until trained model artifacts are wired in.
+Pipeline (mirrors Sys.txt spec):
+  Step 1 — Visual trait extraction: colour, shape, texture analysis → ML prediction
+             + structured visible_traits dict (models/visual_trait_extractor.py)
+  Step 2 — Species tree traversal via key.xml; auto-answers from Step 1 traits;
+             asks user for any missing information  (models/key_tree_traversal.py)
+  Step 3 — Trait database comparison + lookalike check  (models/trait_database_comparator.py)
+  Step 4 — Final result: ML alternatives + lookalikes + top candidate      (models/final_aggregator.py)
 """
 
 from __future__ import annotations
 
 import csv
-import io
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from PIL import Image
+from pydantic import BaseModel
 
+from models.final_aggregator import FinalAggregator
 from models.hybrid_classifier import AggregationMethod, HybridClassifier, MethodPrediction
+from models.key_tree_traversal import KeyTreeEngine
+from models.trait_database_comparator import TraitDatabaseComparator
+from models.visual_trait_extractor import extract as extract_visual_traits
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-SPECIES_CSV = PROJECT_ROOT / "data" / "raw" / "species.csv"
+SPECIES_CSV  = PROJECT_ROOT / "data" / "raw" / "species.csv"
+KEY_XML      = PROJECT_ROOT / "data" / "raw" / "key.xml"
+DATA_RAW_DIR = PROJECT_ROOT / "data" / "raw"
 
 app = FastAPI(title="Mushroom Identification API", version="0.1.0")
 app.add_middleware(
@@ -45,8 +53,11 @@ def load_species_metadata() -> Dict[str, Dict[str, str]]:
     return metadata
 
 
-SPECIES = load_species_metadata()
-HYBRID = HybridClassifier(aggregation_method=AggregationMethod.WEIGHTED_AVERAGE)
+SPECIES    = load_species_metadata()
+HYBRID     = HybridClassifier(aggregation_method=AggregationMethod.WEIGHTED_AVERAGE)
+KEY_TREE   = KeyTreeEngine(str(KEY_XML))
+COMPARATOR = TraitDatabaseComparator(str(DATA_RAW_DIR))
+AGGREGATOR = FinalAggregator(str(SPECIES_CSV))
 
 TARGET_SPECIES = [
     "Fly Agaric",
@@ -80,34 +91,33 @@ def build_prediction(method: str, reasoning: str, scores: Dict[str, float]) -> M
     )
 
 
-def image_scores(image_bytes: bytes) -> Tuple[Dict[str, float], Dict[str, float]]:
-    image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-    arr = np.asarray(image).astype(np.float32)
-    r = arr[:, :, 0]
-    g = arr[:, :, 1]
-    b = arr[:, :, 2]
+def image_scores(image_bytes: bytes) -> Tuple[Dict[str, float], Dict[str, float], Dict[str, Any]]:
+    """
+    Step 1 — Visual analysis.
 
-    red_ratio = float(np.mean((r > 150) & (r > g * 1.25) & (r > b * 1.25)))
-    orange_yellow_ratio = float(np.mean((r > 140) & (g > 90) & (b < 140)))
-    brown_ratio = float(np.mean((r > 80) & (g > 45) & (b < 90) & (r > g) & (g > b)))
-    white_ratio = float(np.mean((r > 185) & (g > 185) & (b > 185)))
+    Returns:
+      scores        — per-species unnormalised scores (for HybridClassifier)
+      metrics       — legacy colour-ratio dict (kept for llm_scores compatibility)
+      step1_result  — full Step-1 output: ml_prediction + visible_traits
+    """
+    step1 = extract_visual_traits(image_bytes)
+    vt = step1["visible_traits"]
+    cr = vt["colour_ratios"]
 
-    scores = {name: 0.02 for name in TARGET_SPECIES}
-    scores["Fly Agaric"] += red_ratio * 5.0 + white_ratio * 1.4
-    scores["Amanita virosa"] += white_ratio * 2.5
-    scores["Chanterelle"] += orange_yellow_ratio * 4.0
-    scores["False Chanterelle"] += orange_yellow_ratio * 2.6
-    scores["Porcini"] += brown_ratio * 4.2
-    scores["Other Boletus"] += brown_ratio * 3.3
-    scores["Black Trumpet"] += (1.0 - white_ratio) * 0.2 + orange_yellow_ratio * 0.4
+    # Build scores dict from the extractor's own top-k
+    scores: Dict[str, float] = {name: 0.02 for name in TARGET_SPECIES}
+    for entry in step1["ml_prediction"]["top_k"]:
+        if entry["species"] in scores:
+            scores[entry["species"]] = entry["confidence"]
 
+    # Legacy metrics dict (used by llm_scores below)
     metrics = {
-        "red_ratio": red_ratio,
-        "orange_yellow_ratio": orange_yellow_ratio,
-        "brown_ratio": brown_ratio,
-        "white_ratio": white_ratio,
+        "red_ratio":            cr["red"],
+        "orange_yellow_ratio":  cr["orange_yellow"],
+        "brown_ratio":          cr["brown"],
+        "white_ratio":          cr["white"],
     }
-    return scores, metrics
+    return scores, metrics, step1
 
 
 def trait_scores(traits: Dict[str, Any]) -> Dict[str, float]:
@@ -227,7 +237,11 @@ def common_name_for(species: str) -> Tuple[str, str]:
     return metadata.get("english_name", species), metadata.get("swedish_name", species)
 
 
-def adapt_result(result: Dict[str, Any], image_metrics: Dict[str, float]) -> Dict[str, Any]:
+def adapt_result(
+    result: Dict[str, Any],
+    image_metrics: Dict[str, float],
+    step1: Dict[str, Any],
+) -> Dict[str, Any]:
     predictions = [
         {
             "species": item["species"],
@@ -253,6 +267,10 @@ def adapt_result(result: Dict[str, Any], image_metrics: Dict[str, float]) -> Dic
     top_species = result["top_species"]
 
     return {
+        # --- Step 1: what the image analysis found ---
+        "step1": step1,
+
+        # --- Final aggregated result ---
         "top_prediction": top_species,
         "overall_confidence": result["confidence"],
         "method_confidences": result["confidence_breakdown"],
@@ -287,14 +305,13 @@ async def identify(
     if not image_bytes:
         raise HTTPException(status_code=400, detail="Empty image upload")
 
-    img_scores, metrics = image_scores(image_bytes)
+    img_scores, metrics, step1 = image_scores(image_bytes)
     trait_based = trait_scores(trait_data)
     llm_based = llm_scores(metrics, trait_data)
 
     image_prediction = build_prediction(
         "image",
-        f"Color profile red={metrics['red_ratio']:.2f}, yellow/orange={metrics['orange_yellow_ratio']:.2f}, "
-        f"brown={metrics['brown_ratio']:.2f}, white={metrics['white_ratio']:.2f}",
+        step1["ml_prediction"]["reasoning"],
         img_scores,
     )
     trait_prediction = build_prediction(
@@ -313,4 +330,144 @@ async def identify(
         trait_prediction=trait_prediction,
         llm_prediction=llm_prediction,
     )
-    return adapt_result(result.to_dict(), metrics)
+    return adapt_result(result.to_dict(), metrics, step1)
+
+
+# ---------------------------------------------------------------------------
+# Step 2 — Species tree traversal (key.xml)
+# ---------------------------------------------------------------------------
+
+class Step2StartRequest(BaseModel):
+    session_id: Optional[str] = None
+    visible_traits: Dict[str, Any]      # output of Step 1 visible_traits
+
+
+class Step2AnswerRequest(BaseModel):
+    session_id: str
+    answer: str                          # one of the options returned by the previous call
+
+
+@app.post("/identify/step2/start")
+def step2_start(body: Step2StartRequest) -> Dict[str, Any]:
+    """
+    Begin Step 2 traversal.
+
+    Post the ``visible_traits`` dict from the Step 1 ``/identify`` response.
+    The engine will auto-answer as many questions as it can from the image data
+    and return the first question that requires human input, or a conclusion
+    if the tree can be fully resolved automatically.
+
+    Response shapes:
+      {"status": "question",   "session_id": ..., "question": ..., "options": [...], ...}
+      {"status": "conclusion", "session_id": ..., "species": ...,  "edibility": ..., ...}
+    """
+    return KEY_TREE.start_session(body.session_id, body.visible_traits)
+
+
+@app.post("/identify/step2/answer")
+def step2_answer(body: Step2AnswerRequest) -> Dict[str, Any]:
+    """
+    Provide the user's answer to the current question and continue traversal.
+
+    ``answer`` must exactly match one of the ``options`` returned by the
+    previous ``/step2/start`` or ``/step2/answer`` call.
+
+    Continues until a conclusion (species) is reached.
+    """
+    result = KEY_TREE.answer(body.session_id, body.answer)
+    if result.get("status") == "error" and "Session not found" in result.get("message", ""):
+        raise HTTPException(status_code=404, detail=result["message"])
+    return result
+
+
+@app.get("/identify/step2/session/{session_id}")
+def step2_session_state(session_id: str) -> Dict[str, Any]:
+    """Return the current state of an active Step 2 session (for debugging)."""
+    state = KEY_TREE.get_session(session_id)
+    if state is None:
+        raise HTTPException(status_code=404, detail=f"Session '{session_id}' not found.")
+    return state
+
+
+# ---------------------------------------------------------------------------
+# Step 3 — Trait database comparison + lookalike check
+# ---------------------------------------------------------------------------
+
+class Step3CompareRequest(BaseModel):
+    swedish_name: str             # species name from Step 2 conclusion
+    visible_traits: Dict[str, Any]  # Step 1 visible_traits
+
+
+@app.post("/identify/step3/compare")
+def step3_compare(body: Step3CompareRequest) -> Dict[str, Any]:
+    """
+    Step 3 — Trait database comparison.
+
+    Post the species name from the Step 2 conclusion and the Step 1
+    visible_traits. The engine will:
+      1. Resolve the Swedish name to a database species record.
+      2. Compare visible traits against the species' stored trait profile.
+      3. List all confusable lookalike species with distinguishing features.
+      4. Flag a safety_alert if any lookalike is toxic/deadly.
+
+    Response:
+      {
+        "status":           "ok" | "species_not_found",
+        "candidate":        {species_id, swedish_name, english_name, ...},
+        "name_match_score": float,
+        "trait_match":      {score, matched, conflicts, not_comparable},
+        "lookalikes":       [{species info + trait_differences + safety_alert}],
+        "safety_alert":     bool
+      }
+    """
+    return COMPARATOR.compare(body.swedish_name, body.visible_traits)
+
+
+# ---------------------------------------------------------------------------
+# Step 4 — Final aggregation and presentation
+# ---------------------------------------------------------------------------
+
+class Step4FinalizeRequest(BaseModel):
+    step1_result: Dict[str, Any]   # full /identify response (contains "step1" key)
+    step2_result: Dict[str, Any]   # /step2/start or /step2/answer when status=conclusion
+    step3_result: Dict[str, Any]   # /step3/compare response
+
+
+@app.post("/identify/step4/finalize")
+def step4_finalize(body: Step4FinalizeRequest) -> Dict[str, Any]:
+    """
+    Step 4 — Final result aggregation.
+
+    Combines the outputs of Steps 1, 2, and 3 into a single structured
+    answer for the user, as specified in Sys.txt:
+
+      - ML alternatives from image analysis (Step 1)
+      - Exchangeable / confusable species from the database (Step 3)
+      - The system's own top candidate with overall confidence
+
+    Confidence is a weighted combination:
+      Step 2 (expert key traversal): 45 %
+      Step 1 (image analysis):       35 %
+      Step 3 (trait match):          20 %
+    A +10 % agreement bonus is applied when Steps 1 and 2 agree.
+
+    Response:
+      {
+        "final_recommendation": {
+            species_id, swedish_name, english_name, scientific_name,
+            edible, toxicity_level, overall_confidence,
+            confidence_breakdown, reasoning
+        },
+        "ml_alternatives":      [{species, confidence, swedish_name, ...}],
+        "exchangeable_species": [{full lookalike info from Step 3}],
+        "safety_warnings":      [str],
+        "verdict":              "edible" | "inedible" | "toxic" | "unknown",
+        "method_agreement":     "full" | "partial" | "none"
+      }
+    """
+    return AGGREGATOR.aggregate(
+        body.step1_result,
+        body.step2_result,
+        body.step3_result,
+    )
+
