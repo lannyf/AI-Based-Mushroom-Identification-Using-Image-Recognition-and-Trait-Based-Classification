@@ -396,7 +396,7 @@ void main() {
         expect(provider.step2Concluded.value, isFalse);
       });
 
-      test('derives auto_answers count from auto_answered list length', () async {
+      test('derives autoAnswers count from auto_answered list length', () async {
         provider.step1Result.value = {
           'step1': {'visible_traits': <String, dynamic>{}},
         };
@@ -417,7 +417,7 @@ void main() {
             reason: 'path.length(4) - auto_answered.length(3) = 1');
       });
 
-      test('prefers numeric auto_answers field when present', () async {
+      test('prefers explicit autoAnswers field when present', () async {
         provider.step1Result.value = {
           'step1': {'visible_traits': <String, dynamic>{}},
         };
