@@ -56,11 +56,15 @@ class _ResultsPageState extends State<ResultsPage> {
   Map<String, dynamic> _normaliseResults(Map<String, dynamic> raw) {
     // Step 4 format has final_recommendation key
     if (raw.containsKey('final_recommendation')) {
-      final rec   = raw['final_recommendation'] as Map<String, dynamic>;
+      final rec = Map<String, dynamic>.from(
+        raw['final_recommendation'] as Map,
+      );
       final alts  = raw['ml_alternatives']     as List? ?? [];
       final looks = raw['exchangeable_species'] as List? ?? [];
       final warns = raw['safety_warnings']      as List? ?? [];
-      final breakdown = rec['confidence_breakdown'] as Map? ?? {};
+      final breakdown = rec['confidence_breakdown'] is Map
+          ? Map<String, dynamic>.from(rec['confidence_breakdown'] as Map)
+          : <String, dynamic>{};
 
       return {
         // Core fields used by existing _build* methods

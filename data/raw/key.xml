@@ -1,198 +1,198 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <key question="Hur ser svampen ut?">
 
-	<condition answer="Undersidan har åsar eller ådror" answer-image="nyckel_asar.jpg" question="Vilken färg har svampen?">
-		<condition answer="Hela svampen är gul">
-			<decision namn="Kantarell" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_cibarius">
-				<mixupdecision namn="Narrkantarell (falsk kantarell)" ätlighet="0" url="http://www.svampguiden.com/art.asp?art=Hygrophoropsis_aurantiaca" skiljetecken="Orangeröd färg, svag doft."/>
-				<mixupdecision namn="Blek kantarell" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=cantharellus_pallens" skiljetecken="Blekgul, nästan vit. Knubbigare i växten." />
+	<condition answer="Undersidan har Ã¥sar eller Ã¥dror" answer-image="nyckel_asar.jpg" question="Vilken fÃ¤rg har svampen?">
+		<condition answer="Hela svampen Ã¤r gul">
+			<decision namn="Kantarell" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_cibarius">
+				<mixupdecision namn="Narrkantarell (falsk kantarell)" Ã¤tlighet="0" url="http://www.svampguiden.com/art.asp?art=Hygrophoropsis_aurantiaca" skiljetecken="OrangerÃ¶d fÃ¤rg, svag doft."/>
+				<mixupdecision namn="Blek kantarell" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=cantharellus_pallens" skiljetecken="Blekgul, nÃ¤stan vit. Knubbigare i vÃ¤xten." />
 			</decision>
 		</condition>
-		<condition answer="Gråbrun hatt">
-			<decision namn="Trattkantarell" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_tubaeformis">
-				<mixupdecision namn="Rödgul trumpetsvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_lutescens" />
+		<condition answer="GrÃ¥brun hatt">
+			<decision namn="Trattkantarell" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_tubaeformis">
+				<mixupdecision namn="RÃ¶dgul trumpetsvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_lutescens" />
 			</decision>
 		</condition>
-		<condition answer="Hela svampen är svart eller mörkgrå">
-			<decision namn="Svart trumpetsvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Craterellus_cornucopioides">
-				<mixupdecision namn="Grå kantarell" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Craterellus_cinereus" />
+		<condition answer="Hela svampen Ã¤r svart eller mÃ¶rkgrÃ¥">
+			<decision namn="Svart trumpetsvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Craterellus_cornucopioides">
+				<mixupdecision namn="GrÃ¥ kantarell" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Craterellus_cinereus" />
 			</decision>
 		</condition>
 		<condition answer="Orange fot och hattundersida">
-			<decision namn="Rödgul trumpetsvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_lutescens">
-				<mixupdecision namn="Trattkantarell" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_tubaeformis"/>
+			<decision namn="RÃ¶dgul trumpetsvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_lutescens">
+				<mixupdecision namn="Trattkantarell" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_tubaeformis"/>
 			</decision>
 		</condition>
 	</condition>
 
-	<condition answer="Undersidan har skivor" answer-image="nyckel_skivor.jpg" question="Hur sitter hatten fästad vid foten?">
-		<condition answer="Hatten lossar lätt från foten" question="Vilken färg har skivorna?">
+	<condition answer="Undersidan har skivor" answer-image="nyckel_skivor.jpg" question="Hur sitter hatten fÃ¤stad vid foten?">
+		<condition answer="Hatten lossar lÃ¤tt frÃ¥n foten" question="Vilken fÃ¤rg har skivorna?">
 			<condition answer="Vita skivor och kraftig ring runt foten">
-				<decision namn="Stolt fjällskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Macrolepiota_procera">
-					<mixupdecision namn="Rodnande fjällskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Macrolepiota_rhacodes"/>
+				<decision namn="Stolt fjÃ¤llskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Macrolepiota_procera">
+					<mixupdecision namn="Rodnande fjÃ¤llskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Macrolepiota_rhacodes"/>
 				</decision>
 			</condition>
-			<condition answer="Mörka skivor hos äldre exemplar" question="Hur är det med hatt och ring?">
-				<condition answer="Klockformig hatt och ring som lätt faller av hos vuxna exemplar">
-					<decision namn="Fjällig bläcksvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Coprinus_comatus">
-						<mixupdecision namn="Grå bläcksvamp" ätlighet="+" url="http://www.svampguiden.com/art.asp?art=Coprinus_atramentarius"/>
+			<condition answer="MÃ¶rka skivor hos Ã¤ldre exemplar" question="Hur Ã¤r det med hatt och ring?">
+				<condition answer="Klockformig hatt och ring som lÃ¤tt faller av hos vuxna exemplar">
+					<decision namn="FjÃ¤llig blÃ¤cksvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Coprinus_comatus">
+						<mixupdecision namn="GrÃ¥ blÃ¤cksvamp" Ã¤tlighet="+" url="http://www.svampguiden.com/art.asp?art=Coprinus_atramentarius"/>
 					</decision>
 				</condition>
-				<condition answer="Rundad välvd hatt, ring fästad på foten">
-					<decision namn="Ängschampinjon" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Agaricus_campestris">
-						<mixupdecision namn="Vit flugsvamp" ätlighet="++" url="http://www.svampguiden.com/art.asp?art=Amanita_virosa" />
-						<mixupdecision namn="Lömsk flugsvamp" ätlighet="++" url="http://www.svampguiden.com/art.asp?art=Amanita_phalloides"/>
-						<mixupdecision namn="Skogschampinjon" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Agaricus_silvaticus"/>
-						<mixupdecision namn="Kungschampinjon" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Agaricus_augustus"/>
-						<mixupdecision namn="Snöbollschampinjon" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Agaricus_arvensis"/>
+				<condition answer="Rundad vÃ¤lvd hatt, ring fÃ¤stad pÃ¥ foten">
+					<decision namn="Ã„ngschampinjon" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Agaricus_campestris">
+						<mixupdecision namn="Vit flugsvamp" Ã¤tlighet="++" url="http://www.svampguiden.com/art.asp?art=Amanita_virosa" />
+						<mixupdecision namn="LÃ¶msk flugsvamp" Ã¤tlighet="++" url="http://www.svampguiden.com/art.asp?art=Amanita_phalloides"/>
+						<mixupdecision namn="Skogschampinjon" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Agaricus_silvaticus"/>
+						<mixupdecision namn="Kungschampinjon" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Agaricus_augustus"/>
+						<mixupdecision namn="SnÃ¶bollschampinjon" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Agaricus_arvensis"/>
 					</decision>
 				</condition>
 			</condition>
 		</condition>
-		<condition answer="Hatten sitter fast förenad med foten" question="Hur är konsistensen om man bryter foten?" >
-			<condition answer="Segt att bryta foten (brottet trådigt)" question="Var slutar skivorna?">
-				<condition answer="Skivorna går ner på foten" question="Är skivorna grenade?">
-					<condition answer="Skivorna är grenade" question="Är den slemmig med citrongul bas på foten?">
-						<decision namn="Citronslemskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Gomphidius_glutinosus">
-							<mixupdecision namn="Smörsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Suillus_luteus"/>
-							<mixupdecision namn="Rabarbersvamp (Rödgul slemskivling)" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Chroogomphus_rutilus" />
+		<condition answer="Hatten sitter fast fÃ¶renad med foten" question="Hur Ã¤r konsistensen om man bryter foten?" >
+			<condition answer="Segt att bryta foten (brottet trÃ¥digt)" question="Var slutar skivorna?">
+				<condition answer="Skivorna gÃ¥r ner pÃ¥ foten" question="Ã„r skivorna grenade?">
+					<condition answer="Skivorna Ã¤r grenade" question="Ã„r den slemmig med citrongul bas pÃ¥ foten?">
+						<decision namn="Citronslemskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Gomphidius_glutinosus">
+							<mixupdecision namn="SmÃ¶rsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Suillus_luteus"/>
+							<mixupdecision namn="Rabarbersvamp (RÃ¶dgul slemskivling)" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Chroogomphus_rutilus" />
 						</decision>
 					</condition>
-					<condition answer="Skivorna är ogrenade" question="Vad har hatten för färg?">
-						<condition answer="Mörk hatt">
-							<decision namn="Sotvaxskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrophorus_camarophyllus">
-								<mixupdecision namn="Olivvaxskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrophorus_olivaceoalbus"/>
-								<mixupdecision namn="Frostvaxskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrophorus_hypothejus"/>
-								<mixupdecision namn="Klubbtrattskivling (Mörk trattskivling)" ätlighet="0" />
+					<condition answer="Skivorna Ã¤r ogrenade" question="Vad har hatten fÃ¶r fÃ¤rg?">
+						<condition answer="MÃ¶rk hatt">
+							<decision namn="Sotvaxskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrophorus_camarophyllus">
+								<mixupdecision namn="Olivvaxskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrophorus_olivaceoalbus"/>
+								<mixupdecision namn="Frostvaxskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrophorus_hypothejus"/>
+								<mixupdecision namn="Klubbtrattskivling (MÃ¶rk trattskivling)" Ã¤tlighet="0" />
 							</decision>
 						</condition>
 						<condition answer="ljus hatt">
-							<decision namn="Ängsvaxskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrocybe_pratensis">
-								<mixupdecision namn="Kantarell" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_cibarius"/>
-								<mixupdecision namn="Vit vaxskivling" ätlighet="*" />
-								<mixupdecision namn="Lundvaxskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrophorus_nemoreus"/>
-								<mixupdecision namn="Äggvaxskivling" ätlighet="*" />
+							<decision namn="Ã„ngsvaxskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrocybe_pratensis">
+								<mixupdecision namn="Kantarell" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Cantharellus_cibarius"/>
+								<mixupdecision namn="Vit vaxskivling" Ã¤tlighet="*" />
+								<mixupdecision namn="Lundvaxskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrophorus_nemoreus"/>
+								<mixupdecision namn="Ã„ggvaxskivling" Ã¤tlighet="*" />
 							</decision>
 						</condition>
 					</condition>
 				</condition>
-				<condition answer="Skivorna går inte ner på foten" question="Hur ser skivorna ut?">
-					<condition answer="Urnupna skivor" question="Är det en stor eller liten svamp?">
-						<condition answer="Liten svamp 2-5 cm med tunn seg fot, växer i gräsmattor" question="Doftar den kryddor?">
-							<decision namn="Nejlikbrosking " ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Marasmius_oreades">
-								<mixupdecision namn="Gifttrattskivling" ätlighet="+" url="http://www.svampguiden.com/art.asp?art=Clitocybe_dealbata"/>
-								<mixupdecision namn="Topptrådskivling" ätlighet="+" />
+				<condition answer="Skivorna gÃ¥r inte ner pÃ¥ foten" question="Hur ser skivorna ut?">
+					<condition answer="Urnupna skivor" question="Ã„r det en stor eller liten svamp?">
+						<condition answer="Liten svamp 2-5 cm med tunn seg fot, vÃ¤xer i grÃ¤smattor" question="Doftar den kryddor?">
+							<decision namn="Nejlikbrosking " Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Marasmius_oreades">
+								<mixupdecision namn="Gifttrattskivling" Ã¤tlighet="+" url="http://www.svampguiden.com/art.asp?art=Clitocybe_dealbata"/>
+								<mixupdecision namn="TopptrÃ¥dskivling" Ã¤tlighet="+" />
 							</decision>
 						</condition>
-						<condition answer="Kraftigare svamp, hatten 5-10 cm" question="Vad stämmer bäst angående färg och utseende?">
-							<condition answer="Hela svampen vit, vår och försommar">
-								<decision namn="Vårmusseron" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Calocybe_gambosa">
-									<mixupdecision namn="Sommarmusseron" ätlighet="+" />
-									<mixupdecision namn="Bolmörtskivling" ätlighet="++" />
-									<mixupdecision namn="Rättikmusseron" ätlighet="+" url="http://www.svampguiden.com/art.asp?art=Tricholoma_album"/>
-									<mixupdecision namn="Silkesmusseron" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Tricholoma_columbetta" />
+						<condition answer="Kraftigare svamp, hatten 5-10 cm" question="Vad stÃ¤mmer bÃ¤st angÃ¥ende fÃ¤rg och utseende?">
+							<condition answer="Hela svampen vit, vÃ¥r och fÃ¶rsommar">
+								<decision namn="VÃ¥rmusseron" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Calocybe_gambosa">
+									<mixupdecision namn="Sommarmusseron" Ã¤tlighet="+" />
+									<mixupdecision namn="BolmÃ¶rtskivling" Ã¤tlighet="++" />
+									<mixupdecision namn="RÃ¤ttikmusseron" Ã¤tlighet="+" url="http://www.svampguiden.com/art.asp?art=Tricholoma_album"/>
+									<mixupdecision namn="Silkesmusseron" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Tricholoma_columbetta" />
 								</decision>
 							</condition>
-							<condition answer="Hela svampen gul, små bruna fjäll på hatten">
-								<decision namn="Riddarmusseron" ätlighet="+" url="http://www.svampguiden.com/art.asp?art=Tricholoma_flavovirens">
-									<mixupdecision namn="Svavelmusseron" ätlighet="+" url="http://www.svampguiden.com/art.asp?art=Tricholoma_sulphureum"/>
-									<mixupdecision namn="Bitter Riddarmusseron" ätlighet="0" url="http://www.svampguiden.com/art.asp?art=Tricholoma_aestuans"/>
+							<condition answer="Hela svampen gul, smÃ¥ bruna fjÃ¤ll pÃ¥ hatten">
+								<decision namn="Riddarmusseron" Ã¤tlighet="+" url="http://www.svampguiden.com/art.asp?art=Tricholoma_flavovirens">
+									<mixupdecision namn="Svavelmusseron" Ã¤tlighet="+" url="http://www.svampguiden.com/art.asp?art=Tricholoma_sulphureum"/>
+									<mixupdecision namn="Bitter Riddarmusseron" Ã¤tlighet="0" url="http://www.svampguiden.com/art.asp?art=Tricholoma_aestuans"/>
 								</decision>
 							</condition>
-							<condition answer="Blåaktig framför allt skivorna">
-								<decision namn="Blåmusseron" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Lepista_nuda">
-									<mixupdecision namn="Blå spindelskivling" ätlighet="+" />
-									<mixupdecision namn="Ametistskivling" ätlighet="*" />
-									<mixupdecision namn="Höstmusseron" ätlighet="*" />
-									<mixupdecision namn="Violmusseron" ätlighet="*" />
+							<condition answer="BlÃ¥aktig framfÃ¶r allt skivorna">
+								<decision namn="BlÃ¥musseron" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Lepista_nuda">
+									<mixupdecision namn="BlÃ¥ spindelskivling" Ã¤tlighet="+" />
+									<mixupdecision namn="Ametistskivling" Ã¤tlighet="*" />
+									<mixupdecision namn="HÃ¶stmusseron" Ã¤tlighet="*" />
+									<mixupdecision namn="Violmusseron" Ã¤tlighet="*" />
 								</decision>
 							</condition>
 						</condition>
 					</condition>
-					<condition answer="Vidväxta skivor" question="Har foten en ring?">
-						<condition answer="Ring kring foten" question="Var och hur växer den?">
-							<condition answer="På stubbar i grupper, lång och smal fot">
-								<decision namn="Honungsskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Armillaria_mellea">
-									<mixupdecision namn="Fjällig tofsskivling" ätlighet="*" />
-									<mixupdecision namn="Slammig tofsskivling" ätlighet="0" />
+					<condition answer="VidvÃ¤xta skivor" question="Har foten en ring?">
+						<condition answer="Ring kring foten" question="Var och hur vÃ¤xer den?">
+							<condition answer="PÃ¥ stubbar i grupper, lÃ¥ng och smal fot">
+								<decision namn="Honungsskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Armillaria_mellea">
+									<mixupdecision namn="FjÃ¤llig tofsskivling" Ã¤tlighet="*" />
+									<mixupdecision namn="Slammig tofsskivling" Ã¤tlighet="0" />
 								</decision>
 							</condition>
 							<condition answer="En och en i mossig mark, hela svampen beige-brun och kraftig fot">
-								<decision namn="Rimskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Rozites_caperatus">
-									<mixupdecision namn="Rynkad spindelskivling" ätlighet="0" />
+								<decision namn="Rimskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Rozites_caperatus">
+									<mixupdecision namn="Rynkad spindelskivling" Ã¤tlighet="0" />
 								</decision>
 							</condition>
 						</condition>
-						<condition answer="Ingen ring kring foten" question="Vad stämmer bäst angående färg och växtsätt?">
-							<condition answer="Hela svampen är scharlakansröd och växer en och en">
-								<decision namn="Scharlakansvaxskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrocybe_punicea">
-									<mixupdecision namn="Mönjevaxskivling" ätlighet="*" />
-									<mixupdecision namn="Toppvaxskivling" ätlighet="+" />
+						<condition answer="Ingen ring kring foten" question="Vad stÃ¤mmer bÃ¤st angÃ¥ende fÃ¤rg och vÃ¤xtsÃ¤tt?">
+							<condition answer="Hela svampen Ã¤r scharlakansrÃ¶d och vÃ¤xer en och en">
+								<decision namn="Scharlakansvaxskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hygrocybe_punicea">
+									<mixupdecision namn="MÃ¶njevaxskivling" Ã¤tlighet="*" />
+									<mixupdecision namn="Toppvaxskivling" Ã¤tlighet="+" />
 								</decision>
 							</condition>
-							<condition answer="Växer i grupper på stubbar">
-								<decision namn="Rökslöjskivling" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hypholoma_capnoides">
-									<mixupdecision namn="Svavelgul slöjskivling" ätlighet="+" />
-									<mixupdecision namn="Tegelröd slöjskivling" ätlighet="0" />
-									<mixupdecision namn="Gul flamskivling" ätlighet="?" />
+							<condition answer="VÃ¤xer i grupper pÃ¥ stubbar">
+								<decision namn="RÃ¶kslÃ¶jskivling" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hypholoma_capnoides">
+									<mixupdecision namn="Svavelgul slÃ¶jskivling" Ã¤tlighet="+" />
+									<mixupdecision namn="TegelrÃ¶d slÃ¶jskivling" Ã¤tlighet="0" />
+									<mixupdecision namn="Gul flamskivling" Ã¤tlighet="?" />
 								</decision>
 							</condition>
 						</condition>
 					</condition>
 				</condition>
 			</condition>
-			<condition answer="Spröd vid brytning av foten" answer-image="nyckel_sprod_i_kottet.jpg" question="Avger den dan saft när den brutits?">
-				<condition answer="Avger saft vid brytning" answer-image="nyckel_vatska_vid_skador.jpg" question="Vilken färg har saften?">
+			<condition answer="SprÃ¶d vid brytning av foten" answer-image="nyckel_sprod_i_kottet.jpg" question="Avger den dan saft nÃ¤r den brutits?">
+				<condition answer="Avger saft vid brytning" answer-image="nyckel_vatska_vid_skador.jpg" question="Vilken fÃ¤rg har saften?">
 					<condition answer="Orange saft">
-						<decision namn="Granblodriska" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Lactarius_deterrimus">
-							<mixupdecision namn="Tallblodriska" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=lactarius_deliciosus"/>
+						<decision namn="Granblodriska" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Lactarius_deterrimus">
+							<mixupdecision namn="Tallblodriska" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=lactarius_deliciosus"/>
 						</decision>
 					</condition>
-					<condition answer="Vit saft" question="Vad stämmer bäst angående utseende?">
-						<condition answer="Brun kraftig fast svamp vars ljus skivor brunfärgas vid tumning">
-							<decision namn="Mandelriska" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Lactarius_volemus">
-								<mixupdecision namn="Brandriska" ätlighet="*" />
-								<mixupdecision namn="Pepparriska" ätlighet="(*)" url="http://www.svampguiden.com/art.asp?art=Lactarius_rufus"/>
+					<condition answer="Vit saft" question="Vad stÃ¤mmer bÃ¤st angÃ¥ende utseende?">
+						<condition answer="Brun kraftig fast svamp vars ljus skivor brunfÃ¤rgas vid tumning">
+							<decision namn="Mandelriska" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Lactarius_volemus">
+								<mixupdecision namn="Brandriska" Ã¤tlighet="*" />
+								<mixupdecision namn="Pepparriska" Ã¤tlighet="(*)" url="http://www.svampguiden.com/art.asp?art=Lactarius_rufus"/>
 							</decision>
 						</condition>
-						<condition answer="Luden och extra hårig vid hattkanten">
-							<decision namn="Skäggriska" ätlighet="(*)" url="http://www.svampguiden.com/art.asp?art=Lactarius_torminosus">
+						<condition answer="Luden och extra hÃ¥rig vid hattkanten">
+							<decision namn="SkÃ¤ggriska" Ã¤tlighet="(*)" url="http://www.svampguiden.com/art.asp?art=Lactarius_torminosus">
 							</decision>
 						</condition>
 					</condition>
 				</condition>
-				<condition answer="Avger ingen saft vid brytning" question="Förändras svampköttet vid brytning?">
-					<condition answer="Svampköttet blir grått vid brytning" question="Vilken färg har hatten?">
+				<condition answer="Avger ingen saft vid brytning" question="FÃ¶rÃ¤ndras svampkÃ¶ttet vid brytning?">
+					<condition answer="SvampkÃ¶ttet blir grÃ¥tt vid brytning" question="Vilken fÃ¤rg har hatten?">
 						<condition answer="Gul hatt">
-							<decision namn="Gulkremla" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_claroflava">
-								<mixupdecision namn="Senapskremla" ätlighet="0" url="http://www.svampguiden.com/art.asp?art=Russula_ochroleuca"/>
+							<decision namn="Gulkremla" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_claroflava">
+								<mixupdecision namn="Senapskremla" Ã¤tlighet="0" url="http://www.svampguiden.com/art.asp?art=Russula_ochroleuca"/>
 							</decision>
 						</condition>
 						<condition answer="Gulorange hatt">
-							<decision namn="Tegelkremla" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_decolorans">
-								<mixupdecision namn="Storkremla" ätlighet="*" />
+							<decision namn="Tegelkremla" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_decolorans">
+								<mixupdecision namn="Storkremla" Ã¤tlighet="*" />
 							</decision>
 						</condition>
-						<condition answer="Vinröd hatt">
-							<decision namn="Vinkremla" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_obscura">
-								<mixupdecision namn="Övriga skarpsmakande rödvioletta kremlor" ätlighet="0" />
+						<condition answer="VinrÃ¶d hatt">
+							<decision namn="Vinkremla" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_obscura">
+								<mixupdecision namn="Ã–vriga skarpsmakande rÃ¶dvioletta kremlor" Ã¤tlighet="0" />
 							</decision>
 						</condition>
 					</condition>
-					<condition answer="Svampköttet blir gulbrunt vid brytning">
-						<decision namn="Sillkremla" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_xerampelina">
-							<mixupdecision namn="Övriga skarpsmakande rödvioletta kremlor" ätlighet="0" />
+					<condition answer="SvampkÃ¶ttet blir gulbrunt vid brytning">
+						<decision namn="Sillkremla" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_xerampelina">
+							<mixupdecision namn="Ã–vriga skarpsmakande rÃ¶dvioletta kremlor" Ã¤tlighet="0" />
 						</decision>
 					</condition>
-					<condition answer="Svampköttet förblir oförändrat vitt" question="Vilken färg har hatten?">
+					<condition answer="SvampkÃ¶ttet fÃ¶rblir ofÃ¶rÃ¤ndrat vitt" question="Vilken fÃ¤rg har hatten?">
 						<condition answer="Chokladbrun till violett hatt">
-							<decision namn="Mandelkremla" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_integra">
-								<mixupdecision namn="Övriga skarpsmakande chokladbruna till violetta kremlor" ätlighet="0" />
+							<decision namn="Mandelkremla" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_integra">
+								<mixupdecision namn="Ã–vriga skarpsmakande chokladbruna till violetta kremlor" Ã¤tlighet="0" />
 							</decision>
 						</condition>
-						<condition answer="Murrigt brunrosa, vit kant vid brättet">
-							<decision namn="Kantkremla" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_vesca">
-								<mixupdecision namn="Övriga rödfärgade skarpsmakande kremlor" ätlighet="0" />
+						<condition answer="Murrigt brunrosa, vit kant vid brÃ¤ttet">
+							<decision namn="Kantkremla" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Russula_vesca">
+								<mixupdecision namn="Ã–vriga rÃ¶dfÃ¤rgade skarpsmakande kremlor" Ã¤tlighet="0" />
 							</decision>
 						</condition>
 					</condition>
@@ -201,205 +201,205 @@
 		</condition>
 	</condition>
 
-	<condition answer="Undersidan har taggar" answer-image="nyckel_taggar.jpg" question="Vilken färg och form har svampen?">
-		<condition answer="Blekt gulröd hatt med ljusa taggar som går ned på foten">
-			<decision namn="Blek taggsvamp" ätlighet="*">
-				<mixupdecision namn="Rödgul taggsvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hydnum_rufescens"/>
-				<mixupdecision namn="Gelétaggsvamp" ätlighet="0"
-                    skiljetecken="Gråblå till ljusbrun, geléaktig"/>
+	<condition answer="Undersidan har taggar" answer-image="nyckel_taggar.jpg" question="Vilken fÃ¤rg och form har svampen?">
+		<condition answer="Blekt gulrÃ¶d hatt med ljusa taggar som gÃ¥r ned pÃ¥ foten">
+			<decision namn="Blek taggsvamp" Ã¤tlighet="*">
+				<mixupdecision namn="RÃ¶dgul taggsvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hydnum_rufescens"/>
+				<mixupdecision namn="GelÃ©taggsvamp" Ã¤tlighet="0"
+                    skiljetecken="GrÃ¥blÃ¥ till ljusbrun, gelÃ©aktig"/>
 			</decision>
 		</condition>
-		<condition answer="Matt rödgul, oregelbundet formad, tunn hatt">
-			<decision namn="Rödgul taggsvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hydnum_rufescens">
-				<mixupdecision namn="Blek taggsvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hydnum_repandum"/>
-				<mixupdecision namn="Orange taggsvamp" ätlighet="0" url="http://www.svampguiden.com/art.asp?art=Hydnellum_aurantiacum" />
+		<condition answer="Matt rÃ¶dgul, oregelbundet formad, tunn hatt">
+			<decision namn="RÃ¶dgul taggsvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hydnum_rufescens">
+				<mixupdecision namn="Blek taggsvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hydnum_repandum"/>
+				<mixupdecision namn="Orange taggsvamp" Ã¤tlighet="0" url="http://www.svampguiden.com/art.asp?art=Hydnellum_aurantiacum" />
 			</decision>
 		</condition>
-		<condition answer="Orangegul med småpucklig hatt och korkartat kött">
-			<decision namn="Orange taggsvamp" ätlighet="0" url="http://www.svampguiden.com/art.asp?art=Hydnellum_aurantiacum">
-				<mixupdecision namn="Rödgul taggsvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Hydnum_rufescens"/>
+		<condition answer="Orangegul med smÃ¥pucklig hatt och korkartat kÃ¶tt">
+			<decision namn="Orange taggsvamp" Ã¤tlighet="0" url="http://www.svampguiden.com/art.asp?art=Hydnellum_aurantiacum">
+				<mixupdecision namn="RÃ¶dgul taggsvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Hydnum_rufescens"/>
 			</decision>
 		</condition>
-		<condition answer="Umbrabrun med stora, grova, koncentriskt anordnade spärrfjäll">
-			<decision namn="Fjällig taggsvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Sarcodon_imbricatus">
-				<mixupdecision namn="Blåfotad taggsvamp" ätlighet="0" url="http://www.svampguiden.com/art.asp?art=sarcodon_glaucopus"
-                    skiljetecken="Hatten utan grova fjäll, svampköttet i fotbasen är blågrönt"/>
+		<condition answer="Umbrabrun med stora, grova, koncentriskt anordnade spÃ¤rrfjÃ¤ll">
+			<decision namn="FjÃ¤llig taggsvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Sarcodon_imbricatus">
+				<mixupdecision namn="BlÃ¥fotad taggsvamp" Ã¤tlighet="0" url="http://www.svampguiden.com/art.asp?art=sarcodon_glaucopus"
+                    skiljetecken="Hatten utan grova fjÃ¤ll, svampkÃ¶ttet i fotbasen Ã¤r blÃ¥grÃ¶nt"/>
 			</decision>
 		</condition>
 	</condition>
 
-	<condition answer="Den är busklik med många grenar" answer-image="nyckel_busklik.jpg" question="Hur ser grenarna ut?">
-		<condition answer="Som fingrar" question="vilken färg har grenarna?">
-			<condition answer="Violetta toppar på ljusa grenar">
-				<decision namn="Druvfingersvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=ramaria_botrytis">
-                    <mixupdecision namn="Gul fingersvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Ramaria_flava_s._lat."/>
-					<mixupdecision namn="Blek fingersvamp" ätlighet="+" url="http://www.svampguiden.com/art.asp?art=ramaria_pallida"/>
+	<condition answer="Den Ã¤r busklik med mÃ¥nga grenar" answer-image="nyckel_busklik.jpg" question="Hur ser grenarna ut?">
+		<condition answer="Som fingrar" question="vilken fÃ¤rg har grenarna?">
+			<condition answer="Violetta toppar pÃ¥ ljusa grenar">
+				<decision namn="Druvfingersvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=ramaria_botrytis">
+                    <mixupdecision namn="Gul fingersvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Ramaria_flava_s._lat."/>
+					<mixupdecision namn="Blek fingersvamp" Ã¤tlighet="+" url="http://www.svampguiden.com/art.asp?art=ramaria_pallida"/>
 				</decision>
 			</condition>
 			<condition answer="Gula grenar">
-				<decision namn="Gul fingersvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Ramaria_flava_s._lat.">
-                    <mixupdecision namn="Lömsk fingersvamp" ätlighet="+" url="http://www.svampguiden.com/art.asp?art=ramaria_formosa"
-                        skiljetecken="svagt rosafärgade grenar" />
-                    <mixupdecision namn="Kamfingersvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Clavulina_cristata"
+				<decision namn="Gul fingersvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Ramaria_flava_s._lat.">
+                    <mixupdecision namn="LÃ¶msk fingersvamp" Ã¤tlighet="+" url="http://www.svampguiden.com/art.asp?art=ramaria_formosa"
+                        skiljetecken="svagt rosafÃ¤rgade grenar" />
+                    <mixupdecision namn="Kamfingersvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Clavulina_cristata"
                         skiljetecken="Blekare" />
 				</decision>
 			</condition>
 		</condition>
-		<condition answer="De är krusiga och tillplattade">
-			<decision namn="Krusig blomkålssvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Sparassis_crispa">
-				<mixupdecision namn="Slätbladig blomkålssvamp" ätlighet="*" />
+		<condition answer="De Ã¤r krusiga och tillplattade">
+			<decision namn="Krusig blomkÃ¥lssvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Sparassis_crispa">
+				<mixupdecision namn="SlÃ¤tbladig blomkÃ¥lssvamp" Ã¤tlighet="*" />
 			</decision>
 		</condition>
 	</condition>
 
-	<condition answer="Päronformad eller rund" question="Vilken färg?">
-		<condition answer="Vit" question="Vad stämmer bäst angående utseende?">
-			<condition answer="Små vårtor som täcker svampens ovansida">
-				<decision namn="Vårtig röksvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Lycoperdon_perlatum">
-					<mixupdecision namn="Långfotad röksvamp" ätlighet="*"
-                        skiljetecken="Längre utdragen fot"/>
+	<condition answer="PÃ¤ronformad eller rund" question="Vilken fÃ¤rg?">
+		<condition answer="Vit" question="Vad stÃ¤mmer bÃ¤st angÃ¥ende utseende?">
+			<condition answer="SmÃ¥ vÃ¥rtor som tÃ¤cker svampens ovansida">
+				<decision namn="VÃ¥rtig rÃ¶ksvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Lycoperdon_perlatum">
+					<mixupdecision namn="LÃ¥ngfotad rÃ¶ksvamp" Ã¤tlighet="*"
+                        skiljetecken="LÃ¤ngre utdragen fot"/>
 				</decision>
 			</condition>
 			<condition answer="Stor och klotformig">
-				<decision namn="Jätteröksvamp" ätlighet="*">
-					<mixupdecision namn="Läderboll" ätlighet="*" />
+				<decision namn="JÃ¤tterÃ¶ksvamp" Ã¤tlighet="*">
+					<mixupdecision namn="LÃ¤derboll" Ã¤tlighet="*" />
 				</decision>
 			</condition>
 		</condition>
-		<condition answer="Gråvit" question="Vad stämmer bäst angående utseende?">
-			<condition answer="Kraftig med slät ovansida">
-				<decision namn="Skålröksvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Calvatia_utriformis">
+		<condition answer="GrÃ¥vit" question="Vad stÃ¤mmer bÃ¤st angÃ¥ende utseende?">
+			<condition answer="Kraftig med slÃ¤t ovansida">
+				<decision namn="SkÃ¥lrÃ¶ksvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Calvatia_utriformis">
 				</decision>
 			</condition>
-			<condition answer="Rund eller äggformad">
-				<decision namn="Blygrå äggsvamp" ätlighet="*">
-					<mixupdecision namn="Svartnande äggsvamp" ätlighet="*" />
+			<condition answer="Rund eller Ã¤ggformad">
+				<decision namn="BlygrÃ¥ Ã¤ggsvamp" Ã¤tlighet="*">
+					<mixupdecision namn="Svartnande Ã¤ggsvamp" Ã¤tlighet="*" />
 				</decision>
 			</condition>
 		</condition>
-		<condition answer="Gulbrun" question="Vad stämmer bäst angående utseende?">
-			<condition answer="Små taggar som täcker svampens ovansida">
-				<decision namn="Umbrabrun röksvamp" ätlighet="*">
+		<condition answer="Gulbrun" question="Vad stÃ¤mmer bÃ¤st angÃ¥ende utseende?">
+			<condition answer="SmÃ¥ taggar som tÃ¤cker svampens ovansida">
+				<decision namn="Umbrabrun rÃ¶ksvamp" Ã¤tlighet="*">
 				</decision>
 			</condition>
-			<condition answer="Slät ovansida, växer i gyttringar">
-				<decision namn="Gyttrad röksvamp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Lycoperdon_pyriforme">
+			<condition answer="SlÃ¤t ovansida, vÃ¤xer i gyttringar">
+				<decision namn="Gyttrad rÃ¶ksvamp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Lycoperdon_pyriforme">
 				</decision>
 			</condition>
 		</condition>
 	</condition>
 
-	<condition answer="Undersidan har rör" answer-image="nyckel_sopp_ror.jpg" question="Hur ser rören ut?">
-		<condition answer="Små korta rör som sitter hårt fast i hatten" question="Var växer den?">
-			<condition answer="På marken" question="Vilken färg?">
-				<condition answer="Vit, gråvit eller gulvit">
-					<decision namn="Fårticka" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=albatrellus_ovinus">
-						<mixupdecision namn="Brödticka" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Albatrellus_confluens"/>
+	<condition answer="Undersidan har rÃ¶r" answer-image="nyckel_sopp_ror.jpg" question="Hur ser rÃ¶ren ut?">
+		<condition answer="SmÃ¥ korta rÃ¶r som sitter hÃ¥rt fast i hatten" question="Var vÃ¤xer den?">
+			<condition answer="PÃ¥ marken" question="Vilken fÃ¤rg?">
+				<condition answer="Vit, grÃ¥vit eller gulvit">
+					<decision namn="FÃ¥rticka" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=albatrellus_ovinus">
+						<mixupdecision namn="BrÃ¶dticka" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Albatrellus_confluens"/>
 					</decision>
 				</condition>
-				<condition answer="Gulbrun eller orangebrun, växer gyttrat">
-					<decision namn="Brödticka" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Albatrellus_confluens">
-						<mixupdecision namn="Fårticka" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=albatrellus_ovinus"
-                            skiljetecken="Fläckas ej i orange och växer ej lika tuvat"/>
+				<condition answer="Gulbrun eller orangebrun, vÃ¤xer gyttrat">
+					<decision namn="BrÃ¶dticka" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Albatrellus_confluens">
+						<mixupdecision namn="FÃ¥rticka" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=albatrellus_ovinus"
+                            skiljetecken="FlÃ¤ckas ej i orange och vÃ¤xer ej lika tuvat"/>
 					</decision>
 				</condition>
 			</condition>
-			<condition answer="På stubbe eller träd">
-				<decision namn="Någon slags trädticka" ätlighet="0">
+			<condition answer="PÃ¥ stubbe eller trÃ¤d">
+				<decision namn="NÃ¥gon slags trÃ¤dticka" Ã¤tlighet="0">
 				</decision>
 			</condition>
 		</condition>
-		<condition answer="Rören kan lätt lossas från hatten hos utväxta exemplar" answer-image="nyckel_sopp_lossa.jpg" question="Har den ring?">
-			<condition answer="Den har ring" question="Vilken färg har hatten?">
+		<condition answer="RÃ¶ren kan lÃ¤tt lossas frÃ¥n hatten hos utvÃ¤xta exemplar" answer-image="nyckel_sopp_lossa.jpg" question="Har den ring?">
+			<condition answer="Den har ring" question="Vilken fÃ¤rg har hatten?">
 				<condition answer="Kastanjebrun till ljusbrun">
-					<decision namn="Smörsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Suillus_luteus">
-						<mixupdecision namn="Grynsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_granulatus"
+					<decision namn="SmÃ¶rsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Suillus_luteus">
+						<mixupdecision namn="Grynsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_granulatus"
                             skiljetecken="Saknar ring"/>
-						<mixupdecision namn="Lärksopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_grevillei"
-                            skiljetecken="Guldgul till rödbrun hattfärg"/>
-						<mixupdecision namn="Brunsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Boletus_badius"
-                            skiljetecken="Mörkare hatt, ej ring"/>
-                        <mixupdecision namn="Slemsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_flavidus"
+						<mixupdecision namn="LÃ¤rksopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_grevillei"
+                            skiljetecken="Guldgul till rÃ¶dbrun hattfÃ¤rg"/>
+						<mixupdecision namn="Brunsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Boletus_badius"
+                            skiljetecken="MÃ¶rkare hatt, ej ring"/>
+                        <mixupdecision namn="Slemsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_flavidus"
                             skiljetecken="Tunnare fot och en slemmig ring"/>
 					</decision>
 				</condition>
-                <condition answer="Gul till rödgul">
-                    <decision namn="Lärksopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_grevillei">
-                        <mixupdecision namn="Smörsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Suillus_luteus"
-                            skiljetecken="Mörkare hattfärg"/>
+                <condition answer="Gul till rÃ¶dgul">
+                    <decision namn="LÃ¤rksopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_grevillei">
+                        <mixupdecision namn="SmÃ¶rsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Suillus_luteus"
+                            skiljetecken="MÃ¶rkare hattfÃ¤rg"/>
                     </decision>
                 </condition>
 			</condition>
-			<condition answer="Den har ingen ring" question="Vad stämmer bäst angående utseende?">
-				<condition answer="Små tofsar på foten, vita-grå rör" question="Vilken färg har hatten?">
+			<condition answer="Den har ingen ring" question="Vad stÃ¤mmer bÃ¤st angÃ¥ende utseende?">
+				<condition answer="SmÃ¥ tofsar pÃ¥ foten, vita-grÃ¥ rÃ¶r" question="Vilken fÃ¤rg har hatten?">
 					<condition answer="Brun hatt">
-						<decision namn="Björksopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Leccinum_scabrum">
-							<mixupdecision namn="Gallsopp" ätlighet="0" url="http://www.svampguiden.com/art.asp?art=tylopilus_felleus"
-                                skiljetecken="Mörkare ådernät, bitter i smaken"/>
-							<mixupdecision namn="Fläcksopp" ätlighet="*" />
-							<mixupdecision namn="Hasselsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Leccinum_pseudoscabrum" />
+						<decision namn="BjÃ¶rksopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Leccinum_scabrum">
+							<mixupdecision namn="Gallsopp" Ã¤tlighet="0" url="http://www.svampguiden.com/art.asp?art=tylopilus_felleus"
+                                skiljetecken="MÃ¶rkare Ã¥dernÃ¤t, bitter i smaken"/>
+							<mixupdecision namn="FlÃ¤cksopp" Ã¤tlighet="*" />
+							<mixupdecision namn="Hasselsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Leccinum_pseudoscabrum" />
 						</decision>
 					</condition>
 					<condition answer="Orange-orangebrun hatt" question="Hur ser foten ut?">
-						<condition answer="Svarta tofsar på foten">
-							<decision namn="Tegelsopp (Tegelröd björksopp)" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=leccinum_versipelle">
+						<condition answer="Svarta tofsar pÃ¥ foten">
+							<decision namn="Tegelsopp (TegelrÃ¶d bjÃ¶rksopp)" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=leccinum_versipelle">
 							</decision>
 						</condition>
-						<condition answer="Vita-rödbruna tofsar på foten">
-							<decision namn="Aspsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Leccinum_rufum">
+						<condition answer="Vita-rÃ¶dbruna tofsar pÃ¥ foten">
+							<decision namn="Aspsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Leccinum_rufum">
 							</decision>
 						</condition>
 					</condition>
 				</condition>
-				<condition answer="Ljusbrun hatt som i väta är slemmig">
-					<decision namn="Grynsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Suillus_granulatus">
-						<mixupdecision namn="Smörsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_luteus"
-                            skiljetecken="Har ring på foten"/>
+				<condition answer="Ljusbrun hatt som i vÃ¤ta Ã¤r slemmig">
+					<decision namn="Grynsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Suillus_granulatus">
+						<mixupdecision namn="SmÃ¶rsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_luteus"
+                            skiljetecken="Har ring pÃ¥ foten"/>
 					</decision>
 				</condition>
-				<condition answer="Kraftig fot med vitt ådernät">
-					<decision namn="Stensopp (karljohanssvamp)" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Boletus_edulis">
-						<mixupdecision namn="Finluden stensopp (Grågul Stensopp)" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=boletus_reticulatus"
-                            skiljetecken="Finluden hatt. Svampköttet vitt strax under hatthuden"/>
-						<mixupdecision namn="Rödbrun stensopp (Kopparfärgad stensopp)" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=boletus_pinophilus"
-                            skiljetecken="Mörkare rödbrun, ofta gropig hatt,"/>
-						<mixupdecision namn="Gallsopp" ätlighet="0" url="http://www.svampguiden.com/art.asp?art=tylopilus_felleus"
-                            skiljetecken="Mörkare ådernät, bitter i smaken"/>
+				<condition answer="Kraftig fot med vitt Ã¥dernÃ¤t">
+					<decision namn="Stensopp (karljohanssvamp)" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Boletus_edulis">
+						<mixupdecision namn="Finluden stensopp (GrÃ¥gul Stensopp)" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=boletus_reticulatus"
+                            skiljetecken="Finluden hatt. SvampkÃ¶ttet vitt strax under hatthuden"/>
+						<mixupdecision namn="RÃ¶dbrun stensopp (KopparfÃ¤rgad stensopp)" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=boletus_pinophilus"
+                            skiljetecken="MÃ¶rkare rÃ¶dbrun, ofta gropig hatt,"/>
+						<mixupdecision namn="Gallsopp" Ã¤tlighet="0" url="http://www.svampguiden.com/art.asp?art=tylopilus_felleus"
+                            skiljetecken="MÃ¶rkare Ã¥dernÃ¤t, bitter i smaken"/>
 					</decision>
 				</condition>
-				<condition answer="Gulbrun fräknig hatt med bruna rör">
-					<decision namn="Sandsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Suillus_variegatus">
-						<mixupdecision namn="Örsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_bovinus"
-                            skiljetecken="Saknar fräknar, har större rörmynningar"/>
+				<condition answer="Gulbrun frÃ¤knig hatt med bruna rÃ¶r">
+					<decision namn="Sandsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Suillus_variegatus">
+						<mixupdecision namn="Ã–rsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=suillus_bovinus"
+                            skiljetecken="Saknar frÃ¤knar, har stÃ¶rre rÃ¶rmynningar"/>
 					</decision>
 				</condition>
 				<condition answer="Brun hatt och fot">
-					<decision namn="Brunsopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=boletus_badius">
-						<mixupdecision namn="Sammetssopp" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Boletus_subtomentosus"
+					<decision namn="Brunsopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=boletus_badius">
+						<mixupdecision namn="Sammetssopp" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Boletus_subtomentosus"
                             skiljetecken="Sammetsluden hatt, ej klibbig"/>
 					</decision>
 				</condition>
 			</condition>
 		</condition>
 	</condition>
-	<condition answer="Vindlingar eller nätmönster" answer-image="nyckel_vindlad_hatt.jpg" question="Vilken årstid hittade du svampen?">
-		<condition answer="Våren eller försommaren" question="Hur ser hatten ut?">
+	<condition answer="Vindlingar eller nÃ¤tmÃ¶nster" answer-image="nyckel_vindlad_hatt.jpg" question="Vilken Ã¥rstid hittade du svampen?">
+		<condition answer="VÃ¥ren eller fÃ¶rsommaren" question="Hur ser hatten ut?">
 			<condition answer="Vindlande brun hatt">
-				<decision namn="Stenmurkla" ätlighet="++" url="http://www.svampguiden.com/art.asp?art=Gyromitra_esculenta">
-					<mixupdecision namn="Blek stenmurkla" ätlighet="(*)" url="http://www.svampguiden.com/art.asp?art=Discina_gigas" />
+				<decision namn="Stenmurkla" Ã¤tlighet="++" url="http://www.svampguiden.com/art.asp?art=Gyromitra_esculenta">
+					<mixupdecision namn="Blek stenmurkla" Ã¤tlighet="(*)" url="http://www.svampguiden.com/art.asp?art=Discina_gigas" />
 				</decision>
 			</condition>
-			<condition answer="Toppig nätmönstrad hatt">
-				<decision namn="Toppmurkla" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Morchella_elata">
-					<mixupdecision namn="Rund toppmurkla" ätlighet="*" url="http://www.svampguiden.com/art.asp?art=Morchella_esculenta"/>
+			<condition answer="Toppig nÃ¤tmÃ¶nstrad hatt">
+				<decision namn="Toppmurkla" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Morchella_elata">
+					<mixupdecision namn="Rund toppmurkla" Ã¤tlighet="*" url="http://www.svampguiden.com/art.asp?art=Morchella_esculenta"/>
 				</decision>
 			</condition>
 		</condition>
-		<condition answer="Hösten">
+		<condition answer="HÃ¶sten">
 			<condition answer="Brun hatt med ljusare fot">
-				<decision namn="Biskopsmössa" ätlighet="(*)" url="http://www.svampguiden.com/art.asp?art=Gyromitra_infula">
-					<mixupdecision namn="Lömsk biskopsmössa" ätlighet="+" url="http://www.svampguiden.com/art.asp?art=Gyromitra_infula"/>
-                    <mixupdecision namn="Svart hattmurkla" ätlighet="(*)" url="http://www.svampguiden.com/art.asp?art=Helvella_lacunosa"/>
+				<decision namn="BiskopsmÃ¶ssa" Ã¤tlighet="(*)" url="http://www.svampguiden.com/art.asp?art=Gyromitra_infula">
+					<mixupdecision namn="LÃ¶msk biskopsmÃ¶ssa" Ã¤tlighet="+" url="http://www.svampguiden.com/art.asp?art=Gyromitra_infula"/>
+                    <mixupdecision namn="Svart hattmurkla" Ã¤tlighet="(*)" url="http://www.svampguiden.com/art.asp?art=Helvella_lacunosa"/>
 				</decision>
 			</condition>
 		</condition>

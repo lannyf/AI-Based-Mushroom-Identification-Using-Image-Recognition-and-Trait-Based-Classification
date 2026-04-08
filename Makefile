@@ -1,7 +1,7 @@
-PROJECT_ROOT  := /home/iannyf/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification
+PROJECT_ROOT  ?= $(CURDIR)
 APP_DIR       := $(PROJECT_ROOT)/mushroom_id_app
 JAVA_DIR      := $(PROJECT_ROOT)/java-backend
-FLUTTER_BIN   := $(HOME)/Emi/flutter_linux_3.41.5-stable/flutter/bin
+FLUTTER_BIN   ?= flutter
 PYTHON_PORT   ?= 8000
 JAVA_PORT     ?= 8080
 WEB_PORT      ?= 8081
@@ -92,10 +92,9 @@ stop:
 # ---------------------------------------------------------------------------
 web-build:
 	cd $(APP_DIR) && \
-	export PATH="$(FLUTTER_BIN):$$PATH" && \
-	flutter clean && \
-	flutter pub get && \
-	flutter build web --no-wasm-dry-run
+	$(FLUTTER_BIN) clean && \
+	$(FLUTTER_BIN) pub get && \
+	$(FLUTTER_BIN) build web --no-wasm-dry-run
 
 web-serve:
 	cd $(APP_DIR)/build/web && \
@@ -108,20 +107,17 @@ web: web-build web-serve
 # ---------------------------------------------------------------------------
 flutter-analyze:
 	cd $(APP_DIR) && \
-	export PATH="$(FLUTTER_BIN):$$PATH" && \
-	dart analyze lib/
+	$(FLUTTER_BIN) analyze lib/
 
 flutter-test:
 	cd $(APP_DIR) && \
-	export PATH="$(FLUTTER_BIN):$$PATH" && \
-	flutter test
+	$(FLUTTER_BIN) test
 
 # ---------------------------------------------------------------------------
 # Clean
 # ---------------------------------------------------------------------------
 clean:
 	cd $(APP_DIR) && \
-	export PATH="$(FLUTTER_BIN):$$PATH" && \
-	flutter clean || true
+	$(FLUTTER_BIN) clean || true
 	cd $(JAVA_DIR) && mvn -q clean || true
 	@echo "Build artefacts cleaned."

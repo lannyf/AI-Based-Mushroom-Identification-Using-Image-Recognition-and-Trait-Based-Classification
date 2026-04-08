@@ -1,6 +1,55 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mushroom_identification/providers/identification_provider.dart';
+import 'package:mushroom_identification/services/identification_api_service.dart';
+
+// ---------------------------------------------------------------------------
+// Fake API service for pipeline tests
+// ---------------------------------------------------------------------------
+
+class _FakeApiService extends IdentificationApiService {
+  Map<String, dynamic>? step2Response;
+  Map<String, dynamic>? step3Response;
+  Map<String, dynamic>? step4Response;
+  Exception? errorToThrow;
+
+  @override
+  Future<Map<String, dynamic>> step2Start({
+    required Map<String, dynamic> visibleTraits,
+    String? sessionId,
+  }) async {
+    if (errorToThrow != null) throw errorToThrow!;
+    return step2Response!;
+  }
+
+  @override
+  Future<Map<String, dynamic>> step2Answer({
+    required String sessionId,
+    required String answer,
+  }) async {
+    if (errorToThrow != null) throw errorToThrow!;
+    return step2Response!;
+  }
+
+  @override
+  Future<Map<String, dynamic>> step3Compare({
+    required String swedishName,
+    required Map<String, dynamic> visibleTraits,
+  }) async {
+    if (errorToThrow != null) throw errorToThrow!;
+    return step3Response!;
+  }
+
+  @override
+  Future<Map<String, dynamic>> step4Finalize({
+    required Map<String, dynamic> step1Result,
+    required Map<String, dynamic> step2Result,
+    required Map<String, dynamic> step3Result,
+  }) async {
+    if (errorToThrow != null) throw errorToThrow!;
+    return step4Response!;
+  }
+}
 
 void main() {
   group('IdentificationProvider', () {
@@ -302,6 +351,172 @@ void main() {
           isEmpty,
           reason: 'Error message should be cleared',
         );
+      });
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // Pipeline tests — require fake API service via constructor injection
+  // -------------------------------------------------------------------------
+  group('IdentificationProvider pipeline', () {
+    late _FakeApiService fakeApi;
+    late IdentificationProvider provider;
+
+    setUp(() {
+      fakeApi = _FakeApiService();
+      if (Get.isRegistered<IdentificationProvider>()) {
+        Get.delete<IdentificationProvider>();
+      }
+      provider = Get.put(IdentificationProvider(api: fakeApi));
+    });
+
+    tearDown(() {
+      Get.delete<IdentificationProvider>();
+    });
+
+    group('_applyStep2Response — question shape', () {
+      test('sets question, options, and clears concluded when status is question', () async {
+        provider.step1Result.value = {
+          'step1': {'visible_traits': <String, dynamic>{}},
+        };
+        fakeApi.step2Response = {
+          'status': 'question',
+          'session_id': 'sess-1',
+          'question': 'What colour is the cap?',
+          'options': ['Red', 'Brown', 'White'],
+          'auto_answered': ['q0', 'q1'],
+          'path': ['q0', 'q1'],
+        };
+
+        await provider.runStep2Start();
+
+        expect(provider.step2SessionId.value, equals('sess-1'));
+        expect(provider.step2Question.value, equals('What colour is the cap?'));
+        expect(provider.step2Options, equals(['Red', 'Brown', 'White']));
+        expect(provider.step2Concluded.value, isFalse);
+      });
+
+      test('derives autoAnswers count from auto_answered list length', () async {
+        provider.step1Result.value = {
+          'step1': {'visible_traits': <String, dynamic>{}},
+        };
+        fakeApi.step2Response = {
+          'status': 'question',
+          'session_id': 'sess-1',
+          'question': 'Has it got gills?',
+          'options': ['Yes', 'No'],
+          'auto_answered': ['q0', 'q1', 'q2'],
+          'path': ['q0', 'q1', 'q2', 'q3'],
+        };
+
+        await provider.runStep2Start();
+
+        expect(provider.step2AutoAnswers.value, equals(3),
+            reason: 'auto_answered list has 3 items');
+        expect(provider.step2UserAnswers.value, equals(1),
+            reason: 'path.length(4) - auto_answered.length(3) = 1');
+      });
+
+      test('prefers explicit autoAnswers field when present', () async {
+        provider.step1Result.value = {
+          'step1': {'visible_traits': <String, dynamic>{}},
+        };
+        fakeApi.step2Response = {
+          'status': 'question',
+          'session_id': 'sess-2',
+          'question': 'Spore colour?',
+          'options': ['White', 'Brown'],
+          'auto_answers': 5,
+          'user_answers': 2,
+          'auto_answered': ['q0'],
+          'path': ['q0'],
+        };
+
+        await provider.runStep2Start();
+
+        expect(provider.step2AutoAnswers.value, equals(5),
+            reason: 'explicit auto_answers field takes precedence');
+        expect(provider.step2UserAnswers.value, equals(2),
+            reason: 'explicit user_answers field takes precedence');
+      });
+    });
+
+    group('_applyStep2Response — conclusion shape', () {
+      test('sets step2Result, marks concluded, clears question/options', () async {
+        provider.step1Result.value = {
+          'step1': {'visible_traits': <String, dynamic>{}},
+        };
+        fakeApi.step2Response = {
+          'status': 'conclusion',
+          'session_id': 'sess-c',
+          'species': 'Kantarell',
+          'edibility': '*',
+          'path': ['q0', 'q1'],
+          'auto_answered': ['q0'],
+        };
+
+        await provider.runStep2Start();
+
+        expect(provider.step2Concluded.value, isTrue);
+        expect(provider.step2Result.value, isNotNull);
+        expect(provider.step2Result.value!['species'], equals('Kantarell'));
+        expect(provider.step2Question.value, isNull);
+        expect(provider.step2Options, isEmpty);
+        expect(provider.step2AutoAnswers.value, equals(1));
+        expect(provider.step2UserAnswers.value, equals(1),
+            reason: 'path.length(2) - auto_answered.length(1) = 1');
+      });
+    });
+
+    group('runStep3AndStep4 sequencing', () {
+      void _seedCompletedSteps() {
+        provider.step1Result.value = {
+          'step1': {
+            'visible_traits': {'color': 'yellow'},
+          },
+        };
+        provider.step2Result.value = {
+          'status': 'conclusion',
+          'species': 'Kantarell',
+        };
+        fakeApi.step3Response = {
+          'trait_match': {'score': 0.9},
+        };
+        fakeApi.step4Response = {
+          'final_recommendation': {
+            'swedish_name': 'Kantarell',
+            'overall_confidence': 0.88,
+          },
+        };
+      }
+
+      test('runStep3AndStep4 sets both step3Result and step4Result on success', () async {
+        _seedCompletedSteps();
+        await provider.runStep3AndStep4();
+
+        expect(provider.step3Result.value, isNotNull);
+        expect(provider.step4Result.value, isNotNull);
+        expect(provider.errorMessage.value, isNull);
+      });
+
+      test('runStep3AndStep4 stops after Step 3 error and does not run Step 4', () async {
+        _seedCompletedSteps();
+        fakeApi.errorToThrow = Exception('Step 3 backend error');
+
+        await provider.runStep3AndStep4();
+
+        expect(provider.step3Result.value, isNull);
+        expect(provider.step4Result.value, isNull);
+        expect(provider.errorMessage.value, isNotNull);
+      });
+
+      test('runStep3AndStep4 fails early when Steps 1 or 2 are missing', () async {
+        // No step1/step2 seeded
+        await provider.runStep3AndStep4();
+
+        expect(provider.errorMessage.value, isNotNull);
+        expect(provider.step3Result.value, isNull);
+        expect(provider.step4Result.value, isNull);
       });
     });
   });

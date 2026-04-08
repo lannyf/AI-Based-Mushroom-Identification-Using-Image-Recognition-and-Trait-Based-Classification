@@ -136,6 +136,7 @@ class _CameraPageState extends State<CameraPage> {
 
       setState(() => _isAnalysing = true);
       await provider.runStep1();
+      if (!mounted) return;
       setState(() => _isAnalysing = false);
 
       if (provider.errorMessage.value != null) {
@@ -146,6 +147,7 @@ class _CameraPageState extends State<CameraPage> {
       // Step 1 done — proceed to Step 2 tree traversal
       Get.toNamed('/tree-traversal');
     } catch (e) {
+      if (!mounted) return;
       setState(() => _isAnalysing = false);
       _showErrorSnackBar('${'error_validating'.tr}: $e');
     }

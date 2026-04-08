@@ -13,7 +13,10 @@ import '../services/identification_api_service.dart';
 /// Step 4: final aggregation → step4Result stored  ← this is what ResultsPage shows
 class IdentificationProvider extends GetxController {
   final Logger _logger = Logger();
-  final IdentificationApiService _api = IdentificationApiService();
+  final IdentificationApiService _api;
+
+  IdentificationProvider({IdentificationApiService? api})
+      : _api = api ?? IdentificationApiService();
 
   // ---------------------------------------------------------------------------
   // Image state
@@ -127,7 +130,11 @@ class IdentificationProvider extends GetxController {
     final s1 = step1Result.value;
     if (s1 == null) { setError('Run Step 1 first'); return; }
 
-    final visibleTraits = (s1['step1'] as Map?)?['visible_traits'] as Map<String, dynamic>? ?? {};
+    final step1Map = s1['step1'] as Map?;
+    final rawVisibleTraits = step1Map?['visible_traits'] as Map?;
+    final visibleTraits = rawVisibleTraits != null
+        ? Map<String, dynamic>.from(rawVisibleTraits)
+        : <String, dynamic>{};
     setProcessing(true);
     clearError();
     try {
@@ -162,8 +169,18 @@ class IdentificationProvider extends GetxController {
 
   void _applyStep2Response(Map<String, dynamic> result) {
     step2SessionId.value  = result['session_id'] as String?;
-    step2AutoAnswers.value = (result['auto_answers'] as num?)?.toInt() ?? 0;
-    step2UserAnswers.value = (result['user_answers'] as num?)?.toInt() ?? 0;
+
+    final autoAnswers = (result['auto_answers'] as num?)?.toInt();
+    final userAnswers = (result['user_answers'] as num?)?.toInt();
+    final autoAnswered = result['auto_answered'] as List?;
+    final path = result['path'] as List?;
+
+    final derivedAutoAnswers = autoAnswered?.length ?? 0;
+    final derivedUserAnswers =
+        path == null ? 0 : (path.length - derivedAutoAnswers).clamp(0, path.length);
+
+    step2AutoAnswers.value = autoAnswers ?? derivedAutoAnswers;
+    step2UserAnswers.value = userAnswers ?? derivedUserAnswers;
 
     if (result['status'] == 'conclusion') {
       step2Result.value = result;
@@ -188,7 +205,11 @@ class IdentificationProvider extends GetxController {
     if (s1 == null || s2 == null) { setError('Steps 1 and 2 must be complete'); return; }
 
     final swedishName = s2['species'] as String? ?? '';
-    final visibleTraits = (s1['step1'] as Map?)?['visible_traits'] as Map<String, dynamic>? ?? {};
+    final step1Map = s1['step1'] as Map?;
+    final rawVisibleTraits = step1Map?['visible_traits'] as Map?;
+    final visibleTraits = rawVisibleTraits != null
+        ? Map<String, dynamic>.from(rawVisibleTraits)
+        : <String, dynamic>{};
 
     setProcessing(true);
     clearError();

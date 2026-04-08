@@ -58,9 +58,14 @@ public class PythonApiService {
             String filename = image.getOriginalFilename() != null
                     ? image.getOriginalFilename() : "upload.jpg";
 
+            String contentTypeStr = image.getContentType();
+            MediaType mediaType = (contentTypeStr != null && !contentTypeStr.isBlank())
+                    ? MediaType.parseMediaType(contentTypeStr)
+                    : MediaType.APPLICATION_OCTET_STREAM;
+
             builder.part("image", new ByteArrayResource(bytes) {
                 @Override public String getFilename() { return filename; }
-            }).contentType(MediaType.IMAGE_JPEG);
+            }).contentType(mediaType);
 
             builder.part("traits", objectMapper.writeValueAsString(traits));
         } catch (IOException e) {

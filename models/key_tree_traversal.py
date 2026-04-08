@@ -122,7 +122,7 @@ def _parse_decision(node: ET.Element) -> DecisionNode:
 
 def parse_key_xml(xml_path: str) -> QuestionNode:
     """Parse key.xml into a QuestionNode tree rooted at the first question."""
-    with open(xml_path, encoding="iso-8859-1") as fh:
+    with open(xml_path, encoding="utf-8") as fh:
         content = fh.read()
     root = ET.fromstring(content)
     question = root.attrib.get("question", "")
