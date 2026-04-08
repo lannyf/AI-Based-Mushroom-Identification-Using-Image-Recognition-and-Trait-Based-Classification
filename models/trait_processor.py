@@ -7,33 +7,14 @@ Converts categorical trait data into numerical feature vectors suitable for ML m
 
 import numpy as np
 import pandas as pd
-import xml.etree.ElementTree as ET
 from typing import Dict, List, Tuple, Any, Optional
 import pickle
 import logging
 from pathlib import Path
 
+from data.dataset_utils import load_species_traits_xml
+
 logger = logging.getLogger(__name__)
-
-
-def _load_traits_xml(path: Path) -> pd.DataFrame:
-    """Parse species_traits.xml into a flat DataFrame matching the original CSV columns."""
-    rows = []
-    tree = ET.parse(path)
-    for species_el in tree.findall("species"):
-        species_id = species_el.get("id", "")
-        for grp_el in species_el.findall("trait_group"):
-            category = grp_el.get("category", "")
-            for trait_el in grp_el.findall("trait"):
-                rows.append({
-                    "species_id":     species_id,
-                    "trait_category": category,
-                    "trait_name":     trait_el.get("name", ""),
-                    "trait_value":    trait_el.text or "",
-                    "value_type":     trait_el.get("value_type", ""),
-                    "variability":    trait_el.get("variability", ""),
-                })
-    return pd.DataFrame(rows)
 
 
 class TraitEncoder:
@@ -206,7 +187,7 @@ class TraitDataset:
             traits_xml: Path to species_traits.xml
             species_csv: Path to species.csv (has species_id and edible flag)
         """
-        self.traits_df = _load_traits_xml(Path(traits_xml))
+        self.traits_df = load_species_traits_xml(Path(traits_xml))
         self.species_df = pd.read_csv(species_csv)
         self.encoder = TraitEncoder()
         
