@@ -4,9 +4,34 @@ Data utilities for loading, validating, and manipulating mushroom identification
 
 import pandas as pd
 import os
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 import json
+
+
+def load_species_traits_xml(path: Path) -> pd.DataFrame:
+    """
+    Parse species_traits.xml and return a flat DataFrame with the same
+    columns as the original species_traits.csv:
+      species_id, trait_category, trait_name, trait_value, value_type, variability
+    """
+    tree = ET.parse(path)
+    rows: List[Dict[str, str]] = []
+    for species_el in tree.findall("species"):
+        species_id = species_el.get("id", "")
+        for grp_el in species_el.findall("trait_group"):
+            category = grp_el.get("category", "")
+            for trait_el in grp_el.findall("trait"):
+                rows.append({
+                    "species_id":     species_id,
+                    "trait_category": category,
+                    "trait_name":     trait_el.get("name", ""),
+                    "trait_value":    trait_el.text or "",
+                    "value_type":     trait_el.get("value_type", ""),
+                    "variability":    trait_el.get("variability", ""),
+                })
+    return pd.DataFrame(rows)
 
 
 class MushroomDataset:
@@ -29,7 +54,7 @@ class MushroomDataset:
     def load_all(self) -> None:
         """Load all CSV files from the data directory."""
         self.species_df = pd.read_csv(self.data_dir / "species.csv")
-        self.traits_df = pd.read_csv(self.data_dir / "species_traits.csv")
+        self.traits_df = load_species_traits_xml(self.data_dir / "species_traits.xml")
         self.images_df = pd.read_csv(self.data_dir / "species_images.csv")
         self.lookalikes_df = pd.read_csv(self.data_dir / "lookalikes.csv")
         self.split_df = pd.read_csv(self.data_dir / "dataset_split.csv")

@@ -12,6 +12,8 @@ import pickle
 import logging
 from pathlib import Path
 
+from data.dataset_utils import load_species_traits_xml
+
 logger = logging.getLogger(__name__)
 
 
@@ -172,20 +174,20 @@ class TraitEncoder:
 
 class TraitDataset:
     """
-    Loads and preprocesses trait data from CSV files.
+    Loads and preprocesses trait data from XML files.
     
     Creates feature vectors from species traits for training ML models.
     """
     
-    def __init__(self, traits_csv: str, species_csv: str):
+    def __init__(self, traits_xml: str, species_csv: str):
         """
         Initialize dataset.
         
         Args:
-            traits_csv: Path to species_traits.csv
+            traits_xml: Path to species_traits.xml
             species_csv: Path to species.csv (has species_id and edible flag)
         """
-        self.traits_df = pd.read_csv(traits_csv)
+        self.traits_df = load_species_traits_xml(Path(traits_xml))
         self.species_df = pd.read_csv(species_csv)
         self.encoder = TraitEncoder()
         

@@ -65,7 +65,7 @@ def train_trait_model(
     
     # Set default paths
     if traits_csv is None:
-        traits_csv = os.path.join(project_root, 'data/raw/species_traits.csv')
+        traits_csv = os.path.join(project_root, 'data/raw/species_traits.xml')
     if species_csv is None:
         species_csv = os.path.join(project_root, 'data/raw/species.csv')
     if artifacts_dir is None:
@@ -241,7 +241,7 @@ def main():
         '--traits-csv',
         type=str,
         default=None,
-        help='Path to species_traits.csv'
+        help='Path to species_traits.xml'
     )
     
     parser.add_argument(

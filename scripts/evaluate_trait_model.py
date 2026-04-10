@@ -50,7 +50,7 @@ def load_trained_model(algorithm: str, artifacts_dir: str) -> Tuple[TraitClassif
     
     # Load dataset for reference
     dataset = TraitDataset(
-        os.path.join(project_root, 'data/raw/species_traits.csv'),
+        os.path.join(project_root, 'data/raw/species_traits.xml'),
         os.path.join(project_root, 'data/raw/species.csv')
     )
     

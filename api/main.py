@@ -113,6 +113,7 @@ def image_scores(image_bytes: bytes) -> Tuple[Dict[str, float], Dict[str, float]
     # Legacy metrics dict (used by llm_scores below)
     metrics = {
         "red_ratio":            cr["red"],
+        "orange_red_ratio":     cr.get("orange_red", 0.0),
         "orange_yellow_ratio":  cr["orange_yellow"],
         "brown_ratio":          cr["brown"],
         "white_ratio":          cr["white"],
@@ -195,7 +196,8 @@ def llm_scores(image_metrics: Dict[str, float], traits: Dict[str, Any]) -> Dict[
     gill_type = str(traits.get("gill_type", "")).lower()
     stem_type = str(traits.get("stem_type", "")).lower()
 
-    if image_metrics["red_ratio"] > 0.08 and image_metrics["white_ratio"] > 0.03:
+    if (image_metrics["red_ratio"] > 0.08 or image_metrics.get("orange_red_ratio", 0.0) > 0.08) \
+            and image_metrics["white_ratio"] > 0.02:
         scores["Fly Agaric"] += 0.9
         scores["Amanita virosa"] += 0.15
     elif color in {"orange", "yellow"} and gill_type == "decurrent":

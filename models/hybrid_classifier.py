@@ -9,12 +9,16 @@ Combines predictions from all three identification methods:
 Implements multiple confidence aggregation strategies and lookalike detection.
 """
 
+import csv
 import logging
+from pathlib import Path
 from typing import List, Dict, Tuple, Optional, Any
 from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
 from enum import Enum
 import statistics
+
+_DEFAULT_SPECIES_CSV = Path(__file__).parent.parent / 'data' / 'raw' / 'species.csv'
 
 logger = logging.getLogger(__name__)
 
@@ -256,27 +260,49 @@ class LookalikeMatcher:
 
 class SafetySystem:
     """Manages safety warnings and multi-method confirmation."""
-    
-    # Hardcoded safety data (would normally come from database)
-    TOXIC_SPECIES = {
-        'Fly Agaric': 'TOXIC - Contains psychoactive compounds (ibotenic acid, muscimol)',
-        'Amanita virosa': 'DEADLY - Destroys liver and kidneys (amatoxins)',
-        'Amanita phalloides': 'DEADLY - Death cap (amatoxins)',
+
+    _TOXICITY_MESSAGES = {
+        'EXTREMELY_TOXIC': 'DEADLY - Extremely toxic, potentially fatal',
+        'TOXIC':           'TOXIC - Contains toxic compounds',
     }
-    
-    EDIBLE_SPECIES = {
-        'Chanterelle': 'SAFE - Well-known edible mushroom',
-        'Porcini': 'SAFE - Prized culinary mushroom',
-        'Black Trumpet': 'SAFE - Delicious wild mushroom',
-        "Pig's Ear": 'SAFE - Edible when cooked',
-        'Slippery Jack': 'SAFE - Popular for cooking',
-        'Giant Puffball': 'SAFE - Young stages edible',
-    }
-    
-    def __init__(self):
-        """Initialize safety database."""
-        self.toxic = self.TOXIC_SPECIES
-        self.edible = self.EDIBLE_SPECIES
+
+    def __init__(self, csv_path: Path = _DEFAULT_SPECIES_CSV):
+        """
+        Initialize safety database from species CSV.
+
+        Args:
+            csv_path: Path to species.csv containing english_name, edible,
+                      toxicity_level, and scientific_name columns.
+        """
+        self.toxic: Dict[str, str] = {}
+        self.edible: Dict[str, str] = {}
+        self._load_from_csv(csv_path)
+
+    def _load_from_csv(self, csv_path: Path) -> None:
+        """Populate toxic/edible dicts from species.csv."""
+        try:
+            with open(csv_path, newline='', encoding='utf-8') as fh:
+                for row in csv.DictReader(fh):
+                    name = row['english_name'].strip()
+                    tox  = row['toxicity_level'].strip().upper()
+                    is_edible = row['edible'].strip().upper() == 'TRUE'
+                    scientific = row.get('scientific_name', '').strip()
+
+                    if tox in self._TOXICITY_MESSAGES:
+                        label = f"{self._TOXICITY_MESSAGES[tox]} ({scientific})"
+                        self.toxic[name] = label
+                    elif is_edible and tox == 'SAFE':
+                        self.edible[name] = f"SAFE - Edible mushroom ({scientific})"
+
+            logger.info(
+                f'SafetySystem loaded {len(self.toxic)} toxic and '
+                f'{len(self.edible)} edible species from {csv_path.name}'
+            )
+        except FileNotFoundError:
+            logger.warning(
+                f'Species CSV not found at {csv_path}. '
+                'SafetySystem will treat all species as unknown.'
+            )
     
     def get_warnings(self, species: str, confidence_breakdown: Dict[str, float]) -> List[str]:
         """
@@ -325,13 +351,15 @@ class HybridClassifier:
     """Main hybrid classification engine combining all three methods."""
     
     def __init__(self, aggregation_method: AggregationMethod = AggregationMethod.WEIGHTED_AVERAGE,
-                 weights: Optional[Dict[str, float]] = None):
+                 weights: Optional[Dict[str, float]] = None,
+                 species_csv: Path = _DEFAULT_SPECIES_CSV):
         """
         Initialize hybrid classifier.
         
         Args:
             aggregation_method: Strategy for combining predictions
             weights: Custom weights for weighted averaging (if used)
+            species_csv: Path to species.csv used to load safety data
         """
         self.aggregation_method = aggregation_method
         
@@ -346,7 +374,7 @@ class HybridClassifier:
             raise ValueError(f'Unknown aggregation method: {aggregation_method}')
         
         self.lookalike_matcher = LookalikeMatcher()
-        self.safety_system = SafetySystem()
+        self.safety_system = SafetySystem(csv_path=species_csv)
         
         logger.info(f'HybridClassifier initialized with {aggregation_method.value} aggregation')
     

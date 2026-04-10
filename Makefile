@@ -5,6 +5,8 @@ FLUTTER_BIN   ?= flutter
 PYTHON_PORT   ?= 8000
 JAVA_PORT     ?= 8080
 WEB_PORT      ?= 8081
+VENV_DIR      ?= /home/iannyf/mushroom-venv
+VENV_UVICORN  := $(VENV_DIR)/bin/uvicorn
 
 # ---------------------------------------------------------------------------
 # All targets declared phony
@@ -48,7 +50,7 @@ help:
 # ---------------------------------------------------------------------------
 api:
 	cd $(PROJECT_ROOT) && \
-	uvicorn api.main:app --reload --host 0.0.0.0 --port $(PYTHON_PORT)
+	$(VENV_UVICORN) api.main:app --reload --host 0.0.0.0 --port $(PYTHON_PORT)
 
 # ---------------------------------------------------------------------------
 # Java Spring Boot backend  (proxy + REST API for Flutter)
@@ -73,9 +75,13 @@ java-test:
 # Start / stop both backends together
 # ---------------------------------------------------------------------------
 start:
+	@if [ ! -f $(JAVA_DIR)/target/mushroom-id-backend-*.jar ]; then \
+	    echo "JAR not found — building first…"; \
+	    cd $(JAVA_DIR) && mvn -q clean package -DskipTests; \
+	fi
 	@echo "Starting Python FastAPI on port $(PYTHON_PORT)…"
 	cd $(PROJECT_ROOT) && \
-	uvicorn api.main:app --host 0.0.0.0 --port $(PYTHON_PORT) &
+	$(VENV_UVICORN) api.main:app --host 0.0.0.0 --port $(PYTHON_PORT) &
 	@echo "Starting Java backend on port $(JAVA_PORT)…"
 	java -jar $(JAVA_DIR)/target/mushroom-id-backend-*.jar \
 	    --server.port=$(JAVA_PORT) \
@@ -83,8 +89,10 @@ start:
 	@echo "Both backends started. Run 'make stop' to shut them down."
 
 stop:
-	-pkill -f "uvicorn api.main:app" 2>/dev/null || true
-	-pkill -f "mushroom-id-backend"  2>/dev/null || true
+	@echo "Stopping backends…"
+	@-lsof -ti :$(PYTHON_PORT) 2>/dev/null | xargs -r kill -9 || true
+	@-lsof -ti :$(JAVA_PORT)   2>/dev/null | xargs -r kill -9 || true
+	@-lsof -ti :$(WEB_PORT)    2>/dev/null | xargs -r kill -9 || true
 	@echo "Backends stopped."
 
 # ---------------------------------------------------------------------------
@@ -117,6 +125,10 @@ flutter-test:
 # Clean
 # ---------------------------------------------------------------------------
 clean:
+	@echo "Stopping any running backends…"
+	@-lsof -ti :$(PYTHON_PORT) 2>/dev/null | xargs -r kill -9 || true
+	@-lsof -ti :$(JAVA_PORT)   2>/dev/null | xargs -r kill -9 || true
+	@-lsof -ti :$(WEB_PORT)    2>/dev/null | xargs -r kill -9 || true
 	cd $(APP_DIR) && \
 	$(FLUTTER_BIN) clean || true
 	cd $(JAVA_DIR) && mvn -q clean || true

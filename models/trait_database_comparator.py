@@ -3,7 +3,7 @@ Step 3 — Trait Database Comparator
 
 Given the species candidate produced by Step 2 (key.xml traversal) this module:
   1. Resolves the Swedish common name to a species record in species.csv.
-  2. Loads the species' morphological trait profile from species_traits.csv.
+  2. Loads the species' morphological trait profile from species_traits.xml.
   3. Compares Step 1 visible_traits against the database profile, producing a
      match score and a breakdown of matching / conflicting traits.
   4. Looks up all lookalike pairs from lookalikes.csv, loads both species'
@@ -40,6 +40,8 @@ import logging
 import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+
+from data.dataset_utils import load_species_traits_xml
 
 logger = logging.getLogger(__name__)
 
@@ -386,7 +388,7 @@ class TraitDatabaseComparator:
     def __init__(self, data_dir: str) -> None:
         data_path = Path(data_dir)
         self._species = self._load_csv(data_path / "species.csv")
-        self._trait_rows = self._load_csv(data_path / "species_traits.csv")
+        self._trait_rows = load_species_traits_xml(data_path / "species_traits.xml").to_dict("records")
         self._lookalike_rows = self._load_csv(data_path / "lookalikes.csv")
         # Index species by species_id for fast lookup
         self._species_by_id: Dict[str, Dict[str, str]] = {
