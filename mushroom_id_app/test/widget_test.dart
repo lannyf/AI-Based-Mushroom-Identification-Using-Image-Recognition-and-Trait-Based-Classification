@@ -1,30 +1,60 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// App-level smoke tests — verifies the real MushroomIdentificationApp renders
+// without crashing and shows the home screen.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:get/get.dart';
 import 'package:mushroom_identification/main.dart';
+import 'package:mushroom_identification/providers/history_provider.dart';
+import 'package:mushroom_identification/providers/identification_provider.dart';
+import 'package:mushroom_identification/providers/language_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  setUpAll(() {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  setUp(() async {
+    SharedPreferences.setMockInitialValues({});
+    Get.reset();
+    // Register providers as main() would — must happen before pumpWidget
+    Get.put(LanguageProvider());
+    Get.put(IdentificationProvider());
+    Get.put(HistoryProvider());
+    await Future.delayed(Duration.zero);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+  tearDown(() {
+    Get.reset();
+  });
+
+  testWidgets('App renders without crashing', (WidgetTester tester) async {
+    await tester.pumpWidget(const MushroomIdentificationApp());
     await tester.pump();
+    expect(find.byType(MushroomIdentificationApp), findsOneWidget);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('Home screen shows text content', (WidgetTester tester) async {
+    await tester.pumpWidget(const MushroomIdentificationApp());
+    await tester.pump();
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is Text &&
+            (widget.data?.toLowerCase().contains('mushroom') == true ||
+                widget.data?.toLowerCase().contains('identify') == true ||
+                widget.data?.toLowerCase().contains('svamp') == true),
+      ),
+      findsWidgets,
+    );
+  });
+
+  testWidgets('App has at least one AppBar', (WidgetTester tester) async {
+    await tester.pumpWidget(const MushroomIdentificationApp());
+    await tester.pump();
+    expect(find.byType(AppBar), findsWidgets);
   });
 }
