@@ -1,0 +1,220 @@
+Source used for these pictures comes from inaturalist.org
+sorted by mushroom species followed by sweden field.
+
+--- iNaturalist Research Grade (Sweden) ---
+Karljohan/Boletus_edulis_1.jpg | https://www.inaturalist.org/observations/310986515 | https://static.inaturalist.org/photos/561329743/large.jpg
+Karljohan/Boletus_edulis_2.jpg | https://www.inaturalist.org/observations/232650061 | https://inaturalist-open-data.s3.amazonaws.com/photos/413356241/large.jpeg
+Karljohan/Boletus_edulis_3.jpg | https://www.inaturalist.org/observations/54988987 | https://inaturalist-open-data.s3.amazonaws.com/photos/87529697/large.jpeg
+Änglsvamp/Amanita_virosa_1.jpg | https://www.inaturalist.org/observations/196835743 | https://inaturalist-open-data.s3.amazonaws.com/photos/346522785/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_1.jpg | https://www.inaturalist.org/observations/197257794 | https://inaturalist-open-data.s3.amazonaws.com/photos/347376315/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_2.jpg | https://www.inaturalist.org/observations/31740274 | https://inaturalist-open-data.s3.amazonaws.com/photos/49707075/large.jpeg
+Svart trumpetsvamp/Craterellus_cornucopioides_3.jpg | https://www.inaturalist.org/observations/901003 | https://inaturalist-open-data.s3.amazonaws.com/photos/1147670/large.jpg
+
+
+--- iNaturalist Research Grade (Sweden, place_id=7599) ---
+Kantarell/Cantharellus_cibarius_1.jpg | https://www.inaturalist.org/observations/341858186 | https://inaturalist-open-data.s3.amazonaws.com/photos/622428289/large.jpg
+Kantarell/Cantharellus_cibarius_2.jpg | https://www.inaturalist.org/observations/331853916 | https://inaturalist-open-data.s3.amazonaws.com/photos/602109108/large.jpg
+Kantarell/Cantharellus_cibarius_3.jpg | https://www.inaturalist.org/observations/329545447 | https://inaturalist-open-data.s3.amazonaws.com/photos/597382353/large.jpg
+Kantarell/Cantharellus_cibarius_4.jpg | https://www.inaturalist.org/observations/325495826 | https://inaturalist-open-data.s3.amazonaws.com/photos/589343061/large.jpg
+Kantarell/Cantharellus_cibarius_5.jpg | https://www.inaturalist.org/observations/323279910 | https://inaturalist-open-data.s3.amazonaws.com/photos/584925111/large.jpg
+Kantarell/Cantharellus_cibarius_6.jpg | https://www.inaturalist.org/observations/322222693 | https://inaturalist-open-data.s3.amazonaws.com/photos/582855303/large.jpg
+Kantarell/Cantharellus_cibarius_7.jpg | https://www.inaturalist.org/observations/321417881 | https://inaturalist-open-data.s3.amazonaws.com/photos/581288057/large.jpg
+Kantarell/Cantharellus_cibarius_8.jpg | https://www.inaturalist.org/observations/320392062 | https://inaturalist-open-data.s3.amazonaws.com/photos/579273393/large.jpg
+Kantarell/Cantharellus_cibarius_9.jpg | https://www.inaturalist.org/observations/319983823 | https://inaturalist-open-data.s3.amazonaws.com/photos/578480053/large.jpg
+Kantarell/Cantharellus_cibarius_10.jpg | https://www.inaturalist.org/observations/319709422 | https://inaturalist-open-data.s3.amazonaws.com/photos/577956480/large.jpg
+Kantarell/Cantharellus_cibarius_11.jpg | https://www.inaturalist.org/observations/318717070 | https://inaturalist-open-data.s3.amazonaws.com/photos/576052525/large.jpg
+Kantarell/Cantharellus_cibarius_12.jpg | https://www.inaturalist.org/observations/318458276 | https://inaturalist-open-data.s3.amazonaws.com/photos/575557442/large.jpg
+Kantarell/Cantharellus_cibarius_13.jpg | https://www.inaturalist.org/observations/318457178 | https://inaturalist-open-data.s3.amazonaws.com/photos/575555053/large.jpg
+Kantarell/Cantharellus_cibarius_14.jpg | https://www.inaturalist.org/observations/318069506 | https://inaturalist-open-data.s3.amazonaws.com/photos/574812342/large.jpg
+Kantarell/Cantharellus_cibarius_15.jpg | https://www.inaturalist.org/observations/317216297 | https://inaturalist-open-data.s3.amazonaws.com/photos/573189033/large.jpg
+Kantarell/Cantharellus_cibarius_16.jpg | https://www.inaturalist.org/observations/316777746 | https://inaturalist-open-data.s3.amazonaws.com/photos/572356785/large.jpg
+Kantarell/Cantharellus_cibarius_17.jpg | https://www.inaturalist.org/observations/316745234 | https://inaturalist-open-data.s3.amazonaws.com/photos/572302094/large.jpg
+Kantarell/Cantharellus_cibarius_18.jpg | https://www.inaturalist.org/observations/316714074 | https://inaturalist-open-data.s3.amazonaws.com/photos/572246510/large.jpg
+Kantarell/Cantharellus_cibarius_19.jpg | https://www.inaturalist.org/observations/315318403 | https://inaturalist-open-data.s3.amazonaws.com/photos/569607242/large.jpg
+Kantarell/Cantharellus_cibarius_20.jpg | https://www.inaturalist.org/observations/315310799 | https://static.inaturalist.org/photos/569593417/large.jpg
+Kantarell/Cantharellus_cibarius_21.jpg | https://www.inaturalist.org/observations/314985008 | https://inaturalist-open-data.s3.amazonaws.com/photos/568969779/large.jpg
+Kantarell/Cantharellus_cibarius_22.jpg | https://www.inaturalist.org/observations/314797541 | https://inaturalist-open-data.s3.amazonaws.com/photos/568606615/large.jpg
+Kantarell/Cantharellus_cibarius_23.jpg | https://www.inaturalist.org/observations/313925171 | https://inaturalist-open-data.s3.amazonaws.com/photos/566952293/large.jpg
+Kantarell/Cantharellus_cibarius_24.jpg | https://www.inaturalist.org/observations/313922506 | https://inaturalist-open-data.s3.amazonaws.com/photos/566947082/large.jpg
+Kantarell/Cantharellus_cibarius_25.jpg | https://www.inaturalist.org/observations/313922179 | https://inaturalist-open-data.s3.amazonaws.com/photos/566946424/large.jpg
+Kantarell/Cantharellus_cibarius_26.jpg | https://www.inaturalist.org/observations/313921683 | https://inaturalist-open-data.s3.amazonaws.com/photos/566945534/large.jpg
+Kantarell/Cantharellus_cibarius_27.jpg | https://www.inaturalist.org/observations/313921479 | https://inaturalist-open-data.s3.amazonaws.com/photos/566945023/large.jpg
+Kantarell/Cantharellus_cibarius_28.jpg | https://www.inaturalist.org/observations/313921253 | https://inaturalist-open-data.s3.amazonaws.com/photos/566944456/large.jpg
+Kantarell/Cantharellus_cibarius_29.jpg | https://www.inaturalist.org/observations/313920249 | https://inaturalist-open-data.s3.amazonaws.com/photos/566942563/large.jpg
+Kantarell/Cantharellus_cibarius_30.jpg | https://www.inaturalist.org/observations/313888337 | https://static.inaturalist.org/photos/566881578/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_1.jpg | https://www.inaturalist.org/observations/334349531 | https://inaturalist-open-data.s3.amazonaws.com/photos/607159580/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_2.jpg | https://www.inaturalist.org/observations/331689528 | https://inaturalist-open-data.s3.amazonaws.com/photos/601765839/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_3.jpg | https://www.inaturalist.org/observations/329592409 | https://inaturalist-open-data.s3.amazonaws.com/photos/597480484/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_4.jpg | https://www.inaturalist.org/observations/321559740 | https://inaturalist-open-data.s3.amazonaws.com/photos/581560784/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_5.jpg | https://www.inaturalist.org/observations/321379655 | https://inaturalist-open-data.s3.amazonaws.com/photos/581213663/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_6.jpg | https://www.inaturalist.org/observations/321278735 | https://inaturalist-open-data.s3.amazonaws.com/photos/581010986/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_7.jpg | https://www.inaturalist.org/observations/321083493 | https://inaturalist-open-data.s3.amazonaws.com/photos/580629047/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_8.jpg | https://www.inaturalist.org/observations/321026249 | https://inaturalist-open-data.s3.amazonaws.com/photos/580519891/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_9.jpg | https://www.inaturalist.org/observations/319532975 | https://static.inaturalist.org/photos/577617294/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_10.jpg | https://www.inaturalist.org/observations/318836813 | https://static.inaturalist.org/photos/576285005/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_11.jpg | https://www.inaturalist.org/observations/318174089 | https://inaturalist-open-data.s3.amazonaws.com/photos/575018478/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_12.jpg | https://www.inaturalist.org/observations/316292869 | https://inaturalist-open-data.s3.amazonaws.com/photos/571449282/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_13.jpg | https://www.inaturalist.org/observations/316112853 | https://inaturalist-open-data.s3.amazonaws.com/photos/571107146/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_14.jpg | https://www.inaturalist.org/observations/316111533 | https://inaturalist-open-data.s3.amazonaws.com/photos/571104421/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_15.jpg | https://www.inaturalist.org/observations/315004952 | https://static.inaturalist.org/photos/569007663/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_16.jpg | https://www.inaturalist.org/observations/314962903 | https://static.inaturalist.org/photos/568928882/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_17.jpg | https://www.inaturalist.org/observations/314116465 | https://inaturalist-open-data.s3.amazonaws.com/photos/567322417/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_18.jpg | https://www.inaturalist.org/observations/313843182 | https://inaturalist-open-data.s3.amazonaws.com/photos/566798169/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_19.jpg | https://www.inaturalist.org/observations/313339068 | https://inaturalist-open-data.s3.amazonaws.com/photos/565838175/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_20.jpg | https://www.inaturalist.org/observations/313085516 | https://inaturalist-open-data.s3.amazonaws.com/photos/565355970/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_21.jpg | https://www.inaturalist.org/observations/312537282 | https://inaturalist-open-data.s3.amazonaws.com/photos/564296254/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_22.jpg | https://www.inaturalist.org/observations/310815492 | https://inaturalist-open-data.s3.amazonaws.com/photos/560981768/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_23.jpg | https://www.inaturalist.org/observations/270408986 | https://static.inaturalist.org/photos/486307627/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_24.jpg | https://www.inaturalist.org/observations/263254774 | https://inaturalist-open-data.s3.amazonaws.com/photos/472904513/large.jpg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_25.jpg | https://www.inaturalist.org/observations/251541174 | https://inaturalist-open-data.s3.amazonaws.com/photos/450103750/large.jpeg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_26.jpg | https://www.inaturalist.org/observations/250921593 | https://inaturalist-open-data.s3.amazonaws.com/photos/448866892/large.jpeg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_27.jpg | https://www.inaturalist.org/observations/250158087 | https://inaturalist-open-data.s3.amazonaws.com/photos/447332115/large.jpeg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_28.jpg | https://www.inaturalist.org/observations/249468626 | https://inaturalist-open-data.s3.amazonaws.com/photos/445955079/large.jpeg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_29.jpg | https://www.inaturalist.org/observations/249315436 | https://static.inaturalist.org/photos/445653246/large.jpeg
+Falsk Kantarell/Hygrophoropsis_aurantiaca_30.jpg | https://www.inaturalist.org/observations/249314921 | https://static.inaturalist.org/photos/445652216/large.jpeg
+Karljohan/Boletus_edulis_4.jpg | https://www.inaturalist.org/observations/341861262 | https://inaturalist-open-data.s3.amazonaws.com/photos/622434149/large.jpg
+Karljohan/Boletus_edulis_5.jpg | https://www.inaturalist.org/observations/341860704 | https://inaturalist-open-data.s3.amazonaws.com/photos/622432874/large.jpg
+Karljohan/Boletus_edulis_6.jpg | https://www.inaturalist.org/observations/341860661 | https://inaturalist-open-data.s3.amazonaws.com/photos/622432811/large.jpg
+Karljohan/Boletus_edulis_7.jpg | https://www.inaturalist.org/observations/337839972 | https://inaturalist-open-data.s3.amazonaws.com/photos/614243053/large.jpg
+Karljohan/Boletus_edulis_8.jpg | https://www.inaturalist.org/observations/337838408 | https://inaturalist-open-data.s3.amazonaws.com/photos/614239547/large.jpg
+Karljohan/Boletus_edulis_9.jpg | https://www.inaturalist.org/observations/334461172 | https://inaturalist-open-data.s3.amazonaws.com/photos/607387838/large.jpg
+Karljohan/Boletus_edulis_10.jpg | https://www.inaturalist.org/observations/331979044 | https://static.inaturalist.org/photos/602369421/large.jpg
+Karljohan/Boletus_edulis_11.jpg | https://www.inaturalist.org/observations/330224340 | https://inaturalist-open-data.s3.amazonaws.com/photos/598761372/large.jpg
+Karljohan/Boletus_edulis_12.jpg | https://www.inaturalist.org/observations/329545213 | https://inaturalist-open-data.s3.amazonaws.com/photos/597381752/large.jpg
+Karljohan/Boletus_edulis_13.jpg | https://www.inaturalist.org/observations/329468054 | https://inaturalist-open-data.s3.amazonaws.com/photos/597226909/large.jpg
+Karljohan/Boletus_edulis_14.jpg | https://www.inaturalist.org/observations/329397744 | https://inaturalist-open-data.s3.amazonaws.com/photos/597084228/large.jpg
+Karljohan/Boletus_edulis_15.jpg | https://www.inaturalist.org/observations/327229424 | https://inaturalist-open-data.s3.amazonaws.com/photos/592795018/large.jpg
+Karljohan/Boletus_edulis_16.jpg | https://www.inaturalist.org/observations/326392241 | https://static.inaturalist.org/photos/591124381/large.jpg
+Karljohan/Boletus_edulis_17.jpg | https://www.inaturalist.org/observations/325150336 | https://inaturalist-open-data.s3.amazonaws.com/photos/588654430/large.jpg
+Karljohan/Boletus_edulis_18.jpg | https://www.inaturalist.org/observations/324357915 | https://inaturalist-open-data.s3.amazonaws.com/photos/587055825/large.jpg
+Karljohan/Boletus_edulis_19.jpg | https://www.inaturalist.org/observations/321280712 | https://inaturalist-open-data.s3.amazonaws.com/photos/581014215/large.jpg
+Karljohan/Boletus_edulis_20.jpg | https://www.inaturalist.org/observations/321104800 | https://inaturalist-open-data.s3.amazonaws.com/photos/580669208/large.jpg
+Karljohan/Boletus_edulis_21.jpg | https://www.inaturalist.org/observations/321025789 | https://inaturalist-open-data.s3.amazonaws.com/photos/580490015/large.jpg
+Karljohan/Boletus_edulis_22.jpg | https://www.inaturalist.org/observations/320875610 | https://static.inaturalist.org/photos/580222853/large.jpg
+Karljohan/Boletus_edulis_23.jpg | https://www.inaturalist.org/observations/320827116 | https://inaturalist-open-data.s3.amazonaws.com/photos/580128312/large.jpg
+Karljohan/Boletus_edulis_24.jpg | https://www.inaturalist.org/observations/320205097 | https://static.inaturalist.org/photos/578907688/large.jpg
+Karljohan/Boletus_edulis_25.jpg | https://www.inaturalist.org/observations/320058243 | https://inaturalist-open-data.s3.amazonaws.com/photos/578620427/large.jpg
+Karljohan/Boletus_edulis_26.jpg | https://www.inaturalist.org/observations/319333318 | https://inaturalist-open-data.s3.amazonaws.com/photos/577233429/large.jpg
+Karljohan/Boletus_edulis_27.jpg | https://www.inaturalist.org/observations/318929777 | https://inaturalist-open-data.s3.amazonaws.com/photos/576353410/large.jpg
+Karljohan/Boletus_edulis_28.jpg | https://www.inaturalist.org/observations/318716956 | https://inaturalist-open-data.s3.amazonaws.com/photos/576052360/large.jpg
+Karljohan/Boletus_edulis_29.jpg | https://www.inaturalist.org/observations/318621101 | https://inaturalist-open-data.s3.amazonaws.com/photos/575874272/large.jpg
+Karljohan/Boletus_edulis_30.jpg | https://www.inaturalist.org/observations/318620779 | https://inaturalist-open-data.s3.amazonaws.com/photos/575873597/large.jpg
+Brunsopp/Boletus_badius_1.jpg | https://www.inaturalist.org/observations/336073558 | https://inaturalist-open-data.s3.amazonaws.com/photos/610647098/large.jpg
+Brunsopp/Boletus_badius_2.jpg | https://www.inaturalist.org/observations/330748816 | https://inaturalist-open-data.s3.amazonaws.com/photos/599811589/large.jpg
+Brunsopp/Boletus_badius_3.jpg | https://www.inaturalist.org/observations/329067668 | https://inaturalist-open-data.s3.amazonaws.com/photos/596421877/large.jpg
+Brunsopp/Boletus_badius_4.jpg | https://www.inaturalist.org/observations/326789736 | https://inaturalist-open-data.s3.amazonaws.com/photos/591903223/large.jpg
+Brunsopp/Boletus_badius_5.jpg | https://www.inaturalist.org/observations/326039228 | https://static.inaturalist.org/photos/590421660/large.jpg
+Brunsopp/Boletus_badius_6.jpg | https://www.inaturalist.org/observations/325504392 | https://inaturalist-open-data.s3.amazonaws.com/photos/589359539/large.jpg
+Brunsopp/Boletus_badius_7.jpg | https://www.inaturalist.org/observations/324537951 | https://inaturalist-open-data.s3.amazonaws.com/photos/587420978/large.jpg
+Brunsopp/Boletus_badius_8.jpg | https://www.inaturalist.org/observations/324513469 | https://inaturalist-open-data.s3.amazonaws.com/photos/587372704/large.jpg
+Brunsopp/Boletus_badius_9.jpg | https://www.inaturalist.org/observations/324358291 | https://inaturalist-open-data.s3.amazonaws.com/photos/587056178/large.jpg
+Brunsopp/Boletus_badius_10.jpg | https://www.inaturalist.org/observations/323845754 | https://inaturalist-open-data.s3.amazonaws.com/photos/586042581/large.jpg
+Brunsopp/Boletus_badius_11.jpg | https://www.inaturalist.org/observations/322447073 | https://inaturalist-open-data.s3.amazonaws.com/photos/583319784/large.jpg
+Brunsopp/Boletus_badius_12.jpg | https://www.inaturalist.org/observations/322445243 | https://inaturalist-open-data.s3.amazonaws.com/photos/583315960/large.jpg
+Brunsopp/Boletus_badius_13.jpg | https://www.inaturalist.org/observations/321587108 | https://inaturalist-open-data.s3.amazonaws.com/photos/581615220/large.jpg
+Brunsopp/Boletus_badius_14.jpg | https://www.inaturalist.org/observations/321280615 | https://inaturalist-open-data.s3.amazonaws.com/photos/581014003/large.jpg
+Brunsopp/Boletus_badius_15.jpg | https://www.inaturalist.org/observations/321237532 | https://inaturalist-open-data.s3.amazonaws.com/photos/580932573/large.jpg
+Brunsopp/Boletus_badius_16.jpg | https://www.inaturalist.org/observations/321214068 | https://inaturalist-open-data.s3.amazonaws.com/photos/580888686/large.jpg
+Brunsopp/Boletus_badius_17.jpg | https://www.inaturalist.org/observations/321130319 | https://static.inaturalist.org/photos/580719474/large.jpg
+Brunsopp/Boletus_badius_18.jpg | https://www.inaturalist.org/observations/321083779 | https://inaturalist-open-data.s3.amazonaws.com/photos/580629827/large.jpg
+Brunsopp/Boletus_badius_19.jpg | https://www.inaturalist.org/observations/321082936 | https://inaturalist-open-data.s3.amazonaws.com/photos/580628208/large.jpg
+Brunsopp/Boletus_badius_20.jpg | https://www.inaturalist.org/observations/321082662 | https://inaturalist-open-data.s3.amazonaws.com/photos/580627676/large.jpg
+Brunsopp/Boletus_badius_21.jpg | https://www.inaturalist.org/observations/320895241 | https://inaturalist-open-data.s3.amazonaws.com/photos/580261694/large.jpg
+Brunsopp/Boletus_badius_22.jpg | https://www.inaturalist.org/observations/320844126 | https://static.inaturalist.org/photos/580161030/large.jpg
+Brunsopp/Boletus_badius_23.jpg | https://www.inaturalist.org/observations/320404870 | https://inaturalist-open-data.s3.amazonaws.com/photos/579298931/large.jpg
+Brunsopp/Boletus_badius_24.jpg | https://www.inaturalist.org/observations/320366908 | https://inaturalist-open-data.s3.amazonaws.com/photos/579225139/large.jpg
+Brunsopp/Boletus_badius_25.jpg | https://www.inaturalist.org/observations/320217344 | https://inaturalist-open-data.s3.amazonaws.com/photos/578930771/large.jpg
+Brunsopp/Boletus_badius_26.jpg | https://www.inaturalist.org/observations/320196875 | https://static.inaturalist.org/photos/578892075/large.jpg
+Brunsopp/Boletus_badius_27.jpg | https://www.inaturalist.org/observations/320138175 | https://inaturalist-open-data.s3.amazonaws.com/photos/578780339/large.jpg
+Brunsopp/Boletus_badius_28.jpg | https://www.inaturalist.org/observations/319541362 | https://inaturalist-open-data.s3.amazonaws.com/photos/577633191/large.jpg
+Brunsopp/Boletus_badius_29.jpg | https://www.inaturalist.org/observations/319237796 | https://static.inaturalist.org/photos/577048762/large.jpg
+Brunsopp/Boletus_badius_30.jpg | https://www.inaturalist.org/observations/318669681 | https://inaturalist-open-data.s3.amazonaws.com/photos/575964631/large.jpg
+Änglsvamp/Amanita_virosa_2.jpg | https://www.inaturalist.org/observations/329069534 | https://inaturalist-open-data.s3.amazonaws.com/photos/596426458/large.jpg
+Änglsvamp/Amanita_virosa_3.jpg | https://www.inaturalist.org/observations/322728979 | https://inaturalist-open-data.s3.amazonaws.com/photos/583871234/large.jpg
+Änglsvamp/Amanita_virosa_4.jpg | https://www.inaturalist.org/observations/321486285 | https://inaturalist-open-data.s3.amazonaws.com/photos/581421045/large.jpg
+Änglsvamp/Amanita_virosa_5.jpg | https://www.inaturalist.org/observations/312436470 | https://inaturalist-open-data.s3.amazonaws.com/photos/564109695/large.jpg
+Änglsvamp/Amanita_virosa_6.jpg | https://www.inaturalist.org/observations/311874270 | https://inaturalist-open-data.s3.amazonaws.com/photos/563033282/large.jpg
+Änglsvamp/Amanita_virosa_7.jpg | https://www.inaturalist.org/observations/311419232 | https://inaturalist-open-data.s3.amazonaws.com/photos/562173221/large.jpg
+Änglsvamp/Amanita_virosa_8.jpg | https://www.inaturalist.org/observations/311419186 | https://inaturalist-open-data.s3.amazonaws.com/photos/562173114/large.jpg
+Änglsvamp/Amanita_virosa_9.jpg | https://www.inaturalist.org/observations/310715470 | https://inaturalist-open-data.s3.amazonaws.com/photos/560816770/large.jpg
+Änglsvamp/Amanita_virosa_10.jpg | https://www.inaturalist.org/observations/308505921 | https://inaturalist-open-data.s3.amazonaws.com/photos/556589556/large.jpg
+Änglsvamp/Amanita_virosa_11.jpg | https://www.inaturalist.org/observations/306729808 | https://inaturalist-open-data.s3.amazonaws.com/photos/553174386/large.jpg
+Änglsvamp/Amanita_virosa_12.jpg | https://www.inaturalist.org/observations/241720595 | https://inaturalist-open-data.s3.amazonaws.com/photos/430837422/large.jpeg
+Änglsvamp/Amanita_virosa_13.jpg | https://www.inaturalist.org/observations/240025912 | https://inaturalist-open-data.s3.amazonaws.com/photos/427573153/large.jpeg
+Änglsvamp/Amanita_virosa_14.jpg | https://www.inaturalist.org/observations/240024973 | https://inaturalist-open-data.s3.amazonaws.com/photos/427571436/large.jpeg
+Änglsvamp/Amanita_virosa_15.jpg | https://www.inaturalist.org/observations/239674425 | https://static.inaturalist.org/photos/426898793/large.jpeg
+Änglsvamp/Amanita_virosa_16.jpg | https://www.inaturalist.org/observations/238624996 | https://inaturalist-open-data.s3.amazonaws.com/photos/424856294/large.jpeg
+Änglsvamp/Amanita_virosa_17.jpg | https://www.inaturalist.org/observations/238589649 | https://inaturalist-open-data.s3.amazonaws.com/photos/424790020/large.jpeg
+Änglsvamp/Amanita_virosa_18.jpg | https://www.inaturalist.org/observations/237336561 | https://inaturalist-open-data.s3.amazonaws.com/photos/422369375/large.jpeg
+Änglsvamp/Amanita_virosa_19.jpg | https://www.inaturalist.org/observations/236283570 | https://static.inaturalist.org/photos/422893688/large.jpeg
+Änglsvamp/Amanita_virosa_20.jpg | https://www.inaturalist.org/observations/236247622 | https://static.inaturalist.org/photos/420278681/large.jpeg
+Änglsvamp/Amanita_virosa_21.jpg | https://www.inaturalist.org/observations/236054640 | https://inaturalist-open-data.s3.amazonaws.com/photos/419906841/large.jpeg
+Änglsvamp/Amanita_virosa_22.jpg | https://www.inaturalist.org/observations/235784016 | https://inaturalist-open-data.s3.amazonaws.com/photos/419372993/large.jpeg
+Änglsvamp/Amanita_virosa_23.jpg | https://www.inaturalist.org/observations/234930020 | https://inaturalist-open-data.s3.amazonaws.com/photos/417726470/large.jpeg
+Änglsvamp/Amanita_virosa_24.jpg | https://www.inaturalist.org/observations/233996374 | https://inaturalist-open-data.s3.amazonaws.com/photos/415921119/large.jpeg
+Änglsvamp/Amanita_virosa_25.jpg | https://www.inaturalist.org/observations/233995994 | https://inaturalist-open-data.s3.amazonaws.com/photos/415920166/large.jpeg
+Änglsvamp/Amanita_virosa_26.jpg | https://www.inaturalist.org/observations/232304692 | https://inaturalist-open-data.s3.amazonaws.com/photos/412695203/large.jpeg
+Änglsvamp/Amanita_virosa_27.jpg | https://www.inaturalist.org/observations/232221144 | https://inaturalist-open-data.s3.amazonaws.com/photos/412541596/large.jpeg
+Änglsvamp/Amanita_virosa_28.jpg | https://www.inaturalist.org/observations/231582536 | https://inaturalist-open-data.s3.amazonaws.com/photos/411333967/large.jpeg
+Änglsvamp/Amanita_virosa_29.jpg | https://www.inaturalist.org/observations/204229996 | https://inaturalist-open-data.s3.amazonaws.com/photos/360959382/large.jpeg
+Änglsvamp/Amanita_virosa_30.jpg | https://www.inaturalist.org/observations/189287459 | https://inaturalist-open-data.s3.amazonaws.com/photos/331511215/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_4.jpg | https://www.inaturalist.org/observations/332886702 | https://inaturalist-open-data.s3.amazonaws.com/photos/604230249/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_5.jpg | https://www.inaturalist.org/observations/332886686 | https://inaturalist-open-data.s3.amazonaws.com/photos/604230237/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_6.jpg | https://www.inaturalist.org/observations/325871068 | https://inaturalist-open-data.s3.amazonaws.com/photos/590089275/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_7.jpg | https://www.inaturalist.org/observations/321470791 | https://inaturalist-open-data.s3.amazonaws.com/photos/581391028/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_8.jpg | https://www.inaturalist.org/observations/320816179 | https://inaturalist-open-data.s3.amazonaws.com/photos/580106994/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_9.jpg | https://www.inaturalist.org/observations/320382054 | https://inaturalist-open-data.s3.amazonaws.com/photos/579254577/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_10.jpg | https://www.inaturalist.org/observations/320369611 | https://static.inaturalist.org/photos/579230527/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_11.jpg | https://www.inaturalist.org/observations/320151904 | https://inaturalist-open-data.s3.amazonaws.com/photos/578806331/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_12.jpg | https://www.inaturalist.org/observations/320151642 | https://inaturalist-open-data.s3.amazonaws.com/photos/578805854/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_13.jpg | https://www.inaturalist.org/observations/318185319 | https://inaturalist-open-data.s3.amazonaws.com/photos/575039063/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_14.jpg | https://www.inaturalist.org/observations/316241569 | https://inaturalist-open-data.s3.amazonaws.com/photos/571355836/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_15.jpg | https://www.inaturalist.org/observations/315514202 | https://inaturalist-open-data.s3.amazonaws.com/photos/569975493/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_16.jpg | https://www.inaturalist.org/observations/315462720 | https://inaturalist-open-data.s3.amazonaws.com/photos/569879501/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_17.jpg | https://www.inaturalist.org/observations/315271514 | https://inaturalist-open-data.s3.amazonaws.com/photos/569519424/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_18.jpg | https://www.inaturalist.org/observations/315201943 | https://static.inaturalist.org/photos/569390928/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_19.jpg | https://www.inaturalist.org/observations/315201313 | https://inaturalist-open-data.s3.amazonaws.com/photos/569399130/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_20.jpg | https://www.inaturalist.org/observations/315115651 | https://static.inaturalist.org/photos/569221953/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_21.jpg | https://www.inaturalist.org/observations/315115053 | https://static.inaturalist.org/photos/569220668/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_22.jpg | https://www.inaturalist.org/observations/315114827 | https://static.inaturalist.org/photos/569220221/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_23.jpg | https://www.inaturalist.org/observations/315012737 | https://inaturalist-open-data.s3.amazonaws.com/photos/569021223/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_24.jpg | https://www.inaturalist.org/observations/314979635 | https://inaturalist-open-data.s3.amazonaws.com/photos/568959050/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_25.jpg | https://www.inaturalist.org/observations/313167488 | https://inaturalist-open-data.s3.amazonaws.com/photos/565506371/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_26.jpg | https://www.inaturalist.org/observations/311581898 | https://inaturalist-open-data.s3.amazonaws.com/photos/562478588/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_27.jpg | https://www.inaturalist.org/observations/311581059 | https://inaturalist-open-data.s3.amazonaws.com/photos/562476653/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_28.jpg | https://www.inaturalist.org/observations/311314459 | https://inaturalist-open-data.s3.amazonaws.com/photos/561969908/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_29.jpg | https://www.inaturalist.org/observations/310919346 | https://inaturalist-open-data.s3.amazonaws.com/photos/561201610/large.jpg
+Svart trumpetsvamp/Craterellus_cornucopioides_30.jpg | https://www.inaturalist.org/observations/307797901 | https://static.inaturalist.org/photos/555229240/large.jpg
+
+
+--- Flugsvamp / Amanita muscaria (iNaturalist Research Grade, Sweden, place_id=7599) ---
+Flugsvamp/Amanita_muscaria_1.jpg | https://www.inaturalist.org/observations/346208475 | https://inaturalist-open-data.s3.amazonaws.com/photos/631048217/large.jpg
+Flugsvamp/Amanita_muscaria_2.jpg | https://www.inaturalist.org/observations/344403057 | https://inaturalist-open-data.s3.amazonaws.com/photos/627522415/large.jpg
+Flugsvamp/Amanita_muscaria_3.jpg | https://www.inaturalist.org/observations/339301050 | https://inaturalist-open-data.s3.amazonaws.com/photos/617211318/large.jpg
+Flugsvamp/Amanita_muscaria_4.jpg | https://www.inaturalist.org/observations/339287285 | https://inaturalist-open-data.s3.amazonaws.com/photos/617182540/large.jpg
+Flugsvamp/Amanita_muscaria_5.jpg | https://www.inaturalist.org/observations/338121021 | https://inaturalist-open-data.s3.amazonaws.com/photos/614818957/large.jpg
+Flugsvamp/Amanita_muscaria_6.jpg | https://www.inaturalist.org/observations/338121017 | https://inaturalist-open-data.s3.amazonaws.com/photos/614818941/large.jpg
+Flugsvamp/Amanita_muscaria_7.jpg | https://www.inaturalist.org/observations/338120057 | https://inaturalist-open-data.s3.amazonaws.com/photos/614816496/large.jpg
+Flugsvamp/Amanita_muscaria_8.jpg | https://www.inaturalist.org/observations/337838193 | https://inaturalist-open-data.s3.amazonaws.com/photos/614239148/large.jpg
+Flugsvamp/Amanita_muscaria_9.jpg | https://www.inaturalist.org/observations/334461739 | https://inaturalist-open-data.s3.amazonaws.com/photos/607388903/large.jpg
+Flugsvamp/Amanita_muscaria_10.jpg | https://www.inaturalist.org/observations/334461711 | https://inaturalist-open-data.s3.amazonaws.com/photos/607388812/large.jpg
+Flugsvamp/Amanita_muscaria_11.jpg | https://www.inaturalist.org/observations/334461073 | https://inaturalist-open-data.s3.amazonaws.com/photos/607387668/large.jpg
+Flugsvamp/Amanita_muscaria_12.jpg | https://www.inaturalist.org/observations/334396282 | https://inaturalist-open-data.s3.amazonaws.com/photos/607251887/large.jpg
+Flugsvamp/Amanita_muscaria_13.jpg | https://www.inaturalist.org/observations/334197742 | https://inaturalist-open-data.s3.amazonaws.com/photos/606848087/large.jpg
+Flugsvamp/Amanita_muscaria_14.jpg | https://www.inaturalist.org/observations/333815105 | https://inaturalist-open-data.s3.amazonaws.com/photos/606069748/large.jpg
+Flugsvamp/Amanita_muscaria_15.jpg | https://www.inaturalist.org/observations/333754676 | https://inaturalist-open-data.s3.amazonaws.com/photos/605944258/large.jpg
+Flugsvamp/Amanita_muscaria_16.jpg | https://www.inaturalist.org/observations/333722622 | https://inaturalist-open-data.s3.amazonaws.com/photos/605881343/large.jpg
+Flugsvamp/Amanita_muscaria_17.jpg | https://www.inaturalist.org/observations/332478595 | https://inaturalist-open-data.s3.amazonaws.com/photos/603320023/large.jpg
+Flugsvamp/Amanita_muscaria_18.jpg | https://www.inaturalist.org/observations/330748888 | https://inaturalist-open-data.s3.amazonaws.com/photos/599812892/large.jpg
+Flugsvamp/Amanita_muscaria_19.jpg | https://www.inaturalist.org/observations/330748800 | https://inaturalist-open-data.s3.amazonaws.com/photos/599811418/large.jpg
+Flugsvamp/Amanita_muscaria_20.jpg | https://www.inaturalist.org/observations/330748778 | https://inaturalist-open-data.s3.amazonaws.com/photos/599811059/large.jpg
+Flugsvamp/Amanita_muscaria_21.jpg | https://www.inaturalist.org/observations/330224270 | https://inaturalist-open-data.s3.amazonaws.com/photos/598761146/large.jpg
+Flugsvamp/Amanita_muscaria_22.jpg | https://www.inaturalist.org/observations/329067183 | https://inaturalist-open-data.s3.amazonaws.com/photos/596420523/large.jpg
+Flugsvamp/Amanita_muscaria_23.jpg | https://www.inaturalist.org/observations/329064647 | https://inaturalist-open-data.s3.amazonaws.com/photos/596415530/large.jpg
+Flugsvamp/Amanita_muscaria_24.jpg | https://www.inaturalist.org/observations/328926701 | https://static.inaturalist.org/photos/627254143/large.jpg
+Flugsvamp/Amanita_muscaria_25.jpg | https://www.inaturalist.org/observations/325849726 | https://inaturalist-open-data.s3.amazonaws.com/photos/590047292/large.jpg
+Flugsvamp/Amanita_muscaria_26.jpg | https://www.inaturalist.org/observations/324704785 | https://static.inaturalist.org/photos/587760273/large.jpg
+Flugsvamp/Amanita_muscaria_27.jpg | https://www.inaturalist.org/observations/324590844 | https://inaturalist-open-data.s3.amazonaws.com/photos/587526525/large.jpg
+Flugsvamp/Amanita_muscaria_28.jpg | https://www.inaturalist.org/observations/324488504 | https://inaturalist-open-data.s3.amazonaws.com/photos/587322897/large.jpg
+Flugsvamp/Amanita_muscaria_29.jpg | https://www.inaturalist.org/observations/324366083 | https://static.inaturalist.org/photos/587071911/large.jpg
+Flugsvamp/Amanita_muscaria_30.jpg | https://www.inaturalist.org/observations/324360177 | https://inaturalist-open-data.s3.amazonaws.com/photos/587059976/large.jpg

@@ -108,6 +108,9 @@ def analyse_colours(bgr: np.ndarray) -> Dict[str, Any]:
     r, g, b = arr[:, :, 2], arr[:, :, 1], arr[:, :, 0]
 
     red_ratio          = float(np.mean((r > 150) & (r > g * 1.25) & (r > b * 1.25)))
+    # Orange-red: Fly Agaric caps photograph as orange-red in natural light
+    # (high red, moderate green, low blue) — distinct from chanterelle orange-yellow
+    orange_red_ratio   = float(np.mean((r > 140) & (g > 50) & (g < 130) & (b < 80)))
     orange_yellow_ratio = float(np.mean((r > 140) & (g > 90) & (b < 140)))
     brown_ratio        = float(np.mean((r > 80)  & (g > 45) & (b < 90) & (r > g) & (g > b)))
     white_ratio        = float(np.mean((r > 185) & (g > 185) & (b > 185)))
@@ -117,6 +120,7 @@ def analyse_colours(bgr: np.ndarray) -> Dict[str, Any]:
         "dominant_color":        dominant,
         "secondary_color":       secondary,
         "red_ratio":             round(red_ratio, 3),
+        "orange_red_ratio":      round(orange_red_ratio, 3),
         "orange_yellow_ratio":   round(orange_yellow_ratio, 3),
         "brown_ratio":           round(brown_ratio, 3),
         "white_ratio":           round(white_ratio, 3),
@@ -252,6 +256,7 @@ def score_species(
 
     dom   = colour["dominant_color"]
     r_r   = colour["red_ratio"]
+    or_r  = colour.get("orange_red_ratio", 0.0)
     oy_r  = colour["orange_yellow_ratio"]
     br_r  = colour["brown_ratio"]
     wh_r  = colour["white_ratio"]
@@ -261,9 +266,12 @@ def score_species(
     texture_name = texture["surface_texture"]
 
     # --- colour signals ---
-    scores["Fly Agaric"]        += r_r * 5.0 + wh_r * 1.4
+    # orange_red captures the typical Fly Agaric cap colour photographed in natural light
+    scores["Fly Agaric"]        += r_r * 5.0 + or_r * 4.0 + wh_r * 1.4
     scores["Amanita virosa"]    += wh_r * 2.5
-    scores["Chanterelle"]       += oy_r * 4.0
+    # Dampen Chanterelle when orange_red+white is present (Fly Agaric pattern)
+    chanterelle_oy = max(0.0, oy_r - or_r) if wh_r > 0.02 else oy_r
+    scores["Chanterelle"]       += chanterelle_oy * 4.0
     scores["False Chanterelle"] += oy_r * 2.6
     scores["Porcini"]           += br_r * 4.2
     scores["Other Boletus"]     += br_r * 3.3
@@ -272,6 +280,10 @@ def score_species(
     if dom in {"orange", "yellow", "orange-yellow"}:
         scores["Chanterelle"]       += 0.6
         scores["False Chanterelle"] += 0.3
+    if dom in {"orange", "orange-yellow", "red"} and wh_r > 0.02:
+        # Orange/red cap + white elements → Fly Agaric pattern (white spots/warts)
+        scores["Fly Agaric"] += 0.7
+        scores["Chanterelle"] -= 0.4
     if dom == "red":
         scores["Fly Agaric"] += 0.8
     if dom == "white":
@@ -327,46 +339,48 @@ def extract(image_bytes: bytes) -> Dict[str, Any]:
     """
     Full Step-1 analysis.
 
-    Args:
-        image_bytes: Raw bytes of any image format (JPEG, PNG, …).
+    Species scoring strategy (in priority order):
+      1. EfficientNet-B3 CNN (cnn_classifier.py) when fine-tuned weights exist
+         at artifacts/cnn_weights.pt — real ML predictions.
+      2. Classical CV fallback (score_species) when no weights are present,
+         using colour / shape / texture heuristics.
+
+    The CV analysis always runs regardless, because its output feeds the
+    visible_traits dict that drives the key-tree traversal in Step 2.
 
     Returns a dict with two top-level keys:
 
     ``ml_prediction``
-        top_species   — best match name
-        confidence    — normalised confidence 0-1
-        top_k         — list of {species, confidence} for top 5
+        top_species    — best match name
+        confidence     — normalised confidence 0-1
+        top_k          — list of {species, confidence} for top 5
+        method         — "cnn" | "cv_fallback"
 
     ``visible_traits``
         dominant_color, secondary_color
-        cap_shape
-        surface_texture
-        has_ridges
-        brightness
-        colour_ratios (red, orange_yellow, brown, white, dark)
+        cap_shape, surface_texture, has_ridges, brightness
+        colour_ratios  — red, orange_red, orange_yellow, brown, white, dark
     """
-    pil_img = Image.open(__import__("io").BytesIO(image_bytes)).convert("RGB")
+    import io as _io
+    pil_img = Image.open(_io.BytesIO(image_bytes)).convert("RGB")
     bgr = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
 
-    colour  = analyse_colours(bgr)
-    shape   = analyse_shape(bgr)
-    texture = analyse_texture(bgr)
+    # --- CV analysis (always runs — needed for visible_traits) ---
+    colour     = analyse_colours(bgr)
+    shape      = analyse_shape(bgr)
+    texture    = analyse_texture(bgr)
     brightness = analyse_brightness(bgr)
 
-    raw_scores = score_species(colour, shape, texture)
-    norm_scores = _normalise(raw_scores)
-    ordered = sorted(norm_scores.items(), key=lambda x: x[1], reverse=True)
-    top_species, top_conf = ordered[0]
-
     visible_traits: Dict[str, Any] = {
-        "dominant_color":   colour["dominant_color"],
-        "secondary_color":  colour["secondary_color"],
-        "cap_shape":        shape["cap_shape"],
-        "surface_texture":  texture["surface_texture"],
-        "has_ridges":       texture["has_ridges"],
-        "brightness":       brightness,
+        "dominant_color":  colour["dominant_color"],
+        "secondary_color": colour["secondary_color"],
+        "cap_shape":       shape["cap_shape"],
+        "surface_texture": texture["surface_texture"],
+        "has_ridges":      texture["has_ridges"],
+        "brightness":      brightness,
         "colour_ratios": {
             "red":           colour["red_ratio"],
+            "orange_red":    colour.get("orange_red_ratio", 0.0),
             "orange_yellow": colour["orange_yellow_ratio"],
             "brown":         colour["brown_ratio"],
             "white":         colour["white_ratio"],
@@ -374,21 +388,56 @@ def extract(image_bytes: bytes) -> Dict[str, Any]:
         },
     }
 
+    # --- Species scoring: CNN preferred, CV as fallback ---
+    method = "cv_fallback"
+    ordered: List[Tuple[str, float]] = []
+
+    try:
+        from models.cnn_classifier import get_classifier
+        cnn = get_classifier()
+        if cnn.is_trained:
+            cnn_scores = cnn.predict(image_bytes)
+            if cnn_scores is not None:
+                ordered = sorted(cnn_scores.items(), key=lambda x: x[1], reverse=True)
+                method = "cnn"
+                logger.debug("Step-1: using CNN predictions")
+    except Exception as exc:
+        logger.debug("CNN unavailable, using CV fallback: %s", exc)
+
+    if not ordered:
+        # CV fallback
+        raw_scores  = score_species(colour, shape, texture)
+        norm_scores = _normalise(raw_scores)
+        ordered     = sorted(norm_scores.items(), key=lambda x: x[1], reverse=True)
+
+    top_species, top_conf = ordered[0]
+
+    if method == "cnn":
+        reasoning = (
+            f"EfficientNet-B3 CNN prediction — "
+            f"dominant colour '{colour['dominant_color']}', "
+            f"cap shape '{shape['cap_shape']}'."
+        )
+    else:
+        reasoning = (
+            f"CV fallback (no trained CNN weights) — "
+            f"dominant colour '{colour['dominant_color']}', "
+            f"cap shape '{shape['cap_shape']}', "
+            f"texture '{texture['surface_texture']}'"
+            + (", ridges detected" if texture["has_ridges"] else "")
+            + ". Train the CNN with scripts/train_cnn.py for real ML predictions."
+        )
+
     ml_prediction: Dict[str, Any] = {
         "top_species": top_species,
         "confidence":  round(top_conf, 4),
+        "method":      method,
         "top_k": [
             {"species": sp, "confidence": round(sc, 4)}
             for sp, sc in ordered[:5]
         ],
-        "reasoning": (
-            f"Dominant colour '{colour['dominant_color']}', "
-            f"cap shape '{shape['cap_shape']}', "
-            f"texture '{texture['surface_texture']}'"
-            + (", ridges detected" if texture["has_ridges"] else "")
-            + "."
-        ),
+        "reasoning": reasoning,
     }
 
-    logger.debug("Step-1 result: %s (%.2f)", top_species, top_conf)
+    logger.debug("Step-1 result: %s (%.4f) via %s", top_species, top_conf, method)
     return {"ml_prediction": ml_prediction, "visible_traits": visible_traits}
