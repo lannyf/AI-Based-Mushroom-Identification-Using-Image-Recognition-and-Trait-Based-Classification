@@ -111,13 +111,13 @@ async def identify(
     if not image_bytes:
         raise HTTPException(status_code=400, detail="Empty image upload")
 
-    img_scores, metrics, step1 = image_scores(image_bytes)
+    img_scores, metrics, trait_extraction = image_scores(image_bytes)
     trait_based = trait_scores(trait_data)
-    llm_based = ollama_scores(LLM, metrics, trait_data, step1)
+    llm_based = ollama_scores(LLM, metrics, trait_data, trait_extraction)
 
     image_prediction = build_prediction(
         "image",
-        step1["ml_prediction"]["reasoning"],
+        trait_extraction["ml_prediction"]["reasoning"],
         img_scores,
     )
     trait_prediction = build_prediction(
@@ -137,14 +137,14 @@ async def identify(
         trait_prediction=trait_prediction,
         llm_prediction=llm_prediction,
     )
-    return adapt_result(result.to_dict(), metrics, step1, SPECIES)
+    return adapt_result(result.to_dict(), metrics, trait_extraction, SPECIES)
 
 
 # ---------------------------------------------------------------------------
 # Step 2 — Species tree traversal (key.xml)
 # ---------------------------------------------------------------------------
 
-@app.post("/identify/step2/start")
+@app.post("/identify/Species_tree_traversal/start")
 def step2_start(body: Step2StartRequest) -> Dict[str, Any]:
     """
     Begin Step 2 traversal.
@@ -161,7 +161,7 @@ def step2_start(body: Step2StartRequest) -> Dict[str, Any]:
     return KEY_TREE.start_session(body.session_id, body.visible_traits)
 
 
-@app.post("/identify/step2/answer")
+@app.post("/identify/Species_tree_traversal/answer")
 def step2_answer(body: Step2AnswerRequest) -> Dict[str, Any]:
     """
     Provide the user's answer to the current question and continue traversal.
@@ -177,7 +177,7 @@ def step2_answer(body: Step2AnswerRequest) -> Dict[str, Any]:
     return result
 
 
-@app.get("/identify/step2/session/{session_id}")
+@app.get("/identify/Species_tree_traversal/session/{session_id}")
 def step2_session_state(session_id: str) -> Dict[str, Any]:
     """Return the current state of an active Step 2 session (for debugging)."""
     state = KEY_TREE.get_session(session_id)
@@ -190,7 +190,7 @@ def step2_session_state(session_id: str) -> Dict[str, Any]:
 # Step 3 — Trait database comparison + lookalike check
 # ---------------------------------------------------------------------------
 
-@app.post("/identify/step3/compare")
+@app.post("/identify/comparison/compare")
 def step3_compare(body: Step3CompareRequest) -> Dict[str, Any]:
     """
     Step 3 — Trait database comparison.
@@ -219,7 +219,7 @@ def step3_compare(body: Step3CompareRequest) -> Dict[str, Any]:
 # Step 4 — Final aggregation and presentation
 # ---------------------------------------------------------------------------
 
-@app.post("/identify/step4/finalize")
+@app.post("/identify/prediction/finalize")
 def step4_finalize(body: Step4FinalizeRequest) -> Dict[str, Any]:
     """
     Step 4 — Final result aggregation.
@@ -252,8 +252,8 @@ def step4_finalize(body: Step4FinalizeRequest) -> Dict[str, Any]:
       }
     """
     return AGGREGATOR.aggregate(
-        body.step1_result,
-        body.step2_result,
-        body.step3_result,
+        body.trait_extraction_result,
+        body.Species_tree_traversal_result,
+        body.comparison_result,
     )
 

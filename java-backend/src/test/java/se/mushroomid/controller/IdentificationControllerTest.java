@@ -92,7 +92,7 @@ class IdentificationControllerTest {
     }
 
     // -----------------------------------------------------------------------
-    // POST /api/identify/step2/start
+    // POST /api/identify/Species_tree_traversal/start
     // -----------------------------------------------------------------------
 
     @Test
@@ -105,7 +105,7 @@ class IdentificationControllerTest {
                         "options", java.util.List.of("Convex", "Flat")
                 ));
 
-        mockMvc.perform(post("/api/identify/step2/start")
+        mockMvc.perform(post("/api/identify/Species_tree_traversal/start")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"visible_traits\":{\"cap_color\":\"red\"}}"))
                 .andExpect(status().isOk())
@@ -114,7 +114,7 @@ class IdentificationControllerTest {
     }
 
     // -----------------------------------------------------------------------
-    // POST /api/identify/step2/answer
+    // POST /api/identify/Species_tree_traversal/answer
     // -----------------------------------------------------------------------
 
     @Test
@@ -127,7 +127,7 @@ class IdentificationControllerTest {
                         "options", java.util.List.of("Yes", "No")
                 ));
 
-        mockMvc.perform(post("/api/identify/step2/answer")
+        mockMvc.perform(post("/api/identify/Species_tree_traversal/answer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"session_id\":\"sess-001\",\"answer\":\"Convex\"}"))
                 .andExpect(status().isOk())
@@ -144,7 +144,7 @@ class IdentificationControllerTest {
                         "edibility", "toxic"
                 ));
 
-        mockMvc.perform(post("/api/identify/step2/answer")
+        mockMvc.perform(post("/api/identify/Species_tree_traversal/answer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"session_id\":\"sess-001\",\"answer\":\"Yes\"}"))
                 .andExpect(status().isOk())
@@ -153,7 +153,7 @@ class IdentificationControllerTest {
     }
 
     // -----------------------------------------------------------------------
-    // GET /api/identify/step2/session/{sessionId}
+    // GET /api/identify/Species_tree_traversal/session/{sessionId}
     // -----------------------------------------------------------------------
 
     @Test
@@ -161,14 +161,14 @@ class IdentificationControllerTest {
         when(pythonApiService.step2SessionState(eq("sess-001")))
                 .thenReturn(Map.of("session_id", "sess-001", "depth", 2));
 
-        mockMvc.perform(get("/api/identify/step2/session/sess-001"))
+        mockMvc.perform(get("/api/identify/Species_tree_traversal/session/sess-001"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.session_id").value("sess-001"))
                 .andExpect(jsonPath("$.depth").value(2));
     }
 
     // -----------------------------------------------------------------------
-    // POST /api/identify/step3/compare
+    // POST /api/identify/comparison/compare
     // -----------------------------------------------------------------------
 
     @Test
@@ -180,7 +180,7 @@ class IdentificationControllerTest {
                         "lookalikes", java.util.List.of()
                 ));
 
-        mockMvc.perform(post("/api/identify/step3/compare")
+        mockMvc.perform(post("/api/identify/comparison/compare")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"swedish_name\":\"Kantarell\"," +
                                  "\"visible_traits\":{\"cap_color\":\"yellow\"}}"))
@@ -190,7 +190,7 @@ class IdentificationControllerTest {
     }
 
     // -----------------------------------------------------------------------
-    // POST /api/identify/step4/finalize
+    // POST /api/identify/prediction/finalize
     // -----------------------------------------------------------------------
 
     @Test
@@ -206,13 +206,13 @@ class IdentificationControllerTest {
 
         String body = """
                 {
-                  "step1_result": {"top_prediction": "Kantarell"},
-                  "step2_result": {"status": "conclusion", "species": "Kantarell"},
-                  "step3_result": {"trait_match": 0.82}
+                  "trait_extraction_result": {"top_prediction": "Kantarell"},
+                  "Species_tree_traversal_result": {"status": "conclusion", "species": "Kantarell"},
+                  "comparison_result": {"trait_match": 0.82}
                 }
                 """;
 
-        mockMvc.perform(post("/api/identify/step4/finalize")
+        mockMvc.perform(post("/api/identify/prediction/finalize")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
                 .andExpect(status().isOk())

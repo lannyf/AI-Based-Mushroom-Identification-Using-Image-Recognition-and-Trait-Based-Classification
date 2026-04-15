@@ -7,6 +7,7 @@ JAVA_PORT     ?= 8080
 WEB_PORT      ?= 8081
 VENV_DIR      ?= /home/iannyf/mushroom-venv
 VENV_UVICORN  := $(VENV_DIR)/bin/uvicorn
+OLLAMA_PORT    ?= 11434
 
 # ---------------------------------------------------------------------------
 # All targets declared phony
@@ -110,8 +111,8 @@ ollama-setup:
 	@echo "Ollama setup complete. Run 'make ollama' to start the server."
 
 ollama:
-	@echo "Starting Ollama server on port 11434…"
-	ollama serve &
+	@echo "Starting Ollama server on port $(OLLAMA_PORT)…"
+	OLLAMA_PORT=$(OLLAMA_PORT) ollama serve &
 	@echo "Ollama running. Restart the Python API ('make stop && make start') to activate LLM."
 
 # ---------------------------------------------------------------------------
@@ -148,6 +149,8 @@ clean:
 	@-lsof -ti :$(PYTHON_PORT) 2>/dev/null | xargs -r kill -9 || true
 	@-lsof -ti :$(JAVA_PORT)   2>/dev/null | xargs -r kill -9 || true
 	@-lsof -ti :$(WEB_PORT)    2>/dev/null | xargs -r kill -9 || true
+	@-lsof -ti :$(OLLAMA_PORT)          2>/dev/null | xargs -r kill -9 || true
+	@-pgrep -f "ollama serve" 2>/dev/null | xargs -r kill -9 || true
 	cd $(APP_DIR) && \
 	$(FLUTTER_BIN) clean || true
 	cd $(JAVA_DIR) && mvn -q clean || true

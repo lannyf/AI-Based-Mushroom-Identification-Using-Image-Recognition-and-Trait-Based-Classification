@@ -377,7 +377,7 @@ void main() {
     group('_applyStep2Response — question shape', () {
       test('sets question, options, and clears concluded when status is question', () async {
         provider.step1Result.value = {
-          'step1': {'visible_traits': <String, dynamic>{}},
+          'trait_extraction': {'visible_traits': <String, dynamic>{}},
         };
         fakeApi.step2Response = {
           'status': 'question',
@@ -398,7 +398,7 @@ void main() {
 
       test('derives autoAnswers count from auto_answered list length', () async {
         provider.step1Result.value = {
-          'step1': {'visible_traits': <String, dynamic>{}},
+          'trait_extraction': {'visible_traits': <String, dynamic>{}},
         };
         fakeApi.step2Response = {
           'status': 'question',
@@ -419,7 +419,7 @@ void main() {
 
       test('prefers explicit autoAnswers field when present', () async {
         provider.step1Result.value = {
-          'step1': {'visible_traits': <String, dynamic>{}},
+          'trait_extraction': {'visible_traits': <String, dynamic>{}},
         };
         fakeApi.step2Response = {
           'status': 'question',
@@ -444,7 +444,7 @@ void main() {
     group('_applyStep2Response — conclusion shape', () {
       test('sets step2Result, marks concluded, clears question/options', () async {
         provider.step1Result.value = {
-          'step1': {'visible_traits': <String, dynamic>{}},
+          'trait_extraction': {'visible_traits': <String, dynamic>{}},
         };
         fakeApi.step2Response = {
           'status': 'conclusion',
@@ -471,7 +471,7 @@ void main() {
     group('runStep3AndStep4 sequencing', () {
       void _seedCompletedSteps() {
         provider.step1Result.value = {
-          'step1': {
+          'trait_extraction': {
             'visible_traits': {'color': 'yellow'},
           },
         };

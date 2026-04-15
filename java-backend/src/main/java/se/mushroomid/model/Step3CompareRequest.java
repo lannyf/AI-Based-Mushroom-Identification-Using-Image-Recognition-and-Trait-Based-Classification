@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.util.Map;
 
-/** Request body for POST /api/identify/step3/compare */
+/** Request body for POST /api/identify/comparison/compare */
 @Data
 public class Step3CompareRequest {
 

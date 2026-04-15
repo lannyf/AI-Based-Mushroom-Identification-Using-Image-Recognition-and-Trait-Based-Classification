@@ -16,10 +16,10 @@ import java.util.Map;
  *
  * Flow the Flutter app follows:
  *   1. POST /api/identify                    — upload image, get Step 1 result
- *   2. POST /api/identify/step2/start        — start species tree traversal
- *      (repeat) POST /api/identify/step2/answer — answer questions until conclusion
- *   3. POST /api/identify/step3/compare      — compare candidate against trait DB
- *   4. POST /api/identify/step4/finalize     — get final recommendation
+ *   2. POST /api/identify/Species_tree_traversal/start        — start species tree traversal
+ *      (repeat) POST /api/identify/Species_tree_traversal/answer — answer questions until conclusion
+ *   3. POST /api/identify/comparison/compare      — compare candidate against trait DB
+ *   4. POST /api/identify/prediction/finalize     — get final recommendation
  */
 @RestController
 @RequestMapping("/api")
@@ -79,7 +79,7 @@ public class IdentificationController {
      *   {"status":"question",   "session_id":..., "question":..., "options":[...]}
      *   {"status":"conclusion", "session_id":..., "species":...,  "edibility":...}
      */
-    @PostMapping("/identify/step2/start")
+    @PostMapping("/identify/Species_tree_traversal/start")
     public Map<String, Object> step2Start(@RequestBody Step2StartRequest request) {
         return pythonApiService.step2Start(request);
     }
@@ -88,7 +88,7 @@ public class IdentificationController {
      * Provide the user's answer to the current key question and continue traversal.
      * answer must exactly match one of the options from the previous call.
      */
-    @PostMapping("/identify/step2/answer")
+    @PostMapping("/identify/Species_tree_traversal/answer")
     public Map<String, Object> step2Answer(@RequestBody Step2AnswerRequest request) {
         return pythonApiService.step2Answer(request);
     }
@@ -96,7 +96,7 @@ public class IdentificationController {
     /**
      * Retrieve the current state of an active Step 2 session (debugging / polling).
      */
-    @GetMapping("/identify/step2/session/{sessionId}")
+    @GetMapping("/identify/Species_tree_traversal/session/{sessionId}")
     public Map<String, Object> step2SessionState(@PathVariable String sessionId) {
         return pythonApiService.step2SessionState(sessionId);
     }
@@ -114,7 +114,7 @@ public class IdentificationController {
      *
      * Returns trait_match score, confirmed lookalikes, and safety_alert flag.
      */
-    @PostMapping("/identify/step3/compare")
+    @PostMapping("/identify/comparison/compare")
     public Map<String, Object> step3Compare(@RequestBody Step3CompareRequest request) {
         return pythonApiService.step3Compare(request);
     }
@@ -136,7 +136,7 @@ public class IdentificationController {
      *   verdict              — "edible" | "inedible" | "toxic" | "unknown"
      *   method_agreement     — "full" | "partial" | "none"
      */
-    @PostMapping("/identify/step4/finalize")
+    @PostMapping("/identify/prediction/finalize")
     public Map<String, Object> step4Finalize(@RequestBody Step4FinalizeRequest request) {
         return pythonApiService.step4Finalize(request);
     }

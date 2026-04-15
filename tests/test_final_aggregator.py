@@ -62,7 +62,7 @@ class TestMakeVerdict:
 
 def _step1(top_species: str = "Chanterelle", confidence: float = 0.80) -> Dict[str, Any]:
     return {
-        "step1": {
+        "trait_extraction": {
             "ml_prediction": {
                 "top_species": top_species,
                 "confidence": confidence,

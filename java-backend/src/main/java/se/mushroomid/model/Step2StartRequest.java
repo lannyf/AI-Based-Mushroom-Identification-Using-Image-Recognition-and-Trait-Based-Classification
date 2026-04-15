@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.util.Map;
 
-/** Request body for POST /api/identify/step2/start */
+/** Request body for POST /api/identify/Species_tree_traversal/start */
 @Data
 public class Step2StartRequest {
 

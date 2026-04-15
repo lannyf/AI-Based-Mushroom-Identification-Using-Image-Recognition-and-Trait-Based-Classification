@@ -73,7 +73,7 @@ def image_scores(
     Returns:
       scores       — per-species scores for HybridClassifier
       metrics      — legacy colour-ratio dict used by llm_scores
-      step1_result — full Step-1 output (ml_prediction + visible_traits)
+      trait_extraction_result — full Step-1 output (ml_prediction + visible_traits)
     """
     step1 = extract_visual_traits(image_bytes)
     vt = step1["visible_traits"]
@@ -212,10 +212,10 @@ def llm_scores(
 def build_observation_text(
     metrics: Dict[str, float],
     traits: Dict[str, Any],
-    step1: Dict[str, Any],
+    trait_extraction: Dict[str, Any],
 ) -> str:
     """Build a natural-language mushroom description for the LLM from extracted data."""
-    vt = step1.get("visible_traits", {})
+    vt = trait_extraction.get("visible_traits", {})
     dominant   = vt.get("dominant_color", traits.get("color", "unknown"))
     cap_shape  = vt.get("cap_shape",  traits.get("cap_shape",  "unknown"))
     texture    = vt.get("surface_texture", "unknown")
@@ -244,7 +244,7 @@ def ollama_scores(
     classifier: Any,
     metrics: Dict[str, float],
     traits: Dict[str, Any],
-    step1: Dict[str, Any],
+    trait_extraction: Dict[str, Any],
 ) -> Dict[str, float]:
     """
     Query the Ollama LLM and convert the result to a per-species score dict.
@@ -254,7 +254,7 @@ def ollama_scores(
         return llm_scores(metrics, traits)
 
     try:
-        observation = build_observation_text(metrics, traits, step1)
+        observation = build_observation_text(metrics, traits, trait_extraction)
         result = classifier.classify(observation)
         # Convert (species, confidence, reason) tuples to scores dict
         scores: Dict[str, float] = {name: 0.01 for name in TARGET_SPECIES}
@@ -302,7 +302,7 @@ def common_name_for(
 def adapt_result(
     result: Dict[str, Any],
     image_metrics: Dict[str, float],
-    step1: Dict[str, Any],
+    trait_extraction: Dict[str, Any],
     species_metadata: Dict[str, Dict[str, str]],
 ) -> Dict[str, Any]:
     """Convert a HybridClassifier result dict into the API response shape."""
@@ -331,7 +331,7 @@ def adapt_result(
     top_species = result["top_species"]
 
     return {
-        "step1": step1,
+        "trait_extraction": trait_extraction,
         "top_prediction": top_species,
         "overall_confidence": result["confidence"],
         "method_confidences": result["confidence_breakdown"],

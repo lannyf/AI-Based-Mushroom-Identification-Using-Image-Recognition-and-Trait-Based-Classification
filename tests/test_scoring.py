@@ -317,7 +317,7 @@ class TestAdaptResult:
     def test_returns_required_keys(self):
         result = adapt_result(self._hybrid_result(), self._metrics(), self._step1(), FAKE_METADATA)
         for key in ("top_prediction", "overall_confidence", "predictions",
-                    "lookalikes", "safety_rating", "step1", "image_analysis"):
+                    "lookalikes", "safety_rating", "trait_extraction", "image_analysis"):
             assert key in result
 
     def test_top_prediction_matches_hybrid(self):

@@ -104,38 +104,38 @@ class FinalAggregator:
     # ------------------------------------------------------------------
     def aggregate(
         self,
-        step1: Dict[str, Any],
-        step2: Dict[str, Any],
-        step3: Dict[str, Any],
+        trait_extraction: Dict[str, Any],
+        Species_tree_traversal: Dict[str, Any],
+        comparison: Dict[str, Any],
     ) -> Dict[str, Any]:
         """
         Produce the Step 4 final answer.
 
         Args:
-            step1: Full output of POST /identify  (must contain 'step1' key
+            trait_extraction: Full output of POST /identify  (must contain 'trait_extraction' key
                    with 'ml_prediction' and 'visible_traits')
-            step2: Output of POST /identify/step2/start or /step2/answer
+            Species_tree_traversal: Output of POST /identify/Species_tree_traversal/start or /step2/answer
                    when status == 'conclusion'
-            step3: Output of POST /identify/step3/compare
+            comparison: Output of POST /identify/comparison/compare
         """
         # ---- Extract sub-objects ----------------------------------------
-        s1_ml   = step1.get("step1", step1).get("ml_prediction", {})
-        s2_ok   = step2.get("status") == "conclusion"
-        s3_ok   = step3.get("status") == "ok"
+        s1_ml   = trait_extraction.get("trait_extraction", trait_extraction).get("ml_prediction", {})
+        s2_ok   = Species_tree_traversal.get("status") == "conclusion"
+        s3_ok   = comparison.get("status") == "ok"
 
         # ---- Determine primary candidate --------------------------------
         # Priority: Step 2 (expert key) > Step 3 DB resolution > Step 1 image
         candidate_row: Optional[Dict[str, str]] = None
         primary_source = "unknown"
 
-        if s3_ok and step3.get("candidate"):
-            sid = step3["candidate"]["species_id"]
+        if s3_ok and comparison.get("candidate"):
+            sid = comparison["candidate"]["species_id"]
             candidate_row = self._species_by_id.get(sid)
             primary_source = "tree_traversal+db"
 
         if candidate_row is None and s2_ok:
             # Try to look up by species name from Step 2
-            cname = step2.get("species", "").lower()
+            cname = Species_tree_traversal.get("species", "").lower()
             candidate_row = self._species_by_name.get(cname)
             primary_source = "tree_traversal"
 
@@ -156,7 +156,7 @@ class FinalAggregator:
 
         # Step 3 trait match score
         trait_conf = float(
-            step3.get("trait_match", {}).get("score", 0.0)
+            comparison.get("trait_match", {}).get("score", 0.0)
         ) if s3_ok else 0.5  # neutral if Step 3 not available
 
         # Weighted combination
@@ -168,7 +168,7 @@ class FinalAggregator:
         # Agreement bonus: +10 % when Steps 1 and 2 agree on the same species
         agreement = "none"
         if s2_ok and candidate_row:
-            s2_species = step2.get("species", "").lower()
+            s2_species = Species_tree_traversal.get("species", "").lower()
             s1_top_id  = _STEP1_NAME_TO_ID.get(s1_ml.get("top_species", ""), "")
             if (candidate_row["species_id"] == s1_top_id or
                     candidate_row["swedish_name"].lower() in s2_species or
@@ -187,15 +187,15 @@ class FinalAggregator:
         if s1_ml.get("reasoning"):
             reasoning_parts.append(f"Image analysis: {s1_ml['reasoning']}")
         if s2_ok:
-            path = " → ".join(step2.get("path", []))
-            auto = step2.get("auto_answered", [])
-            manual = len(step2.get("path", [])) - len(auto)
+            path = " → ".join(Species_tree_traversal.get("path", []))
+            auto = Species_tree_traversal.get("auto_answered", [])
+            manual = len(Species_tree_traversal.get("path", [])) - len(auto)
             reasoning_parts.append(
-                f"Species key traversal concluded '{step2.get('species', '')}' "
+                f"Species key traversal concluded '{Species_tree_traversal.get('species', '')}' "
                 f"({len(auto)} steps auto-resolved from image, {manual} answered by user)."
             )
-        if s3_ok and step3.get("trait_match"):
-            tm = step3["trait_match"]
+        if s3_ok and comparison.get("trait_match"):
+            tm = comparison["trait_match"]
             n_match = len(tm.get("matched", []))
             n_conf  = len(tm.get("conflicts", []))
             reasoning_parts.append(
@@ -218,7 +218,7 @@ class FinalAggregator:
             })
 
         # ---- Exchangeable species (Step 3 lookalikes) -----------------
-        exchangeable = step3.get("lookalikes", []) if s3_ok else []
+        exchangeable = comparison.get("lookalikes", []) if s3_ok else []
 
         # ---- Safety warnings ------------------------------------------
         safety_warnings: List[str] = []
@@ -239,7 +239,7 @@ class FinalAggregator:
                     + (la.get("distinguishing_features", "")[:120] or "")
                 )
 
-        if step3.get("safety_alert") and not safety_warnings:
+        if comparison.get("safety_alert") and not safety_warnings:
             safety_warnings.append(
                 "⚠ Safety alert: check lookalikes carefully before consuming."
             )

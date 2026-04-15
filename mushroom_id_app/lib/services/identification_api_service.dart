@@ -159,7 +159,7 @@ class IdentificationApiService {
     final backend = await _resolveBackend();
     try {
       final response = await _dio.post<dynamic>(
-        '${backend.base}${backend.prefix}/identify/step2/start',
+        '${backend.base}${backend.prefix}/identify/Species_tree_traversal/start',
         data: {
           if (sessionId != null) 'session_id': sessionId,
           'visible_traits': visibleTraits,
@@ -180,7 +180,7 @@ class IdentificationApiService {
     final backend = await _resolveBackend();
     try {
       final response = await _dio.post<dynamic>(
-        '${backend.base}${backend.prefix}/identify/step2/answer',
+        '${backend.base}${backend.prefix}/identify/Species_tree_traversal/answer',
         data: {'session_id': sessionId, 'answer': answer},
         options: Options(contentType: 'application/json', responseType: ResponseType.json),
       );
@@ -202,7 +202,7 @@ class IdentificationApiService {
     final backend = await _resolveBackend();
     try {
       final response = await _dio.post<dynamic>(
-        '${backend.base}${backend.prefix}/identify/step3/compare',
+        '${backend.base}${backend.prefix}/identify/comparison/compare',
         data: {'swedish_name': swedishName, 'visible_traits': visibleTraits},
         options: Options(contentType: 'application/json', responseType: ResponseType.json),
       );
@@ -225,11 +225,11 @@ class IdentificationApiService {
     final backend = await _resolveBackend();
     try {
       final response = await _dio.post<dynamic>(
-        '${backend.base}${backend.prefix}/identify/step4/finalize',
+        '${backend.base}${backend.prefix}/identify/prediction/finalize',
         data: {
-          'step1_result': step1Result,
-          'step2_result': step2Result,
-          'step3_result': step3Result,
+          'trait_extraction_result': step1Result,
+          'Species_tree_traversal_result': step2Result,
+          'comparison_result': step3Result,
         },
         options: Options(contentType: 'application/json', responseType: ResponseType.json),
       );

@@ -23,6 +23,6 @@ class Step3CompareRequest(BaseModel):
 
 
 class Step4FinalizeRequest(BaseModel):
-    step1_result: Dict[str, Any]
-    step2_result: Dict[str, Any]
-    step3_result: Dict[str, Any]
+    trait_extraction_result: Dict[str, Any]
+    Species_tree_traversal_result: Dict[str, Any]
+    comparison_result: Dict[str, Any]

@@ -130,7 +130,7 @@ class IdentificationProvider extends GetxController {
     final s1 = step1Result.value;
     if (s1 == null) { setError('Run Step 1 first'); return; }
 
-    final step1Map = s1['step1'] as Map?;
+    final step1Map = s1['trait_extraction'] as Map?;
     final rawVisibleTraits = step1Map?['visible_traits'] as Map?;
     final visibleTraits = rawVisibleTraits != null
         ? Map<String, dynamic>.from(rawVisibleTraits)
@@ -205,7 +205,7 @@ class IdentificationProvider extends GetxController {
     if (s1 == null || s2 == null) { setError('Steps 1 and 2 must be complete'); return; }
 
     final swedishName = s2['species'] as String? ?? '';
-    final step1Map = s1['step1'] as Map?;
+    final step1Map = s1['trait_extraction'] as Map?;
     final rawVisibleTraits = step1Map?['visible_traits'] as Map?;
     final visibleTraits = rawVisibleTraits != null
         ? Map<String, dynamic>.from(rawVisibleTraits)

@@ -78,7 +78,7 @@ def _step1(image_path: Path) -> dict:
 
 
 def _print_step1(result: dict, image_name: str) -> None:
-    step1 = result.get("step1", {})
+    step1 = result.get("trait_extraction", {})
     ml    = step1.get("ml_prediction", {})
     top   = result.get("top_prediction") or ml.get("top_species", "?")
     conf  = result.get("overall_confidence", ml.get("confidence", 0))
@@ -121,14 +121,14 @@ def cmd_identify(args) -> int:
     t0 = time.time()
 
     # ── Step 1 ──────────────────────────────────────────────────────────────
-    step1_result = _step1(image_path)
+    trait_extraction_result = _step1(image_path)
     elapsed = time.time() - t0
-    _print_step1(step1_result, image_path.name)
+    _print_step1(trait_extraction_result, image_path.name)
     print(f"\n  {cyan(f'Step 1 completed in {elapsed:.2f}s')}")
 
     if not args.full:
         if args.json:
-            print_json(step1_result)
+            print_json(trait_extraction_result)
         return 0
 
     # ── Step 2 (key traversal) ───────────────────────────────────────────────
@@ -136,10 +136,10 @@ def cmd_identify(args) -> int:
     print(bold("  Step 2 — Key traversal"))
     print(bold(f"{'─'*55}"))
 
-    visible_traits = step1_result.get("step1", {}).get("visible_traits", {})
+    visible_traits = trait_extraction_result.get("trait_extraction", {}).get("visible_traits", {})
     payload = {"visible_traits": visible_traits}
 
-    r2 = requests.post(f"{BASE_URL}/identify/step2/start", json=payload, timeout=30)
+    r2 = requests.post(f"{BASE_URL}/identify/Species_tree_traversal/start", json=payload, timeout=30)
     r2.raise_for_status()
     s2 = r2.json()
     session_id = s2.get("session_id")
@@ -160,7 +160,7 @@ def cmd_identify(args) -> int:
             print(f"  → Auto-answering: {yellow(chosen)}")
 
         r2 = requests.post(
-            f"{BASE_URL}/identify/step2/answer",
+            f"{BASE_URL}/identify/Species_tree_traversal/answer",
             json={"session_id": session_id, "answer": chosen},
             timeout=30,
         )
@@ -177,7 +177,7 @@ def cmd_identify(args) -> int:
     print(bold(f"{'─'*55}"))
 
     r3 = requests.post(
-        f"{BASE_URL}/identify/step3/compare",
+        f"{BASE_URL}/identify/comparison/compare",
         json={"species": step2_species, "visible_traits": visible_traits},
         timeout=30,
     )
@@ -196,8 +196,8 @@ def cmd_identify(args) -> int:
     print(bold(f"{'─'*55}"))
 
     r4 = requests.post(
-        f"{BASE_URL}/identify/step4/finalize",
-        json={"step1_result": step1_result, "step2_result": s2, "step3_result": s3},
+        f"{BASE_URL}/identify/prediction/finalize",
+        json={"trait_extraction_result": trait_extraction_result, "Species_tree_traversal_result": s2, "comparison_result": s3},
         timeout=30,
     )
     r4.raise_for_status()
@@ -244,7 +244,7 @@ def cmd_batch(args) -> int:
     for img in images:
         try:
             result = _step1(img)
-            ml   = result.get("step1", {}).get("ml_prediction", {})
+            ml   = result.get("trait_extraction", {}).get("ml_prediction", {})
             top  = result.get("top_prediction") or ml.get("top_species", "?")
             conf = ml.get("confidence", 0)
             method = ml.get("method", "?")

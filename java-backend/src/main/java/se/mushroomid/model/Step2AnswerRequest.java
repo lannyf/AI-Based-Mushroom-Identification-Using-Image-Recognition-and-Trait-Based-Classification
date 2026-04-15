@@ -3,7 +3,7 @@ package se.mushroomid.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-/** Request body for POST /api/identify/step2/answer */
+/** Request body for POST /api/identify/Species_tree_traversal/answer */
 @Data
 public class Step2AnswerRequest {
 

@@ -26,11 +26,11 @@ import java.util.Map;
  *
  * Python endpoints called:
  *   POST /identify                   — Step 1 (image + traits)
- *   POST /identify/step2/start       — Step 2 begin traversal
- *   POST /identify/step2/answer      — Step 2 continue traversal
- *   GET  /identify/step2/session/{id}— Step 2 session state
- *   POST /identify/step3/compare     — Step 3 trait comparison
- *   POST /identify/step4/finalize    — Step 4 final aggregation
+ *   POST /identify/Species_tree_traversal/start       — Step 2 begin traversal
+ *   POST /identify/Species_tree_traversal/answer      — Step 2 continue traversal
+ *   GET  /identify/Species_tree_traversal/session/{id}— Step 2 session state
+ *   POST /identify/comparison/compare     — Step 3 trait comparison
+ *   POST /identify/prediction/finalize    — Step 4 final aggregation
  *   GET  /health                     — Python health probe
  */
 @Service
@@ -88,7 +88,7 @@ public class PythonApiService {
     public Map<String, Object> step2Start(Step2StartRequest request) {
         return (Map<String, Object>) callPython(
                 client.post()
-                        .uri("/identify/step2/start")
+                        .uri("/identify/Species_tree_traversal/start")
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(request)
         );
@@ -98,7 +98,7 @@ public class PythonApiService {
     public Map<String, Object> step2Answer(Step2AnswerRequest request) {
         return (Map<String, Object>) callPython(
                 client.post()
-                        .uri("/identify/step2/answer")
+                        .uri("/identify/Species_tree_traversal/answer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(request)
         );
@@ -108,7 +108,7 @@ public class PythonApiService {
     public Map<String, Object> step2SessionState(String sessionId) {
         return (Map<String, Object>) callPython(
                 client.get()
-                        .uri("/identify/step2/session/{id}", sessionId)
+                        .uri("/identify/Species_tree_traversal/session/{id}", sessionId)
         );
     }
 
@@ -120,7 +120,7 @@ public class PythonApiService {
     public Map<String, Object> step3Compare(Step3CompareRequest request) {
         return (Map<String, Object>) callPython(
                 client.post()
-                        .uri("/identify/step3/compare")
+                        .uri("/identify/comparison/compare")
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(request)
         );
@@ -134,7 +134,7 @@ public class PythonApiService {
     public Map<String, Object> step4Finalize(Step4FinalizeRequest request) {
         return (Map<String, Object>) callPython(
                 client.post()
-                        .uri("/identify/step4/finalize")
+                        .uri("/identify/prediction/finalize")
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(request)
         );
