@@ -40,3 +40,4 @@ seaborn>=0.11.0
 # Jupyter (optional, for notebooks)
 jupyter>=1.0.0
 ipython>=7.25.0
+

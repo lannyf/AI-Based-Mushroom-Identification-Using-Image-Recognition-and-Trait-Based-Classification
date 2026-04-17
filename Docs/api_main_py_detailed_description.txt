@@ -1,0 +1,196 @@
+Detailed Line-by-Line Description of api/main.py
+===============================================
+
+Module Docstring & Imports (lines 1-44)
+----------------------------------------
+
+Lines 1-14:
+A triple-quoted docstring that documents what this file is -- the FastAPI backend for mushroom identification. It maps out the 4-step pipeline (visual trait extraction -> species tree traversal -> trait database comparison -> final aggregation) and notes where the business logic and Pydantic models live.
+
+Line 16:
+`from __future__ import annotations` -- enables PEP 563 postponed evaluation of type annotations, allowing you to use modern type-hint syntax without quoting forward references.
+
+Lines 18-22:
+Imports from the Python standard library:
+- `csv` -- for reading the species metadata CSV file.
+- `json` -- for parsing the `traits` JSON string sent in form data.
+- `logging` -- for writing info/warning logs.
+- `pathlib.Path` -- for clean, cross-platform file-path handling.
+- `typing.Any, Dict` -- generic type hints used in function signatures.
+
+Lines 24-25:
+FastAPI imports:
+- `FastAPI, File, Form, HTTPException, UploadFile` -- core framework pieces for building the app and handling file uploads / form fields.
+- `CORSMiddleware` -- middleware that lets browsers from any origin call this API.
+
+Lines 27-44:
+Imports from the project's own modules:
+- `api/schemas.py` -- Pydantic request models (`Step2AnswerRequest`, etc.).
+- `api/scoring.py` -- helper functions that turn raw model outputs into structured scores.
+- `models.final_aggregator` -- the class that combines Step 1/2/3 into the final answer.
+- `models.hybrid_classifier` -- the class that fuses image, trait, and LLM predictions.
+- `models.key_tree_traversal` -- the decision-tree engine that walks `key.xml`.
+- `models.llm_classifier` -- the LLM wrapper and its Ollama backend check.
+- `models.trait_database_comparator` -- the engine that compares traits and finds lookalikes.
+
+Module-level State (lines 46-89)
+--------------------------------
+
+Line 46:
+Creates a module-level logger so the file can emit info/warning messages.
+
+Line 49:
+`PROJECT_ROOT = Path(__file__).resolve().parent.parent` -- computes the project root directory by going two levels up from this file (`api/main.py` -> `api/` -> project root).
+
+Line 50:
+`SPECIES_CSV = PROJECT_ROOT / "data" / "raw" / "species.csv"` -- builds the path to the raw species metadata CSV.
+
+Line 51:
+`KEY_XML = PROJECT_ROOT / "data" / "raw" / "key.xml"` -- builds the path to the XML decision key used in Step 2.
+
+Line 52:
+`DATA_RAW_DIR = PROJECT_ROOT / "data" / "raw"` -- builds the path to the raw data folder used by the trait comparator.
+
+Line 54:
+`app = FastAPI(...)` -- instantiates the FastAPI application object with a title and version.
+
+Lines 55-61:
+`app.add_middleware(CORSMiddleware, ...)` -- attaches CORS middleware so the API accepts cross-origin requests from any origin (`["*"]`), with any method or header.
+
+Lines 64-70:
+Defines `_load_species_metadata()`. It opens `species.csv`, reads it as a dictionary, and builds a dict keyed by `english_name` so species metadata can be looked up quickly.
+
+Line 73:
+`SPECIES = _load_species_metadata()` -- runs the loader once at import time and stores the result.
+
+Line 74:
+`HYBRID = HybridClassifier(...)` -- creates the hybrid image+trait+LLM classifier, configured to use weighted-average aggregation.
+
+Line 75:
+`KEY_TREE = KeyTreeEngine(str(KEY_XML))` -- instantiates the decision-tree engine with the XML key path.
+
+Line 76:
+`COMPARATOR = TraitDatabaseComparator(str(DATA_RAW_DIR))` -- instantiates the trait-comparison engine.
+
+Line 77:
+`AGGREGATOR = FinalAggregator(str(SPECIES_CSV))` -- instantiates the final result aggregator.
+
+Lines 79-89:
+LLM initialisation block:
+- Line 80: Checks whether an Ollama server is reachable (`OllamaBackend.is_available()`).
+- Lines 81-83: If reachable, tries to create `LLMClassifier(backend_type="ollama")` and logs success.
+- Lines 84-86: If creation fails (exception), logs a warning and sets `LLM = None`.
+- Lines 87-89: If Ollama is not reachable at all, logs an info message and sets `LLM = None` so the system falls back to rule-based logic later.
+
+Health Endpoint (lines 92-97)
+-----------------------------
+
+Line 92:
+`@app.get("/health")` -- registers a GET route at `/health`.
+
+Line 93:
+Defines the `health()` handler, returning a `Dict[str, str]`.
+
+Lines 94-97:
+Returns a JSON object `{"status": "ok", "llm": "ollama"|"rule-based"}` so callers (and load-balancers) can verify the API is up and see which LLM mode is active.
+
+Main Identification Endpoint -- Step 1 (lines 100-141)
+------------------------------------------------------
+
+Line 100:
+`@app.post("/identify")` -- registers a POST route at `/identify`.
+
+Lines 101-104:
+Defines the async handler `identify(...)`.
+- `image: UploadFile = File(...)` -- expects a multipart file upload named `image`.
+- `traits: str = Form("{}")` -- expects a form field named `traits` defaulting to the string `"{}"`.
+
+Lines 105-108:
+Tries to parse `traits` as JSON. If it fails (`JSONDecodeError`), raises an HTTP 400 Bad Request with details.
+
+Lines 110-112:
+Reads the uploaded image bytes asynchronously. If the file is empty, raises HTTP 400.
+
+Line 114:
+`img_scores, metrics, trait_extraction = image_scores(image_bytes)` -- runs the image recognition pipeline, getting per-species scores, raw metrics, and the structured visible-traits dict.
+
+Line 115:
+`trait_based = trait_scores(trait_data)` -- scores species based on the user-supplied questionnaire traits.
+
+Line 116:
+`llm_based = ollama_scores(LLM, metrics, trait_data, trait_extraction)` -- gets LLM-based scores. If `LLM` is `None`, this helper falls back to rule-based scoring.
+
+Lines 118-122:
+Builds the `image_prediction` object using `build_prediction(...)`, tagging it with type `"image"` and the ML model's reasoning string.
+
+Lines 123-127:
+Builds the `trait_prediction` object, tagging it with type `"trait"` and a fixed description of how it was derived from the questionnaire.
+
+Line 128:
+Determines which LLM method was actually used (`"ollama"` or `"rule-based"`).
+
+Lines 129-133:
+Builds the `llm_prediction` object, tagging it with the method name and a short reasoning string.
+
+Lines 135-139:
+Calls `HYBRID.classify(...)` with the three prediction objects and stores the combined result.
+
+Line 140:
+Calls `adapt_result(...)` to format the hybrid result into the API response shape, injecting raw `metrics`, `trait_extraction`, and `SPECIES` metadata, then returns it.
+
+Step 2 -- Species Tree Traversal Endpoints (lines 143-187)
+----------------------------------------------------------
+
+Line 147:
+`@app.post("/identify/Species_tree_traversal/start")` -- route to begin Step 2.
+
+Lines 148-160:
+Defines `step2_start(body: Step2StartRequest)`. The docstring explains that you post the `visible_traits` dict from Step 1, and the engine auto-answers what it can from the image data. The response is either a `question` requiring human input or a `conclusion` if the tree resolves automatically.
+
+Line 161:
+Returns the result of `KEY_TREE.start_session(body.session_id, body.visible_traits)`.
+
+Line 164:
+`@app.post("/identify/Species_tree_traversal/answer")` -- route to continue Step 2.
+
+Lines 165-173:
+Defines `step2_answer(body: Step2AnswerRequest)`. The docstring tells the client to send an `answer` that exactly matches one of the previous `options`.
+
+Line 174:
+Calls `KEY_TREE.answer(body.session_id, body.answer)`.
+
+Lines 175-176:
+If the result status is `error` and mentions "Session not found", raises HTTP 404.
+
+Line 177:
+Returns the traversal result.
+
+Line 180:
+`@app.get("/identify/Species_tree_traversal/session/{session_id}")` -- debug route to inspect an active session.
+
+Lines 181-186:
+Defines `step2_session_state(...)`. Looks up the session in `KEY_TREE`. If it does not exist, raises HTTP 404. Otherwise returns the session state dict.
+
+Step 3 -- Trait Database Comparison Endpoint (lines 189-216)
+------------------------------------------------------------
+
+Line 193:
+`@app.post("/identify/comparison/compare")` -- route for Step 3.
+
+Lines 194-215:
+Defines `step3_compare(body: Step3CompareRequest)`. The long docstring documents the expected inputs (species name from Step 2 and visible traits from Step 1) and the exact JSON response shape, including `candidate`, `name_match_score`, `trait_match`, `lookalikes`, and `safety_alert`.
+
+Line 215:
+Returns `COMPARATOR.compare(body.swedish_name, body.visible_traits)`.
+
+Step 4 -- Final Aggregation Endpoint (lines 218-259)
+----------------------------------------------------
+
+Line 222:
+`@app.post("/identify/prediction/finalize")` -- route for Step 4.
+
+Lines 223-253:
+Defines `step4_finalize(body: Step4FinalizeRequest)`. The docstring explains that this combines Steps 1, 2, and 3 into the final user-facing answer, and documents the confidence weighting (Step 2 = 45%, Step 1 = 35%, Step 3 = 20%, plus a 10% agreement bonus when Steps 1 and 2 agree). It also lists every field in the response object.
+
+Lines 254-258:
+Calls `AGGREGATOR.aggregate(...)` with the three result payloads from the earlier steps and returns the final dict.

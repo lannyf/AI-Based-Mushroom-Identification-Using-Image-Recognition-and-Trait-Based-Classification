@@ -360,57 +360,132 @@ def _normalise(scores: Dict[str, float]) -> Dict[str, float]:
 # Public entry point
 # ---------------------------------------------------------------------------
 
+def analyse_colours_masked(bgr: np.ndarray, mask: np.ndarray) -> Dict[str, Any]:
+    # Compute colour stats only on mask-positive pixels. Fall back to full-image if mask too small.
+    mask_bool = mask > 0
+    if mask_bool.sum() < 50:
+        return analyse_colours(bgr)
+    pixels = bgr[mask_bool]
+    # reuse existing pipeline on the masked pixels
+    small = cv2.resize(pixels.reshape(-1, 3), (128, 128)) if len(pixels) >= 128 else pixels
+    hsv = cv2.cvtColor(small.reshape(-1, 3).astype(np.uint8), cv2.COLOR_BGR2HSV).astype(np.float32)
+    clusters = _dominant_hsv(hsv, n_clusters=4)
+    colour_names = [_hsv_to_name(*c) for c in clusters]
+    dominant = colour_names[0] if colour_names else "unknown"
+    secondary = colour_names[1] if len(colour_names) > 1 else dominant
+    arr = pixels.astype(np.float32)
+    r, g, b = arr[:, 2], arr[:, 1], arr[:, 0]
+    red_ratio = float(np.mean((r > 150) & (r > g * 1.25) & (r > b * 1.25)))
+    orange_red_ratio = float(np.mean((r > 140) & (g > 50) & (g < 130) & (b < 80)))
+    orange_yellow_ratio = float(np.mean((r > 140) & (g > 90) & (b < 140)))
+    brown_ratio = float(np.mean((r > 80)  & (g > 45) & (b < 90) & (r > g) & (g > b)))
+    white_ratio = float(np.mean((r > 185) & (g > 185) & (b > 185)))
+    dark_ratio = float(np.mean((r < 60)  & (g < 60)  & (b < 60)))
+    if red_ratio >= 0.09 and white_ratio >= 0.05 and red_ratio > orange_yellow_ratio:
+        dominant = "red"
+        secondary = "white"
+    return {
+        "dominant_color": dominant,
+        "secondary_color": secondary,
+        "red_ratio": round(red_ratio, 3),
+        "orange_red_ratio": round(orange_red_ratio, 3),
+        "orange_yellow_ratio": round(orange_yellow_ratio, 3),
+        "brown_ratio": round(brown_ratio, 3),
+        "white_ratio": round(white_ratio, 3),
+        "dark_ratio": round(dark_ratio, 3),
+    }
+
+
+def analyse_texture_masked(bgr: np.ndarray, mask: np.ndarray) -> Dict[str, Any]:
+    mask_bool = mask > 0
+    if mask_bool.sum() < 50:
+        return analyse_texture(bgr)
+    gray = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(gray, 50, 150)
+    edges[~mask_bool] = 0
+    edge_density = float(np.mean(edges > 0))
+    lines = cv2.HoughLinesP(edges, 1, np.pi / 180, threshold=30, minLineLength=20, maxLineGap=5)
+    has_ridges = lines is not None and len(lines) > 10
+    if edge_density < 0.05:
+        texture = "smooth"
+    elif edge_density < 0.15:
+        texture = "fibrous"
+    else:
+        texture = "scaly"
+    return {"surface_texture": texture, "edge_density": round(edge_density, 3), "has_ridges": bool(has_ridges)}
+
+
+def analyse_brightness_masked(bgr: np.ndarray, mask: np.ndarray) -> str:
+    mask_bool = mask > 0
+    if mask_bool.sum() < 10:
+        return analyse_brightness(bgr)
+    hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
+    mean_v = float(np.mean(hsv[:, :, 2][mask_bool]))
+    if mean_v < 70:
+        return "dark"
+    if mean_v < 160:
+        return "medium"
+    return "bright"
+
+
+def analyse_shape_masked(bgr: np.ndarray, mask: np.ndarray) -> Dict[str, Any]:
+    # Use mask contour as primary source; fallback to analyse_shape when ambiguous
+    mask_u = (mask > 0).astype(np.uint8) * 255
+    contours, _ = cv2.findContours(mask_u, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if not contours:
+        return analyse_shape(bgr)
+    largest = max(contours, key=cv2.contourArea)
+    area = cv2.contourArea(largest)
+    perimeter = cv2.arcLength(largest, True)
+    x, y, w, h = cv2.boundingRect(largest)
+    aspect_ratio = w / max(h, 1)
+    circularity = (4 * np.pi * area / (perimeter ** 2)) if perimeter > 0 else 0.0
+    if circularity > 0.80 and 0.8 < aspect_ratio < 1.3:
+        cap_shape = "convex"
+    elif aspect_ratio > 1.6 and circularity < 0.6:
+        cap_shape = "flat"
+    elif aspect_ratio < 0.7:
+        cap_shape = "bell-shaped"
+    elif circularity < 0.45:
+        cap_shape = "wavy"
+    elif 0.5 < aspect_ratio < 1.0 and circularity < 0.65:
+        cap_shape = "funnel-shaped"
+    else:
+        cap_shape = "convex"
+    return {"cap_shape": cap_shape, "aspect_ratio": round(float(aspect_ratio), 2), "circularity": round(float(circularity), 2)}
+
+
 def extract(image_bytes: bytes) -> Dict[str, Any]:
     """
-    Full Step-1 analysis.
-
-    Species scoring strategy (in priority order):
-      1. EfficientNet-B3 CNN (cnn_classifier.py) when fine-tuned weights exist
-         at artifacts/cnn_weights.pt — real ML predictions.
-      2. Classical CV fallback (score_species) when no weights are present,
-         using colour / shape / texture heuristics.
-
-    The CV analysis always runs regardless, because its output feeds the
-    visible_traits dict that drives the key-tree traversal in Step 2.
-
-    Returns a dict with two top-level keys:
-
-    ``ml_prediction``
-        top_species    — best match name
-        confidence     — normalised confidence 0-1
-        top_k          — list of {species, confidence} for top 5
-        method         — "cnn" | "cv_fallback"
-
-    ``visible_traits``
-        dominant_color, secondary_color
-        cap_shape, surface_texture, has_ridges, brightness
-        colour_ratios  — red, orange_red, orange_yellow, brown, white, dark
+    Full Step-1 analysis with optional segmentation metadata and masked-trait replacement.
     """
     import io as _io
+    from config import segmentation_config as seg_cfg
+
     pil_img = Image.open(_io.BytesIO(image_bytes)).convert("RGB")
     bgr = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
 
     # --- CV analysis (always runs — needed for visible_traits) ---
-    colour     = analyse_colours(bgr)
-    shape      = analyse_shape(bgr)
-    texture    = analyse_texture(bgr)
+    colour = analyse_colours(bgr)
+    shape = analyse_shape(bgr)
+    texture = analyse_texture(bgr)
     brightness = analyse_brightness(bgr)
     fly_agaric_like = _looks_like_fly_agaric_signature(colour, shape)
 
     visible_traits: Dict[str, Any] = {
-        "dominant_color":  colour["dominant_color"],
+        "dominant_color": colour["dominant_color"],
         "secondary_color": colour["secondary_color"],
-        "cap_shape":       shape["cap_shape"],
+        "cap_shape": shape["cap_shape"],
         "surface_texture": texture["surface_texture"],
-        "has_ridges":      texture["has_ridges"] and not fly_agaric_like,
-        "brightness":      brightness,
+        "has_ridges": texture["has_ridges"] and not fly_agaric_like,
+        "brightness": brightness,
         "colour_ratios": {
-            "red":           colour["red_ratio"],
-            "orange_red":    colour.get("orange_red_ratio", 0.0),
+            "red": colour["red_ratio"],
+            "orange_red": colour.get("orange_red_ratio", 0.0),
             "orange_yellow": colour["orange_yellow_ratio"],
-            "brown":         colour["brown_ratio"],
-            "white":         colour["white_ratio"],
-            "dark":          colour["dark_ratio"],
+            "brown": colour["brown_ratio"],
+            "white": colour["white_ratio"],
+            "dark": colour["dark_ratio"],
         },
     }
 
@@ -431,10 +506,9 @@ def extract(image_bytes: bytes) -> Dict[str, Any]:
         logger.debug("CNN unavailable, using CV fallback: %s", exc)
 
     if not ordered:
-        # CV fallback
-        raw_scores  = score_species(colour, shape, texture)
+        raw_scores = score_species(colour, shape, texture)
         norm_scores = _normalise(raw_scores)
-        ordered     = sorted(norm_scores.items(), key=lambda x: x[1], reverse=True)
+        ordered = sorted(norm_scores.items(), key=lambda x: x[1], reverse=True)
 
     top_species, top_conf = ordered[0]
 
@@ -456,16 +530,83 @@ def extract(image_bytes: bytes) -> Dict[str, Any]:
 
     ml_prediction: Dict[str, Any] = {
         "top_species": top_species,
-        "confidence":  round(top_conf, 4),
-        "method":      method,
-        "top_k": [
-            {"species": sp, "confidence": round(sc, 4)}
-            for sp, sc in ordered[:5]
-        ],
+        "confidence": round(top_conf, 4),
+        "method": method,
+        "top_k": [{"species": sp, "confidence": round(sc, 4)} for sp, sc in ordered[:5]],
         "reasoning": reasoning,
     }
     visible_traits["ml_top_species"] = top_species
     visible_traits["ml_confidence"] = round(top_conf, 4)
+
+    # --- Segmentation metadata and optional masked trait replacement ---
+    selected_mask = None
+    try:
+        # Only run segmentation if explicitly enabled for metadata or masked traits
+        if seg_cfg.USE_MASK_FOR_TRAITS or getattr(seg_cfg, "RUN_SEGMENTATION_METADATA", False):
+            from models.mushroom_segmenter import get_segmenter
+            seg = get_segmenter()
+            seg_res = seg.segment(image_bytes)
+            instances = seg_res.get("instances", [])
+            sel_idx = seg_res.get("selected_index")
+            if sel_idx is not None and instances:
+                sel = instances[sel_idx]
+                # Only add metadata fields when RUN_SEGMENTATION_METADATA is enabled
+                if getattr(seg_cfg, "RUN_SEGMENTATION_METADATA", False):
+                    visible_traits["localization_source"] = "segmentation"
+                    visible_traits["localization_confidence"] = round(float(sel.get("model_confidence", 0.0)), 3)
+                    visible_traits["bbox"] = sel.get("bbox")
+                    visible_traits["mask_used"] = False
+                    visible_traits["localization_metadata"] = {
+                        "foreground_area_ratio": sel.get("area_ratio"),
+                        "mask_fragment_count": sel.get("fragment_count"),
+                        "hole_ratio": sel.get("hole_ratio"),
+                        "boundary_irregularity": sel.get("boundary_irregularity"),
+                    }
+                selected_mask = sel.get("cleaned_mask")
+    except ImportError:
+        logger.debug("Segmentation dependency not installed; skipping segmentation metadata")
+    except Exception as exc:
+        logger.debug("Segmentation failed: %s", exc)
+
+    # Condition to accept masked traits
+    try:
+        if selected_mask is not None and seg_cfg.USE_MASK_FOR_TRAITS:
+            sel_ok = (
+                float(visible_traits.get("localization_confidence", 0.0)) >= seg_cfg.MIN_MASK_CONFIDENCE
+                and float(visible_traits.get("localization_metadata", {}).get("foreground_area_ratio", 0.0)) >= seg_cfg.MIN_FOREGROUND_AREA_RATIO
+                and float(visible_traits.get("localization_metadata", {}).get("foreground_area_ratio", 0.0)) <= seg_cfg.MAX_NEAR_FULL_FRAME_RATIO
+                and int(visible_traits.get("localization_metadata", {}).get("fragment_count", 99)) <= seg_cfg.MAX_FRAGMENTATION
+                and float(visible_traits.get("localization_metadata", {}).get("hole_ratio", 1.0)) <= seg_cfg.MAX_HOLE_RATIO
+                and float(visible_traits.get("localization_metadata", {}).get("boundary_irregularity", 1.0)) <= seg_cfg.MAX_BOUNDARY_IRREGULARITY
+            )
+            if sel_ok:
+                # apply cleanup conservatively
+                from models.mushroom_segmenter import Segmenter as _SegClass
+                # we assume cleaned_mask is already present from the segmenter
+                mask_for_traits = selected_mask
+                # compute masked traits
+                m_colour = analyse_colours_masked(bgr, mask_for_traits)
+                m_shape = analyse_shape_masked(bgr, mask_for_traits)
+                m_texture = analyse_texture_masked(bgr, mask_for_traits)
+                m_brightness = analyse_brightness_masked(bgr, mask_for_traits)
+                # Replace trait families (policy: always use masked trait for active families)
+                visible_traits["dominant_color"] = m_colour["dominant_color"]
+                visible_traits["secondary_color"] = m_colour["secondary_color"]
+                visible_traits["colour_ratios"]["red"] = m_colour["red_ratio"]
+                visible_traits["colour_ratios"]["orange_red"] = m_colour.get("orange_red_ratio", 0.0)
+                visible_traits["colour_ratios"]["orange_yellow"] = m_colour.get("orange_yellow_ratio", 0.0)
+                visible_traits["colour_ratios"]["brown"] = m_colour.get("brown_ratio", 0.0)
+                visible_traits["colour_ratios"]["white"] = m_colour.get("white_ratio", 0.0)
+                visible_traits["colour_ratios"]["dark"] = m_colour.get("dark_ratio", 0.0)
+                visible_traits["cap_shape"] = m_shape.get("cap_shape", visible_traits.get("cap_shape"))
+                visible_traits["surface_texture"] = m_texture.get("surface_texture", visible_traits.get("surface_texture"))
+                visible_traits["has_ridges"] = m_texture.get("has_ridges", visible_traits.get("has_ridges")) and not fly_agaric_like
+                visible_traits["brightness"] = m_brightness
+                visible_traits["mask_used"] = True
+                # mark trait ownership
+                visible_traits["trait_source_by_key"] = {k: "mask" for k in ["dominant_color", "cap_shape", "surface_texture", "has_ridges", "brightness"]}
+    except Exception as exc:
+        logger.debug("Error applying masked traits: %s", exc)
 
     logger.debug("Step-1 result: %s (%.4f) via %s", top_species, top_conf, method)
     return {"ml_prediction": ml_prediction, "visible_traits": visible_traits}

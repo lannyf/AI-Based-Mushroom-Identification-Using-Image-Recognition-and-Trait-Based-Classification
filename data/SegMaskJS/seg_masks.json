@@ -1,0 +1,3737 @@
+[
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_13.jpg",
+    "sha1": "00e10b3b21122f395459da2e65e0be727ab98be8",
+    "mask_path": "data/SegMask_m/00e10b3b21122f395459da2e65e0be727ab98be8.png",
+    "bbox": [
+      146,
+      150,
+      256,
+      280
+    ],
+    "model_confidence": 0.5912410616874695,
+    "area_ratio": 0.12197916666666667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.026241359106121392
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_20.jpg",
+    "sha1": "1faaa2d5de5edcdc5cb040a6c32297c52f937e52",
+    "mask_path": "data/SegMask_m/1faaa2d5de5edcdc5cb040a6c32297c52f937e52.png",
+    "bbox": [
+      2,
+      242,
+      478,
+      398
+    ],
+    "model_confidence": 0.878469705581665,
+    "area_ratio": 0.3631184895833333,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.022822271912842442
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_2.jpg",
+    "sha1": "f207b5235f10a898cbc407658a0e0d32196befea",
+    "mask_path": "data/SegMask_m/f207b5235f10a898cbc407658a0e0d32196befea.png",
+    "bbox": [
+      198,
+      110,
+      269,
+      271
+    ],
+    "model_confidence": 0.41195055842399597,
+    "area_ratio": 0.12987630208333334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.024591496949561267
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_29.jpg",
+    "sha1": "a4f6d8f639c7e0faee8e3e57d8c5eaa7acab723d",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_11.jpg",
+    "sha1": "fbe20015794fe8c4c9450fc3e9eff29971243d42",
+    "mask_path": "data/SegMask_m/fbe20015794fe8c4c9450fc3e9eff29971243d42.png",
+    "bbox": [
+      0,
+      0,
+      576,
+      480
+    ],
+    "model_confidence": 0.8229186534881592,
+    "area_ratio": 0.4132161458333333,
+    "fragment_count": 4,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02759343305960538
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_18.jpg",
+    "sha1": "dedb55c99d987e398cec8501c195bc13c3e62fd2",
+    "mask_path": "data/SegMask_m/dedb55c99d987e398cec8501c195bc13c3e62fd2.png",
+    "bbox": [
+      0,
+      262,
+      480,
+      378
+    ],
+    "model_confidence": 0.9392741918563843,
+    "area_ratio": 0.36279947916666666,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.019574087842526212
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_17.jpg",
+    "sha1": "2815c75345d0792a51fb055b2e2ce135c63618ae",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_25.jpg",
+    "sha1": "48efd61dc3078a098d9ee63898e1dcaab671b235",
+    "mask_path": "data/SegMask_m/48efd61dc3078a098d9ee63898e1dcaab671b235.png",
+    "bbox": [
+      10,
+      290,
+      182,
+      192
+    ],
+    "model_confidence": 0.8780105113983154,
+    "area_ratio": 0.08298746744791667,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03408184453101988
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_23.jpg",
+    "sha1": "ca8a398a1358677d5e62dc904eacd679b2f2f9e8",
+    "mask_path": "data/SegMask_m/ca8a398a1358677d5e62dc904eacd679b2f2f9e8.png",
+    "bbox": [
+      0,
+      430,
+      190,
+      210
+    ],
+    "model_confidence": 0.9170740246772766,
+    "area_ratio": 0.10270833333333333,
+    "fragment_count": 3,
+    "hole_ratio": 0.6666666666666666,
+    "boundary_irregularity": 0.03451417552182547
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_21.jpg",
+    "sha1": "b796da89a65a82eeff14e9aa9c2108bb6c4c8778",
+    "mask_path": "data/SegMask_m/b796da89a65a82eeff14e9aa9c2108bb6c4c8778.png",
+    "bbox": [
+      0,
+      302,
+      466,
+      338
+    ],
+    "model_confidence": 0.7738613486289978,
+    "area_ratio": 0.2930598958333333,
+    "fragment_count": 5,
+    "hole_ratio": 0.4,
+    "boundary_irregularity": 0.025990869757748482
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_15.jpg",
+    "sha1": "7b858fe67f349d0b3ac2ae858d932cfff00b1543",
+    "mask_path": "data/SegMask_m/7b858fe67f349d0b3ac2ae858d932cfff00b1543.png",
+    "bbox": [
+      38,
+      114,
+      328,
+      444
+    ],
+    "model_confidence": 0.9423520565032959,
+    "area_ratio": 0.30985921223958335,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01969117170119602
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_1.jpg",
+    "sha1": "3d502cb6bfb4dea867da2662f80aef1a70679840",
+    "mask_path": "data/SegMask_m/3d502cb6bfb4dea867da2662f80aef1a70679840.png",
+    "bbox": [
+      242,
+      330,
+      100,
+      241
+    ],
+    "model_confidence": 0.37206003069877625,
+    "area_ratio": 0.05549479166666667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.04023581563289044
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_8.jpg",
+    "sha1": "e2e552b11c6572df636cd5957c6262d99274af88",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_28.jpg",
+    "sha1": "e42764836a9baf853fe06ee316284e52cc758f45",
+    "mask_path": "data/SegMask_m/e42764836a9baf853fe06ee316284e52cc758f45.png",
+    "bbox": [
+      46,
+      298,
+      64,
+      72
+    ],
+    "model_confidence": 0.3913852274417877,
+    "area_ratio": 0.011363932291666667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.06639280417603259
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_6.jpg",
+    "sha1": "c95490defa581b048ac54520d37924bd45eff297",
+    "mask_path": "data/SegMask_m/c95490defa581b048ac54520d37924bd45eff297.png",
+    "bbox": [
+      10,
+      386,
+      219,
+      254
+    ],
+    "model_confidence": 0.520449161529541,
+    "area_ratio": 0.13149007161458334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.026418825077046973
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_26.jpg",
+    "sha1": "58ba5789ee7bff61c647856131676f78b53d493a",
+    "mask_path": "data/SegMask_m/58ba5789ee7bff61c647856131676f78b53d493a.png",
+    "bbox": [
+      10,
+      399,
+      236,
+      241
+    ],
+    "model_confidence": 0.8937461972236633,
+    "area_ratio": 0.19751953125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02729561249881345
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_12.jpg",
+    "sha1": "fde27fa6be4259aabc5d0fa44d17a8ab40af40fa",
+    "mask_path": "data/SegMask_m/fde27fa6be4259aabc5d0fa44d17a8ab40af40fa.png",
+    "bbox": [
+      2,
+      282,
+      516,
+      198
+    ],
+    "model_confidence": 0.84677654504776,
+    "area_ratio": 0.171689453125,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02585850764545458
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_24.jpg",
+    "sha1": "3abef779fc4bfb31404102db6193486ee6509f42",
+    "mask_path": "data/SegMask_m/3abef779fc4bfb31404102db6193486ee6509f42.png",
+    "bbox": [
+      166,
+      122,
+      273,
+      500
+    ],
+    "model_confidence": 0.931928277015686,
+    "area_ratio": 0.1373828125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03582686797372416
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_19.jpg",
+    "sha1": "a5c4f35e8960f426ee9e69e9dbe81157baa47ff7",
+    "mask_path": "data/SegMask_m/a5c4f35e8960f426ee9e69e9dbe81157baa47ff7.png",
+    "bbox": [
+      90,
+      534,
+      324,
+      106
+    ],
+    "model_confidence": 0.812822699546814,
+    "area_ratio": 0.0562890625,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.045919252969016715
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_5.jpg",
+    "sha1": "68492d7b14e57b5523622648f594745a2e6b145e",
+    "mask_path": "data/SegMask_m/68492d7b14e57b5523622648f594745a2e6b145e.png",
+    "bbox": [
+      0,
+      238,
+      212,
+      160
+    ],
+    "model_confidence": 0.263313353061676,
+    "area_ratio": 0.019606119791666668,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.10252367785827805
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_7.jpg",
+    "sha1": "0beaa0b6bf911e982382fd4fcf39e6dc5c8076c3",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_30.jpg",
+    "sha1": "5c3a128fc571b8b2e96af01d835f8d0527fe793f",
+    "mask_path": "data/SegMask_m/5c3a128fc571b8b2e96af01d835f8d0527fe793f.png",
+    "bbox": [
+      186,
+      358,
+      294,
+      282
+    ],
+    "model_confidence": 0.8599932193756104,
+    "area_ratio": 0.14741861979166668,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.024851780724583755
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_3.jpg",
+    "sha1": "dd40760cc8b0868456c54ee8e1b590c8df27922d",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_4.jpg",
+    "sha1": "ce6d6abc4c770516967d5aa1625604f35bc86f0c",
+    "mask_path": "data/SegMask_m/ce6d6abc4c770516967d5aa1625604f35bc86f0c.png",
+    "bbox": [
+      0,
+      46,
+      640,
+      434
+    ],
+    "model_confidence": 0.3025768995285034,
+    "area_ratio": 0.7450260416666666,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.009550215268909272
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_16.jpg",
+    "sha1": "cacca46d0ed9e34927a515d36517c3e18f01f32c",
+    "mask_path": "data/SegMask_m/cacca46d0ed9e34927a515d36517c3e18f01f32c.png",
+    "bbox": [
+      0,
+      290,
+      278,
+      350
+    ],
+    "model_confidence": 0.8742058277130127,
+    "area_ratio": 0.19152018229166667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.019873647383936918
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_10.jpg",
+    "sha1": "eccb33e287d48aaaca710931306e821e81f91030",
+    "mask_path": "data/SegMask_m/eccb33e287d48aaaca710931306e821e81f91030.png",
+    "bbox": [
+      69,
+      262,
+      237,
+      340
+    ],
+    "model_confidence": 0.9418914914131165,
+    "area_ratio": 0.13409423828125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.0362344172021056
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_27.jpg",
+    "sha1": "a356f1fe11abc630c95789f5000605341816c3dc",
+    "mask_path": "data/SegMask_m/a356f1fe11abc630c95789f5000605341816c3dc.png",
+    "bbox": [
+      0,
+      302,
+      206,
+      338
+    ],
+    "model_confidence": 0.8835071325302124,
+    "area_ratio": 0.12654947916666667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.025566245702041232
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_22.jpg",
+    "sha1": "d40acf857baa2819de236dd7ce5192147d328dc8",
+    "mask_path": "data/SegMask_m/d40acf857baa2819de236dd7ce5192147d328dc8.png",
+    "bbox": [
+      0,
+      426,
+      226,
+      214
+    ],
+    "model_confidence": 0.7293195724487305,
+    "area_ratio": 0.11539388020833333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.021423581249902963
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_9.jpg",
+    "sha1": "4987e0ad24fbba96ba2bfdc3b769897a6e705c55",
+    "mask_path": "data/SegMask_m/4987e0ad24fbba96ba2bfdc3b769897a6e705c55.png",
+    "bbox": [
+      10,
+      335,
+      227,
+      305
+    ],
+    "model_confidence": 0.9535012245178223,
+    "area_ratio": 0.14695231119791666,
+    "fragment_count": 3,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03265428768829199
+  },
+  {
+    "image": "data/raw/images/Brunsopp/Boletus_badius_14.jpg",
+    "sha1": "6e2081bdd89febfe307eaf3cb14364ce04252b7b",
+    "mask_path": "data/SegMask_m/6e2081bdd89febfe307eaf3cb14364ce04252b7b.png",
+    "bbox": [
+      0,
+      0,
+      530,
+      478
+    ],
+    "model_confidence": 0.7358348965644836,
+    "area_ratio": 0.517255859375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02211500569818979
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_18.jpg",
+    "sha1": "2eac55ac015016cd913dd0fb3eab95f34f268c6b",
+    "mask_path": "data/SegMask_m/2eac55ac015016cd913dd0fb3eab95f34f268c6b.png",
+    "bbox": [
+      134,
+      318,
+      332,
+      196
+    ],
+    "model_confidence": 0.6771994829177856,
+    "area_ratio": 0.10053059895833333,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03773358512692115
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_6.jpg",
+    "sha1": "67c835b27c70f5d541c950e992a53e19e0ee5e15",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_23.jpg",
+    "sha1": "12cce85fc50c7c6a8db47abc6515ac4fb8cd0bb7",
+    "mask_path": "data/SegMask_m/12cce85fc50c7c6a8db47abc6515ac4fb8cd0bb7.png",
+    "bbox": [
+      0,
+      0,
+      417,
+      478
+    ],
+    "model_confidence": 0.8343474268913269,
+    "area_ratio": 0.40241861979166665,
+    "fragment_count": 5,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02597218623347737
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_20.jpg",
+    "sha1": "939e3ba489a2637ba24630ee513979f2d37eb725",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_19.jpg",
+    "sha1": "a677906d25ed7000fc992ce957d9ef53b596217a",
+    "mask_path": "data/SegMask_m/a677906d25ed7000fc992ce957d9ef53b596217a.png",
+    "bbox": [
+      198,
+      170,
+      268,
+      188
+    ],
+    "model_confidence": 0.6003798842430115,
+    "area_ratio": 0.0832763671875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03465514807715296
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_27.jpg",
+    "sha1": "5a7da2b850f6944e17797244d6aba01897fa01b5",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_24.jpg",
+    "sha1": "7859396de697a09506b4e516dba4c4a086702019",
+    "mask_path": "data/SegMask_m/7859396de697a09506b4e516dba4c4a086702019.png",
+    "bbox": [
+      78,
+      42,
+      364,
+      438
+    ],
+    "model_confidence": 0.8531844019889832,
+    "area_ratio": 0.300048828125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01812052296401745
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_4.jpg",
+    "sha1": "970c3e7d40df13e1fc209b35f7b7ad3448fb0c3b",
+    "mask_path": "data/SegMask_m/970c3e7d40df13e1fc209b35f7b7ad3448fb0c3b.png",
+    "bbox": [
+      0,
+      0,
+      622,
+      467
+    ],
+    "model_confidence": 0.7902978658676147,
+    "area_ratio": 0.5658333333333333,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.018549717524909748
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_2.jpg",
+    "sha1": "f9af51a837d5a085aff98de6938bf1609ee97dd5",
+    "mask_path": "data/SegMask_m/f9af51a837d5a085aff98de6938bf1609ee97dd5.png",
+    "bbox": [
+      54,
+      242,
+      352,
+      196
+    ],
+    "model_confidence": 0.308008074760437,
+    "area_ratio": 0.10920247395833334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.030010065212203386
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_14.jpg",
+    "sha1": "8d837290872d27968446660d1267f01efa2453b5",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_22.jpg",
+    "sha1": "489f2890f8bc8f5983a2cbac3c418d80cff3a188",
+    "mask_path": "data/SegMask_m/489f2890f8bc8f5983a2cbac3c418d80cff3a188.png",
+    "bbox": [
+      274,
+      86,
+      152,
+      184
+    ],
+    "model_confidence": 0.3826937973499298,
+    "area_ratio": 0.07099609375,
+    "fragment_count": 2,
+    "hole_ratio": 0.5,
+    "boundary_irregularity": 0.04175363203486808
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_5.jpg",
+    "sha1": "6064d263b367748144ee3ee4b83cfe8cb8b85530",
+    "mask_path": "data/SegMask_m/6064d263b367748144ee3ee4b83cfe8cb8b85530.png",
+    "bbox": [
+      274,
+      402,
+      76,
+      96
+    ],
+    "model_confidence": 0.2766138017177582,
+    "area_ratio": 0.018323567708333332,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.057589295892512174
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_25.jpg",
+    "sha1": "17a578a0c2b51ff03795dc253a9b79644134483a",
+    "mask_path": "data/SegMask_m/17a578a0c2b51ff03795dc253a9b79644134483a.png",
+    "bbox": [
+      126,
+      54,
+      356,
+      304
+    ],
+    "model_confidence": 0.2580409646034241,
+    "area_ratio": 0.242001953125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.016189827474460454
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_10.jpg",
+    "sha1": "ef0c48b71268996099405078743007046ced0b7e",
+    "mask_path": "data/SegMask_m/ef0c48b71268996099405078743007046ced0b7e.png",
+    "bbox": [
+      126,
+      178,
+      208,
+      320
+    ],
+    "model_confidence": 0.4730913043022156,
+    "area_ratio": 0.11681315104166666,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03444860560990743
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_8.jpg",
+    "sha1": "61c188de1ca89335e87255aea2c4010d4f9576b9",
+    "mask_path": "data/SegMask_m/61c188de1ca89335e87255aea2c4010d4f9576b9.png",
+    "bbox": [
+      138,
+      178,
+      248,
+      320
+    ],
+    "model_confidence": 0.8775482773780823,
+    "area_ratio": 0.09178059895833333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.036475491013361255
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_1.jpg",
+    "sha1": "310457e7f1456c9deb74de55c23fdf6775da4465",
+    "mask_path": "data/SegMask_m/310457e7f1456c9deb74de55c23fdf6775da4465.png",
+    "bbox": [
+      54,
+      230,
+      284,
+      332
+    ],
+    "model_confidence": 0.955600917339325,
+    "area_ratio": 0.17559895833333333,
+    "fragment_count": 2,
+    "hole_ratio": 0.5,
+    "boundary_irregularity": 0.024286746411155028
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_16.jpg",
+    "sha1": "7975fed6e80024c5335f8d54d9f3200ff77c9e52",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_13.jpg",
+    "sha1": "c1325473efbe00dfa36f9075918c09395353c209",
+    "mask_path": "data/SegMask_m/c1325473efbe00dfa36f9075918c09395353c209.png",
+    "bbox": [
+      22,
+      34,
+      580,
+      380
+    ],
+    "model_confidence": 0.9428829550743103,
+    "area_ratio": 0.31744140625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02043899674383652
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_11.jpg",
+    "sha1": "49d131588420e33f25cfcf2058e76edac54443fa",
+    "mask_path": "data/SegMask_m/49d131588420e33f25cfcf2058e76edac54443fa.png",
+    "bbox": [
+      10,
+      378,
+      256,
+      262
+    ],
+    "model_confidence": 0.7973427772521973,
+    "area_ratio": 0.21910400390625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.022906687088080708
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_3.jpg",
+    "sha1": "35bdb774b8775af80f3f5e0535a0569a6ba44580",
+    "mask_path": "data/SegMask_m/35bdb774b8775af80f3f5e0535a0569a6ba44580.png",
+    "bbox": [
+      86,
+      214,
+      148,
+      152
+    ],
+    "model_confidence": 0.3203158378601074,
+    "area_ratio": 0.047454427083333334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.033972255870566126
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_29.jpg",
+    "sha1": "6642c9ccd937e3e29740240cc039554631e996f0",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_17.jpg",
+    "sha1": "70b6930887970a4156a35ca50441e1885d7699f6",
+    "mask_path": "data/SegMask_m/70b6930887970a4156a35ca50441e1885d7699f6.png",
+    "bbox": [
+      110,
+      278,
+      264,
+      362
+    ],
+    "model_confidence": 0.873873233795166,
+    "area_ratio": 0.195947265625,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03394452363452402
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_7.jpg",
+    "sha1": "e207104acc25b60dc4d35e7502a5454afe90742a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_28.jpg",
+    "sha1": "fcbc4619f73a8bf5908ee9affde63bd619fe50ed",
+    "mask_path": "data/SegMask_m/fcbc4619f73a8bf5908ee9affde63bd619fe50ed.png",
+    "bbox": [
+      102,
+      38,
+      384,
+      316
+    ],
+    "model_confidence": 0.36917153000831604,
+    "area_ratio": 0.260078125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.014875842426590635
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_30.jpg",
+    "sha1": "936588a3994fc3a30b8a8ab88a2ce7410f49ef83",
+    "mask_path": "data/SegMask_m/936588a3994fc3a30b8a8ab88a2ce7410f49ef83.png",
+    "bbox": [
+      10,
+      358,
+      196,
+      282
+    ],
+    "model_confidence": 0.9458367228507996,
+    "area_ratio": 0.16171468098958333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02667792628024644
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_21.jpg",
+    "sha1": "f53b7af83756d05ac16895b459811df691119b64",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_12.jpg",
+    "sha1": "6341ef39d8e42ba0715e0f47b14c8d84d11ea138",
+    "mask_path": "data/SegMask_m/6341ef39d8e42ba0715e0f47b14c8d84d11ea138.png",
+    "bbox": [
+      0,
+      66,
+      480,
+      531
+    ],
+    "model_confidence": 0.4360073208808899,
+    "area_ratio": 0.35681640625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01758568550441309
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_26.jpg",
+    "sha1": "ea3cd3c2b991fae3b252d37ec9df5020f6b16d18",
+    "mask_path": "data/SegMask_m/ea3cd3c2b991fae3b252d37ec9df5020f6b16d18.png",
+    "bbox": [
+      0,
+      0,
+      541,
+      478
+    ],
+    "model_confidence": 0.7953822612762451,
+    "area_ratio": 0.376171875,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.026965406806847173
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_15.jpg",
+    "sha1": "38c2a87d5268a47f8768860d2c90e50d5b4a9334",
+    "mask_path": "data/SegMask_m/38c2a87d5268a47f8768860d2c90e50d5b4a9334.png",
+    "bbox": [
+      30,
+      82,
+      372,
+      448
+    ],
+    "model_confidence": 0.28984081745147705,
+    "area_ratio": 0.36242513020833333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.012494120019486334
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_9.jpg",
+    "sha1": "8d96742fc1791b77ede5639651975d9db8c811b5",
+    "mask_path": "data/SegMask_m/8d96742fc1791b77ede5639651975d9db8c811b5.png",
+    "bbox": [
+      0,
+      370,
+      282,
+      270
+    ],
+    "model_confidence": 0.9448436498641968,
+    "area_ratio": 0.18777669270833333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.017109094354709562
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_3.jpg",
+    "sha1": "19433f18411032ac36176a8cd2f4532693ecd74d",
+    "mask_path": "data/SegMask_m/19433f18411032ac36176a8cd2f4532693ecd74d.png",
+    "bbox": [
+      154,
+      146,
+      204,
+      312
+    ],
+    "model_confidence": 0.7863500714302063,
+    "area_ratio": 0.0669287109375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03408751892637817
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_21.jpg",
+    "sha1": "3d90f37f4c724d2a60b1a01baf81cec46655797d",
+    "mask_path": "data/SegMask_m/3d90f37f4c724d2a60b1a01baf81cec46655797d.png",
+    "bbox": [
+      214,
+      66,
+      172,
+      360
+    ],
+    "model_confidence": 0.297980397939682,
+    "area_ratio": 0.13387974330357144,
+    "fragment_count": 3,
+    "hole_ratio": 0.6666666666666666,
+    "boundary_irregularity": 0.029296518530021
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_8.jpg",
+    "sha1": "21ba05aa0e4148d5b4e04b3a86e1ae41da2d1288",
+    "mask_path": "data/SegMask_m/21ba05aa0e4148d5b4e04b3a86e1ae41da2d1288.png",
+    "bbox": [
+      54,
+      350,
+      320,
+      290
+    ],
+    "model_confidence": 0.923738420009613,
+    "area_ratio": 0.23431803385416666,
+    "fragment_count": 3,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02658872524472702
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_4.jpg",
+    "sha1": "ef20b737e3b049c3d2d43624c974a2a15a5c26d0",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_15.jpg",
+    "sha1": "55da6d4efb53713ef97640d5ebc0b9c7cd0d507c",
+    "mask_path": "data/SegMask_m/55da6d4efb53713ef97640d5ebc0b9c7cd0d507c.png",
+    "bbox": [
+      42,
+      238,
+      244,
+      252
+    ],
+    "model_confidence": 0.34817659854888916,
+    "area_ratio": 0.15457763671875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.023209357425201246
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_26.jpg",
+    "sha1": "1690c3b91f5244145f307555d8f3f5f22bec09b8",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_9.jpg",
+    "sha1": "689cb45317c3e8db3bc97183110f7866c06a4e76",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_28.jpg",
+    "sha1": "46bf3670bc194dfbd5d559b08a7e4b9c62ba860b",
+    "mask_path": "data/SegMask_m/46bf3670bc194dfbd5d559b08a7e4b9c62ba860b.png",
+    "bbox": [
+      0,
+      206,
+      239,
+      336
+    ],
+    "model_confidence": 0.9022903442382812,
+    "area_ratio": 0.14400065104166668,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.022243171398705772
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_18.jpg",
+    "sha1": "9d9ec2bc51568e33e1f631a4090c1423cd84c711",
+    "mask_path": "data/SegMask_m/9d9ec2bc51568e33e1f631a4090c1423cd84c711.png",
+    "bbox": [
+      94,
+      194,
+      256,
+      252
+    ],
+    "model_confidence": 0.8305841088294983,
+    "area_ratio": 0.158251953125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.017255119904815548
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_25.jpg",
+    "sha1": "c73c00318aaf167e744dbbc1aaacf00ff7b449d2",
+    "mask_path": "data/SegMask_m/c73c00318aaf167e744dbbc1aaacf00ff7b449d2.png",
+    "bbox": [
+      78,
+      30,
+      423,
+      196
+    ],
+    "model_confidence": 0.40477707982063293,
+    "area_ratio": 0.17616861979166668,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.019963874321182632
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_14.jpg",
+    "sha1": "6b010e203c2bbd34bc10374ab307878abe83701d",
+    "mask_path": "data/SegMask_m/6b010e203c2bbd34bc10374ab307878abe83701d.png",
+    "bbox": [
+      138,
+      110,
+      268,
+      355
+    ],
+    "model_confidence": 0.2903596758842468,
+    "area_ratio": 0.11878580729166667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03008329827297831
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_7.jpg",
+    "sha1": "ecdb8e03cb9a7fd166b2a6dd4a8ccc9605f2b350",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_27.jpg",
+    "sha1": "45a55edce4248d4b00bee8f88e9fae64d4bd49be",
+    "mask_path": "data/SegMask_m/45a55edce4248d4b00bee8f88e9fae64d4bd49be.png",
+    "bbox": [
+      62,
+      178,
+      328,
+      336
+    ],
+    "model_confidence": 0.2625539004802704,
+    "area_ratio": 0.2643326822916667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.013496227590111124
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_12.jpg",
+    "sha1": "c56d3a7e4a460af4f8b0600787d8de67cea4bb1f",
+    "mask_path": "data/SegMask_m/c56d3a7e4a460af4f8b0600787d8de67cea4bb1f.png",
+    "bbox": [
+      166,
+      430,
+      148,
+      116
+    ],
+    "model_confidence": 0.7084198594093323,
+    "area_ratio": 0.021201171875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.0650415320924906
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_19.jpg",
+    "sha1": "1c0324dd729e54df084f01159a25a83ad6117b97",
+    "mask_path": "data/SegMask_m/1c0324dd729e54df084f01159a25a83ad6117b97.png",
+    "bbox": [
+      174,
+      58,
+      176,
+      500
+    ],
+    "model_confidence": 0.25731128454208374,
+    "area_ratio": 0.1214453125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03643815997783611
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_11.jpg",
+    "sha1": "d3d25dabfe063c266eb22086da96bd366ecf8bc9",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_22.jpg",
+    "sha1": "49b12a974e6b55cdb42553408100bb2fb7948ab6",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_24.jpg",
+    "sha1": "bf6519424521493d7cd4f4dbf27d1f4c6b94afbd",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_29.jpg",
+    "sha1": "d0a8da66f3370c2a445a0640bd910a0203c907ee",
+    "mask_path": "data/SegMask_m/d0a8da66f3370c2a445a0640bd910a0203c907ee.png",
+    "bbox": [
+      306,
+      22,
+      174,
+      376
+    ],
+    "model_confidence": 0.4378650486469269,
+    "area_ratio": 0.05618489583333333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.0545430878594907
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_6.jpg",
+    "sha1": "bbffe5bfc7c3f9ad228ecbb6cedc9b5df7ad9820",
+    "mask_path": "data/SegMask_m/bbffe5bfc7c3f9ad228ecbb6cedc9b5df7ad9820.png",
+    "bbox": [
+      70,
+      198,
+      232,
+      144
+    ],
+    "model_confidence": 0.9153851866722107,
+    "area_ratio": 0.10159098307291667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.025548465345969138
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_30.jpg",
+    "sha1": "d56e9ae1101f21f0f012a075f3ebfa764cb5fa2c",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_23.jpg",
+    "sha1": "ae4de2c3f14d4c2a8ac4c53915c068f1743bb37e",
+    "mask_path": "data/SegMask_m/ae4de2c3f14d4c2a8ac4c53915c068f1743bb37e.png",
+    "bbox": [
+      62,
+      110,
+      188,
+      184
+    ],
+    "model_confidence": 0.5489386916160583,
+    "area_ratio": 0.09088657924107142,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.023688928560098296
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_16.jpg",
+    "sha1": "86fdf87c8e7c981cf74d38918512265ba951093e",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_17.jpg",
+    "sha1": "3e5f1d78ca2787108de68b5c2b2cb7cbfb16aff2",
+    "mask_path": "data/SegMask_m/3e5f1d78ca2787108de68b5c2b2cb7cbfb16aff2.png",
+    "bbox": [
+      182,
+      74,
+      308,
+      268
+    ],
+    "model_confidence": 0.5941903591156006,
+    "area_ratio": 0.194453125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01574204320331549
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_10.jpg",
+    "sha1": "58882d0f368f7c31cd609a0dd76d96a909d1a623",
+    "mask_path": "data/SegMask_m/58882d0f368f7c31cd609a0dd76d96a909d1a623.png",
+    "bbox": [
+      120,
+      74,
+      238,
+      469
+    ],
+    "model_confidence": 0.2701931595802307,
+    "area_ratio": 0.18723958333333332,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.022225218430640133
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_2.jpg",
+    "sha1": "7ec505479735f4a6749db7e80cb92f03e9c78f8a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_5.jpg",
+    "sha1": "d3bbc206dac2c806a86b9e987686ce55d2be0dc4",
+    "mask_path": "data/SegMask_m/d3bbc206dac2c806a86b9e987686ce55d2be0dc4.png",
+    "bbox": [
+      94,
+      230,
+      276,
+      272
+    ],
+    "model_confidence": 0.48286184668540955,
+    "area_ratio": 0.18761393229166667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.015810893349181284
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_13.jpg",
+    "sha1": "f7ab3eb62f2a29c8e3391d07542a0aef3933d952",
+    "mask_path": "data/SegMask_m/f7ab3eb62f2a29c8e3391d07542a0aef3933d952.png",
+    "bbox": [
+      66,
+      114,
+      232,
+      264
+    ],
+    "model_confidence": 0.3893044590950012,
+    "area_ratio": 0.15076822916666666,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.017772540174875083
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_1.jpg",
+    "sha1": "1cbbc54818c79c4426eeae140d40c4e825163039",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_20.jpg",
+    "sha1": "15efdcd57b8697f99c5c933f5c5e32907fd93c6d",
+    "mask_path": "data/SegMask_m/15efdcd57b8697f99c5c933f5c5e32907fd93c6d.png",
+    "bbox": [
+      78,
+      346,
+      140,
+      124
+    ],
+    "model_confidence": 0.7569223046302795,
+    "area_ratio": 0.03772786458333333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03734925379234298
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_4.jpg",
+    "sha1": "4cea9d72d7148809c8ecf61b207e1d1658e33f34",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_22.jpg",
+    "sha1": "cbb76aa88fe48df60b5958bc08bb0b1542f802a3",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_12.jpg",
+    "sha1": "8cedef6004df5bae9fdd8a5ab02681b48eb20234",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_14.jpg",
+    "sha1": "c8adf7eb3669c64a754396d4cdbfa0b9bac764e6",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_7.jpg",
+    "sha1": "da0ffe0a648dd5816052b950e1c096588f06d35a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_15.jpg",
+    "sha1": "c0a8df2fdfe5323d71b895387f8fcbf86902b9eb",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_27.jpg",
+    "sha1": "8f5c247a35fc746947ed84b2bef9507c00110fd4",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_17.jpg",
+    "sha1": "b593c109703e96466d2414967b2fabf204a2d511",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_6.jpg",
+    "sha1": "6a69d7c6e8322840679fc17dce1fdee3508de0d0",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_24.jpg",
+    "sha1": "eb990c29fe0452abe6ed5c50ca6ee9207455de56",
+    "mask_path": "data/SegMask_m/eb990c29fe0452abe6ed5c50ca6ee9207455de56.png",
+    "bbox": [
+      346,
+      0,
+      272,
+      146
+    ],
+    "model_confidence": 0.3561326265335083,
+    "area_ratio": 0.07843505859375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02522736623353879
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_1.jpg",
+    "sha1": "9f962794a5861fa52a144f1a29504786731a7c11",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_20.jpg",
+    "sha1": "4c716a888af6f8a31b931663aed809edbc01ab34",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_10.jpg",
+    "sha1": "572de8fb84d99596415f0734a6470ec7a486a98a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_2.jpg",
+    "sha1": "41cb9ffa17f34226901311e576ae6fb3bfde89ae",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_3.jpg",
+    "sha1": "9a44aa4a115342ea0a41e809516e813916b371ae",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_21.jpg",
+    "sha1": "778a53e0bbc92c94d70c26814b0c2f4183435a2f",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_18.jpg",
+    "sha1": "77ee21725f00094b60b69a33b3b64762e7be7ada",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_9.jpg",
+    "sha1": "28dfe34d8f1f102fc082431315a3ffdf572c1fdb",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_25.jpg",
+    "sha1": "6ff6fb063cd9549fee7e0bcc56a89f25cf5b1ef4",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_28.jpg",
+    "sha1": "7d93632b98fd158ef3860f14825e9293a53c1ca5",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_13.jpg",
+    "sha1": "3b19a7077d7dee6faa327bd9160a7efc30716fec",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_26.jpg",
+    "sha1": "f79efe27a2766d447eebe8929d4b88835446130a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_8.jpg",
+    "sha1": "a131d126c1976cd1ecbb32e1be0e4db6d036df20",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_5.jpg",
+    "sha1": "c0abcd89941b3dd65b02016ccb0d238879e20a4f",
+    "mask_path": "data/SegMask_m/c0abcd89941b3dd65b02016ccb0d238879e20a4f.png",
+    "bbox": [
+      306,
+      0,
+      334,
+      222
+    ],
+    "model_confidence": 0.36204275488853455,
+    "area_ratio": 0.10593017578125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.0240434053965104
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_19.jpg",
+    "sha1": "cff1a5c016c7903dd54f6c2ca7390bec783f0cba",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_11.jpg",
+    "sha1": "3599fcd4733d5213aa32046c6834e1f839477c5a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_23.jpg",
+    "sha1": "b4d7c4d0d36d0b6857d71fb917fd52192f611ba9",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_16.jpg",
+    "sha1": "7134e235086e7410d3588907f30bae47baa631cf",
+    "mask_path": "data/SegMask_m/7134e235086e7410d3588907f30bae47baa631cf.png",
+    "bbox": [
+      214,
+      290,
+      152,
+      172
+    ],
+    "model_confidence": 0.7577407360076904,
+    "area_ratio": 0.0448486328125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.030825367623535348
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_30.jpg",
+    "sha1": "c12889be3894f043ea2972c77b35c33b820e6fdc",
+    "mask_path": "data/SegMask_m/c12889be3894f043ea2972c77b35c33b820e6fdc.png",
+    "bbox": [
+      38,
+      126,
+      540,
+      428
+    ],
+    "model_confidence": 0.37375640869140625,
+    "area_ratio": 0.4573291015625,
+    "fragment_count": 4,
+    "hole_ratio": 0.75,
+    "boundary_irregularity": 0.011036180493106257
+  },
+  {
+    "image": "data/raw/images/sparassis_crispa/Sparassis_crispa_29.jpg",
+    "sha1": "ddbd5b69ec0d3e3ce91d289a220acdb52ff7c16b",
+    "mask_path": "data/SegMask_m/ddbd5b69ec0d3e3ce91d289a220acdb52ff7c16b.png",
+    "bbox": [
+      0,
+      0,
+      210,
+      564
+    ],
+    "model_confidence": 0.3094198405742645,
+    "area_ratio": 0.16991455078125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.023359346494705367
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_20.jpg",
+    "sha1": "73c70633873c8d85a7a6c81a3992f8517530de58",
+    "mask_path": "data/SegMask_m/73c70633873c8d85a7a6c81a3992f8517530de58.png",
+    "bbox": [
+      154,
+      170,
+      164,
+      284
+    ],
+    "model_confidence": 0.6825862526893616,
+    "area_ratio": 0.09411376953125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02070249640214888
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_14.jpg",
+    "sha1": "9f537b60601f11e181d7a91d59b9dea3b93539cd",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_21.jpg",
+    "sha1": "b30e80bed530aad2d11525de709179ecf3850c80",
+    "mask_path": "data/SegMask_m/b30e80bed530aad2d11525de709179ecf3850c80.png",
+    "bbox": [
+      146,
+      314,
+      72,
+      60
+    ],
+    "model_confidence": 0.2962890863418579,
+    "area_ratio": 0.007958984375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.07137520909215031
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_18.jpg",
+    "sha1": "b53a1d828c2b08cb5b3609b8f25c77656d176b8e",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_5.jpg",
+    "sha1": "8f43cd25214634a3c6e6163dc2ec05c8e0cf04fd",
+    "mask_path": "data/SegMask_m/8f43cd25214634a3c6e6163dc2ec05c8e0cf04fd.png",
+    "bbox": [
+      0,
+      426,
+      94,
+      214
+    ],
+    "model_confidence": 0.3120231628417969,
+    "area_ratio": 0.033349609375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.04330146841433971
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_3.jpg",
+    "sha1": "bd7154c282618357773d84db8e934a733e418f39",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_24.jpg",
+    "sha1": "5b812b11704919dc77dcd2154a84906824b71845",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_22.jpg",
+    "sha1": "5afe7cbd6a37bc554593794d8b8ce8deb8a457ca",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_1.jpg",
+    "sha1": "95fe0151b8b81df2ba634171e891826afb0c682c",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_28.jpg",
+    "sha1": "e5a26e7128d927ceeb51ed4765f811d77cab876a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_16.jpg",
+    "sha1": "db695ced9d62fec1a47d0d83dcb4d553f2b41632",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_27.jpg",
+    "sha1": "5f71c571bf2045a9ba0e5d7765daf0fba54748a9",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_25.jpg",
+    "sha1": "d6dd082cab274aae9b3fa5c5c0556ae68f8d51f7",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_2.jpg",
+    "sha1": "c769e56d70ba2124546f44ae807f1e8d8389ab42",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_8.jpg",
+    "sha1": "ee89e50f25a0bfd256a861e5a68c1fc7ffa81861",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_26.jpg",
+    "sha1": "f935880ec0dfb282e28861f63ce8452c1bb6433e",
+    "mask_path": "data/SegMask_m/f935880ec0dfb282e28861f63ce8452c1bb6433e.png",
+    "bbox": [
+      158,
+      482,
+      172,
+      158
+    ],
+    "model_confidence": 0.6104053854942322,
+    "area_ratio": 0.05025390625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02864688600698657
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_30.jpg",
+    "sha1": "4d61415dd295eaec3ffcb2c1d07315ed360b7de8",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_19.jpg",
+    "sha1": "3f5aa899738553ea12c10f51b36ffff69a56567c",
+    "mask_path": "data/SegMask_m/3f5aa899738553ea12c10f51b36ffff69a56567c.png",
+    "bbox": [
+      158,
+      154,
+      164,
+      276
+    ],
+    "model_confidence": 0.3283297121524811,
+    "area_ratio": 0.088544921875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02127279084624656
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_12.jpg",
+    "sha1": "835727b7edcbf21154fd52ddb8f30f8ff4f75719",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_6.jpg",
+    "sha1": "1b79215d03c12ac1212a5bc2c873eda92199ff3e",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_7.jpg",
+    "sha1": "c24e294d809165e13848c63cef92e3cc5e837f7c",
+    "mask_path": "data/SegMask_m/c24e294d809165e13848c63cef92e3cc5e837f7c.png",
+    "bbox": [
+      114,
+      126,
+      408,
+      456
+    ],
+    "model_confidence": 0.453321248292923,
+    "area_ratio": 0.331494140625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.011146078929165578
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_11.jpg",
+    "sha1": "0b0b12e03d1e8314d79a0d84fb52ec2d3954dd0d",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_17.jpg",
+    "sha1": "45a33ba404b009c36bb172ecc1494727fa3ceb24",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_9.jpg",
+    "sha1": "d2cf7edea5fdd7a58ac61339666c690eb2739015",
+    "mask_path": "data/SegMask_m/d2cf7edea5fdd7a58ac61339666c690eb2739015.png",
+    "bbox": [
+      150,
+      66,
+      248,
+      574
+    ],
+    "model_confidence": 0.379337877035141,
+    "area_ratio": 0.265009765625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.014376313354458582
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_10.jpg",
+    "sha1": "5fdae65447e1bf8d628f3836aa4d3036dc7e4cef",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_29.jpg",
+    "sha1": "8fa92348c2e3ead79d8ccb9735caa644bf608205",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_13.jpg",
+    "sha1": "bce4d7a7f65dabe17bb150364e33500756995974",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_23.jpg",
+    "sha1": "4db8942b39f878bd19381df45f6f6347ac501a68",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_15.jpg",
+    "sha1": "4119c73c935d210619484a360c4211788402a7a5",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/coprinus_comatus/Coprinus_comatus_4.jpg",
+    "sha1": "d9c98507ce4dcfa82af8e4b2fa65d234ff8a96c5",
+    "mask_path": "data/SegMask_m/d9c98507ce4dcfa82af8e4b2fa65d234ff8a96c5.png",
+    "bbox": [
+      2,
+      0,
+      636,
+      211
+    ],
+    "model_confidence": 0.3609859049320221,
+    "area_ratio": 0.2411767578125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02045767800686459
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_25.jpg",
+    "sha1": "08a1cfdcc43fc30216d8add7175499af32c0dc98",
+    "mask_path": "data/SegMask_m/08a1cfdcc43fc30216d8add7175499af32c0dc98.png",
+    "bbox": [
+      6,
+      2,
+      634,
+      390
+    ],
+    "model_confidence": 0.5427454710006714,
+    "area_ratio": 0.23740966796875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.020478689510415714
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_27.jpg",
+    "sha1": "2c0f857b3edbb365993af377b6a40d044c7b619f",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_23.jpg",
+    "sha1": "a14838691bae36d7fcf16776ac0409d682f1809e",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_22.jpg",
+    "sha1": "f51cf3edc21024151cebb7f38f9e30a93d9f4be3",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_26.jpg",
+    "sha1": "b1da464a44d4dd74a1d36dd123636bf60fa81020",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_3.jpg",
+    "sha1": "3a6d60c6d93a3cfb5af84f1849f9af6f072976eb",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_20.jpg",
+    "sha1": "2662bdabcfadebbc95e3dff28b7788199e59cc1c",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_1.jpg",
+    "sha1": "afb94e13038017f560bbf7ff91cfbc67ea7a6ffe",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_5.jpg",
+    "sha1": "4d1fcd8666128a2b8a545f603ae20df1b1866409",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_16.jpg",
+    "sha1": "b905496125440d724af8c491eba5b4cab45ffeab",
+    "mask_path": "data/SegMask_m/b905496125440d724af8c491eba5b4cab45ffeab.png",
+    "bbox": [
+      0,
+      338,
+      146,
+      172
+    ],
+    "model_confidence": 0.49307698011398315,
+    "area_ratio": 0.0434326171875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.030781344964815032
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_21.jpg",
+    "sha1": "4d5357a45fc60755f205581386f5e068f6d39b32",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_17.jpg",
+    "sha1": "ee63a99358acd4198dfe8f261d6d1f9e1a414aa8",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_11.jpg",
+    "sha1": "8706fdda716e7529bb22ed705468f0ab7829ef72",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_24.jpg",
+    "sha1": "41c6a983401b52de40a783ab3c8288cce69838a3",
+    "mask_path": "data/SegMask_m/41c6a983401b52de40a783ab3c8288cce69838a3.png",
+    "bbox": [
+      442,
+      0,
+      198,
+      222
+    ],
+    "model_confidence": 0.5438321828842163,
+    "area_ratio": 0.06779052734375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02769664484217785
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_28.jpg",
+    "sha1": "6794e03d29210bc1da37d320b29ed80ff13cd5c2",
+    "mask_path": "data/SegMask_m/6794e03d29210bc1da37d320b29ed80ff13cd5c2.png",
+    "bbox": [
+      0,
+      498,
+      374,
+      142
+    ],
+    "model_confidence": 0.7941200137138367,
+    "area_ratio": 0.09673583984375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.023444394740409772
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_12.jpg",
+    "sha1": "f46381564800ad2d591588ea94e78e3e1bb49334",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_19.jpg",
+    "sha1": "1e53462d247a9d468426967d07fab89256b31eea",
+    "mask_path": "data/SegMask_m/1e53462d247a9d468426967d07fab89256b31eea.png",
+    "bbox": [
+      2,
+      42,
+      636,
+      592
+    ],
+    "model_confidence": 0.2692139446735382,
+    "area_ratio": 0.71486572265625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.007738874989692699
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_10.jpg",
+    "sha1": "360855e2f33755c799ad64329f62b6155b574e6f",
+    "mask_path": "data/SegMask_m/360855e2f33755c799ad64329f62b6155b574e6f.png",
+    "bbox": [
+      0,
+      478,
+      150,
+      162
+    ],
+    "model_confidence": 0.7549677491188049,
+    "area_ratio": 0.05327392578125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.027814949956548055
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_18.jpg",
+    "sha1": "81967732d822a4273d4cf68238bdc93cea856060",
+    "mask_path": "data/SegMask_m/81967732d822a4273d4cf68238bdc93cea856060.png",
+    "bbox": [
+      0,
+      86,
+      640,
+      548
+    ],
+    "model_confidence": 0.46448642015457153,
+    "area_ratio": 0.79096435546875,
+    "fragment_count": 3,
+    "hole_ratio": 0.6666666666666666,
+    "boundary_irregularity": 0.007283429672317074
+  },
+  {
+    "image": "data/raw/images/ramaria_botrytis/Ramaria_botrytis_2.jpg",
+    "sha1": "acd686185c0149041581d69fdfcee964556acc92",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_7.jpg",
+    "sha1": "bd04eb2c8b2b3f155be3fa72fd2f1bbbf29970a7",
+    "mask_path": "data/SegMask_m/bd04eb2c8b2b3f155be3fa72fd2f1bbbf29970a7.png",
+    "bbox": [
+      0,
+      366,
+      94,
+      92
+    ],
+    "model_confidence": 0.2915390729904175,
+    "area_ratio": 0.018059895833333332,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.05636323082864268
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_27.jpg",
+    "sha1": "d7b5c17c851949dc2f17ea57c1ef5aa80a305b23",
+    "mask_path": "data/SegMask_m/d7b5c17c851949dc2f17ea57c1ef5aa80a305b23.png",
+    "bbox": [
+      0,
+      126,
+      462,
+      514
+    ],
+    "model_confidence": 0.5466482639312744,
+    "area_ratio": 0.5569563802083334,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.015503665321619039
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_3.jpg",
+    "sha1": "c517172d623ceb9684be862e909f78b4cc7d073c",
+    "mask_path": "data/SegMask_m/c517172d623ceb9684be862e909f78b4cc7d073c.png",
+    "bbox": [
+      198,
+      418,
+      259,
+      222
+    ],
+    "model_confidence": 0.6684490442276001,
+    "area_ratio": 0.03321126302083333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.0616275702355058
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_1.jpg",
+    "sha1": "642d72b85b72562fc1f012030b4e6b1611f4f169",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_23.jpg",
+    "sha1": "56636eb51fdcb123353abed7b448086e2c51a547",
+    "mask_path": "data/SegMask_m/56636eb51fdcb123353abed7b448086e2c51a547.png",
+    "bbox": [
+      22,
+      122,
+      148,
+      124
+    ],
+    "model_confidence": 0.2652570605278015,
+    "area_ratio": 0.034368489583333335,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.042579102741466195
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_19.jpg",
+    "sha1": "59db018ec5aea35a48014ee038736a89e7f7c1df",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_20.jpg",
+    "sha1": "f57670f30e7329cd97ac05280d3f94b3f2796544",
+    "mask_path": "data/SegMask_m/f57670f30e7329cd97ac05280d3f94b3f2796544.png",
+    "bbox": [
+      150,
+      214,
+      224,
+      426
+    ],
+    "model_confidence": 0.8974305987358093,
+    "area_ratio": 0.12034830729166666,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03205932046065977
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_18.jpg",
+    "sha1": "af3653a0b9b4130d7fec0e2a7d26444478a144fe",
+    "mask_path": "data/SegMask_m/af3653a0b9b4130d7fec0e2a7d26444478a144fe.png",
+    "bbox": [
+      98,
+      169,
+      190,
+      313
+    ],
+    "model_confidence": 0.5604704022407532,
+    "area_ratio": 0.11879340277777778,
+    "fragment_count": 4,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.058249651715054626
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_11.jpg",
+    "sha1": "0b874a6205cc47d0164ffefcf75f9d044fb51af6",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_22.jpg",
+    "sha1": "b52feaa02b7943c638836b6db65e5bfc1f344f42",
+    "mask_path": "data/SegMask_m/b52feaa02b7943c638836b6db65e5bfc1f344f42.png",
+    "bbox": [
+      0,
+      410,
+      480,
+      230
+    ],
+    "model_confidence": 0.7249851226806641,
+    "area_ratio": 0.28929036458333335,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.0193354662469674
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_21.jpg",
+    "sha1": "6e2ad40389291a358bb80b77e29e8cc6c7fb1b19",
+    "mask_path": "data/SegMask_m/6e2ad40389291a358bb80b77e29e8cc6c7fb1b19.png",
+    "bbox": [
+      246,
+      302,
+      280,
+      244
+    ],
+    "model_confidence": 0.927343487739563,
+    "area_ratio": 0.12397717927631578,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.017827749745274638
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_16.jpg",
+    "sha1": "64123c899ccc4c6d6f31633435f27371d0ca52ea",
+    "mask_path": "data/SegMask_m/64123c899ccc4c6d6f31633435f27371d0ca52ea.png",
+    "bbox": [
+      154,
+      138,
+      228,
+      496
+    ],
+    "model_confidence": 0.5304096341133118,
+    "area_ratio": 0.15031575520833335,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.031065928174843715
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_9.jpg",
+    "sha1": "7cc33bf5cd08f094e7147c522930c1df6de1d78a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_12.jpg",
+    "sha1": "ab9b65e5a8a8d50907e618e291c0c40f75fffd4d",
+    "mask_path": "data/SegMask_m/ab9b65e5a8a8d50907e618e291c0c40f75fffd4d.png",
+    "bbox": [
+      2,
+      2,
+      472,
+      636
+    ],
+    "model_confidence": 0.8194912075996399,
+    "area_ratio": 0.5796256510416666,
+    "fragment_count": 9,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.025221846023140794
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_17.jpg",
+    "sha1": "91e04d8b1df120d408ee3fca49964bcaed29d7b9",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_26.jpg",
+    "sha1": "59a37945a431bd8faa6324fae1b0197eb6a6fe86",
+    "mask_path": "data/SegMask_m/59a37945a431bd8faa6324fae1b0197eb6a6fe86.png",
+    "bbox": [
+      306,
+      90,
+      76,
+      188
+    ],
+    "model_confidence": 0.5527459383010864,
+    "area_ratio": 0.025345052083333333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.06367952259480697
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_14.jpg",
+    "sha1": "bdfe0895ef7e4e4f4b3c853ced82d9410f5ddfe3",
+    "mask_path": "data/SegMask_m/bdfe0895ef7e4e4f4b3c853ced82d9410f5ddfe3.png",
+    "bbox": [
+      34,
+      122,
+      248,
+      368
+    ],
+    "model_confidence": 0.3048374056816101,
+    "area_ratio": 0.212763671875,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.022991586824980304
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_2.jpg",
+    "sha1": "983c473f059c9f9cee3c971e5d0e26b30c285836",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_10.jpg",
+    "sha1": "78321a480bb8eac87524d5ac9b8dc02f0275c967",
+    "mask_path": "data/SegMask_m/78321a480bb8eac87524d5ac9b8dc02f0275c967.png",
+    "bbox": [
+      48,
+      122,
+      462,
+      428
+    ],
+    "model_confidence": 0.5837929844856262,
+    "area_ratio": 0.2560345818014706,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.022305036499072957
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_4.jpg",
+    "sha1": "067ec4afcdfdd5956d732ecd0e5586d6c6f6c3bb",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_30.jpg",
+    "sha1": "3a5a64d591b33c78c4815a725135ecf88f3f607b",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_8.jpg",
+    "sha1": "2f13936852b353f3cf0e223080892e48e5e95153",
+    "mask_path": "data/SegMask_m/2f13936852b353f3cf0e223080892e48e5e95153.png",
+    "bbox": [
+      86,
+      242,
+      236,
+      280
+    ],
+    "model_confidence": 0.8532540798187256,
+    "area_ratio": 0.17110188802083334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.023404369828210276
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_6.jpg",
+    "sha1": "f6694e609c6c6a6cca3ca2dc9e200862b169b31f",
+    "mask_path": "data/SegMask_m/f6694e609c6c6a6cca3ca2dc9e200862b169b31f.png",
+    "bbox": [
+      98,
+      62,
+      484,
+      418
+    ],
+    "model_confidence": 0.37054020166397095,
+    "area_ratio": 0.3618522135416667,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.016074005499633767
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_13.jpg",
+    "sha1": "585ecde359c3c2ad426b016cdd72625905dc7007",
+    "mask_path": "data/SegMask_m/585ecde359c3c2ad426b016cdd72625905dc7007.png",
+    "bbox": [
+      0,
+      254,
+      410,
+      196
+    ],
+    "model_confidence": 0.804827868938446,
+    "area_ratio": 0.116630859375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.032526947628693244
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_29.jpg",
+    "sha1": "021bb0daaa40bc54b718660fc42a6d32b42aaaee",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_25.jpg",
+    "sha1": "cda12cc88a2e38efdb43451bbb3560cf1a20db6d",
+    "mask_path": "data/SegMask_m/cda12cc88a2e38efdb43451bbb3560cf1a20db6d.png",
+    "bbox": [
+      0,
+      518,
+      254,
+      122
+    ],
+    "model_confidence": 0.6196890473365784,
+    "area_ratio": 0.09197048611111111,
+    "fragment_count": 3,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.05127457108208152
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_24.jpg",
+    "sha1": "c55a97d1dda7d24a52d8d2897d75eea7b6858d07",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_15.jpg",
+    "sha1": "ce94fb3d613c1b43ff7b99629d7b0a6f3c9b3e70",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_5.jpg",
+    "sha1": "c3b45fb51c72da5154aa0bd7c279ea99f839c05a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_28.jpg",
+    "sha1": "e6019a6206d2bcc601d6e26b42bad406a4a6a8f8",
+    "mask_path": "data/SegMask_m/e6019a6206d2bcc601d6e26b42bad406a4a6a8f8.png",
+    "bbox": [
+      86,
+      2,
+      276,
+      228
+    ],
+    "model_confidence": 0.8329012393951416,
+    "area_ratio": 0.147412109375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.018790835816439536
+  },
+  {
+    "image": "data/raw/images/lycoperdon_utriforme/Lycoperdon_utriforme_19.jpg",
+    "sha1": "9f5decd8edc4715372ac6b4a3a4f2cca8852a363",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/lycoperdon_utriforme/Lycoperdon_utriforme_9.jpg",
+    "sha1": "3f854cdb605116b6a1a08ca7c2e7274799cd7ff8",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/lycoperdon_utriforme/Lycoperdon_utriforme_6.jpg",
+    "sha1": "e39842b51e117bfa120b539d073b809275604697",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/lycoperdon_utriforme/Lycoperdon_utriforme_8.jpg",
+    "sha1": "9a37e0d842ba7b3d40ab13ce6867dd85bc7f5f2d",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/lycoperdon_utriforme/Lycoperdon_utriforme_21.jpg",
+    "sha1": "b0a31602bb72727180c0edfee338c1d46e3d4c94",
+    "mask_path": "data/SegMask_m/b0a31602bb72727180c0edfee338c1d46e3d4c94.png",
+    "bbox": [
+      166,
+      6,
+      468,
+      424
+    ],
+    "model_confidence": 0.3501696288585663,
+    "area_ratio": 0.29977783203125,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.013817513840486791
+  },
+  {
+    "image": "data/raw/images/lycoperdon_utriforme/Lycoperdon_utriforme_7.jpg",
+    "sha1": "bde3cb209b28c73356e2efc3ffcc822cd6b7a88b",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/lycoperdon_utriforme/Lycoperdon_utriforme_22.jpg",
+    "sha1": "e23acbe70aabbc85258a45ee588308a51283ffe2",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/lycoperdon_utriforme/Lycoperdon_utriforme_5.jpg",
+    "sha1": "7de6b886439c4c94814ea97a134b4f1ec5c35bf0",
+    "mask_path": "data/SegMask_m/7de6b886439c4c94814ea97a134b4f1ec5c35bf0.png",
+    "bbox": [
+      46,
+      26,
+      560,
+      512
+    ],
+    "model_confidence": 0.7424546480178833,
+    "area_ratio": 0.4870166015625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01012819680473614
+  },
+  {
+    "image": "data/raw/images/lycoperdon_utriforme/Lycoperdon_utriforme_20.jpg",
+    "sha1": "4f4937c99190727cd694d1e0480b98c84ab63136",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_18.jpg",
+    "sha1": "6e7bdc0e1e0213b3f5865efe37af9646f2ab45ec",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_5.jpg",
+    "sha1": "c3209ba6c0077920360e019eeaf4d2d9a9aed85f",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_28.jpg",
+    "sha1": "2346bbcaead2d8bef8f08dbe0d8f4a48ae18ac5b",
+    "mask_path": "data/SegMask_m/2346bbcaead2d8bef8f08dbe0d8f4a48ae18ac5b.png",
+    "bbox": [
+      10,
+      38,
+      628,
+      512
+    ],
+    "model_confidence": 0.5134303569793701,
+    "area_ratio": 0.623076171875,
+    "fragment_count": 2,
+    "hole_ratio": 0.5,
+    "boundary_irregularity": 0.00856700108979663
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_11.jpg",
+    "sha1": "cdedab128b9502620cbf13e4ac7998a5f4d08e5e",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_22.jpg",
+    "sha1": "cce87e771846f4b6c8240901abe120527b569a8b",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_12.jpg",
+    "sha1": "c91d673df417867a70705828f480e8e5e57742c9",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_14.jpg",
+    "sha1": "f2aeedc3fb289d8f7f035fb6782e122f2b734889",
+    "mask_path": "data/SegMask_m/f2aeedc3fb289d8f7f035fb6782e122f2b734889.png",
+    "bbox": [
+      110,
+      210,
+      340,
+      320
+    ],
+    "model_confidence": 0.5858556628227234,
+    "area_ratio": 0.18801513671875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.014021661815698867
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_17.jpg",
+    "sha1": "af7a044e7a662a7e047d96c276a8f7181cbcfe89",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_25.jpg",
+    "sha1": "050e4d21e832a46161d78e7333a4e630bf1399c4",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_13.jpg",
+    "sha1": "910debd2e225e932dc61524b99472b87565f8014",
+    "mask_path": "data/SegMask_m/910debd2e225e932dc61524b99472b87565f8014.png",
+    "bbox": [
+      86,
+      138,
+      428,
+      236
+    ],
+    "model_confidence": 0.2573150396347046,
+    "area_ratio": 0.171953125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.017984951037069177
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_19.jpg",
+    "sha1": "4daef45a1310d38689f76419d333615af785284c",
+    "mask_path": "data/SegMask_m/4daef45a1310d38689f76419d333615af785284c.png",
+    "bbox": [
+      234,
+      210,
+      200,
+      428
+    ],
+    "model_confidence": 0.39121973514556885,
+    "area_ratio": 0.1280078125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.022632115472251947
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_8.jpg",
+    "sha1": "03fd018a955118c6f793e69ce65eff39b314f743",
+    "mask_path": "data/SegMask_m/03fd018a955118c6f793e69ce65eff39b314f743.png",
+    "bbox": [
+      222,
+      274,
+      409,
+      366
+    ],
+    "model_confidence": 0.720268964767456,
+    "area_ratio": 0.253095703125,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01427134278335097
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_26.jpg",
+    "sha1": "e431d897d85779cae2bcbdfd14a4c7060068c275",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_23.jpg",
+    "sha1": "1f6c09669160a466515a46ddf3b4b0bf26393f2b",
+    "mask_path": "data/SegMask_m/1f6c09669160a466515a46ddf3b4b0bf26393f2b.png",
+    "bbox": [
+      310,
+      0,
+      268,
+      246
+    ],
+    "model_confidence": 0.7531973123550415,
+    "area_ratio": 0.1074365234375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.019149954690089628
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_15.jpg",
+    "sha1": "882cb9f34d603676e02dc2e12201d6f22a9e5618",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_27.jpg",
+    "sha1": "692a9aff3a9997c46d1889955b1962823a730c2e",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_3.jpg",
+    "sha1": "833ff9bc9c314f3c14ed6079435420d34635f34f",
+    "mask_path": "data/SegMask_m/833ff9bc9c314f3c14ed6079435420d34635f34f.png",
+    "bbox": [
+      146,
+      254,
+      312,
+      140
+    ],
+    "model_confidence": 0.2608277201652527,
+    "area_ratio": 0.07365478515625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.026093367819222925
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_16.jpg",
+    "sha1": "f15fd2df459d021363c294fc72f89909b2404485",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_4.jpg",
+    "sha1": "9f65ba7675fc3a28e728f4feca4d7230be0477a2",
+    "mask_path": "data/SegMask_m/9f65ba7675fc3a28e728f4feca4d7230be0477a2.png",
+    "bbox": [
+      66,
+      366,
+      344,
+      220
+    ],
+    "model_confidence": 0.2926996946334839,
+    "area_ratio": 0.1237353515625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.018979153201707583
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_10.jpg",
+    "sha1": "60738cf57164c2e621db6cd866af72ff93a36359",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_9.jpg",
+    "sha1": "e65d56a17a531843e55a6fbf638b9bbfb598b44b",
+    "mask_path": "data/SegMask_m/e65d56a17a531843e55a6fbf638b9bbfb598b44b.png",
+    "bbox": [
+      190,
+      106,
+      368,
+      136
+    ],
+    "model_confidence": 0.3921143114566803,
+    "area_ratio": 0.0848828125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.025562716636060627
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_7.jpg",
+    "sha1": "62fe62d907d6de0985cab690235d85bb2fd19910",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_1.jpg",
+    "sha1": "8125b4776fdb4c4d5d1519cf8407a25385cf4418",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_30.jpg",
+    "sha1": "5db754910eda96380f9a5b5c77ab0d1dc3dc839d",
+    "mask_path": "data/SegMask_m/5db754910eda96380f9a5b5c77ab0d1dc3dc839d.png",
+    "bbox": [
+      50,
+      126,
+      536,
+      384
+    ],
+    "model_confidence": 0.8291054368019104,
+    "area_ratio": 0.38369384765625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.009956592757402934
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_29.jpg",
+    "sha1": "2bea606b74ae50d74c19294eeec20020bab21a05",
+    "mask_path": "data/SegMask_m/2bea606b74ae50d74c19294eeec20020bab21a05.png",
+    "bbox": [
+      70,
+      86,
+      532,
+      428
+    ],
+    "model_confidence": 0.8995048999786377,
+    "area_ratio": 0.4189111328125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.009343241533128184
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_2.jpg",
+    "sha1": "2a416959a6474d8f61f8911924768c66b6097370",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_24.jpg",
+    "sha1": "477415f4212f77d500852b6bc061c3e93f9aaffd",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_20.jpg",
+    "sha1": "6489193cb2e496ca065f48920405f12911c5d57d",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_21.jpg",
+    "sha1": "9f3350631034cb9beed121245960784dba0ad4bb",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/fomitopsis_betulina/Fomitopsis_betulina_6.jpg",
+    "sha1": "b582f4e76f32d9e47091a0be5241dad1b3b79f86",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_19.jpg",
+    "sha1": "75c1099d0d41ad35f726b00fc660e022568aced9",
+    "mask_path": "data/SegMask_m/75c1099d0d41ad35f726b00fc660e022568aced9.png",
+    "bbox": [
+      142,
+      214,
+      196,
+      184
+    ],
+    "model_confidence": 0.5029540657997131,
+    "area_ratio": 0.09007486979166666,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.022864380697189983
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_26.jpg",
+    "sha1": "66f6235e862d5acec2c9cef2b36a2d567314eaad",
+    "mask_path": "data/SegMask_m/66f6235e862d5acec2c9cef2b36a2d567314eaad.png",
+    "bbox": [
+      0,
+      342,
+      190,
+      138
+    ],
+    "model_confidence": 0.5008206367492676,
+    "area_ratio": 0.040686848958333334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.045719131609051354
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_25.jpg",
+    "sha1": "8ca30641023e542d46ec7e3aebab9385265c13b6",
+    "mask_path": "data/SegMask_m/8ca30641023e542d46ec7e3aebab9385265c13b6.png",
+    "bbox": [
+      0,
+      2,
+      510,
+      380
+    ],
+    "model_confidence": 0.3208629786968231,
+    "area_ratio": 0.277119140625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01973257755459794
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_6.jpg",
+    "sha1": "65e9bfa840077eef166a6c77cba87bf6d8654008",
+    "mask_path": "data/SegMask_m/65e9bfa840077eef166a6c77cba87bf6d8654008.png",
+    "bbox": [
+      238,
+      138,
+      176,
+      160
+    ],
+    "model_confidence": 0.3718647062778473,
+    "area_ratio": 0.0528125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03537572253432626
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_3.jpg",
+    "sha1": "80d2c256b6dd031494f94b8670a621d485202ee7",
+    "mask_path": "data/SegMask_m/80d2c256b6dd031494f94b8670a621d485202ee7.png",
+    "bbox": [
+      66,
+      134,
+      176,
+      176
+    ],
+    "model_confidence": 0.7054899334907532,
+    "area_ratio": 0.07737955729166666,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.024704434181753273
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_23.jpg",
+    "sha1": "f6f93eff4b441e5bc030bae7fffd71689326c1dc",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_29.jpg",
+    "sha1": "925f53f93ce62658a02311ee37804d07f723aa6f",
+    "mask_path": "data/SegMask_m/925f53f93ce62658a02311ee37804d07f723aa6f.png",
+    "bbox": [
+      138,
+      250,
+      180,
+      164
+    ],
+    "model_confidence": 0.5014699697494507,
+    "area_ratio": 0.06644205729166666,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.027481784627255455
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_13.jpg",
+    "sha1": "b148df384cda766888bfc660d8fc70f823b4178e",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_7.jpg",
+    "sha1": "4bec2e02dee9ec67050229ffa996d3f2da700056",
+    "mask_path": "data/SegMask_m/4bec2e02dee9ec67050229ffa996d3f2da700056.png",
+    "bbox": [
+      90,
+      282,
+      128,
+      132
+    ],
+    "model_confidence": 0.5097252726554871,
+    "area_ratio": 0.034932215073529414,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.036107760257532255
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_16.jpg",
+    "sha1": "e3b6267b1daf2d9505413268e63f26da5b1565cc",
+    "mask_path": "data/SegMask_m/e3b6267b1daf2d9505413268e63f26da5b1565cc.png",
+    "bbox": [
+      166,
+      298,
+      144,
+      216
+    ],
+    "model_confidence": 0.2533929646015167,
+    "area_ratio": 0.06431640625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03255292932895234
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_18.jpg",
+    "sha1": "4c98f7b6eaacf8203e4e82b4629fa2d9c6804315",
+    "mask_path": "data/SegMask_m/4c98f7b6eaacf8203e4e82b4629fa2d9c6804315.png",
+    "bbox": [
+      126,
+      218,
+      116,
+      112
+    ],
+    "model_confidence": 0.42226871848106384,
+    "area_ratio": 0.019085286458333333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.07334797920109416
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_24.jpg",
+    "sha1": "90fd44a8c32a373824d81abc9c9bec309534463b",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_15.jpg",
+    "sha1": "e0de7c4b8bc81093edc99e325743ea355541f11a",
+    "mask_path": "data/SegMask_m/e0de7c4b8bc81093edc99e325743ea355541f11a.png",
+    "bbox": [
+      186,
+      42,
+      228,
+      332
+    ],
+    "model_confidence": 0.3653060793876648,
+    "area_ratio": 0.17181966145833333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01850380252656396
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_8.jpg",
+    "sha1": "e8cf369328e662823f4b7cc9c3b28b5dadf3111a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_21.jpg",
+    "sha1": "146bbba501b2790d89234dfd840caa1b2bbf4eb9",
+    "mask_path": "data/SegMask_m/146bbba501b2790d89234dfd840caa1b2bbf4eb9.png",
+    "bbox": [
+      202,
+      462,
+      160,
+      104
+    ],
+    "model_confidence": 0.4220552444458008,
+    "area_ratio": 0.040270182291666665,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03755173660444115
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_11.jpg",
+    "sha1": "bf7ffce15bf6b65370922267ff9605493adc1920",
+    "mask_path": "data/SegMask_m/bf7ffce15bf6b65370922267ff9605493adc1920.png",
+    "bbox": [
+      46,
+      186,
+      160,
+      140
+    ],
+    "model_confidence": 0.7648224830627441,
+    "area_ratio": 0.0847412109375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.029394437272549163
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_14.jpg",
+    "sha1": "e11679b55dd6fafa15f1392e06ee74e34c1d51eb",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_4.jpg",
+    "sha1": "90122ba709387aa9b5f41cce37d9460fe9a9d406",
+    "mask_path": "data/SegMask_m/90122ba709387aa9b5f41cce37d9460fe9a9d406.png",
+    "bbox": [
+      38,
+      202,
+      30,
+      76
+    ],
+    "model_confidence": 0.721259593963623,
+    "area_ratio": 0.00447265625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.14165918774403422
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_17.jpg",
+    "sha1": "385e56d8a2ccaf4033e30ffa5e5a7278d45137be",
+    "mask_path": "data/SegMask_m/385e56d8a2ccaf4033e30ffa5e5a7278d45137be.png",
+    "bbox": [
+      42,
+      186,
+      188,
+      216
+    ],
+    "model_confidence": 0.3200487494468689,
+    "area_ratio": 0.17390407986111112,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.025351545214605996
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_30.jpg",
+    "sha1": "74e5126e80c6260a50e05830711f86cfa335aa8c",
+    "mask_path": "data/SegMask_m/74e5126e80c6260a50e05830711f86cfa335aa8c.png",
+    "bbox": [
+      98,
+      194,
+      192,
+      128
+    ],
+    "model_confidence": 0.35839205980300903,
+    "area_ratio": 0.07982991536458334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02804302287745189
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_20.jpg",
+    "sha1": "60cfcb4cdb93520f5aa02772c655bc8f315f14b9",
+    "mask_path": "data/SegMask_m/60cfcb4cdb93520f5aa02772c655bc8f315f14b9.png",
+    "bbox": [
+      46,
+      126,
+      352,
+      112
+    ],
+    "model_confidence": 0.42172950506210327,
+    "area_ratio": 0.0820703125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03255162213935594
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_28.jpg",
+    "sha1": "85372620803a85443cd9981c9ba2289851857f1e",
+    "mask_path": "data/SegMask_m/85372620803a85443cd9981c9ba2289851857f1e.png",
+    "bbox": [
+      90,
+      38,
+      388,
+      360
+    ],
+    "model_confidence": 0.6556425094604492,
+    "area_ratio": 0.3284698486328125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.011703756722536955
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_22.jpg",
+    "sha1": "f4add2840f566b5b7297de2e6e7373acf4309ce1",
+    "mask_path": "data/SegMask_m/f4add2840f566b5b7297de2e6e7373acf4309ce1.png",
+    "bbox": [
+      62,
+      58,
+      516,
+      516
+    ],
+    "model_confidence": 0.41681280732154846,
+    "area_ratio": 0.503720703125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.008298766882335686
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_2.jpg",
+    "sha1": "cbc2ea0931f12a5c8d06b799db907aa7550bb37a",
+    "mask_path": "data/SegMask_m/cbc2ea0931f12a5c8d06b799db907aa7550bb37a.png",
+    "bbox": [
+      150,
+      166,
+      428,
+      356
+    ],
+    "model_confidence": 0.4645271599292755,
+    "area_ratio": 0.20173583984375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01655233884369588
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_1.jpg",
+    "sha1": "7457c6e7eec170cdb45e22bd5f6b45723ed51b23",
+    "mask_path": "data/SegMask_m/7457c6e7eec170cdb45e22bd5f6b45723ed51b23.png",
+    "bbox": [
+      158,
+      86,
+      288,
+      168
+    ],
+    "model_confidence": 0.7793670892715454,
+    "area_ratio": 0.1118255615234375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.021103298753724062
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_12.jpg",
+    "sha1": "5c3d95eb3c894877a3f0bc1c89a07e9e9f73baeb",
+    "mask_path": "data/SegMask_m/5c3d95eb3c894877a3f0bc1c89a07e9e9f73baeb.png",
+    "bbox": [
+      340,
+      38,
+      300,
+      148
+    ],
+    "model_confidence": 0.8594645857810974,
+    "area_ratio": 0.07313802083333333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03658714479820509
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_10.jpg",
+    "sha1": "42873493fb17225ebc5e9489728d3460937f0cda",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_27.jpg",
+    "sha1": "b2c7180591d2d3b335f77c57d941627f808e81c2",
+    "mask_path": "data/SegMask_m/b2c7180591d2d3b335f77c57d941627f808e81c2.png",
+    "bbox": [
+      142,
+      234,
+      160,
+      164
+    ],
+    "model_confidence": 0.6511418223381042,
+    "area_ratio": 0.060738932291666665,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.029090034156061817
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_5.jpg",
+    "sha1": "7a9f73a2e770ab1f83d71a2f1727d9d1d4a842b1",
+    "mask_path": "data/SegMask_m/7a9f73a2e770ab1f83d71a2f1727d9d1d4a842b1.png",
+    "bbox": [
+      118,
+      226,
+      204,
+      152
+    ],
+    "model_confidence": 0.8664419054985046,
+    "area_ratio": 0.077783203125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02501865494697287
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_9.jpg",
+    "sha1": "d42fdcd28cc4de0b4054c4b9f9512dd4d7193c2a",
+    "mask_path": "data/SegMask_m/d42fdcd28cc4de0b4054c4b9f9512dd4d7193c2a.png",
+    "bbox": [
+      206,
+      94,
+      204,
+      188
+    ],
+    "model_confidence": 0.5871001482009888,
+    "area_ratio": 0.10434919084821428,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.022491825695756595
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_8.jpg",
+    "sha1": "ebe56207ab57d2e2c0b0f6f02d473d1be6ee2a99",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_6.jpg",
+    "sha1": "ab96a876420242c11716074da194250119aa20cc",
+    "mask_path": "data/SegMask_m/ab96a876420242c11716074da194250119aa20cc.png",
+    "bbox": [
+      0,
+      58,
+      154,
+      224
+    ],
+    "model_confidence": 0.3167388141155243,
+    "area_ratio": 0.067529296875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.031637447577609605
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_29.jpg",
+    "sha1": "eae7528bec9e00d9b369466a26c9c996d27be4f1",
+    "mask_path": "data/SegMask_m/eae7528bec9e00d9b369466a26c9c996d27be4f1.png",
+    "bbox": [
+      10,
+      338,
+      224,
+      292
+    ],
+    "model_confidence": 0.8647403120994568,
+    "area_ratio": 0.21582845052083333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.021425613191648898
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_17.jpg",
+    "sha1": "1a78212e70b280f5c1867d237eae0fe54cf8d48a",
+    "mask_path": "data/SegMask_m/1a78212e70b280f5c1867d237eae0fe54cf8d48a.png",
+    "bbox": [
+      182,
+      342,
+      163,
+      298
+    ],
+    "model_confidence": 0.8605377674102783,
+    "area_ratio": 0.06450846354166667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.04583902351274702
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_30.jpg",
+    "sha1": "1c6cb5b185bfeae78b5e52b6716e4417f52ee286",
+    "mask_path": "data/SegMask_m/1c6cb5b185bfeae78b5e52b6716e4417f52ee286.png",
+    "bbox": [
+      10,
+      302,
+      170,
+      252
+    ],
+    "model_confidence": 0.8476030826568604,
+    "area_ratio": 0.12932535807291667,
+    "fragment_count": 2,
+    "hole_ratio": 0.5,
+    "boundary_irregularity": 0.025180812300613944
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_10.jpg",
+    "sha1": "e6dc08e903b257c84c8d0f5371244250a4178730",
+    "mask_path": "data/SegMask_m/e6dc08e903b257c84c8d0f5371244250a4178730.png",
+    "bbox": [
+      66,
+      122,
+      256,
+      300
+    ],
+    "model_confidence": 0.8731488585472107,
+    "area_ratio": 0.10857421875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.029161429607157768
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_5.jpg",
+    "sha1": "8ab3b73b0ea18b7601a4b6183188c8617f83f84a",
+    "mask_path": "data/SegMask_m/8ab3b73b0ea18b7601a4b6183188c8617f83f84a.png",
+    "bbox": [
+      218,
+      286,
+      232,
+      216
+    ],
+    "model_confidence": 0.8947707414627075,
+    "area_ratio": 0.12675130208333332,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.019306851728055845
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_4.jpg",
+    "sha1": "a4708c2df568e1c13659df922dac32e8bc51eb63",
+    "mask_path": "data/SegMask_m/a4708c2df568e1c13659df922dac32e8bc51eb63.png",
+    "bbox": [
+      134,
+      230,
+      280,
+      244
+    ],
+    "model_confidence": 0.8080118894577026,
+    "area_ratio": 0.07168701171875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03190217310366005
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_13.jpg",
+    "sha1": "64d21867be31d7191c69a14d23008327474f9f13",
+    "mask_path": "data/SegMask_m/64d21867be31d7191c69a14d23008327474f9f13.png",
+    "bbox": [
+      186,
+      94,
+      308,
+      224
+    ],
+    "model_confidence": 0.4657125771045685,
+    "area_ratio": 0.07529296875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.0445441812865113
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_1.jpg",
+    "sha1": "c381408c545f7d1c551af6312a920ed28869d7d5",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_2.jpg",
+    "sha1": "b5be9c417cafa86a1d3fa4c826a5d55d01135139",
+    "mask_path": "data/SegMask_m/b5be9c417cafa86a1d3fa4c826a5d55d01135139.png",
+    "bbox": [
+      598,
+      118,
+      42,
+      120
+    ],
+    "model_confidence": 0.3552689254283905,
+    "area_ratio": 0.01109375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.09045115771125138
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_18.jpg",
+    "sha1": "daefd4676aa6e3eb3a18c7ca8826cde24d818f45",
+    "mask_path": "data/SegMask_m/daefd4676aa6e3eb3a18c7ca8826cde24d818f45.png",
+    "bbox": [
+      66,
+      14,
+      388,
+      256
+    ],
+    "model_confidence": 0.8281235098838806,
+    "area_ratio": 0.130316162109375,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02747900898425287
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_21.jpg",
+    "sha1": "1f7a3523f5cebe269e3bc036a8fba94e8d6eab84",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_16.jpg",
+    "sha1": "3013d8e5cf86ab5583df247a60e6ed9daaf1ce70",
+    "mask_path": "data/SegMask_m/3013d8e5cf86ab5583df247a60e6ed9daaf1ce70.png",
+    "bbox": [
+      10,
+      34,
+      596,
+      540
+    ],
+    "model_confidence": 0.620392382144928,
+    "area_ratio": 0.6194281684027778,
+    "fragment_count": 8,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.011019441286236695
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_24.jpg",
+    "sha1": "1c6ba535d60488a2b202f36dfaceaee2dbba282c",
+    "mask_path": "data/SegMask_m/1c6ba535d60488a2b202f36dfaceaee2dbba282c.png",
+    "bbox": [
+      0,
+      370,
+      386,
+      270
+    ],
+    "model_confidence": 0.9621347188949585,
+    "area_ratio": 0.25178385416666665,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.020042274483796044
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_7.jpg",
+    "sha1": "bf5b245ed49d57b17b65bc218518e73c6aa3d45b",
+    "mask_path": "data/SegMask_m/bf5b245ed49d57b17b65bc218518e73c6aa3d45b.png",
+    "bbox": [
+      130,
+      0,
+      412,
+      478
+    ],
+    "model_confidence": 0.4459727704524994,
+    "area_ratio": 0.2702278645833333,
+    "fragment_count": 8,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.034367995928146086
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_19.jpg",
+    "sha1": "7220a6dfb231625029440f78f998a49068fffe89",
+    "mask_path": "data/SegMask_m/7220a6dfb231625029440f78f998a49068fffe89.png",
+    "bbox": [
+      20,
+      0,
+      257,
+      130
+    ],
+    "model_confidence": 0.7066484093666077,
+    "area_ratio": 0.022770182291666666,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.10657836351024967
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_28.jpg",
+    "sha1": "3ca7b07c4efa78cb7ba9795ff08b221621887c8a",
+    "mask_path": "data/SegMask_m/3ca7b07c4efa78cb7ba9795ff08b221621887c8a.png",
+    "bbox": [
+      0,
+      386,
+      286,
+      254
+    ],
+    "model_confidence": 0.921215832233429,
+    "area_ratio": 0.18107096354166666,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01770536805054687
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_27.jpg",
+    "sha1": "691b18cdcb9e614be8699480f8890629f769caf1",
+    "mask_path": "data/SegMask_m/691b18cdcb9e614be8699480f8890629f769caf1.png",
+    "bbox": [
+      66,
+      102,
+      340,
+      284
+    ],
+    "model_confidence": 0.5682591199874878,
+    "area_ratio": 0.23467447916666667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.014594413423703267
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_9.jpg",
+    "sha1": "476599ae401daf7fb2cdf0ab86bf7fc098518d0e",
+    "mask_path": "data/SegMask_m/476599ae401daf7fb2cdf0ab86bf7fc098518d0e.png",
+    "bbox": [
+      0,
+      138,
+      470,
+      500
+    ],
+    "model_confidence": 0.9438876509666443,
+    "area_ratio": 0.5071484375,
+    "fragment_count": 2,
+    "hole_ratio": 0.5,
+    "boundary_irregularity": 0.014256423387771174
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_11.jpg",
+    "sha1": "35c0e955bddd7f5c4c7f17e4bb2f076b0d07831e",
+    "mask_path": "data/SegMask_m/35c0e955bddd7f5c4c7f17e4bb2f076b0d07831e.png",
+    "bbox": [
+      206,
+      434,
+      168,
+      206
+    ],
+    "model_confidence": 0.9418356418609619,
+    "area_ratio": 0.11792805989583334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.024414165180410254
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_20.jpg",
+    "sha1": "2f909ef1dbd94c143332c1a43e15d27a9cb17334",
+    "mask_path": "data/SegMask_m/2f909ef1dbd94c143332c1a43e15d27a9cb17334.png",
+    "bbox": [
+      182,
+      350,
+      48,
+      40
+    ],
+    "model_confidence": 0.6440155506134033,
+    "area_ratio": 0.004638671875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.10893099387867029
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_25.jpg",
+    "sha1": "a4320d254c7984ad1d583c0e691ee5c0c3b36f12",
+    "mask_path": "data/SegMask_m/a4320d254c7984ad1d583c0e691ee5c0c3b36f12.png",
+    "bbox": [
+      158,
+      250,
+      176,
+      152
+    ],
+    "model_confidence": 0.41700759530067444,
+    "area_ratio": 0.046435546875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.0466424121954929
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_12.jpg",
+    "sha1": "3692c4112e741c7f448964b5035f3cbaeab06ca6",
+    "mask_path": "data/SegMask_m/3692c4112e741c7f448964b5035f3cbaeab06ca6.png",
+    "bbox": [
+      2,
+      98,
+      428,
+      542
+    ],
+    "model_confidence": 0.9304123520851135,
+    "area_ratio": 0.5377669270833333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.014376287455853731
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_26.jpg",
+    "sha1": "143904ff9a009f99b35d77d18090e4bc2a051cac",
+    "mask_path": "data/SegMask_m/143904ff9a009f99b35d77d18090e4bc2a051cac.png",
+    "bbox": [
+      222,
+      174,
+      152,
+      96
+    ],
+    "model_confidence": 0.6602524518966675,
+    "area_ratio": 0.031905110677083334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.05283305282674842
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_22.jpg",
+    "sha1": "5cc059c6dc964fb4c248fadf0f57dd0e81dbb0fe",
+    "mask_path": "data/SegMask_m/5cc059c6dc964fb4c248fadf0f57dd0e81dbb0fe.png",
+    "bbox": [
+      146,
+      278,
+      180,
+      96
+    ],
+    "model_confidence": 0.6143254637718201,
+    "area_ratio": 0.03806315104166667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.040160647697855344
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_3.jpg",
+    "sha1": "8bf2ee498338670177b1ae0f07b39f146c13a150",
+    "mask_path": "data/SegMask_m/8bf2ee498338670177b1ae0f07b39f146c13a150.png",
+    "bbox": [
+      66,
+      262,
+      212,
+      144
+    ],
+    "model_confidence": 0.7118170857429504,
+    "area_ratio": 0.05500081380208333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.04893014281960002
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_14.jpg",
+    "sha1": "9bbe94518a71f1f98d5d6fdc68b1d8f6c16f4914",
+    "mask_path": "data/SegMask_m/9bbe94518a71f1f98d5d6fdc68b1d8f6c16f4914.png",
+    "bbox": [
+      66,
+      74,
+      176,
+      152
+    ],
+    "model_confidence": 0.59230637550354,
+    "area_ratio": 0.03337565104166667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.05775428742031774
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_15.jpg",
+    "sha1": "63e4418b3a29ddda636b593bc0da72bc7abd7613",
+    "mask_path": "data/SegMask_m/63e4418b3a29ddda636b593bc0da72bc7abd7613.png",
+    "bbox": [
+      134,
+      122,
+      346,
+      505
+    ],
+    "model_confidence": 0.9363667368888855,
+    "area_ratio": 0.20279947916666666,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.029938675249467354
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_23.jpg",
+    "sha1": "c1de5ab09d8a7667f295a3476be166dad3b00197",
+    "mask_path": "data/SegMask_m/c1de5ab09d8a7667f295a3476be166dad3b00197.png",
+    "bbox": [
+      6,
+      138,
+      184,
+      216
+    ],
+    "model_confidence": 0.8512327671051025,
+    "area_ratio": 0.048935546875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.04820288910027946
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_18.jpg",
+    "sha1": "95615360c8a51ee948258cffff3cc7e0607ff90d",
+    "mask_path": "data/SegMask_m/95615360c8a51ee948258cffff3cc7e0607ff90d.png",
+    "bbox": [
+      10,
+      306,
+      156,
+      334
+    ],
+    "model_confidence": 0.9292877316474915,
+    "area_ratio": 0.1292236328125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02758020804764941
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_15.jpg",
+    "sha1": "3140add2b79c0c840c67c3610a5bdcfacdaf4ecb",
+    "mask_path": "data/SegMask_m/3140add2b79c0c840c67c3610a5bdcfacdaf4ecb.png",
+    "bbox": [
+      23,
+      246,
+      438,
+      220
+    ],
+    "model_confidence": 0.9285470247268677,
+    "area_ratio": 0.14910481770833334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.035710148573046004
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_17.jpg",
+    "sha1": "d5c1415dfaefca5d9d66d96d6c1ae1163ea7ee89",
+    "mask_path": "data/SegMask_m/d5c1415dfaefca5d9d66d96d6c1ae1163ea7ee89.png",
+    "bbox": [
+      178,
+      54,
+      260,
+      292
+    ],
+    "model_confidence": 0.43074697256088257,
+    "area_ratio": 0.23522542317708334,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.01628778200286014
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_24.jpg",
+    "sha1": "e5fa1fcd4889484b49068811a3c599f492b25d3f",
+    "mask_path": "data/SegMask_m/e5fa1fcd4889484b49068811a3c599f492b25d3f.png",
+    "bbox": [
+      0,
+      307,
+      318,
+      333
+    ],
+    "model_confidence": 0.8396968245506287,
+    "area_ratio": 0.14842122395833332,
+    "fragment_count": 4,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03418261538473489
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_12.jpg",
+    "sha1": "be6a922dd8e8550b4922809485b21ae5a0efb3b2",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_29.jpg",
+    "sha1": "dccadb151f382e4179e79f355e11ce4ebdf4e1df",
+    "mask_path": "data/SegMask_m/dccadb151f382e4179e79f355e11ce4ebdf4e1df.png",
+    "bbox": [
+      0,
+      170,
+      414,
+      470
+    ],
+    "model_confidence": 0.9531542658805847,
+    "area_ratio": 0.29929036458333336,
+    "fragment_count": 5,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.029027375160122503
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_16.jpg",
+    "sha1": "1d6f644ed1d8e024f174435614852c43aace36e3",
+    "mask_path": "data/SegMask_m/1d6f644ed1d8e024f174435614852c43aace36e3.png",
+    "bbox": [
+      0,
+      90,
+      434,
+      504
+    ],
+    "model_confidence": 0.8301677703857422,
+    "area_ratio": 0.27796549479166666,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.027170745083310965
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_8.jpg",
+    "sha1": "e1e0fd8d4779b1de1f37eeecb63f2d81fe477e7c",
+    "mask_path": "data/SegMask_m/e1e0fd8d4779b1de1f37eeecb63f2d81fe477e7c.png",
+    "bbox": [
+      168,
+      342,
+      206,
+      298
+    ],
+    "model_confidence": 0.9216927886009216,
+    "area_ratio": 0.12962646484375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03194997885731192
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_30.jpg",
+    "sha1": "085d048c380e61af571ed114dc48d8def5c48502",
+    "mask_path": "data/SegMask_m/085d048c380e61af571ed114dc48d8def5c48502.png",
+    "bbox": [
+      0,
+      46,
+      231,
+      358
+    ],
+    "model_confidence": 0.695884644985199,
+    "area_ratio": 0.1307421875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.027578609374521407
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_23.jpg",
+    "sha1": "9e085e4c6ba4ef6fe6e417f3b04fd9167aaf174b",
+    "mask_path": "data/SegMask_m/9e085e4c6ba4ef6fe6e417f3b04fd9167aaf174b.png",
+    "bbox": [
+      126,
+      578,
+      56,
+      62
+    ],
+    "model_confidence": 0.5087288022041321,
+    "area_ratio": 0.008118489583333333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.08596306614400745
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_27.jpg",
+    "sha1": "f848080064c2e329181c2fd66141e5320b1d5d90",
+    "mask_path": "data/SegMask_m/f848080064c2e329181c2fd66141e5320b1d5d90.png",
+    "bbox": [
+      62,
+      0,
+      56,
+      29
+    ],
+    "model_confidence": 0.38544729351997375,
+    "area_ratio": 0.003203125,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.15858035308463697
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_19.jpg",
+    "sha1": "06304b3799dc8ed90f6bdd880be941d08f6f9f82",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_7.jpg",
+    "sha1": "cc5d3d092ef5d5cd5ae023fec2046886e5d4ae66",
+    "mask_path": "data/SegMask_m/cc5d3d092ef5d5cd5ae023fec2046886e5d4ae66.png",
+    "bbox": [
+      218,
+      90,
+      132,
+      200
+    ],
+    "model_confidence": 0.6881341934204102,
+    "area_ratio": 0.056422526041666664,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.03418223395897395
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_4.jpg",
+    "sha1": "9b913767942a8eb7af9bbd01e6c286d003e8f97a",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_26.jpg",
+    "sha1": "d1d5c32efa2d2b5fe95e4c3de8b03f6b6c78e094",
+    "mask_path": "data/SegMask_m/d1d5c32efa2d2b5fe95e4c3de8b03f6b6c78e094.png",
+    "bbox": [
+      186,
+      130,
+      184,
+      208
+    ],
+    "model_confidence": 0.4809250235557556,
+    "area_ratio": 0.08191080729166667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.026823810651996623
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_9.jpg",
+    "sha1": "22130ae25f5be29497e15a937f8220e29a71d50d",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_22.jpg",
+    "sha1": "0245e19c9cc0dd1de7d6bcc275da2cdbd528eac3",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_14.jpg",
+    "sha1": "685714de54a6296627a7de77b3ed32f6f433bed2",
+    "mask_path": "data/SegMask_m/685714de54a6296627a7de77b3ed32f6f433bed2.png",
+    "bbox": [
+      174,
+      286,
+      132,
+      128
+    ],
+    "model_confidence": 0.5973550081253052,
+    "area_ratio": 0.032451171875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.04459513079397495
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_25.jpg",
+    "sha1": "d14dfd0e3755e401a2571c3e8c638374f08b8432",
+    "mask_path": "data/SegMask_m/d14dfd0e3755e401a2571c3e8c638374f08b8432.png",
+    "bbox": [
+      0,
+      74,
+      480,
+      204
+    ],
+    "model_confidence": 0.7365725040435791,
+    "area_ratio": 0.237431640625,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.017095887443343748
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_3.jpg",
+    "sha1": "86b82dbb4382c614548d93dede7279388ecd13b7",
+    "mask_path": "data/SegMask_m/86b82dbb4382c614548d93dede7279388ecd13b7.png",
+    "bbox": [
+      82,
+      210,
+      284,
+      320
+    ],
+    "model_confidence": 0.2620992660522461,
+    "area_ratio": 0.173701171875,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.021083819696501523
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_21.jpg",
+    "sha1": "c81af24c79248b49354ceb2474869235dc5b85ac",
+    "mask_path": "data/SegMask_m/c81af24c79248b49354ceb2474869235dc5b85ac.png",
+    "bbox": [
+      182,
+      262,
+      180,
+      152
+    ],
+    "model_confidence": 0.641038179397583,
+    "area_ratio": 0.06952473958333333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.026289594500012857
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_2.jpg",
+    "sha1": "6b2c66345b6aeb74e5d685d3501136ea0b061856",
+    "mask_path": "data/SegMask_m/6b2c66345b6aeb74e5d685d3501136ea0b061856.png",
+    "bbox": [
+      434,
+      246,
+      46,
+      220
+    ],
+    "model_confidence": 0.35654839873313904,
+    "area_ratio": 0.011907552083333333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.14288070451320914
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_1.jpg",
+    "sha1": "6dbf4f83c4464f8da2d14f726fb656444f66953d",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_13.jpg",
+    "sha1": "01f38b251f47f2735423a2dab99f0e17be4a9b4f",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_5.jpg",
+    "sha1": "f4f58d12fa4cc90eb171c0dea5fdde3553395f83",
+    "mask_path": "data/SegMask_m/f4f58d12fa4cc90eb171c0dea5fdde3553395f83.png",
+    "bbox": [
+      0,
+      350,
+      290,
+      290
+    ],
+    "model_confidence": 0.9184339046478271,
+    "area_ratio": 0.15150390625,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.027099686171834187
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_11.jpg",
+    "sha1": "5389d81d107f489e485bb5b7bc6c8c0650bf5775",
+    "mask_path": "data/SegMask_m/5389d81d107f489e485bb5b7bc6c8c0650bf5775.png",
+    "bbox": [
+      62,
+      206,
+      216,
+      152
+    ],
+    "model_confidence": 0.70952308177948,
+    "area_ratio": 0.07859375,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.02607645136687626
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_28.jpg",
+    "sha1": "b3a490c51833fdeb0cd7236b20050ba26268adb7",
+    "mask_path": "data/SegMask_m/b3a490c51833fdeb0cd7236b20050ba26268adb7.png",
+    "bbox": [
+      0,
+      194,
+      110,
+      200
+    ],
+    "model_confidence": 0.5687029361724854,
+    "area_ratio": 0.05150716145833333,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.036463484898149726
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_10.jpg",
+    "sha1": "89074330d847390e4b8f9c358d190c3cf2c6a958",
+    "mask_path": null
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_6.jpg",
+    "sha1": "501c712723ad3a87f7ebd2e447fdc29e7441f0f4",
+    "mask_path": "data/SegMask_m/501c712723ad3a87f7ebd2e447fdc29e7441f0f4.png",
+    "bbox": [
+      322,
+      294,
+      96,
+      92
+    ],
+    "model_confidence": 0.8169822096824646,
+    "area_ratio": 0.016315104166666667,
+    "fragment_count": 1,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.07104635432483704
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_20.jpg",
+    "sha1": "c1d62cadef16d5b868d0946df3bd6d3e528446e2",
+    "mask_path": "data/SegMask_m/c1d62cadef16d5b868d0946df3bd6d3e528446e2.png",
+    "bbox": [
+      90,
+      370,
+      390,
+      270
+    ],
+    "model_confidence": 0.9080245494842529,
+    "area_ratio": 0.11771809895833334,
+    "fragment_count": 2,
+    "hole_ratio": 0.0,
+    "boundary_irregularity": 0.04043383926384729
+  }
+]
