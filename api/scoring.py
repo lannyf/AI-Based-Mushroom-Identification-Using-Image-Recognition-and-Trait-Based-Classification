@@ -10,19 +10,9 @@ import csv
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
+from config.image_model_config import SPECIES as TARGET_SPECIES
 from models.hybrid_classifier import MethodPrediction
 from models.visual_trait_extractor import extract as extract_visual_traits
-
-
-TARGET_SPECIES: List[str] = [
-    "Fly Agaric",
-    "Chanterelle",
-    "False Chanterelle",
-    "Porcini",
-    "Other Boletus",
-    "Amanita virosa",
-    "Black Trumpet",
-]
 
 
 # ---------------------------------------------------------------------------

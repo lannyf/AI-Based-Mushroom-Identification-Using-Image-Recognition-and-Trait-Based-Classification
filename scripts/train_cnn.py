@@ -1,5 +1,5 @@
 """
-Fine-tuning script for the EfficientNet-B3 mushroom CNN classifier.
+Fine-tuning script for the mushroom CNN classifier.
 
 Expected dataset layout:
     data/raw/images/
@@ -35,16 +35,36 @@ import random
 from pathlib import Path
 from typing import Dict, List, Tuple
 
+from config.image_model_config import (
+    ARTIFACTS_DIR,
+    BASE_MODEL,
+    DEFAULT_BATCH_SIZE,
+    DEFAULT_EPOCHS,
+    DEFAULT_LEARNING_RATE,
+    EARLY_STOPPING_PATIENCE,
+    FINETUNE_LR_FACTOR,
+    HEAD_ONLY_EPOCHS_FRACTION,
+    HEAD_ONLY_LR_FACTOR,
+    HISTORY_PATH,
+    IMAGENET_MEAN,
+    IMAGENET_STD,
+    INPUT_SIZE,
+    NUM_CLASSES,
+    RESIZE_SIZE,
+    SPECIES,
+    TRAIN_AUGMENTATION,
+    VAL_FRACTION,
+    WEIGHTS_PATH,
+)
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-IMAGES_DIR   = PROJECT_ROOT / "data" / "raw" / "images"
-ARTIFACTS    = PROJECT_ROOT / "artifacts"
-WEIGHTS_OUT  = ARTIFACTS / "cnn_weights.pt"
-HISTORY_OUT  = ARTIFACTS / "cnn_training_history.json"
+IMAGES_DIR = PROJECT_ROOT / "data" / "raw" / "images"
 
-# Map species_id folder names → TARGET_SPECIES label
+# Map species_id folder names → class labels.
+# All values must exist in config.SPECIES.
 SPECIES_ID_TO_LABEL: Dict[str, str] = {
     "AM.MU": "Fly Agaric",
     "CA.CI": "Chanterelle",
@@ -55,8 +75,15 @@ SPECIES_ID_TO_LABEL: Dict[str, str] = {
     "CR.CO": "Black Trumpet",
 }
 
-LABEL_TO_IDX = {lbl: i for i, lbl in enumerate(SPECIES_ID_TO_LABEL.values())}
-IMAGE_EXTS   = {".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"}
+# Validate mapping against canonical species list from config
+for _sid, _lbl in SPECIES_ID_TO_LABEL.items():
+    if _lbl not in SPECIES:
+        raise ValueError(
+            f"SPECIES_ID_TO_LABEL maps {_sid} to '{_lbl}' which is not in config.SPECIES"
+        )
+
+LABEL_TO_IDX = {lbl: i for i, lbl in enumerate(SPECIES)}
+IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"}
 
 
 def collect_samples(images_dir: Path) -> List[Tuple[Path, int]]:
@@ -73,7 +100,7 @@ def collect_samples(images_dir: Path) -> List[Tuple[Path, int]]:
     return samples
 
 
-def build_datasets(samples: List[Tuple[Path, int]], val_fraction: float = 0.2):
+def build_datasets(samples: List[Tuple[Path, int]], batch_size: int, val_fraction: float = VAL_FRACTION):
     """Split samples into train/val and wrap in DataLoader objects."""
     import torch
     from torch.utils.data import DataLoader, Dataset
@@ -83,21 +110,27 @@ def build_datasets(samples: List[Tuple[Path, int]], val_fraction: float = 0.2):
     random.shuffle(samples)
     n_val = max(1, int(len(samples) * val_fraction))
     train_samples = samples[n_val:]
-    val_samples   = samples[:n_val]
+    val_samples = samples[:n_val]
+
+    crop_size = INPUT_SIZE[0]  # assumes square input (height == width)
+    resize_size = RESIZE_SIZE
+    mean = IMAGENET_MEAN
+    std = IMAGENET_STD
+    aug = TRAIN_AUGMENTATION
 
     train_transform = transforms.Compose([
-        transforms.RandomResizedCrop(300, scale=(0.7, 1.0)),
-        transforms.RandomHorizontalFlip(),
-        transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.2),
-        transforms.RandomRotation(20),
+        transforms.RandomResizedCrop(crop_size, scale=aug["random_resized_crop_scale"]),
+        transforms.RandomHorizontalFlip() if aug["random_horizontal_flip"] else transforms.Lambda(lambda x: x),
+        transforms.ColorJitter(*aug["color_jitter"]),
+        transforms.RandomRotation(aug["random_rotation"]),
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+        transforms.Normalize(mean, std),
     ])
     val_transform = transforms.Compose([
-        transforms.Resize(320),
-        transforms.CenterCrop(300),
+        transforms.Resize(resize_size),
+        transforms.CenterCrop(crop_size),
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+        transforms.Normalize(mean, std),
     ])
 
     class MushroomDataset(Dataset):
@@ -115,11 +148,11 @@ def build_datasets(samples: List[Tuple[Path, int]], val_fraction: float = 0.2):
 
     train_loader = DataLoader(
         MushroomDataset(train_samples, train_transform),
-        batch_size=args.batch_size, shuffle=True, num_workers=2,
+        batch_size=batch_size, shuffle=True, num_workers=2,
     )
     val_loader = DataLoader(
         MushroomDataset(val_samples, val_transform),
-        batch_size=args.batch_size, shuffle=False, num_workers=2,
+        batch_size=batch_size, shuffle=False, num_workers=2,
     )
     return train_loader, val_loader
 
@@ -135,7 +168,7 @@ def train(args: argparse.Namespace) -> None:
     # ── Collect data ──────────────────────────────────────────────────
     logger.info("Scanning %s ...", IMAGES_DIR)
     samples = collect_samples(IMAGES_DIR)
-    if len(samples) < len(SPECIES_ID_TO_LABEL):
+    if len(samples) < NUM_CLASSES:
         logger.error(
             "Only %d images found across all species — need at least 1 per species. "
             "Add images to data/raw/images/<species_id>/",
@@ -144,14 +177,14 @@ def train(args: argparse.Namespace) -> None:
         return
     logger.info("Total images: %d", len(samples))
 
-    train_loader, val_loader = build_datasets(samples)
+    train_loader, val_loader = build_datasets(samples, batch_size=args.batch_size)
 
     # ── Build model ───────────────────────────────────────────────────
-    # EfficientNet-B3 pretrained on ImageNet-21k (includes fungi classes)
+    logger.info("Building %s (num_classes=%d) ...", BASE_MODEL, NUM_CLASSES)
     model = timm.create_model(
-        "efficientnet_b3",
+        BASE_MODEL,
         pretrained=True,
-        num_classes=len(LABEL_TO_IDX),
+        num_classes=NUM_CLASSES,
     )
     model.to(device)
 
@@ -162,7 +195,7 @@ def train(args: argparse.Namespace) -> None:
 
     optimizer = torch.optim.Adam(
         filter(lambda p: p.requires_grad, model.parameters()),
-        lr=args.lr,
+        lr=args.lr * HEAD_ONLY_LR_FACTOR,
     )
     criterion = nn.CrossEntropyLoss()
     history = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
@@ -170,15 +203,19 @@ def train(args: argparse.Namespace) -> None:
     best_val_acc = 0.0
     patience_counter = 0
 
+    head_only_epochs = max(1, int(args.epochs * HEAD_ONLY_EPOCHS_FRACTION))
+
     for phase, total_epochs, unfreeze in [
-        ("head-only",  min(10, args.epochs // 3),  False),
-        ("fine-tune",  args.epochs,                 True),
+        ("head-only", head_only_epochs, False),
+        ("fine-tune", args.epochs, True),
     ]:
         if unfreeze:
             logger.info("Phase 2 — fine-tuning full network (lower LR)")
             for param in model.parameters():
                 param.requires_grad = True
-            optimizer = torch.optim.Adam(model.parameters(), lr=args.lr * 0.1)
+            optimizer = torch.optim.Adam(
+                model.parameters(), lr=args.lr * FINETUNE_LR_FACTOR
+            )
 
         for epoch in range(total_epochs):
             # Train
@@ -191,9 +228,9 @@ def train(args: argparse.Namespace) -> None:
                 loss = criterion(out, labels)
                 loss.backward()
                 optimizer.step()
-                t_loss    += loss.item() * imgs.size(0)
+                t_loss += loss.item() * imgs.size(0)
                 t_correct += (out.argmax(1) == labels).sum().item()
-                t_total   += imgs.size(0)
+                t_total += imgs.size(0)
 
             # Validate
             model.eval()
@@ -202,9 +239,9 @@ def train(args: argparse.Namespace) -> None:
                 for imgs, labels in val_loader:
                     imgs, labels = imgs.to(device), labels.to(device)
                     out = model(imgs)
-                    v_loss    += criterion(out, labels).item() * imgs.size(0)
+                    v_loss += criterion(out, labels).item() * imgs.size(0)
                     v_correct += (out.argmax(1) == labels).sum().item()
-                    v_total   += imgs.size(0)
+                    v_total += imgs.size(0)
 
             t_acc = t_correct / t_total
             v_acc = v_correct / v_total
@@ -226,30 +263,36 @@ def train(args: argparse.Namespace) -> None:
             if v_acc > best_val_acc:
                 best_val_acc = v_acc
                 patience_counter = 0
-                ARTIFACTS.mkdir(parents=True, exist_ok=True)
+                ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
                 torch.save(
                     {"model_state_dict": model.state_dict(), "val_acc": v_acc},
-                    WEIGHTS_OUT,
+                    WEIGHTS_PATH,
                 )
                 logger.info("  ✓ Saved best model (val_acc=%.3f)", v_acc)
             else:
                 patience_counter += 1
-                if patience_counter >= 5:
-                    logger.info("Early stopping (patience=5)")
+                if patience_counter >= EARLY_STOPPING_PATIENCE:
+                    logger.info("Early stopping (patience=%d)", EARLY_STOPPING_PATIENCE)
                     break
 
     logger.info("Training complete. Best val_acc=%.3f", best_val_acc)
-    logger.info("Weights saved to: %s", WEIGHTS_OUT)
+    logger.info("Weights saved to: %s", WEIGHTS_PATH)
 
-    with open(HISTORY_OUT, "w") as f:
+    with open(HISTORY_PATH, "w") as f:
         json.dump(history, f, indent=2)
-    logger.info("History saved to: %s", HISTORY_OUT)
+    logger.info("History saved to: %s", HISTORY_PATH)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Fine-tune mushroom CNN classifier")
+    parser.add_argument("--epochs", type=int, default=DEFAULT_EPOCHS, help="Total fine-tune epochs")
+    parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE, help="Batch size")
+    parser.add_argument("--lr", type=float, default=DEFAULT_LEARNING_RATE, help="Initial learning rate")
+    args = parser.parse_args()
+    train(args)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Fine-tune EfficientNet-B3 for mushroom ID")
-    parser.add_argument("--epochs",     type=int,   default=20,   help="Total fine-tune epochs")
-    parser.add_argument("--batch-size", type=int,   default=8,    help="Batch size")
-    parser.add_argument("--lr",         type=float, default=3e-4, help="Initial learning rate")
-    args = parser.parse_args()
-    train(args)
+    import sys
+
+    sys.exit(main())
