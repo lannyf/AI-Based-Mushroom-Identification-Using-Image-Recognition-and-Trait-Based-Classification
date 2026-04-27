@@ -259,11 +259,7 @@ def analyse_brightness(bgr: np.ndarray) -> str:
 # Species scoring from visual features
 # ---------------------------------------------------------------------------
 
-# All species handled by the image scorer (mirrors TARGET_SPECIES in api/main.py)
-_ALL_SPECIES = [
-    "Fly Agaric", "Chanterelle", "False Chanterelle", "Porcini",
-    "Other Boletus", "Amanita virosa", "Black Trumpet",
-]
+from config.image_model_config import SPECIES as _ALL_SPECIES
 
 
 def score_species(

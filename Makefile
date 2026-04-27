@@ -5,7 +5,7 @@ FLUTTER_BIN   ?= flutter
 PYTHON_PORT   ?= 8000
 JAVA_PORT     ?= 8080
 WEB_PORT      ?= 8081
-VENV_DIR      ?= /home/iannyf/mushroom-venv
+VENV_DIR      ?= $(PROJECT_ROOT)/.venv
 VENV_UVICORN  := $(VENV_DIR)/bin/uvicorn
 OLLAMA_PORT    ?= 11434
 

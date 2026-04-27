@@ -41,3 +41,13 @@ seaborn>=0.11.0
 jupyter>=1.0.0
 ipython>=7.25.0
 
+# ------------------------------------------------------------------------------
+# NON-PYTHON DEPENDENCIES (must be installed separately)
+# ------------------------------------------------------------------------------
+# Flutter SDK (stable channel)
+#   Required for: mushroom_id_app/ (Flutter frontend)
+#   Install:     https://docs.flutter.dev/get-started/install
+#   Version:     3.x stable (or match the channel your team uses)
+#   Note:        Do NOT commit the Flutter SDK to this repo. Add `flutter/`
+#                to .gitignore and install it locally on each machine.
+# ------------------------------------------------------------------------------

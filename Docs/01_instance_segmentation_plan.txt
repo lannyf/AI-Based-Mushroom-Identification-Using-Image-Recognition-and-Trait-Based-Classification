@@ -1,0 +1,420 @@
+Implementation Plan: Instance Segmentation for Mushroom Trait Extraction
+
+Goal
+- Replace full-frame trait extraction with mushroom-mask-based extraction.
+- Use a segmentation model to isolate mushroom pixels before color, texture, brightness, and shape analysis.
+
+Target Outcome
+- Step 1 keeps species prediction and adds a high-quality foreground mask for trait extraction.
+- Visible traits become less sensitive to background clutter.
+- Segmentation improves foreground isolation, but does not by itself solve reliable image-derived gill_type, stem_type, or habitat extraction.
+- The segmentation model works separately from the original CNN classifier. It does not depend on the classifier to produce a mask, and it does not rewrite the classifier's species prediction.
+
+Chosen Framework
+- YOLOv8-seg for training and inference
+
+Why YOLOv8-seg was chosen for this repo
+- YOLOv8-seg
+  - Perks:
+    - fastest path to a usable prototype
+    - practical training and inference workflow
+    - returns boxes and masks in one model
+    - strong fit if the main goal is shipping a working localizer quickly
+  - Downsides:
+    - extra external dependency stack
+    - less transparent than older two-stage pipelines when debugging failure cases
+    - less aligned with "research baseline" expectations in some academic contexts
+- YOLOv8-seg is the selected implementation path unless a later experiment proves it inadequate.
+
+Data Requirements
+- Collect image-level annotations with pixel masks for mushroom instances.
+- Start with 100-500 labeled masks for a proof of concept; expand if quality is unstable.
+- Treat 100-500 labeled masks as Stage 0 only, not as the expected final dataset size.
+- Plan for iterative growth toward 1000+ masks if held-out mask quality, fallback rate, or downstream trait regressions remain unstable.
+- Keep train/validation/test splits separate from current regression images.
+- Reuse the same underlying image pool as the current CNN where possible, but add new mask annotations because class labels alone are not enough for segmentation training.
+- Make sure the labeled set includes hard cases:
+  - cluttered forest floor
+  - dark mushrooms
+  - red/white fly agaric scenes
+  - partial occlusion
+  - off-center mushrooms
+  - multiple mushrooms in one frame
+
+Dataset Image Requirements Checklist
+- For every positive training image:
+  - file format:
+    - JPG or PNG
+  - resolution:
+    - minimum 512 px on the shortest side
+    - preferred 1024 px or higher before training-time resizing
+  - visibility:
+    - at least one mushroom instance must be visibly present
+    - the mushroom must not be so blurred that a human annotator cannot outline it confidently
+  - annotation:
+    - each visible mushroom instance gets its own mask
+    - if stems are visible, include them in the same instance mask
+    - do not label unrelated objects such as leaves, sticks, moss, or other fungi as part of the mushroom
+  - framing:
+    - include close-ups, medium shots, and more contextual field photos
+    - do not restrict collection to perfectly centered mushrooms
+  - background:
+    - include cluttered forest floor, grass, moss, wood, leaf litter, and mixed backgrounds
+  - lighting:
+    - include bright daylight, soft overcast, shadow-heavy, and mixed lighting scenes
+  - pose / condition:
+    - cap top view
+    - side view
+    - angled view
+    - partial stem visible
+    - partially occluded mushrooms
+    - multiple mushrooms in one frame
+  - species coverage:
+    - include the species already used by the current CNN image classifier
+    - include difficult lookalikes and visually confusing species if available
+  - quality control:
+    - reject images where the mushroom boundary cannot be drawn with reasonable confidence
+    - reject images where compression or motion blur destroys the object boundary
+- Negative or background-only images:
+  - optional, but useful if the chosen framework supports them cleanly
+  - include cluttered forest scenes without mushrooms to reduce false detections
+- Split requirements:
+  - no near-duplicate images across train/validation/test
+  - keep regression images and benchmark images separate from training where possible
+- Desired metadata per image if available:
+  - species label
+  - source
+  - approximate environment (forest, meadow, dead wood, etc.)
+  - lighting notes if unusual
+  - whether multiple mushrooms are present
+
+Implementation Phases
+1. Data preparation
+- Define a single detection class: mushroom
+- Label masks for a representative subset of current target species and difficult backgrounds
+- Export labels in the format expected by YOLOv8-seg
+- Recommended annotation tooling:
+  - CVAT or Label Studio for polygon/mask annotation
+  - Roboflow only if the team wants a managed export workflow
+- Operational annotation rule:
+  - confirm the chosen tool can export masks/polygons in a YOLOv8-seg-compatible format before large-scale labeling begins
+
+2. Training pipeline
+- Add a YOLOv8-seg training script under scripts/ for segmentation training
+- Store weights in artifacts/
+- Canonical runtime checkpoint path:
+  - artifacts/yolov8_seg.pt
+- Training outputs should also include:
+  - artifacts/yolov8_seg_metadata.json
+  - artifacts/yolov8_seg_training_summary.json
+- Record metrics such as mask IoU, precision, recall, and inference latency
+- Add a clear ultralytics/YOLOv8 dependency and install path in requirements or setup documentation
+- Keep model/version metadata next to weights so inference behavior is traceable
+- Metadata file should record at minimum:
+  - model name
+  - training date
+  - dataset identifier or version
+  - class map
+  - training image size
+  - default confidence / threshold values used at export time
+  - experiment tag or code version if available
+- Keep one canonical runtime checkpoint for the application path; experimental checkpoints may exist separately but must not change runtime behavior unless explicitly promoted
+- Validation sizing guidance:
+  - reserve a clearly separated validation set and a held-out evaluation set from the beginning
+  - do not treat the training split itself as the primary quality indicator
+- Dataset expansion trigger:
+  - if held-out mask quality or downstream trait regression quality is below the target threshold, expand annotations before promoting the model
+- Training robustness measures:
+  - include augmentation for:
+    - brightness / contrast variation
+    - blur
+    - noise
+    - scale / crop variation
+    - background variation where supported by the framework
+  - use augmentation to improve robustness, but do not treat augmentation as a substitute for data diversity
+- Scenario-aware evaluation:
+  - track performance separately for:
+    - cluttered scenes
+    - dark mushrooms
+    - multiple-instance images
+    - partial occlusion
+    - lighting variation
+
+3. Inference wrapper
+- Add a new helper module, for example models/mushroom_segmenter.py
+- Input: image bytes
+- Output: selected mask, confidence, bounding box, and optional instance list
+- Loader convention:
+  - use a lazy-loaded singleton pattern similar to the current CNN classifier
+  - expose a stable helper such as get_segmenter()
+  - first call loads artifacts/yolov8_seg.pt, later calls reuse the loaded model
+- Concurrency safety:
+  - guard first-load initialization with a lock or equivalent one-time initialization mechanism
+  - concurrent FastAPI requests must not race and load the model multiple times
+- Wrapper convention:
+  - the rest of the repo must not depend on raw Ultralytics result objects
+  - mushroom_segmenter.py must convert YOLO outputs into a repo-local stable structure
+- Stable mask contract:
+  - selected mask is returned at the original image resolution
+  - selected mask dtype is uint8
+  - mask values are binary 0/255
+  - bbox format is x, y, width, height
+  - confidence refers to the selected-instance localization confidence exposed by the wrapper
+- Stable wrapper output shape:
+  - instances: list of candidate instances
+  - selected_index: integer index of the chosen instance or null
+  - selected_mask: canonical uint8 0/255 mask or null
+  - selected_bbox: x, y, width, height or null
+  - selected_confidence: selected-instance localization confidence or 0.0
+- Each instance item should include:
+  - mask
+  - bbox
+  - model_confidence
+  - area_ratio
+  - selection_score
+- Internal helper view:
+  - masked trait functions may derive a boolean view with mask > 0 for NumPy-based statistics
+- Choose the main instance with a deterministic rule order:
+  1. discard masks below minimum confidence
+  2. discard masks below minimum area ratio or above maximum near-full-frame ratio
+  3. rank remaining masks by confidence
+  4. if confidence is within a small tie band, prefer the instance whose bbox center is closest to the image center
+  5. if still tied, prefer the sharper crop if a focus proxy is available
+  6. if still tied, prefer the larger valid foreground area
+  7. if still tied, prefer the earliest stable index returned by the model
+- Classifier-aware re-ranking:
+  - keep segmentation inference independent from the CNN classifier
+  - however, after candidate masks are generated, allow an optional late-stage re-ranking pass that crops the top candidate instances and compares them against the already-available classifier prediction
+  - preferred usage:
+    - only apply this pass to a small top-N candidate set
+    - use it as a tie-break or confidence-band re-ranker, not as the primary segmentation mechanism
+    - do not let this step rewrite the classifier's species prediction; it only helps choose which segmented instance is most likely the user-intended mushroom
+  - this is the strongest planned upgrade path if center/size-based selection proves correct but not sufficiently user-aligned
+- Selection-heuristic caution:
+  - deterministic selection is required for stability, but deterministic does not guarantee user-intent correctness
+  - center preference is only a tie-break heuristic, not a claim that the centered mushroom is always the correct target
+  - log selections that rely on tie-breakers so mis-selections can be audited during real-image evaluation
+- Log candidate scores so instance selection is debuggable
+- Keep a fallback when no confident mask is found
+- Reject masks that are too fragmented, too small, or implausibly close to full-frame size
+- Wrap YOLOv8-seg outputs into a repo-local stable format so the rest of Step 1 does not depend directly on raw framework output objects
+
+4. Step 1 integration
+- In models/visual_trait_extractor.py:
+  - keep segmentation separate from the original CNN classifier path
+  - run segmentation for trait extraction only
+  - compute a cleaned masked image view
+  - create masked variants of the current trait functions:
+    - analyse_colours_masked(bgr, mask)
+    - analyse_texture_masked(bgr, mask)
+    - analyse_brightness_masked(bgr, mask)
+    - analyse_shape_masked(bgr, mask)
+  - keep the original full-frame functions unchanged as the fallback baseline
+  - run the masked variants on localized pixels only when mask quality is sufficient
+- OpenCV-facing operations should use the canonical uint8 0/255 mask
+- NumPy/statistical operations may use the derived boolean mask view
+- Keep full-image fallback if no confident mask exists
+- Do not let segmentation rewrite ml_top_species or ml_confidence
+- Treat segmentation as a trait-quality enhancement layer, not as the authority for Step 2 precheck behavior
+- Segmentation must be able to run even if the classifier prediction is wrong or unavailable; the two systems are independent inputs into Step 1
+- Mask cleanup pipeline before traits:
+  - apply a light cleanup pass to the selected mask before masked trait extraction
+  - cleanup may include:
+    - largest-connected-component retention
+    - small-fragment removal
+    - light morphological close/open where it improves contour stability
+    - selective hole filling when holes are clearly artifact-like rather than biologically meaningful
+  - cleanup must be conservative and measurable; it must not silently inflate the object far beyond the raw model mask
+
+Why masked variants are required
+- The current trait functions accept only a normal BGR image and internally operate on all pixels.
+- Simply multiplying the image by a mask and reusing the old functions can bias:
+  - color ratios, because masked-out background becomes black pixels
+  - brightness, because empty masked regions change the mean value
+  - shape, because the contour source changes and may need explicit mask-driven contour extraction
+  - texture, because edges from mask boundaries can contaminate Hough and edge-density signals
+- For this reason, the masked path should be implemented explicitly instead of relying on the old functions unchanged.
+- Function-level behavior specification:
+  - analyse_colours_masked(bgr, mask):
+    - compute colour statistics using only mask-positive pixels
+    - do not include zeroed background pixels in KMeans or ratio calculations
+  - analyse_brightness_masked(bgr, mask):
+    - compute brightness from HSV V values only on mask-positive pixels
+  - analyse_texture_masked(bgr, mask):
+    - compute edges only within the masked region
+    - suppress mask-boundary artifacts before edge-density and Hough-based ridge checks
+  - analyse_shape_masked(bgr, mask):
+    - primary source is the segmentation mask contour itself
+    - derive aspect ratio and circularity from the cleaned mask contour
+    - if the contour is implausible or too fragmented, fall back to the original full-frame analyse_shape result
+- Quality-based gating:
+  - mask quality metrics are not only for logging
+  - use them to reject or down-rank masks before masked traits are accepted
+  - examples:
+    - reject or penalize masks with excessive hole_ratio
+    - reject or penalize masks with excessive boundary_irregularity
+    - reject masks whose cleaned contour remains too fragmented or implausible after cleanup
+
+5. Rollout Stages
+- Stage A: segmentation wrapper and metadata only, with no behavioral effect on visible_traits
+- Stage B: segmentation-driven color and brightness only
+- Stage C: segmentation-driven texture / ridge cues
+- Stage D: segmentation-driven shape
+- Advance to the next stage only if regression tests stay stable
+- Trait replacement policy for Stage B/C/D:
+  - when a valid segmentation mask passes localization thresholds for the active stage, always use the masked trait result for that stage's trait family
+  - if localization thresholds fail, fall back to the original full-frame trait result
+- Mixed-source risk note:
+  - during staged rollout, some trait families may come from the masked path while others still come from the full-frame path
+  - this is acceptable during rollout, but Step 2 behavior must be regression-tested explicitly against these mixed-source trait vectors
+- Mixed-source guard:
+  - if mask_used = true but too few active trait families can be produced from the masked path with acceptable quality, fall back fully to the original full-frame trait set for that image
+  - this prevents unstable half-localized trait combinations from reaching Step 2
+
+Why Stage A must guarantee no behavior change
+- In the current repo, visible_traits already drive real logic in Step 2 and are covered by regression tests.
+- If Stage A changes both metadata and trait behavior at the same time, it becomes hard to tell whether:
+  - a failure came from wrapper wiring
+  - a failure came from mask selection
+  - a failure came from new trait behavior
+- A metadata-only Stage A creates a clean integration checkpoint:
+  - the segmenter loads
+  - inference runs
+  - candidate masks and scores are available
+  - current visible_traits remain exactly as before
+- This reduces debugging cost and keeps rollout reversible.
+- For Stage A, the explicit rule is:
+  - do not change any existing visible_traits values
+  - only add new localization metadata keys
+- Only after Stage A is stable should the masked variants begin replacing trait values.
+- Stage A promotion gate:
+  - measure segmentation inference latency even though traits are unchanged
+  - Stage A must not be promoted if latency is unacceptable for the API
+
+6. Metadata and compatibility
+- Extend visible_traits with:
+  - localization_source = segmentation
+  - localization_confidence
+  - bbox
+  - mask_used = true/false
+- Preserve the existing flattened trait keys so Step 2 does not need immediate schema changes
+- Add internal quality signals that can be logged or surfaced later:
+  - foreground_area_ratio
+  - mask_fragment_count
+  - trait_source_by_key when localized traits begin replacing full-frame traits
+  - contour_smoothness
+  - hole_ratio
+  - boundary_irregularity
+  - cleanup_applied = true/false
+  - cleanup_actions list
+- Single-class limitation note:
+  - a single-class mushroom mask is the correct first step for localization
+  - however, it does not separate cap, stem, and underside regions
+  - if future trait quality plateaus, plan a follow-up path toward part-aware localization or part segmentation
+
+7. Tests and validation
+- Add unit tests for segmentation wrapper behavior
+- Add regression tests for:
+  - reduced false background color influence
+  - reduced false ridge detection
+  - stable Step 2 tree traversal on current supported species
+  - stable ml_top_species/ml_confidence behavior relative to the prediction path
+- Add evaluation against a held-out labeled mask set
+- Add per-trait evaluation, not just overall image-level checks:
+  - color stability
+  - ridge false-positive rate
+  - shape agreement / plausibility
+  - fallback frequency
+  - mask quality metrics such as smoothness, hole ratio, and fragmentation
+- Add targeted evaluation for:
+  - small-object mushrooms
+  - wrong-instance selection cases in multi-mushroom scenes
+- Keep validation assets in a repo-managed or clearly versioned location
+- Held-out evaluation policy:
+  - keep a dedicated evaluation set separate from the train and validation splits
+  - do not reuse the primary regression images as the only evidence of model quality
+- Fallback observability:
+  - measure fallback rate by scenario type
+  - investigate sustained high fallback rates before promoting a model
+- Wrong-instance observability:
+  - track how often deterministic selection and classifier-aware re-ranking disagree
+  - review these images during real-image evaluation to estimate user-intent miss rate
+
+8. Fallback and threshold policy
+- Define explicit thresholds before rollout:
+  - minimum mask confidence
+  - minimum foreground area ratio
+  - maximum fragmentation
+  - maximum tolerated near-full-frame mask ratio
+- Define explicit quality-gating thresholds before rollout:
+  - maximum tolerated hole_ratio
+  - maximum tolerated boundary_irregularity
+  - maximum tolerated cleanup-adjusted fragmentation
+- If thresholds fail, use the original full-image extractor behavior
+- Starting priors for first tuning pass:
+  - minimum mask confidence: start around 0.50
+  - minimum foreground area ratio: start around 0.02
+  - maximum tolerated near-full-frame mask ratio: start around 0.85
+  - maximum fragmentation: define as a small number of retained connected components after cleanup, starting conservatively at 1-3
+- These are starting points only and must be tuned against the held-out set and the trait regression suite before rollout promotion
+- Small-object policy:
+  - do not assume low area_ratio means invalid object
+  - tune minimum foreground area ratio against a dedicated small-object subset so valid small mushrooms are not systematically rejected
+- Threshold ownership:
+  - keep runtime thresholds in a dedicated config module
+  - recommended path: config/segmentation_config.py
+  - do not scatter threshold constants across the segmenter wrapper and visual trait extractor
+- Metadata relationship:
+  - yolov8_seg_metadata.json may record the thresholds used during training/export
+  - runtime behavior is controlled by config/segmentation_config.py unless explicitly revised later
+
+9. Deployment and runtime considerations
+- Document YOLOv8-seg runtime dependencies and installation steps
+- Measure backend latency and memory use under FastAPI
+- Ensure model load/inference does not make the current API unusably slow
+- Dependency convention:
+  - if segmentation is part of the intended runtime, add Ultralytics to requirements rather than leaving it only in ad hoc notes
+- Dataset config convention:
+  - keep YOLO dataset definition in a stable repo path
+  - recommended path: data/segmentation/dataset.yaml
+  - dataset.yaml should define train, val, test, and class names
+- Dataset versioning convention:
+  - record a dataset version identifier in yolov8_seg_metadata.json
+  - increment dataset version whenever annotations are materially added or corrected
+  - runtime metadata should always indicate which dataset version produced the active checkpoint
+- Logging convention:
+  - log model load path
+  - log number of candidate instances
+  - log selected instance index
+  - log selected confidence
+  - log fallback reason when segmentation is not used
+
+Why deterministic multi-instance selection matters
+- Real field images can contain:
+  - several mushrooms
+  - one foreground mushroom and one larger blurry background mushroom
+  - touching or overlapping mushrooms
+- If instance selection is not deterministic, very small model-score changes can make Step 1 pick a different instance on different runs or after retraining.
+- That creates several problems:
+  - flaky regression tests
+  - unstable visible_traits
+  - hard-to-debug Step 2 routing changes
+  - confusing before/after comparisons during model tuning
+- A deterministic rule order ensures that:
+  - repeated inference on the same image picks the same primary instance
+  - failure analysis is reproducible
+  - logs can explain why one instance won over another
+- This is especially important because the current repo already has real-image trait and tree-traversal regression tests; a nondeterministic selector would make those tests noisy even if mask quality improved.
+
+Risks
+- Requires new labeled data
+- Adds a new model lifecycle and deployment dependency
+- Can still fail on small, partially occluded, or overlapping mushrooms
+- Segmentation can improve localization without fully solving missing image-derived traits
+- Shape and ridge behavior can still regress if the mask is partial or merged with background
+
+Success Criteria
+- Trait regressions improve on real-image tests
+- Step 2 auto-answer stability improves or remains neutral
+- Inference latency remains acceptable for backend use
+- ml_top_species/ml_confidence remain controlled by the classifier path rather than the segmentation layer

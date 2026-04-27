@@ -178,17 +178,19 @@ def cmd_identify(args) -> int:
 
     r3 = requests.post(
         f"{BASE_URL}/identify/comparison/compare",
-        json={"species": step2_species, "visible_traits": visible_traits},
+        json={"swedish_name": step2_species, "visible_traits": visible_traits},
         timeout=30,
     )
     r3.raise_for_status()
     s3 = r3.json()
 
-    match_score = s3.get("match_score", 0)
+    trait_match = s3.get("trait_match", {})
+    match_score = trait_match.get("score", 0)
     lookalikes  = s3.get("lookalikes", [])
     print(f"  Trait match score : {yellow(f'{match_score*100:.1f}%')}")
     if lookalikes:
-        print(f"  Lookalikes        : {', '.join(lookalikes)}")
+        la_names = [la.get("swedish_name", "?") for la in lookalikes]
+        print(f"  Lookalikes        : {', '.join(la_names)}")
 
     # ── Step 4 (final) ───────────────────────────────────────────────────────
     print(bold(f"\n{'─'*55}"))
