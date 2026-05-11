@@ -2,12 +2,12 @@ evaluation_images/fomitopsis_betulina/Fomitopsis_betulina_eval_04.jpg
 evaluation_images/CA.CI/Cantharellus_cibarius_eval_04.jpg
 evaluation_images/ramaria_botrytis/Ramaria_botrytis_eval_05.jpg
 evaluation_images/BO.ED/Boletus_edulis_eval_02.jpg
-evaluation_images/Brunsopp/Boletus_badius_eval_02.jpg
+evaluation_images/BO.BA/Boletus_badius_eval_02.jpg
 evaluation_images/CA.CI/Cantharellus_cibarius_eval_01.jpg
 evaluation_images/sparassis_crispa/Sparassis_crispa_eval_01.jpg
 evaluation_images/sparassis_crispa/Sparassis_crispa_eval_04.jpg
 evaluation_images/CR.CO/Craterellus_cornucopioides_eval_04.jpg
-evaluation_images/Brunsopp/Boletus_badius_eval_05.jpg
+evaluation_images/BO.BA/Boletus_badius_eval_05.jpg
 evaluation_images/AM.VI/Amanita_virosa_eval_05.jpg
 evaluation_images/fomitopsis_betulina/Fomitopsis_betulina_eval_02.jpg
 evaluation_images/CR.CO/Craterellus_cornucopioides_eval_02.jpg

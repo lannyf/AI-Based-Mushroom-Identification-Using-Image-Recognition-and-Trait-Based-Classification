@@ -1,0 +1,452 @@
+[
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_19.jpg",
+    "priority_score": 70,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.40720000863075256,
+    "area_ratio": 0.4475,
+    "compactness": 0.0709,
+    "sam_score": 0.9173
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_13.jpg",
+    "priority_score": 50,
+    "strategy": "center_point",
+    "prompt_overlap": 0.46790000796318054,
+    "area_ratio": 0.385,
+    "compactness": 0.0541,
+    "sam_score": 0.0496
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_2.jpg",
+    "priority_score": 50,
+    "strategy": "center_point",
+    "prompt_overlap": 0.49549999833106995,
+    "area_ratio": 0.2681,
+    "compactness": 0.0956,
+    "sam_score": 0.0673
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_25.jpg",
+    "priority_score": 65,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.35510000586509705,
+    "area_ratio": 0.0416,
+    "compactness": 0.3276,
+    "sam_score": 0.9764
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_14.jpg",
+    "priority_score": 60,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.6322000026702881,
+    "area_ratio": 0.0282,
+    "compactness": 0.2561,
+    "sam_score": 0.7863
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_23.jpg",
+    "priority_score": 60,
+    "strategy": "center_point",
+    "prompt_overlap": 0.4641999900341034,
+    "area_ratio": 0.8306,
+    "compactness": 0.0907,
+    "sam_score": 0.3817
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_13.jpg",
+    "priority_score": 55,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.48410001397132874,
+    "area_ratio": 0.0669,
+    "compactness": 0.6406,
+    "sam_score": 0.9873
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_18.jpg",
+    "priority_score": 55,
+    "strategy": "center_point",
+    "prompt_overlap": 0.5853999853134155,
+    "area_ratio": 0.0218,
+    "compactness": 0.0654,
+    "sam_score": 0.0448
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_19.jpg",
+    "priority_score": 55,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.4722999930381775,
+    "area_ratio": 0.0866,
+    "compactness": 0.7734,
+    "sam_score": 0.9757
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_18.jpg",
+    "priority_score": 55,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.4293000102043152,
+    "area_ratio": 0.1525,
+    "compactness": 0.8874,
+    "sam_score": 0.9945
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_27.jpg",
+    "priority_score": 55,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.43700000643730164,
+    "area_ratio": 0.2561,
+    "compactness": 0.8237,
+    "sam_score": 0.9893
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_6.jpg",
+    "priority_score": 55,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.4453999996185303,
+    "area_ratio": 0.102,
+    "compactness": 0.784,
+    "sam_score": 0.9939
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_21.jpg",
+    "priority_score": 55,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.47369998693466187,
+    "area_ratio": 0.0644,
+    "compactness": 0.6995,
+    "sam_score": 0.991
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_26.jpg",
+    "priority_score": 50,
+    "strategy": "center_point",
+    "prompt_overlap": 0.46790000796318054,
+    "area_ratio": 0.368,
+    "compactness": 0.0966,
+    "sam_score": 0.0385
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_6.jpg",
+    "priority_score": 50,
+    "strategy": "center_point",
+    "prompt_overlap": 0.3797999918460846,
+    "area_ratio": 0.0414,
+    "compactness": 0.1269,
+    "sam_score": 0.0593
+  },
+  {
+    "image": "data/raw/images/BO.BA/Boletus_badius_1.jpg",
+    "priority_score": 45,
+    "strategy": "center_point",
+    "prompt_overlap": 0.3142000138759613,
+    "area_ratio": 0.0377,
+    "compactness": 0.4012,
+    "sam_score": 0.1419
+  },
+  {
+    "image": "data/raw/images/BO.BA/Boletus_badius_18.jpg",
+    "priority_score": 40,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.9643999934196472,
+    "area_ratio": 0.0482,
+    "compactness": 0.3165,
+    "sam_score": 0.9067
+  },
+  {
+    "image": "data/raw/images/BO.BA/Boletus_badius_28.jpg",
+    "priority_score": 40,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.6657000184059143,
+    "area_ratio": 0.0547,
+    "compactness": 0.8417,
+    "sam_score": 0.9535
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_4.jpg",
+    "priority_score": 45,
+    "strategy": "center_point",
+    "prompt_overlap": 1.284999966621399,
+    "area_ratio": 0.0234,
+    "compactness": 0.0761,
+    "sam_score": 0.2362
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_9.jpg",
+    "priority_score": 35,
+    "strategy": "center_point",
+    "prompt_overlap": 0.3384000062942505,
+    "area_ratio": 0.0385,
+    "compactness": 0.5022,
+    "sam_score": 0.7601
+  },
+  {
+    "image": "data/raw/images/CA.CI/Cantharellus_cibarius_1.jpg",
+    "priority_score": 30,
+    "strategy": "amg_retry",
+    "prompt_overlap": null,
+    "area_ratio": null,
+    "compactness": null,
+    "sam_score": null
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_3.jpg",
+    "priority_score": 55,
+    "strategy": "center_point",
+    "prompt_overlap": 0.4641999900341034,
+    "area_ratio": 0.808,
+    "compactness": 0.2558,
+    "sam_score": 0.0176
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_4.jpg",
+    "priority_score": 55,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.45840001106262207,
+    "area_ratio": 0.062,
+    "compactness": 0.7202,
+    "sam_score": 0.9912
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_20.jpg",
+    "priority_score": 50,
+    "strategy": "center_point",
+    "prompt_overlap": 0.4814000129699707,
+    "area_ratio": 0.7162,
+    "compactness": 0.0672,
+    "sam_score": 0.4744
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_14.jpg",
+    "priority_score": 50,
+    "strategy": "center_point",
+    "prompt_overlap": 0.4724000096321106,
+    "area_ratio": 0.3822,
+    "compactness": 0.0547,
+    "sam_score": 0.0815
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_3.jpg",
+    "priority_score": 50,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.515500009059906,
+    "area_ratio": 0.0413,
+    "compactness": 0.4629,
+    "sam_score": 0.9573
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_5.jpg",
+    "priority_score": 50,
+    "strategy": "center_point",
+    "prompt_overlap": 0.4700999855995178,
+    "area_ratio": 0.4414,
+    "compactness": 0.078,
+    "sam_score": 0.0423
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_17.jpg",
+    "priority_score": 50,
+    "strategy": "center_point",
+    "prompt_overlap": 0.4489000141620636,
+    "area_ratio": 0.0336,
+    "compactness": 0.1373,
+    "sam_score": 0.1773
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_19.jpg",
+    "priority_score": 50,
+    "strategy": "center_point",
+    "prompt_overlap": 0.4781000018119812,
+    "area_ratio": 0.5696,
+    "compactness": 0.0676,
+    "sam_score": 0.0008
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_11.jpg",
+    "priority_score": 45,
+    "strategy": "center_point",
+    "prompt_overlap": 0.6448000073432922,
+    "area_ratio": 0.7264,
+    "compactness": 0.0855,
+    "sam_score": 0.0219
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_29.jpg",
+    "priority_score": 45,
+    "strategy": "center_point",
+    "prompt_overlap": 0.43070000410079956,
+    "area_ratio": 0.0203,
+    "compactness": 0.2425,
+    "sam_score": 0.4602
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_13.jpg",
+    "priority_score": 45,
+    "strategy": "center_point",
+    "prompt_overlap": 0.5044999718666077,
+    "area_ratio": 0.0497,
+    "compactness": 0.0783,
+    "sam_score": 0.0505
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_10.jpg",
+    "priority_score": 40,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.9869999885559082,
+    "area_ratio": 0.0435,
+    "compactness": 0.8268,
+    "sam_score": 0.9794
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_23.jpg",
+    "priority_score": 40,
+    "strategy": "center_point",
+    "prompt_overlap": 0.3833000063896179,
+    "area_ratio": 0.1293,
+    "compactness": 0.1547,
+    "sam_score": 0.047
+  },
+  {
+    "image": "data/raw/images/AM.VI/Amanita_virosa_24.jpg",
+    "priority_score": 40,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.5289000272750854,
+    "area_ratio": 0.2049,
+    "compactness": 0.5233,
+    "sam_score": 0.987
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_10.jpg",
+    "priority_score": 40,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.6863999962806702,
+    "area_ratio": 0.0717,
+    "compactness": 0.393,
+    "sam_score": 0.9497
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_13.jpg",
+    "priority_score": 40,
+    "strategy": "center_point",
+    "prompt_overlap": 0.4796000123023987,
+    "area_ratio": 0.1328,
+    "compactness": 0.1406,
+    "sam_score": 0.1357
+  },
+  {
+    "image": "data/raw/images/BO.BA/Boletus_badius_30.jpg",
+    "priority_score": 40,
+    "strategy": "center_point",
+    "prompt_overlap": 0.32170000672340393,
+    "area_ratio": 0.1741,
+    "compactness": 0.1044,
+    "sam_score": 0.1373
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_22.jpg",
+    "priority_score": 40,
+    "strategy": "center_point",
+    "prompt_overlap": 0.305400013923645,
+    "area_ratio": 0.1255,
+    "compactness": 0.0911,
+    "sam_score": 0.7214
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_27.jpg",
+    "priority_score": 40,
+    "strategy": "center_point",
+    "prompt_overlap": 0.4839000105857849,
+    "area_ratio": 0.109,
+    "compactness": 0.0761,
+    "sam_score": 0.7538
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_5.jpg",
+    "priority_score": 40,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.5825999975204468,
+    "area_ratio": 0.1217,
+    "compactness": 0.8691,
+    "sam_score": 0.9886
+  },
+  {
+    "image": "data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_9.jpg",
+    "priority_score": 40,
+    "strategy": "bbox_fallback",
+    "prompt_overlap": 0.5436999797821045,
+    "area_ratio": 0.3332,
+    "compactness": 0.5882,
+    "sam_score": 0.8277
+  },
+  {
+    "image": "data/raw/images/AM.MU/Amanita_muscaria_24.jpg",
+    "priority_score": 35,
+    "strategy": "center_point",
+    "prompt_overlap": 0.31540000438690186,
+    "area_ratio": 0.1401,
+    "compactness": 0.2832,
+    "sam_score": 0.0042
+  },
+  {
+    "image": "data/raw/images/BO.ED/Boletus_edulis_2.jpg",
+    "priority_score": 35,
+    "strategy": "center_point",
+    "prompt_overlap": 0.3084999918937683,
+    "area_ratio": 0.0808,
+    "compactness": 0.2775,
+    "sam_score": 0.2829
+  },
+  {
+    "image": "data/raw/images/BO.BA/Boletus_badius_7.jpg",
+    "priority_score": 35,
+    "strategy": "center_point",
+    "prompt_overlap": 0.3086000084877014,
+    "area_ratio": 0.06,
+    "compactness": 0.2648,
+    "sam_score": 0.1872
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_1.jpg",
+    "priority_score": 35,
+    "strategy": "center_point",
+    "prompt_overlap": 0.6880999803543091,
+    "area_ratio": 0.0882,
+    "compactness": 0.0756,
+    "sam_score": 0.0738
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_10.jpg",
+    "priority_score": 35,
+    "strategy": "center_point",
+    "prompt_overlap": 0.5509999990463257,
+    "area_ratio": 0.0974,
+    "compactness": 0.066,
+    "sam_score": 0.0722
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_17.jpg",
+    "priority_score": 35,
+    "strategy": "center_point",
+    "prompt_overlap": 0.5063999891281128,
+    "area_ratio": 0.0569,
+    "compactness": 0.0986,
+    "sam_score": 0.1504
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_24.jpg",
+    "priority_score": 35,
+    "strategy": "center_point",
+    "prompt_overlap": 0.4332999885082245,
+    "area_ratio": 0.0362,
+    "compactness": 0.4798,
+    "sam_score": 0.5925
+  },
+  {
+    "image": "data/raw/images/CR.CO/Craterellus_cornucopioides_26.jpg",
+    "priority_score": 35,
+    "strategy": "center_point",
+    "prompt_overlap": 0.6273999810218811,
+    "area_ratio": 0.0518,
+    "compactness": 0.0912,
+    "sam_score": 0.2895
+  }
+]

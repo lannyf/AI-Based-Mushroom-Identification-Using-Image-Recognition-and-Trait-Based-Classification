@@ -1,0 +1,16 @@
+\subsection{Dataset Construction}
+\label{sec:method-data}
+
+The structured dataset was derived from \emph{Nya svampboken} and complemented by image metadata and downloaded mushroom photographs~\cite{Nya_svampboken}. The data layer contains three categories of assets under \texttt{data/raw}:
+
+\begin{itemize}
+    \item \textbf{Structured metadata} --- \texttt{species.csv} (species names, edibility flags, toxicity levels, and scientific names for 50 species); \texttt{species\_traits.xml} (1,049 morphological trait records grouped by category); \texttt{species\_images.csv} (image references); \texttt{lookalikes.csv} (eight documented edible--toxic confusion pairs with distinguishing-feature text and a \textsc{high} or \textsc{critical} confusion-likelihood label); \texttt{dataset\_split.csv} (train, validation, and test assignments); and \texttt{key.xml} (an XML-encoded polytomous identification key in Swedish).
+    
+    \item \textbf{Photograph collections} --- the directory \texttt{images/} holds 352 mushroom photographs across 12 species, of which 210 images across seven classes form the curated subset used by the CNN classifier; the directory \texttt{evaluation\_images/} holds a separate set of photographs reserved for benchmark evaluation.
+    
+    \item \textbf{Segmentation training material} --- the directory \texttt{background/} contains 48 background-only images used to train the YOLOv8 segmentation model; and the text files \texttt{eval\_holdout\_30.txt}, \texttt{eval\_secondary\_30.txt}, and \texttt{reserved\_eval\_images.txt} list evaluation images for segmentation mask generation.
+\end{itemize}
+
+The training data for the convolutional neural network were collected from iNaturalist. Two filters were applied during data collection: only mushroom taxa were selected, and observations were restricted to Sweden, with Scandinavia as a fallback when Swedish samples were scarce. The resulting curated image subset contains 210 photographs distributed across the seven species handled by the neural classifier. An additional 142 photographs of five other species are kept in the image directory for future expansion, but they are not used by the current classifier.
+
+The project includes Python utilities for loading, validating, and exporting the dataset. The file \texttt{data/dataset\_utils.py} provides the main loader and validation routines, while \texttt{data/prepare\_data.py} converts the source material into processed, machine-readable formats. Generated segmentation masks (e.g., in \texttt{data/SegMask/}) are derived artefacts produced by the YOLOv8 and SAM~2 pipelines, not part of the raw dataset.

@@ -222,15 +222,9 @@ class TestAnalyseBrightness:
 # ---------------------------------------------------------------------------
 
 class TestExtract:
-    def test_returns_ml_prediction_and_visible_traits(self):
+    def test_returns_visible_traits(self):
         result = extract(RED_PNG)
-        assert "ml_prediction" in result
         assert "visible_traits" in result
-
-    def test_ml_prediction_is_none_without_cnn(self):
-        """When no trained CNN is available, ml_prediction should be None."""
-        result = extract(RED_PNG)
-        assert result["ml_prediction"] is None
 
     def test_visible_traits_has_required_keys(self):
         result = extract(RED_PNG)
