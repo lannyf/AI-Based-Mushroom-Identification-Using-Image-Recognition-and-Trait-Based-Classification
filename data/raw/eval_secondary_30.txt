@@ -1,4 +1,4 @@
-evaluation_images/Brunsopp/Boletus_badius_eval_04.jpg
+evaluation_images/BO.BA/Boletus_badius_eval_04.jpg
 evaluation_images/coprinus_comatus/Coprinus_comatus_eval_04.jpg
 evaluation_images/fomitopsis_betulina/Fomitopsis_betulina_eval_05.jpg
 evaluation_images/coprinus_comatus/Coprinus_comatus_eval_02.jpg
@@ -22,8 +22,8 @@ evaluation_images/AM.VI/Amanita_virosa_eval_02.jpg
 evaluation_images/sparassis_crispa/Sparassis_crispa_eval_02.jpg
 evaluation_images/AM.VI/Amanita_virosa_eval_04.jpg
 evaluation_images/BO.ED/Boletus_edulis_eval_05.jpg
-evaluation_images/Brunsopp/Boletus_badius_eval_01.jpg
-evaluation_images/Brunsopp/Boletus_badius_eval_03.jpg
+evaluation_images/BO.BA/Boletus_badius_eval_01.jpg
+evaluation_images/BO.BA/Boletus_badius_eval_03.jpg
 evaluation_images/lycoperdon_utriforme/Lycoperdon_utriforme_eval_03.jpg
 evaluation_images/AM.MU/Amanita_muscaria_eval_02.jpg
 evaluation_images/AM.VI/Amanita_virosa_eval_03.jpg

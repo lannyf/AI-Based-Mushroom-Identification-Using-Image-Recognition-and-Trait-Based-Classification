@@ -364,34 +364,6 @@ def extract(image_bytes: bytes) -> Dict[str, Any]:
         },
     }
 
-    # --- Optional CNN hint (not a prediction by the trait extractor) ---
-    ml_prediction: Optional[Dict[str, Any]] = None
-    try:
-        from models.cnn_classifier import get_classifier
-        cnn = get_classifier()
-        if cnn.is_trained:
-            cnn_scores = cnn.predict(image_bytes)
-            if cnn_scores is not None:
-                ordered = sorted(cnn_scores.items(), key=lambda x: x[1], reverse=True)
-                top_species, top_conf = ordered[0]
-                ml_prediction = {
-                    "top_species": top_species,
-                    "confidence": round(top_conf, 4),
-                    "method": "cnn",
-                    "top_k": [
-                        {"species": sp, "confidence": round(sc, 4)}
-                        for sp, sc in ordered[:5]
-                    ],
-                    "reasoning": (
-                        f"EfficientNet-B3 CNN prediction — "
-                        f"dominant colour '{colour['dominant_color']}', "
-                        f"cap shape '{shape['cap_shape']}'."
-                    ),
-                }
-                logger.debug("Step-1: CNN hint %s (%.4f)", top_species, top_conf)
-    except Exception as exc:
-        logger.debug("CNN unavailable: %s", exc)
-
     # --- Segmentation metadata and optional masked trait replacement ---
     selected_mask = None
     try:
@@ -455,4 +427,4 @@ def extract(image_bytes: bytes) -> Dict[str, Any]:
         logger.debug("Error applying masked traits: %s", exc)
 
     logger.debug("Step-1: extracted %d traits", len(visible_traits))
-    return {"ml_prediction": ml_prediction, "visible_traits": visible_traits}
+    return {"visible_traits": visible_traits}

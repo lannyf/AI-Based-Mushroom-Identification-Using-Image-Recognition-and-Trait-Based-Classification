@@ -13,11 +13,11 @@ evaluation_images/BO.ED/Boletus_edulis_eval_02.jpg
 evaluation_images/BO.ED/Boletus_edulis_eval_03.jpg
 evaluation_images/BO.ED/Boletus_edulis_eval_04.jpg
 evaluation_images/BO.ED/Boletus_edulis_eval_05.jpg
-evaluation_images/Brunsopp/Boletus_badius_eval_01.jpg
-evaluation_images/Brunsopp/Boletus_badius_eval_02.jpg
-evaluation_images/Brunsopp/Boletus_badius_eval_03.jpg
-evaluation_images/Brunsopp/Boletus_badius_eval_04.jpg
-evaluation_images/Brunsopp/Boletus_badius_eval_05.jpg
+evaluation_images/BO.BA/Boletus_badius_eval_01.jpg
+evaluation_images/BO.BA/Boletus_badius_eval_02.jpg
+evaluation_images/BO.BA/Boletus_badius_eval_03.jpg
+evaluation_images/BO.BA/Boletus_badius_eval_04.jpg
+evaluation_images/BO.BA/Boletus_badius_eval_05.jpg
 evaluation_images/CA.CI/Cantharellus_cibarius_eval_01.jpg
 evaluation_images/CA.CI/Cantharellus_cibarius_eval_02.jpg
 evaluation_images/CA.CI/Cantharellus_cibarius_eval_03.jpg

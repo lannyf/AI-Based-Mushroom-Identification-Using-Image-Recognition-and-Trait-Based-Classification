@@ -68,7 +68,7 @@ class TestRealImageTraitRegression:
         assert darkish >= 3
 
     def test_other_bolete_samples_keep_brown_trait_signal(self):
-        traits = _traits(_sample_paths("Brunsopp"))
+        traits = _traits(_sample_paths("BO.BA"))
         assert mean(t["colour_ratios"]["brown"] for t in traits) > 0.10
         assert mean(t["colour_ratios"]["brown"] for t in traits) > mean(
             t["colour_ratios"]["white"] for t in traits
@@ -111,7 +111,7 @@ class TestTreeTraversalRegression:
             ("data/raw/images/CA.CI/Cantharellus_cibarius_1.jpg", "Kantarell", "Chanterelle"),
             ("data/raw/images/CR.CO/Craterellus_cornucopioides_1.jpg", "Svart trumpetsvamp", "Black Trumpet"),
             ("data/raw/images/BO.ED/Boletus_edulis_1.jpg", "Stensopp (karljohanssvamp)", "Porcini"),
-            ("data/raw/images/Brunsopp/Boletus_badius_10.jpg", "Brunsopp", "Other Boletus"),
+            ("data/raw/images/BO.BA/Boletus_badius_10.jpg", "Brunsopp", "Other Boletus"),
         ],
     )
     def test_supported_species_images_traverse_to_matching_species(
@@ -123,7 +123,7 @@ class TestTreeTraversalRegression:
         assert result["status"] == "conclusion"
         assert result["species"] == expected_species
 
-    @pytest.mark.parametrize("folder", ["BO.ED", "Brunsopp"])
+    @pytest.mark.parametrize("folder", ["BO.ED", "BO.BA"])
     def test_bolete_images_do_not_auto_answer_ridges(self, engine: KeyTreeEngine, folder: str):
         for path in _sample_paths(folder, limit=3):
             step1 = extract(path.read_bytes())

@@ -18,6 +18,7 @@ from benchmarks.config import KEY_XML, ORACLE_JSON
 from benchmarks.runners.base import BenchmarkRunner, RunnerResult
 from models.key_tree_traversal import KeyTreeEngine
 from benchmarks.runners._extract_cache import extract
+from models.cnn_classifier import get_classifier
 
 
 class TreeRunner(BenchmarkRunner):
@@ -56,7 +57,21 @@ class TreeRunner(BenchmarkRunner):
 
         step1_result = extract(sample.image_bytes)
         visible_traits = step1_result["visible_traits"]
-        ml_hint = step1_result.get("ml_prediction")
+
+        ml_hint = None
+        try:
+            cnn = get_classifier()
+            if cnn.is_trained:
+                cnn_scores = cnn.predict(sample.image_bytes)
+                if cnn_scores is not None:
+                    ordered = sorted(cnn_scores.items(), key=lambda x: x[1], reverse=True)
+                    top_species, top_conf = ordered[0]
+                    ml_hint = {
+                        "top_species": top_species,
+                        "confidence": round(top_conf, 4),
+                    }
+        except Exception:
+            pass
 
         result = self.engine.start_session(None, visible_traits, ml_hint)
         session_id = result.get("session_id")

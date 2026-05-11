@@ -33,6 +33,7 @@ from models.final_aggregator import FinalAggregator
 from models.key_tree_traversal import KeyTreeEngine
 from models.llm_classifier import LLMClassifier, OllamaBackend
 from models.trait_database_comparator import TraitDatabaseComparator
+from models.cnn_classifier import get_classifier
 from models.visual_trait_extractor import extract as extract_visual_traits
 
 logger = logging.getLogger(__name__)
@@ -88,13 +89,39 @@ def health() -> Dict[str, str]:
     }
 
 
+def _get_cnn_prediction(image_bytes: bytes) -> Optional[Dict[str, Any]]:
+    """Run CNN classifier on image bytes. Returns None if unavailable."""
+    try:
+        cnn = get_classifier()
+        if not cnn.is_trained:
+            return None
+        cnn_scores = cnn.predict(image_bytes)
+        if cnn_scores is None:
+            return None
+        ordered = sorted(cnn_scores.items(), key=lambda x: x[1], reverse=True)
+        top_species, top_conf = ordered[0]
+        return {
+            "top_species": top_species,
+            "confidence": round(top_conf, 4),
+            "method": "cnn",
+            "top_k": [
+                {"species": sp, "confidence": round(sc, 4)}
+                for sp, sc in ordered[:5]
+            ],
+            "reasoning": "EfficientNet-B3 CNN prediction.",
+        }
+    except Exception:
+        return None
+
+
 @app.post("/identify")
 async def identify(image: UploadFile = File(...)) -> Dict[str, Any]:
     """
-    Step 1 — Pure visual trait extraction.
+    Step 1 — Pure visual trait extraction + optional CNN hint.
 
     Upload an image. The system analyses it using classical computer vision
-    (colour, shape, texture, brightness) and an optional CNN prediction.
+    (colour, shape, texture, brightness) and optionally queries the CNN
+    classifier for a species prediction hint.
 
     Returns:
       {
@@ -116,6 +143,8 @@ async def identify(image: UploadFile = File(...)) -> Dict[str, Any]:
         raise HTTPException(status_code=400, detail="Empty image upload")
 
     step1 = extract_visual_traits(image_bytes)
+    ml_prediction = _get_cnn_prediction(image_bytes)
+
     cr = step1["visible_traits"]["colour_ratios"]
     metrics = {
         "red_ratio":           cr["red"],
@@ -125,7 +154,10 @@ async def identify(image: UploadFile = File(...)) -> Dict[str, Any]:
         "white_ratio":         cr["white"],
     }
 
-    return {"trait_extraction": step1, "image_analysis": metrics}
+    return {
+        "trait_extraction": {**step1, "ml_prediction": ml_prediction},
+        "image_analysis": metrics,
+    }
 
 
 # ---------------------------------------------------------------------------
