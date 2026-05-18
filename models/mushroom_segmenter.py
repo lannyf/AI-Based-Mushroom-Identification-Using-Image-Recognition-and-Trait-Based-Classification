@@ -29,11 +29,23 @@ _segmenter_lock = threading.Lock()
 _segmenter_instance: Optional["Segmenter"] = None
 
 
+# Class IDs from Roboflow 4-class segmentation
+# 0=Cap, 1=Coral, 2=Stem, 3=Underside
+CLASS_NAMES = {
+    0: "Cap",
+    1: "Coral",
+    2: "Stem",
+    3: "Underside",
+}
+
+
 class Segmenter:
     def __init__(self, model_path: str):
         if YOLO is None:
             raise ImportError("Ultralytics YOLO is not installed; cannot load segmenter")
         self.model = YOLO(model_path)
+        # Cache model class names if available
+        self._model_names = getattr(self.model, "names", CLASS_NAMES)
 
     def _pil_to_bgr(self, image_bytes: bytes) -> np.ndarray:
         pil = Image.open(io.BytesIO(image_bytes)).convert("RGB")
@@ -54,16 +66,23 @@ class Segmenter:
                 raise RuntimeError(f"YOLO model inference failed: {exc}")
 
     def _parse_results(self, results: Any, image_shape: Tuple[int, int]) -> List[Dict[str, Any]]:
-        # Normalize into a list of instances with mask, bbox, confidence.
+        # Normalize into a list of instances with class, mask, bbox, confidence.
         instances: List[Dict[str, Any]] = []
         H, W = image_shape[:2]
-        # results may be a Results or list-like; iterate robustly
         for r in results:
-            # Some result objects expose `.masks` and `.boxes` depending on API.
             masks = getattr(r, "masks", None)
             boxes = getattr(r, "boxes", None)
+            # Extract class IDs when available
+            class_ids = []
+            if boxes is not None:
+                try:
+                    cls_tensor = getattr(boxes, "cls", None)
+                    if cls_tensor is not None:
+                        class_ids = cls_tensor.cpu().numpy().astype(int).tolist()
+                except Exception:
+                    pass
+
             if masks is not None:
-                # masks.data may be a (N, H, W) array or provide a .numpy() API
                 try:
                     arr = masks.data.cpu().numpy()
                 except Exception:
@@ -74,17 +93,24 @@ class Segmenter:
                 if arr is not None:
                     for i in range(arr.shape[0]):
                         m = (arr[i] * 255).astype(np.uint8) if arr.dtype.kind == "f" else arr[i].astype(np.uint8)
-                        # attempt to find a confidence for this mask
+                        # Resize mask to original image dimensions if needed
+                        if m.shape[0] != H or m.shape[1] != W:
+                            m = cv2.resize(m, (W, H), interpolation=cv2.INTER_NEAREST)
                         conf = 0.0
-                        # try boxes match
+                        cls_id = class_ids[i] if i < len(class_ids) else -1
                         if boxes is not None:
                             try:
                                 conf = float(boxes.data[i, 4].cpu().numpy())
                             except Exception:
                                 conf = float(getattr(boxes[i], "confidence", 0.0) if hasattr(boxes, "__len__") else 0.0)
-                        instances.append({"mask": m, "bbox": None, "model_confidence": conf})
+                        instances.append({
+                            "class_id": cls_id,
+                            "class_name": self._model_names.get(cls_id, CLASS_NAMES.get(cls_id, "unknown")),
+                            "mask": m,
+                            "bbox": None,
+                            "model_confidence": conf,
+                        })
             elif boxes is not None:
-                # fallback: turn boxes into plain bboxes without masks
                 try:
                     arr = boxes.data.cpu().numpy()
                 except Exception:
@@ -98,7 +124,14 @@ class Segmenter:
                         x, y, w, h = int(x1), int(y1), int(x2 - x1), int(y2 - y1)
                         m = np.zeros((H, W), dtype=np.uint8)
                         cv2.rectangle(m, (x, y), (x + w, y + h), 255, -1)
-                        instances.append({"mask": m, "bbox": (x, y, w, h), "model_confidence": float(conf)})
+                        cls_id = class_ids[i] if i < len(class_ids) else -1
+                        instances.append({
+                            "class_id": cls_id,
+                            "class_name": self._model_names.get(cls_id, CLASS_NAMES.get(cls_id, "unknown")),
+                            "mask": m,
+                            "bbox": (x, y, w, h),
+                            "model_confidence": float(conf),
+                        })
         return instances
 
     def _bbox_from_mask(self, mask: np.ndarray) -> Tuple[int, int, int, int]:
@@ -192,17 +225,14 @@ class Segmenter:
             if inst.get("bbox") is None:
                 inst["bbox"] = self._bbox_from_mask(inst["mask"]) if inst.get("mask") is not None else (0, 0, 0, 0)
             m = inst.get("mask", np.zeros((H, W), dtype=np.uint8))
-            # normalize mask dtype
             if m.dtype != np.uint8:
                 m = (m > 0).astype(np.uint8) * 255
             inst["mask"] = m
             inst["area_ratio"] = float(np.count_nonzero(m > 0) / (H * W))
-            # cleanup candidate masks lightly
             cleaned = self._cleanup_mask(m)
             inst["cleaned_mask"] = cleaned
             inst.update(self._quality_metrics(cleaned))
 
-            # Post-processing heuristics
             bbox = inst["bbox"]
             inst["center_distance"] = self._center_distance(bbox, W, H)
             inst["skin_ratio"] = self._skin_ratio(bgr, cleaned)
@@ -211,28 +241,21 @@ class Segmenter:
         # Filter + rank
         filtered: List[Dict[str, Any]] = []
         for inst in instances:
-            # Aspect ratio guard
             ar = inst.get("aspect_ratio", 1.0)
             if ar > 4.0 or ar < 0.25:
                 continue
-            # Skin-colour rejection (>30% skin pixels)
             if inst.get("skin_ratio", 0.0) > 0.30:
                 continue
             filtered.append(inst)
 
         if not filtered:
-            filtered = instances  # fallback: keep all if everything filtered
+            filtered = instances
 
-        # Sort: confidence desc, then center-distance asc (center bias)
         filtered.sort(
             key=lambda x: (x.get("model_confidence", 0.0), -x.get("center_distance", 1.0)),
             reverse=True,
         )
-
-        # limit to top_n
         filtered = filtered[:top_n]
-
-        # selection: highest-ranked after filtering
         selected_index = 0 if filtered else None
 
         return {
@@ -241,9 +264,81 @@ class Segmenter:
         }
 
 
+def detect_case(
+    above_instances: List[Dict[str, Any]],
+    below_instances: List[Dict[str, Any]],
+    confidence_threshold: float = 0.35,
+) -> Dict[str, Any]:
+    """
+    Detect morphological case from YOLO segmentation outputs of above/below photos.
+
+    Rules (from implementation plan):
+      - Coral detected in either photo → "coral"
+      - Cap + (Stem or Underside) in either photo → "classical"
+      - Cap-only in BOTH photos (no underside/stem) → "puffball"
+      - Anything else → "uncertain"
+
+    Returns:
+      {
+        "case": "classical" | "coral" | "puffball" | "uncertain",
+        "confidence": float,
+        "detected_parts": ["Cap", "Stem", ...],
+        "reasoning": str,
+      }
+    """
+    all_instances = list(above_instances) + list(below_instances)
+
+    # Collect parts that pass confidence threshold
+    parts = set()
+    for inst in all_instances:
+        conf = inst.get("model_confidence", 0.0)
+        cls_name = inst.get("class_name", "unknown")
+        if conf >= confidence_threshold and cls_name != "unknown":
+            parts.add(cls_name)
+
+    has_coral = "Coral" in parts
+    has_cap = "Cap" in parts
+    has_stem = "Stem" in parts
+    has_underside = "Underside" in parts
+
+    if has_coral:
+        return {
+            "case": "coral",
+            "confidence": 0.85,
+            "detected_parts": sorted(parts),
+            "reasoning": "Coral-like branching structure detected.",
+        }
+
+    # Classical: cap + stem/underside, OR stem + underside (cap may be occluded/filtered)
+    if (has_cap and (has_stem or has_underside)) or (has_stem and has_underside):
+        confidence = 0.80 if has_cap else 0.65
+        return {
+            "case": "classical",
+            "confidence": confidence,
+            "detected_parts": sorted(parts),
+            "reasoning": "Classical mushroom morphology: stem and underside visible." if not has_cap else "Classical mushroom morphology: cap with stem/underside visible.",
+        }
+
+    # Puffball: cap-only in at least one photo, no stem/underside anywhere
+    if has_cap and not has_stem and not has_underside:
+        return {
+            "case": "puffball",
+            "confidence": 0.60,
+            "detected_parts": sorted(parts),
+            "reasoning": "Only cap detected; no stem or underside visible. Likely puffball or ball-shaped fungus.",
+        }
+
+    return {
+        "case": "uncertain",
+        "confidence": 0.0,
+        "detected_parts": sorted(parts),
+        "reasoning": "Insufficient morphological information to determine case.",
+    }
+
+
 def _resolve_model_path(
-    preferred: str = "artifacts/yolov8_seg_ft.pt",
-    fallback: str = "artifacts/yolov8n-seg.pt",
+    preferred: str = "data/Yolov8/best.pt",
+    fallback: str = "yolov8n-seg.pt",
 ) -> str:
     """Return preferred path if it exists, otherwise fallback."""
     if Path(preferred).exists():
@@ -256,8 +351,8 @@ def _resolve_model_path(
 
 def get_segmenter(
     model_path: Optional[str] = None,
-    preferred_path: str = "artifacts/yolov8_seg_ft.pt",
-    fallback_path: str = "artifacts/yolov8n-seg.pt",
+    preferred_path: str = "data/Yolov8/best.pt",
+    fallback_path: str = "yolov8n-seg.pt",
 ) -> Segmenter:
     global _segmenter_instance
     if _segmenter_instance is not None:

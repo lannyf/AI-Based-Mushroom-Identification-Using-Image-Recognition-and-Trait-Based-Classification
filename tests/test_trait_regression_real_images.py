@@ -14,9 +14,16 @@ IMAGE_ROOT = PROJECT_ROOT / "data" / "raw" / "images"
 KEY_XML = PROJECT_ROOT / "data" / "raw" / "key.xml"
 USER_FLY_AGARIC_IMAGE = Path("/home/iannyf/projekt/Mushroom_examples/flugsvamptest.jpg")
 
+# Map species_id → folder name (Swedish + Latin)
+from benchmarks.config import SPECIES_ID_TO_FOLDER as _SPECIES_ID_TO_FOLDER
+
 
 def _sample_paths(folder: str, limit: int = 5) -> list[Path]:
+    # Accept either old species_id or new folder name
     directory = IMAGE_ROOT / folder
+    if not directory.exists():
+        # Try looking up by species_id
+        directory = IMAGE_ROOT / _SPECIES_ID_TO_FOLDER.get(folder, folder)
     if not directory.exists():
         pytest.skip(f"{directory} not found")
     paths = sorted(directory.glob("*.jpg"))[:limit]
@@ -108,10 +115,10 @@ class TestTreeTraversalRegression:
     @pytest.mark.parametrize(
         ("image_path", "expected_species", "hint_species"),
         [
-            ("data/raw/images/CA.CI/Cantharellus_cibarius_1.jpg", "Kantarell", "Chanterelle"),
-            ("data/raw/images/CR.CO/Craterellus_cornucopioides_1.jpg", "Svart trumpetsvamp", "Black Trumpet"),
-            ("data/raw/images/BO.ED/Boletus_edulis_1.jpg", "Stensopp (karljohanssvamp)", "Porcini"),
-            ("data/raw/images/BO.BA/Boletus_badius_10.jpg", "Brunsopp", "Other Boletus"),
+            ("data/raw/images/Kantarell (Cantharellus cibarius)/Cantharellus_cibarius_1.jpg", "Kantarell", "Chanterelle"),
+            ("data/raw/images/Svart trumpetsvamp (Craterellus cornucopioides)/Craterellus_cornucopioides_1.jpg", "Svart trumpetsvamp", "Black Trumpet"),
+            ("data/raw/images/Karljohan (Boletus edulis)/Boletus_edulis_1.jpg", "Stensopp (karljohanssvamp)", "Porcini"),
+            ("data/raw/images/Brunsopp (Boletus badius)/Boletus_badius_10.jpg", "Brunsopp", "Bay Bolete"),
         ],
     )
     def test_supported_species_images_traverse_to_matching_species(
@@ -160,9 +167,9 @@ class TestTreeTraversalRegression:
     @pytest.mark.parametrize(
         ("image_path", "expected_species", "ml_species"),
         [
-            ("data/raw/images/AM.MU/Amanita_muscaria_1.jpg", "Flugsvamp", "Fly Agaric"),
-            ("data/raw/images/AM.VI/Amanita_virosa_1.jpg", "Änglsvamp", "Amanita virosa"),
-            ("data/raw/images/HY.PS/Hygrophoropsis_aurantiaca_12.jpg", "Falsk kantarell", "False Chanterelle"),
+            ("data/raw/images/Flugsvamp (Amanita muscaria)/Amanita_muscaria_1.jpg", "Flugsvamp", "Fly Agaric"),
+            ("data/raw/images/Änglsvamp (Amanita virosa)/Amanita_virosa_1.jpg", "Änglsvamp", "Amanita virosa"),
+            ("data/raw/images/Falsk kantarell (Hygrophoropsis aurantiaca)/Hygrophoropsis_aurantiaca_12.jpg", "Falsk kantarell", "False Chanterelle"),
         ],
     )
     def test_species_missing_from_tree_use_precheck_instead_of_wrong_tree_species(

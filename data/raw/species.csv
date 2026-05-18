@@ -49,3 +49,6 @@ HY.CA,Hygrophorus camarophyllus,Sotvaxning,Charcoal Waxy Cap,TRUE,SAFE,HY.AT
 HY.AT,Hygrophorus atramentosus,Streckvaxning,Streaked Waxcap,FALSE,SAFE,NONE
 PL.PO,Pleurocybella porrigens,Öronmussling,Angel Wings,TRUE,SAFE,PA.MI
 PA.MI,Panellus mitis,Vintermussling,Winter Oysterling,FALSE,SAFE,PL.PO
+AG.AU,Agaricus augustus,Kungschampinjon,King Agaricus,TRUE,SAFE,
+LA.VO,Lactarius volemus,Mandelriska,Mandel Milkcap,TRUE,SAFE,
+LA.HE,Lactarius helvus,Lakritsriska,Lakrits Milkcap,TRUE,SAFE,

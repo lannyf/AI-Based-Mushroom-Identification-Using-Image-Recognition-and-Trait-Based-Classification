@@ -1,20 +1,12 @@
 """Benchmark runner for the Swedish decision-tree classifier.
 
-Supports two modes:
-
-* ``auto`` — answers questions automatically from visual traits; stops
-  at the first question it cannot resolve.
-* ``oracle`` — feeds pre-recorded ground-truth answers from
-  ``oracle_answers.json`` so the tree is evaluated under ideal
-  conditions.
+The comparative benchmark uses automatic visual-trait answers only. If the
+tree cannot answer the next question from extracted traits, it abstains.
 """
 
-import json
 import time
-from pathlib import Path
-from typing import Dict
 
-from benchmarks.config import KEY_XML, ORACLE_JSON
+from benchmarks.config import KEY_XML
 from benchmarks.runners.base import BenchmarkRunner, RunnerResult
 from models.key_tree_traversal import KeyTreeEngine
 from benchmarks.runners._extract_cache import extract
@@ -31,23 +23,18 @@ class TreeRunner(BenchmarkRunner):
 
     name = "tree"
 
-    def __init__(self, mode: str = "auto"):
+    def __init__(self, mode: str = "auto", oracle=None):
+        if mode != "auto":
+            raise ValueError("TreeRunner only supports auto mode in the comparative benchmark")
         self.engine = KeyTreeEngine(str(KEY_XML))
         self.mode = mode
-        self.oracle: Dict[str, Dict[str, str]] = {}
-        if mode == "oracle" and Path(ORACLE_JSON).exists():
-            with open(ORACLE_JSON, encoding="utf-8") as f:
-                self.oracle = json.load(f)
+        self.oracle = oracle
 
     def predict(self, sample) -> RunnerResult:
         """Traverse the decision tree for a single sample.
 
-        In ``auto`` mode the loop breaks on the first unanswered question.
-        In ``oracle`` mode it continues until a conclusion is reached or
-        the oracle has no more answers.
-
         Args:
-            sample: ``BenchmarkSample`` with ``image_bytes`` and ``species_id``.
+            sample: Object with ``image_bytes`` and ``species_id``.
 
         Returns:
             ``RunnerResult`` with a single prediction when the tree reaches
@@ -73,19 +60,13 @@ class TreeRunner(BenchmarkRunner):
         except Exception:
             pass
 
-        result = self.engine.start_session(None, visible_traits, ml_hint)
-        session_id = result.get("session_id")
+        # Use oracle pre_answers if this species is in the oracle group
+        pre_answers = None
+        if self.oracle is not None:
+            pre_answers = self.oracle.get_pre_answers(sample.species_id)
 
-        # Answer questions until we hit a conclusion or run out of answers.
-        while result.get("status") == "question":
-            if self.mode == "oracle":
-                species_answers = self.oracle.get(sample.species_id, {})
-                answer = species_answers.get(result["question"])
-                if answer is None:
-                    break
-                result = self.engine.answer(session_id, answer)
-            else:
-                break
+        result = self.engine.start_session(None, visible_traits, ml_hint, pre_answers=pre_answers)
+        session_id = result.get("session_id")
 
         # Clean up session if it wasn't already deleted by answer().
         if session_id and session_id in self.engine._sessions:
@@ -105,6 +86,7 @@ class TreeRunner(BenchmarkRunner):
                     "swedish_name": swedish_name,
                     "auto_answered": result.get("auto_answered", []),
                     "path": result.get("path", []),
+                    "oracle_used": pre_answers is not None,
                 },
             )
 
@@ -114,7 +96,10 @@ class TreeRunner(BenchmarkRunner):
             predictions=[],
             coverage=False,
             inference_time_ms=elapsed,
-            metadata={"stuck_at_question": result.get("question")},
+            metadata={
+                "stuck_at_question": result.get("question"),
+                "oracle_used": pre_answers is not None,
+            },
         )
 
     def _resolve_swedish_name(self, swedish_name: str) -> str:

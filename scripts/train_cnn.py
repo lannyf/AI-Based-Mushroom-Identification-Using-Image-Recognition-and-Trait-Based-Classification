@@ -32,8 +32,13 @@ import argparse
 import json
 import logging
 import random
+import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from config.image_model_config import (
     ARTIFACTS_DIR,
@@ -60,19 +65,27 @@ from config.image_model_config import (
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
 IMAGES_DIR = PROJECT_ROOT / "data" / "raw" / "images"
 
-# Map species_id folder names → class labels.
+# Map species_id → class label.
 # All values must exist in config.SPECIES.
 SPECIES_ID_TO_LABEL: Dict[str, str] = {
+    "AG.AU": "King Agaricus",
     "AM.MU": "Fly Agaric",
-    "CA.CI": "Chanterelle",
-    "HY.PS": "False Chanterelle",
-    "BO.ED": "Porcini",
-    "BO.BA": "Other Boletus",
     "AM.VI": "Amanita virosa",
+    "BO.BA": "Bay Bolete",
+    "BO.ED": "Porcini",
+    "CA.CI": "Chanterelle",
+    "CO.CO": "Shaggy Inkcap",
     "CR.CO": "Black Trumpet",
+    "FO.BE": "Birch Polypore",
+    "HY.PS": "False Chanterelle",
+    "LA.HE": "Lakrits Milkcap",
+    "LA.VO": "Mandel Milkcap",
+    "LY.PE": "Puffball",
+    "RA.BO": "Clustered Coral",
+    "RA.PA": "Pale Coral Fungus",
+    "SP.CR": "Cauliflower Mushroom",
 }
 
 # Validate mapping against canonical species list from config
@@ -87,12 +100,23 @@ IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"}
 
 
 def collect_samples(images_dir: Path) -> List[Tuple[Path, int]]:
-    """Scan the images directory and return (path, class_idx) pairs."""
+    """Scan the images directory and return (path, class_idx) pairs.
+
+    Folders are expected to use Swedish common names with Latin in parentheses,
+    e.g. ``Kantarell (Cantharellus cibarius)``.  The mapping to species_id is
+    read from ``benchmarks.config.FOLDER_TO_SPECIES_ID``.
+    """
+    from benchmarks.config import FOLDER_TO_SPECIES_ID
+
     samples: List[Tuple[Path, int]] = []
-    for species_id, label in SPECIES_ID_TO_LABEL.items():
-        folder = images_dir / species_id
+    for folder_name, species_id in FOLDER_TO_SPECIES_ID.items():
+        folder = images_dir / folder_name
+        label = SPECIES_ID_TO_LABEL.get(species_id)
+        if label is None:
+            logger.warning("No label mapping for %s — skipping", species_id)
+            continue
         if not folder.is_dir():
-            logger.warning("Missing folder for %s (%s) — skipping", label, species_id)
+            logger.warning("Missing folder for %s (%s) — skipping", label, folder_name)
             continue
         imgs = [p for p in folder.iterdir() if p.suffix in IMAGE_EXTS]
         logger.info("  %s: %d images", label, len(imgs))

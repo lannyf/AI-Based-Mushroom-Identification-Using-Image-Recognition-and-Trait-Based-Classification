@@ -1,0 +1,4676 @@
+{
+  "metadata": {
+    "timestamp": "2026-05-13T20:48:10.422347",
+    "total_specimens": 100
+  },
+  "metrics": {
+    "per_method": {
+      "cnn": {
+        "accuracy": 0.47,
+        "coverage": 1.0,
+        "mean_time_ms": 123.3943581099993
+      },
+      "tree": {
+        "accuracy": 0.36363636363636365,
+        "coverage": 0.44,
+        "mean_time_ms": 1118.2483152600253
+      },
+      "db": {
+        "accuracy": 0.02,
+        "coverage": 1.0,
+        "mean_time_ms": 2.4346304901519034
+      },
+      "unified": {
+        "accuracy": 0.0,
+        "coverage": 0.0,
+        "mean_time_ms": 0.0
+      }
+    },
+    "mcnemar": {
+      "unified_vs_cnn": {
+        "p_value": 1.0,
+        "n_discordant": 0,
+        "unified_wins": 0,
+        "other_wins": 0
+      },
+      "unified_vs_tree": {
+        "p_value": 1.0,
+        "n_discordant": 0,
+        "unified_wins": 0,
+        "other_wins": 0
+      },
+      "unified_vs_db": {
+        "p_value": 1.0,
+        "n_discordant": 0,
+        "unified_wins": 0,
+        "other_wins": 0
+      }
+    },
+    "agreement_stats": {
+      "agree": {
+        "count": 2,
+        "pct": 0.02,
+        "unified_accuracy": 0.0
+      },
+      "partial": {
+        "count": 29,
+        "pct": 0.29,
+        "unified_accuracy": 0.0
+      },
+      "disagree": {
+        "count": 69,
+        "pct": 0.69,
+        "unified_accuracy": 0.0
+      },
+      "inconclusive": {
+        "count": 0,
+        "pct": 0.0,
+        "unified_accuracy": 0.0
+      }
+    },
+    "by_scenario": {
+      "coral": {
+        "n": 10,
+        "cnn_acc": 0.3,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "edge_case": {
+        "n": 6,
+        "cnn_acc": 0.3333333333333333,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "easy": {
+        "n": 12,
+        "cnn_acc": 0.4166666666666667,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "puffball": {
+        "n": 5,
+        "cnn_acc": 0.6,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "confusing": {
+        "n": 43,
+        "cnn_acc": 0.6744186046511628,
+        "tree_acc": 0.64,
+        "db_acc": 0.023255813953488372,
+        "unified_acc": 0.0
+      },
+      "ood": {
+        "n": 24,
+        "cnn_acc": 0.20833333333333334,
+        "tree_acc": 0.0,
+        "db_acc": 0.041666666666666664,
+        "unified_acc": 0.0
+      }
+    },
+    "confusing_pairs": {
+      "AM.MU-NONE": {
+        "n": 5,
+        "cnn_acc": 0.4,
+        "tree_acc": 0.4,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.6
+      },
+      "AM.VI-NONE": {
+        "n": 5,
+        "cnn_acc": 0.6,
+        "tree_acc": 0.2,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.2
+      },
+      "BO.BA-CA.CA": {
+        "n": 5,
+        "cnn_acc": 0.6,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.4
+      },
+      "BO.ED-CA.CA": {
+        "n": 5,
+        "cnn_acc": 0.6,
+        "tree_acc": 0.4,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.4
+      },
+      "CA.CI-HY.PS": {
+        "n": 12,
+        "cnn_acc": 0.5833333333333334,
+        "tree_acc": 0.5,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.5833333333333334
+      },
+      "CA.CN-CR.CO": {
+        "n": 5,
+        "cnn_acc": 1.0,
+        "tree_acc": 1.0,
+        "db_acc": 0.2,
+        "unified_acc": 0.0,
+        "agreement_rate": 1.0
+      },
+      "NONE-SP.CR": {
+        "n": 6,
+        "cnn_acc": 1.0,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.0
+      }
+    }
+  },
+  "per_specimen": [
+    {
+      "specimen_id": "AG.AU_001",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "ood;cap;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898631090; rights_holder=Susanne L Sorensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.9641255736351013,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_002",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "ood;cap;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898631090; rights_holder=Susanne L Sorensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.9147891402244568,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_003",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "ood;cap;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898667430; rights_holder=Bodil Anelle Larsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.5303381681442261,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "AR.ME",
+          "confidence": 0.35,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_004",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "ood;cap;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898624700; rights_holder=Sophie Laursen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.4942820072174072,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_005",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "ood;cap;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898624700; rights_holder=Sophie Laursen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.994541347026825,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_006",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "ood;cap;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898624700; rights_holder=Sophie Laursen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.45989686250686646,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_007",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "toxic;cap;spots;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898645302; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AM.MU",
+          "confidence": 0.9999326467514038,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "AM.MU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_008",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "toxic;cap;spots;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898645302; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CO.CO",
+          "confidence": 0.28833839297294617,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_009",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "toxic;cap;spots;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898618154; rights_holder=Jane Nielsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LA.VO",
+          "confidence": 0.4876731336116791,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.7,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_010",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "toxic;cap;spots;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898618160; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.9439728260040283,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "AM.VI",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_011",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "toxic;cap;spots;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898618160; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AM.MU",
+          "confidence": 0.9985975623130798,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "AM.MU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.35,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_012",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "extremely_toxic;white;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898621165; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.8375911712646484,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_013",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "extremely_toxic;white;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898621165; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.979066789150238,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "AM.VI",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CA.CI",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_014",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "extremely_toxic;white;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898621656; rights_holder=Jane Nielsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.6981093883514404,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_015",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "extremely_toxic;white;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898623798; rights_holder=Tina Larsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.3466600179672241,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_016",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "extremely_toxic;white;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898623798; rights_holder=Tina Larsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.43857452273368835,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.SA",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_017",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CA",
+      "notes": "bolete;pores;brown_cap; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161867346; rights_holder=Dan Ingemann Jensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.8515372276306152,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "HY.PS",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_018",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CA",
+      "notes": "bolete;pores;brown_cap; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161867346; rights_holder=Dan Ingemann Jensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.5380561351776123,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_019",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CA",
+      "notes": "bolete;pores;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898618342; rights_holder=Jane Nielsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.5359567403793335,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_020",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CA",
+      "notes": "bolete;pores;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898618342; rights_holder=Jane Nielsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.6522645950317383,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_021",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CA",
+      "notes": "bolete;pores;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898622649; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.32817915081977844,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_022",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "chanterelle;folds;yellow; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161882055; rights_holder=René Giese; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.8342257738113403,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.CI",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_023",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "chanterelle;folds;yellow; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052259363; rights_holder=Jane Nielsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.9984667897224426,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.CI",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_024",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "chanterelle;folds;yellow; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052263134; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.41209742426872253,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_025",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "chanterelle;folds;yellow; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898621613; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.38087329268455505,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "MO.ES",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_026",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "chanterelle;folds;yellow; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898622159; rights_holder=Ella Buck; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.45770397782325745,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.CA",
+          "confidence": 0.9,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_027",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "chanterelle;folds;yellow; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898622159; rights_holder=Ella Buck; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "LA.VO",
+          "confidence": 0.6255077719688416,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.6,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CO.CO_028",
+      "species_id": "CO.CO",
+      "scenario": "edge_case",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "inkcap;gills;edge_case_age; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052246562; rights_holder=Dan Ingemann Jensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CO.CO",
+          "confidence": 0.7719676494598389,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.7,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CO.CO_029",
+      "species_id": "CO.CO",
+      "scenario": "edge_case",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "inkcap;gills;edge_case_age; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052259481; rights_holder=Jette Anitha Hansen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LA.VO",
+          "confidence": 0.48593559861183167,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CO.CO_030",
+      "species_id": "CO.CO",
+      "scenario": "edge_case",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "inkcap;gills;edge_case_age; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052259565; rights_holder=Jan Riis-Hansen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.33076465129852295,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CO.CO_031",
+      "species_id": "CO.CO",
+      "scenario": "edge_case",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "inkcap;gills;edge_case_age; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052282365; rights_holder=Ella Buck; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.35767659544944763,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CO.CO_032",
+      "species_id": "CO.CO",
+      "scenario": "edge_case",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "inkcap;gills;edge_case_age; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052282385; rights_holder=Annette Greenfort; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.39240771532058716,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CO.CO_033",
+      "species_id": "CO.CO",
+      "scenario": "edge_case",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "inkcap;gills;edge_case_age; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052282385; rights_holder=Annette Greenfort; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CO.CO",
+          "confidence": 0.3234931528568268,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CR.CO_034",
+      "species_id": "CR.CO",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CN",
+      "notes": "trumpet;dark;funnel; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898621646; rights_holder=Uffe Nygaard; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.9953413009643555,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CR.CO_035",
+      "species_id": "CR.CO",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CN",
+      "notes": "trumpet;dark;funnel; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898653701; rights_holder=Henrik Mathiassen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.9326585531234741,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CR.CO_036",
+      "species_id": "CR.CO",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CN",
+      "notes": "trumpet;dark;funnel; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898654386; rights_holder=Henrik Mathiassen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.9872053861618042,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.7,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CR.CO_037",
+      "species_id": "CR.CO",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CN",
+      "notes": "trumpet;dark;funnel; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898658525; rights_holder=Helena kaercell; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.9992103576660156,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CR.CO_038",
+      "species_id": "CR.CO",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CN",
+      "notes": "trumpet;dark;funnel; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898623805; rights_holder=Dan Ingemann Jensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.9977326393127441,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "FO.BE_039",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "polypore;bracket;wood; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161867728; rights_holder=Henrik Mathiassen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.9695194363594055,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "FO.BE_040",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "polypore;bracket;wood; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161868168; rights_holder=Jane Nielsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.9858319759368896,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "FO.BE_041",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "polypore;bracket;wood; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161868231; rights_holder=Henrik Mathiassen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.4456815719604492,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "FO.BE_042",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "polypore;bracket;wood; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161868308; rights_holder=Henrik Mathiassen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.6711323261260986,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "FO.BE_043",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "polypore;bracket;wood; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161868580; rights_holder=Bo Valeur; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.4739468991756439,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "FO.BE_044",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "polypore;bracket;wood; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161868580; rights_holder=Bo Valeur; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.9401276111602783,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "MA.PR",
+          "confidence": 0.7,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_045",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "confusing_pair;orange;gills; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161874814; rights_holder=Jane Nielsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.41079261898994446,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.CA",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_046",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "confusing_pair;orange;gills; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161874814; rights_holder=Jane Nielsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.9072173833847046,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "HY.PS",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_047",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "confusing_pair;orange;gills; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052245313; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.9993534684181213,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "HY.PS",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.45,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_048",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "confusing_pair;orange;gills; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052245313; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.9429107308387756,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "HY.PS",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "TY.FE",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_049",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "confusing_pair;orange;gills; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898621636; rights_holder=Frits Sørensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.25476545095443726,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_050",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "confusing_pair;orange;gills; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898621636; rights_holder=Frits Sørensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.8644288778305054,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "HY.PS",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_051",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "milkcap;latex;toxic; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898647673; rights_holder=Sinne Rosborg; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.4372948706150055,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.35,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_052",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "milkcap;latex;toxic; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898647673; rights_holder=Sinne Rosborg; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.314468115568161,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "TY.FE",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_053",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "milkcap;latex;toxic; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898658174; rights_holder=Thomas Møller Ørum; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.45147836208343506,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.475,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_054",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "milkcap;latex;toxic; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898658174; rights_holder=Thomas Møller Ørum; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LA.VO",
+          "confidence": 0.4814077615737915,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_055",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "milkcap;latex;toxic; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898675195; rights_holder=Frits Sørensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.5838695168495178,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_056",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "milkcap;latex;toxic; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898675195; rights_holder=Frits Sørensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.6669236421585083,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LY.PE_057",
+      "species_id": "LY.PE",
+      "scenario": "puffball",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "puffball;round;spines; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161869073; rights_holder=Dan Ingemann Jensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.90921950340271,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LY.PE_058",
+      "species_id": "LY.PE",
+      "scenario": "puffball",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "puffball;round;spines; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161872287; rights_holder=Bente Neerbek; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.8163688778877258,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LY.PE_059",
+      "species_id": "LY.PE",
+      "scenario": "puffball",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "puffball;round;spines; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161872287; rights_holder=Bente Neerbek; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.5745328664779663,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CA.CI",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LY.PE_060",
+      "species_id": "LY.PE",
+      "scenario": "puffball",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "puffball;round;spines; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161879195; rights_holder=Ella Buck; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.9641704559326172,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.45,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LY.PE_061",
+      "species_id": "LY.PE",
+      "scenario": "puffball",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "puffball;round;spines; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161882134; rights_holder=Henrik Mathiassen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.7868966460227966,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.45,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_062",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "coral;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898621396; rights_holder=emil christensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.BO",
+          "confidence": 0.4317927956581116,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.SA",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_063",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "coral;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898621396; rights_holder=emil christensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.BO",
+          "confidence": 0.9278110861778259,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_064",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "coral;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898665581; rights_holder=Torbjørn Borgen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.3981764614582062,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_065",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "coral;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898671282; rights_holder=Poul Evald Hansen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.3369986116886139,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_066",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "coral;branched;toxic;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898618443; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.BO",
+          "confidence": 0.46816644072532654,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "TY.FE",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_067",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "coral;branched;toxic;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898618443; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.BO",
+          "confidence": 0.5142385363578796,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "MO.ES",
+          "confidence": 0.575,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_068",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "coral;branched;toxic;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898638890; rights_holder=Jacob Schmidt; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.PA",
+          "confidence": 0.942459762096405,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.8,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_069",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "coral;branched;toxic;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898649211; rights_holder=Erik Arnfred Thomsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.BO",
+          "confidence": 0.5002068877220154,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_070",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "coral;branched;toxic;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898671856; rights_holder=Jacob Schmidt; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.BO",
+          "confidence": 0.8339089751243591,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "SP.CR_071",
+      "species_id": "SP.CR",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "cauliflower;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898627537; rights_holder=Jean Pichon; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.9953489899635315,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "SP.CR_072",
+      "species_id": "SP.CR",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "cauliflower;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898627808; rights_holder=Mikkel Teglgaard Møller; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.9970340728759766,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "SP.CR_073",
+      "species_id": "SP.CR",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "cauliflower;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898627808; rights_holder=Mikkel Teglgaard Møller; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.9991310238838196,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.6,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "SP.CR_074",
+      "species_id": "SP.CR",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "cauliflower;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898657877; rights_holder=Ulrich Møllgaard; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.5732499957084656,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "SP.CR_075",
+      "species_id": "SP.CR",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "cauliflower;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898657877; rights_holder=Ulrich Møllgaard; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.8640463948249817,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "MO.ES",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "SP.CR_076",
+      "species_id": "SP.CR",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "cauliflower;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898657877; rights_holder=Ulrich Møllgaard; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.965650200843811,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GY.ES_077",
+      "species_id": "GY.ES",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "toxic;false_morel;brain_like;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5106484143; rights_holder=Aase Bach; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.5196740627288818,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GY.ES_078",
+      "species_id": "GY.ES",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "toxic;false_morel;brain_like;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5106484809; rights_holder=Niels V. Mogensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.3147026598453522,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GY.ES_079",
+      "species_id": "GY.ES",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "toxic;false_morel;brain_like;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5106485086; rights_holder=Aase Bach; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.859580934047699,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.CA",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GY.ES_080",
+      "species_id": "GY.ES",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "toxic;false_morel;brain_like;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5106486089; rights_holder=Jane Nielsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.734049916267395,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GA.MA_081",
+      "species_id": "GA.MA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "extremely_toxic;small_brown_gills;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052261543; rights_holder=Dan Ingemann Jensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.5517634749412537,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.6,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GA.MA_082",
+      "species_id": "GA.MA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "extremely_toxic;small_brown_gills;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052261543; rights_holder=Dan Ingemann Jensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.7268975377082825,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GA.MA_083",
+      "species_id": "GA.MA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "extremely_toxic;small_brown_gills;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898622463; rights_holder=Jacob Schmidt; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.943203866481781,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "HY.PS",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GA.MA_084",
+      "species_id": "GA.MA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "extremely_toxic;small_brown_gills;confusing_pair; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898627593; rights_holder=Martin Schier Christiansen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.34323933720588684,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "PL.OS_085",
+      "species_id": "PL.OS",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "oyster;shelf;gills;wood; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161867414; rights_holder=Dan Ingemann Jensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.9121084809303284,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "PL.OS_086",
+      "species_id": "PL.OS",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "oyster;shelf;gills;wood; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161868370; rights_holder=Henrik Mathiassen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.36331072449684143,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "PL.OS_087",
+      "species_id": "PL.OS",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "oyster;shelf;gills;wood; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161869220; rights_holder=Bente Neerbek; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.5390941500663757,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "PL.OS_088",
+      "species_id": "PL.OS",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "oyster;shelf;gills;wood; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=6161869220; rights_holder=Bente Neerbek; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.6248456835746765,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.CA",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.TU_089",
+      "species_id": "CA.TU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "funnel_chantarelle;folds;hollow_stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052256284; rights_holder=Rita Forup; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.6989692449569702,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.7,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.TU_090",
+      "species_id": "CA.TU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "funnel_chantarelle;folds;hollow_stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052273484; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.5092189311981201,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.TU_091",
+      "species_id": "CA.TU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "funnel_chantarelle;folds;hollow_stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052275694; rights_holder=Dan Ingemann Jensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.3769642412662506,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.7,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.TU_092",
+      "species_id": "CA.TU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "funnel_chantarelle;folds;hollow_stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5052275694; rights_holder=Dan Ingemann Jensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.2622640132904053,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_093",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "ood;cap;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898661737; rights_holder=Britta Hvalsø Olsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.9682647585868835,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_094",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "ood;cap;gills;stem; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898623767; rights_holder=Susanne Strøm; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.8534442186355591,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_095",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CA",
+      "notes": "bolete;pores;brown_cap; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898626015; rights_holder=Frits Sørensen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.5036143660545349,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_096",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CA",
+      "notes": "bolete;pores;brown_cap; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898630121; rights_holder=Ineta Sokolowski; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.9711267948150635,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_097",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CA",
+      "notes": "bolete;pores;brown_cap; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898633384; rights_holder=Peter Stidsen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.8840088844299316,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.CA",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_098",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CA",
+      "notes": "bolete;pores;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898620607; rights_holder=Søren Rytter Boeriis; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.9935854077339172,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "BO.ED",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.6,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_099",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CA",
+      "notes": "bolete;pores;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=5898639122; rights_holder=Annette Greenfort; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.9030565619468689,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "BO.ED",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_100",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "coral;branched;edible; source=Danish Mycological Society, fungal records database / Svampeatlas.dk via GBIF; gbif=4465862206; rights_holder=Klaus Baltsersen; license=http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.6323108077049255,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Missing above or below photo for unified pipeline",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    }
+  ]
+}

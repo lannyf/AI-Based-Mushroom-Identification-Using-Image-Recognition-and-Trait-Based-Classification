@@ -94,24 +94,23 @@ def load_test_cases() -> List[Dict[str, Any]]:
     ]
 
 
-def validate_classifier(backend_type: str = 'mock', api_key: str = None) -> Dict[str, Any]:
+def validate_classifier(backend_type: str = 'mock') -> Dict[str, Any]:
     """
     Validate LLM classifier on test cases.
-    
+
     Args:
-        backend_type: 'mock', 'openai', or other backend
-        api_key: API key if required by backend
-    
+        backend_type: 'mock' or 'ollama'
+
     Returns:
         Validation results dictionary
     """
     from models.llm_classifier import LLMClassifier
     from models.observation_parser import ObservationParser
-    
+
     logger.info(f'Initializing LLM classifier with {backend_type} backend')
-    
+
     try:
-        classifier = LLMClassifier(backend_type=backend_type, api_key=api_key)
+        classifier = LLMClassifier(backend_type=backend_type)
         parser = ObservationParser()
     except Exception as e:
         logger.error(f'Failed to initialize classifier: {e}')
@@ -224,13 +223,9 @@ def main():
     )
     parser.add_argument(
         '--backend',
-        choices=['mock', 'openai'],
-        default='mock',
-        help='LLM backend to use (default: mock)'
-    )
-    parser.add_argument(
-        '--api-key',
-        help='API key for LLM backend (if required)'
+        choices=['mock', 'ollama'],
+        default='ollama',
+        help='LLM backend to use (default: ollama)'
     )
     parser.add_argument(
         '--test-parser',
@@ -257,7 +252,7 @@ def main():
     
     # Test classifier (unless --test-parser only)
     if not args.test_parser:
-        classifier_results = validate_classifier(args.backend, args.api_key)
+        classifier_results = validate_classifier(args.backend)
         all_results.update(classifier_results)
         
         logger.info('\n' + '='*60)

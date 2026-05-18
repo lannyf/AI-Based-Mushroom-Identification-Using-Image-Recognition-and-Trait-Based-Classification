@@ -1,9 +1,0 @@
-/home/iannyf/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification/java-backend/src/main/java/se/mushroomid/config/CorsConfig.java
-/home/iannyf/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification/java-backend/src/main/java/se/mushroomid/model/Step4FinalizeRequest.java
-/home/iannyf/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification/java-backend/src/main/java/se/mushroomid/model/Step2AnswerRequest.java
-/home/iannyf/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification/java-backend/src/main/java/se/mushroomid/config/WebClientConfig.java
-/home/iannyf/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification/java-backend/src/main/java/se/mushroomid/controller/IdentificationController.java
-/home/iannyf/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification/java-backend/src/main/java/se/mushroomid/model/Step2StartRequest.java
-/home/iannyf/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification/java-backend/src/main/java/se/mushroomid/service/PythonApiService.java
-/home/iannyf/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification/java-backend/src/main/java/se/mushroomid/MushroomIdApplication.java
-/home/iannyf/projekt/AI-Based-Mushroom-Identification-Using-Image-Recognition-and-Trait-Based-Classification/java-backend/src/main/java/se/mushroomid/model/Step3CompareRequest.java

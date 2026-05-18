@@ -22,6 +22,10 @@ data/segmentation/
 data/segmentation.zip
 data/Mushroom segmentation.coco-segmentation/
 
+# Roboflow annotation archives
+data/Yolov8/Manual_annotation/Roboflow_annotation/mushroom segmentation.yolov8(2).zip
+data/Yolov8/Manual_annotation/Roboflow_annotation/mushroom_yolo_v2.zip
+
 # Large raw evaluation/background image folders
 data/raw/background/
 data/raw/evaluation_images/

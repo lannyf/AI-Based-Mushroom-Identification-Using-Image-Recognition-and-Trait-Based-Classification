@@ -1,0 +1,172 @@
+{
+  "specimen_id": "AG.AU_001",
+  "total_time_s": 277.08,
+  "case": {
+    "case": "classical",
+    "confidence": 0.8,
+    "detected_parts": [
+      "Cap",
+      "Stem"
+    ],
+    "reasoning": "Classical mushroom morphology: cap with stem/underside visible."
+  },
+  "cnn": {
+    "species": "Lakrits Milkcap",
+    "confidence": 0.6389,
+    "top_5": [
+      [
+        "Lakrits Milkcap",
+        0.6389
+      ],
+      [
+        "King Agaricus",
+        0.2037
+      ],
+      [
+        "False Chanterelle",
+        0.0734
+      ],
+      [
+        "Porcini",
+        0.0336
+      ],
+      [
+        "Mandel Milkcap",
+        0.0295
+      ]
+    ],
+    "in_distribution": true,
+    "conclusive": true,
+    "uncertainty_reason": null
+  },
+  "tree": {
+    "status": "question",
+    "session_id": "03ca4d2c-7e55-4b9f-ad93-0fa3fdc807bd",
+    "question": "Hur ser svampen ut?",
+    "options": [
+      "Undersidan har \u00e5sar eller \u00e5dror",
+      "Undersidan har skivor",
+      "Undersidan har taggar",
+      "Den \u00e4r busklik med m\u00e5nga grenar",
+      "P\u00e4ronformad eller rund",
+      "Undersidan har r\u00f6r",
+      "Vindlingar eller n\u00e4tm\u00f6nster"
+    ],
+    "tree_compatibility": {
+      "ml_top_species": "Lakrits Milkcap",
+      "ml_confidence": 0.6389,
+      "tree_support": "unknown",
+      "tree_policy": "full_traversal",
+      "tree_species": null,
+      "swedish_name": null,
+      "reason": ""
+    }
+  },
+  "database": {
+    "status": "ok",
+    "candidate": {
+      "species_id": "LA.HE",
+      "swedish_name": "Lakritsriska",
+      "english_name": "Lakrits Milkcap",
+      "scientific_name": "Lactarius helvus",
+      "edible": true,
+      "toxicity_level": "SAFE"
+    },
+    "name_match_score": 1.0,
+    "trait_match": {
+      "score": 0.6,
+      "matched": [
+        {
+          "trait": "cap_shape",
+          "visible_value": "convex",
+          "db_value": "convex|flat|depressed",
+          "quality": "exact",
+          "weight": 0.25
+        },
+        {
+          "trait": "cap_texture",
+          "visible_value": "smooth",
+          "db_value": "smooth|velvety",
+          "quality": "exact",
+          "weight": 0.15
+        },
+        {
+          "trait": "ridges",
+          "visible_value": "True",
+          "db_value": "adnate|decurrent",
+          "quality": "exact",
+          "weight": 0.2
+        }
+      ],
+      "conflicts": [
+        {
+          "trait": "cap_color",
+          "visible_value": "white",
+          "db_value": "brown|orange-brown|pinkish-brown",
+          "quality": "conflict",
+          "weight": 0.3
+        },
+        {
+          "trait": "stem_color",
+          "visible_value": "white",
+          "db_value": "orange|pinkish-brown",
+          "quality": "conflict",
+          "weight": 0.1
+        }
+      ],
+      "not_comparable": []
+    },
+    "lookalikes": [],
+    "safety_alert": false
+  },
+  "llm": {
+    "top_species": "Lakrits Milkcap",
+    "confidence": 0.6389,
+    "predictions": [
+      {
+        "species": "King Agaricus",
+        "confidence": 0.2037,
+        "reason": "The CNN identified King Agaricus as a secondary possibility, but the confidence is lower."
+      },
+      {
+        "species": "False Chanterelle",
+        "confidence": 0.0734,
+        "reason": "The CNN also considered False Chanterelle, but this is a less likely match based on the visual characteristics."
+      }
+    ],
+    "reasoning": "There is strong agreement between the CNN and database predictions for Lakrits Milkcap. The tree traversal provides supporting evidence for the presence of tubes/networks on the underside, which is a key feature of this species. However, the CNN confidence is lower than 1.0, and the database match score is moderate, indicating some uncertainty.",
+    "safety_warnings": [],
+    "model_used": "ollama",
+    "processing_time_ms": 273979.7475337982,
+    "needs_clarification": false,
+    "clarification_question": null,
+    "agreement_state": "partial",
+    "all_signals": {
+      "cnn": "Lakrits Milkcap",
+      "tree": "Undersidan har r\u00f6r",
+      "database": "Lakritsriska",
+      "llm": "Lakrits Milkcap"
+    }
+  },
+  "agreement": "agree",
+  "final_recommendation": {
+    "species": "Lakrits Milkcap",
+    "confidence": 0.639,
+    "swedish_name": "Lakritsriska",
+    "english_name": "Lakrits Milkcap",
+    "scientific_name": "Lactarius helvus",
+    "edible": true,
+    "toxicity_level": "SAFE",
+    "agreement": "agree",
+    "needs_clarification": false,
+    "clarification_question": null,
+    "reasoning": "There is strong agreement between the CNN and database predictions for Lakrits Milkcap. The tree traversal provides supporting evidence for the presence of tubes/networks on the underside, which is a key feature of this species. However, the CNN confidence is lower than 1.0, and the database match score is moderate, indicating some uncertainty.",
+    "safety_warnings": [],
+    "all_signals": {
+      "cnn": "Lakrits Milkcap",
+      "tree": "Undersidan har r\u00f6r",
+      "database": "Lakritsriska",
+      "llm": "Lakrits Milkcap"
+    }
+  }
+}

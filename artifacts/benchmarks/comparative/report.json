@@ -1,0 +1,2733 @@
+{
+  "metadata": {
+    "timestamp": "2026-05-15T14:07:19.414151",
+    "total_specimens": 57
+  },
+  "metrics": {
+    "per_method": {
+      "cnn": {
+        "accuracy": 0.0,
+        "coverage": 0.0,
+        "mean_time_ms": 0.0
+      },
+      "tree": {
+        "accuracy": 0.36363636363636365,
+        "coverage": 0.38596491228070173,
+        "mean_time_ms": 494.2062766138789
+      },
+      "db": {
+        "accuracy": 0.05263157894736842,
+        "coverage": 1.0,
+        "mean_time_ms": 2.700855929824205
+      },
+      "unified": {
+        "accuracy": 0.14814814814814814,
+        "coverage": 0.9473684210526315,
+        "mean_time_ms": 332164.97415978956
+      }
+    },
+    "mcnemar": {
+      "unified_vs_cnn": {
+        "p_value": 1.0,
+        "n_discordant": 0,
+        "unified_wins": 0,
+        "other_wins": 0
+      },
+      "unified_vs_tree": {
+        "p_value": 1.0,
+        "n_discordant": 3,
+        "unified_wins": 1,
+        "other_wins": 2
+      },
+      "unified_vs_db": {
+        "p_value": 0.125,
+        "n_discordant": 7,
+        "unified_wins": 6,
+        "other_wins": 1
+      }
+    },
+    "agreement_stats": {
+      "agree": {
+        "count": 7,
+        "pct": 0.12280701754385964,
+        "unified_accuracy": 0.2857142857142857
+      },
+      "partial": {
+        "count": 11,
+        "pct": 0.19298245614035087,
+        "unified_accuracy": 0.36363636363636365
+      },
+      "disagree": {
+        "count": 36,
+        "pct": 0.631578947368421,
+        "unified_accuracy": 0.05555555555555555
+      },
+      "inconclusive": {
+        "count": 3,
+        "pct": 0.05263157894736842,
+        "unified_accuracy": 0.0
+      }
+    },
+    "by_scenario": {
+      "coral": {
+        "n": 6,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "edge_case": {
+        "n": 2,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "puffball": {
+        "n": 5,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.3333333333333333,
+        "db_acc": 0.0,
+        "unified_acc": 0.2
+      },
+      "easy": {
+        "n": 5,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "confusing": {
+        "n": 22,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.5,
+        "db_acc": 0.09090909090909091,
+        "unified_acc": 0.2
+      },
+      "ood": {
+        "n": 17,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.375,
+        "db_acc": 0.058823529411764705,
+        "unified_acc": 0.1875
+      }
+    },
+    "confusing_pairs": {
+      "AM.MU-NONE": {
+        "n": 3,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.3333333333333333,
+        "agreement_rate": 0.3333333333333333
+      },
+      "AM.VI-NONE": {
+        "n": 3,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.0
+      },
+      "BO.BA-BO.ED": {
+        "n": 6,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.16666666666666666,
+        "db_acc": 0.0,
+        "unified_acc": 0.16666666666666666,
+        "agreement_rate": 0.5
+      },
+      "CA.CI-HY.PS": {
+        "n": 6,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.3333333333333333
+      },
+      "CR.CO-NONE": {
+        "n": 2,
+        "cnn_acc": 0.0,
+        "tree_acc": 0.5,
+        "db_acc": 1.0,
+        "unified_acc": 0.5,
+        "agreement_rate": 0.5
+      },
+      "NONE-SP.CR": {
+        "n": 2,
+        "cnn_acc": 0.0,
+        "tree_acc": 1.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.5,
+        "agreement_rate": 0.5
+      }
+    }
+  },
+  "per_specimen": [
+    {
+      "specimen_id": "AG.AU_001",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=3; ood;cap;gills;stem; source=Svampeatlas/GBIF; occurrence=5898623767; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "TY.FE",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "Hypholoma fasciculare",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The morphological traits suggest *Hypholoma fasciculare*, but the CNN and tree traversal are inconclusive. The database comparison was skipped due to missing data. The overall confidence is moderate due to the uncertainty in the initial data."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_002",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=3; ood;cap;gills;stem; source=Svampeatlas/GBIF; occurrence=5898627776; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CR.CO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "There is partial agreement between the tree traversal and database comparison, both suggesting 'svart trumpetsvamp'. The CNN and morphological case are highly uncertain, introducing significant ambiguity. The confidence level reflects this uncertainty."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_003",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; ood;cap;gills;stem; source=Svampeatlas/GBIF; occurrence=5898668492; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The morphological traits are the strongest indicator, aligning well with *Lactarius volemus*. However, the CNN and tree traversal both indicate uncertainty, suggesting the data is insufficient for a definitive identification. The database comparison was skipped due to lack of information."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_004",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; toxic;cap;spots;stem; source=Svampeatlas/GBIF; occurrence=5898624502; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.TU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison both point towards the Funnel Chanterelle, but the CNN's uncertainty and low match score introduce significant doubt. The morphological traits are suggestive, but not conclusive."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_005",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=2 below_idx=1; toxic;cap;spots;stem; source=Svampeatlas/GBIF; occurrence=5898635675; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.7,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "AM.MU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The morphological traits strongly point towards *Amanita muscaria*, however, the CNN and tree traversal are uncertain. The database comparison was skipped due to lack of information. The confidence is therefore moderate."
+        }
+      },
+      "unified_outperforms_all": true,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_006",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=3 below_idx=1; toxic;cap;spots;stem; source=Svampeatlas/GBIF; occurrence=5898646473; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CR.CO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The database comparison provides the strongest signal (65% match), but the CNN and tree traversal are uncertain. The morphological description is ambiguous, leading to a partial agreement. The high confidence in the database match is tempered by the uncertainty of the other signals."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_007",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; extremely_toxic;white;gills;stem; source=Svampeatlas/GBIF; occurrence=5898622730; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.7,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and extracted traits strongly suggest *Lactarius volemus*, but the CNN's uncertainty introduces some doubt. The database comparison was skipped due to lack of information. Further investigation would be needed to confirm the identification."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_008",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; extremely_toxic;white;gills;stem; source=Svampeatlas/GBIF; occurrence=5898634933; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "inconclusive",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "{",
+          "reasoning": "{"
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_009",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=3; extremely_toxic;white;gills;stem; source=Svampeatlas/GBIF; occurrence=5898657186; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.9,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and extracted traits strongly suggest *Lactarius volemus*. The CNN is uncertain, and the database comparison is skipped due to lack of information. The partial agreement reflects the morphological similarity but the CNN's uncertainty."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_010",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.ED",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;brown_cap; source=Svampeatlas/GBIF; occurrence=5898619230; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "BO.BA",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.9,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "BO.BA",
+          "confidence": 0.35,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison offer the strongest signals, but the CNN's uncertainty and the 'uncertain' case significantly reduce confidence. The morphological traits are suggestive of Leccinum versipelle, but the overall assessment remains tentative."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_011",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.ED",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;brown_cap; source=Svampeatlas/GBIF; occurrence=5898629025; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.AU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "There is partial agreement between the tree traversal and database comparison, both suggesting 'Rödgul trumpetsvamp'. The CNN prediction is unreliable due to lack of training data. The case is uncertain, adding to the overall ambiguity."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_012",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.ED",
+      "notes": "paired above_idx=1 below_idx=2; bolete;pores;brown_cap; source=Svampeatlas/GBIF; occurrence=5898633268; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LE.AU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The morphological traits provide a reasonable basis for *Leccinum aurantiacum*, but the CNN and tree traversal are inconclusive. This suggests a moderate level of confidence, acknowledging the uncertainty."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_013",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.BA",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;edible; source=Svampeatlas/GBIF; occurrence=5898618342; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LE.VE",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal indicates a question about color, which aligns with the uncertain case. The extracted traits strongly favor *Leccinum versipelle*, but the CNN and database are unavailable, introducing uncertainty. The agreement is partial due to the reliance on limited morphological data."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_014",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.BA",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;edible; source=Svampeatlas/GBIF; occurrence=5898625002; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CA.CI",
+          "confidence": 0.6,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.CI",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison provide the strongest evidence for *Hydnum rufescens* (Aurora Chanterelle) due to the prominent orange color and fibrous texture. The CNN prediction is uncertain, and the case is also uncertain, introducing some ambiguity. Further investigation of the mushroom's gills and stipe would be beneficial for a more definitive identification."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_015",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.BA",
+      "notes": "paired above_idx=1 below_idx=2; bolete;pores;edible; source=Svampeatlas/GBIF; occurrence=5898640047; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "Leccinum rufum",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The morphological traits are suggestive of *Leccinum rufum*, but the CNN and tree traversal provide no definitive confirmation. The database comparison is skipped due to lack of data. The overall confidence is moderate due to the uncertainty in the initial data."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_016",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "paired above_idx=2 below_idx=1; chanterelle;folds;yellow; source=Svampeatlas/GBIF; occurrence=5898634658; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "AR.ME",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and extracted traits strongly suggest *Lactarius volemus*, but the CNN prediction is uncertain. The database comparison is unavailable. The overall confidence is moderate due to the incomplete information."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_017",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "paired above_idx=1 below_idx=2; chanterelle;folds;yellow; source=Svampeatlas/GBIF; occurrence=5898649134; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "SU.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and extracted traits strongly suggest *Suillus luteus*. The CNN's uncertainty and lack of database match introduce some ambiguity. The morphological case is also uncertain, which further reduces confidence."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_018",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "paired above_idx=1 below_idx=2; chanterelle;folds;yellow; source=Svampeatlas/GBIF; occurrence=5898662277; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "inconclusive",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "{",
+          "reasoning": "{"
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_019",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "paired above_idx=1 below_idx=2; confusing_pair;orange;gills; source=Svampeatlas/GBIF; occurrence=5052245313; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.45,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.TU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison both converge on *Trattkantarell* (Funnel Chanterelle), which is the strongest signal. The CNN's uncertainty and the uncertain morphological case introduce significant doubt. The trait match score of 0.2 suggests a weak correlation."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_020",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "paired above_idx=3 below_idx=1; confusing_pair;orange;gills; source=Svampeatlas/GBIF; occurrence=5898629988; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CA.CI",
+          "confidence": 0.9,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.AU",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison provide strong support for *Hydnum rufescens*, while the morphological case is uncertain. The CNN is unavailable, so it cannot contribute to the assessment. The overall confidence is moderately high due to the significant overlap in traits."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_021",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "paired above_idx=1 below_idx=2; confusing_pair;orange;gills; source=Svampeatlas/GBIF; occurrence=5898632688; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "AR.ME",
+          "confidence": 0.35,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "uncertain",
+          "confidence": 0.3,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The primary signals (CNN and tree traversal) both return 'uncertain' due to the lack of detailed morphological information. The extracted traits provide minimal descriptive data, and the database comparison was skipped. The LLM also returns 'uncertain'."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_022",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=3 below_idx=1; milkcap;latex;toxic; source=Svampeatlas/GBIF; occurrence=4940908615; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.TU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "There is partial agreement between the tree traversal and database comparison, suggesting a funnel chanterelle as the most likely candidate. However, the CNN's uncertainty and the 'uncertain' case significantly reduce confidence. The morphological traits are suggestive but not definitive."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_023",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; milkcap;latex;toxic; source=Svampeatlas/GBIF; occurrence=5898651350; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.45,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CR.CO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "There is partial agreement between the tree traversal, database comparison, and extracted traits, all pointing towards the Black Trumpet. However, the CNN prediction is uncertain due to lack of training data. The overall confidence is moderate due to the limited morphological information and conflicting signals."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_024",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; milkcap;latex;toxic; source=Svampeatlas/GBIF; occurrence=5898653100; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.AU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison both point towards 'Rödgul trumpetsvamp', but the CNN prediction is uncertain and the case is 'uncertain'. The morphological traits are somewhat ambiguous, leading to a partial agreement."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_025",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; coral;branched;edible; source=Svampeatlas/GBIF; occurrence=4465862206; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "There is partial agreement between the tree traversal and the extracted traits, both indicating an uncertain state. The CNN and database comparison provide no definitive information. The LLM's assessment aligns with the overall uncertainty."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_026",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; coral;branched;edible; source=Svampeatlas/GBIF; occurrence=4465865225; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.6,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The morphological traits are the strongest indicator, but the CNN and tree traversal are uncertain. This suggests a degree of ambiguity. *Lactarius volemus* is the most plausible species based on the available data, but further investigation would be needed to confirm."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_027",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; coral;branched;edible; source=Svampeatlas/GBIF; occurrence=5898655380; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "HY.RE",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "There is partial agreement between the tree traversal and the extracted traits, suggesting a possible match with *Hydnum repandum*. However, the morphological case is uncertain, and the CNN is unavailable, reducing confidence. The database comparison was skipped due to lack of data."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_028",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=3; coral;branched;toxic;confusing_pair; source=Svampeatlas/GBIF; occurrence=3343249350; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.7,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "Hypholoma fasciculare",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The morphological traits strongly suggest *Hypholoma fasciculare*, but the CNN and tree traversal are inconclusive. The database comparison was skipped due to missing data. Further investigation would be needed to confirm this identification."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_029",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; coral;branched;toxic;confusing_pair; source=Svampeatlas/GBIF; occurrence=4465872624; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "MO.ES",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and extracted traits align with a Morel, but the CNN and database provide no supporting evidence. The overall morphological description is ambiguous, leading to a partial agreement."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_030",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=3 below_idx=2; coral;branched;toxic;confusing_pair; source=Svampeatlas/GBIF; occurrence=4465870669; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "HY.AT",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "There is partial agreement between the tree traversal and the extracted traits, both pointing towards a waxcap. However, the CNN and database provide no supporting information, and the morphological case is uncertain. The confidence is therefore moderate."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CO.CO_031",
+      "species_id": "CO.CO",
+      "scenario": "edge_case",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; inkcap;gills;edge_case_age; source=Svampeatlas/GBIF; occurrence=5898627048; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.8,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "Leccinum scabrum",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal indicates a question, and the CNN is uncertain. The database comparison was skipped. The morphological traits point towards Leccinum scabrum, but the uncertainty in the case and the lack of CNN data introduce significant doubt. The database comparison was skipped due to the lack of a database match."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CO.CO_032",
+      "species_id": "CO.CO",
+      "scenario": "edge_case",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=3; inkcap;gills;edge_case_age; source=Svampeatlas/GBIF; occurrence=5898651767; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view; orientation_corrected: swapped above/below after visual audit",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal indicates uncertainty, and the CNN is unavailable. The database comparison was skipped. However, the morphological traits – scaly surface, wavy cap, yellow-green color, and ridges – strongly suggest *Lactarius volemus*. The confidence is moderate due to the incomplete data."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CR.CO_033",
+      "species_id": "CR.CO",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; trumpet;dark;funnel; source=Svampeatlas/GBIF; occurrence=5052247678; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CR.CO",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "There is partial agreement between the sources. The tree traversal and database comparison strongly suggest *Svart trumpetsvamp*, while the CNN's uncertainty introduces some ambiguity. The morphological traits are the most compelling evidence."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CR.CO_034",
+      "species_id": "CR.CO",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; trumpet;dark;funnel; source=Svampeatlas/GBIF; occurrence=5052262151; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.TU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and LLM both converge on 'Funnel Chanterelle', but the CNN is uncertain and the database match is weak. The morphological description supports this identification, but further investigation would be needed to confirm."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": true
+    },
+    {
+      "specimen_id": "FO.BE_035",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; polypore;bracket;wood; source=Svampeatlas/GBIF; occurrence=5106480117; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "Leccinum scabrum",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The morphological traits strongly point towards *Leccinum scabrum*, but the lack of CNN data and skipped database comparison introduce uncertainty. The tree traversal result of ‘question’ indicates a lack of definitive information from that source. The confidence is therefore moderate."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "FO.BE_036",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; polypore;bracket;wood; source=Svampeatlas/GBIF; occurrence=6161868580; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.8,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and extracted traits strongly suggest *Lactarius volemus*, but the CNN's uncertainty and lack of database match introduce some doubt. The morphological case is also uncertain, adding to the ambiguity."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LY.PE_037",
+      "species_id": "LY.PE",
+      "scenario": "puffball",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; puffball;round;spines; source=Svampeatlas/GBIF; occurrence=5898626078; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "LY.PE",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LY.PE",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison both point towards 'Puffball', while the CNN prediction is uncertain. The morphological case is also uncertain. The partial agreement reflects the confidence in the tree and database results, tempered by the lack of CNN data."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LY.PE_038",
+      "species_id": "LY.PE",
+      "scenario": "puffball",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; puffball;round;spines; source=Svampeatlas/GBIF; occurrence=5898626813; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "SU.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal indicates a question about color, and the CNN is uncertain. The extracted traits provide a strong indication of *Suillus luteus*, but the low CNN confidence and skipped database comparison introduce some uncertainty. The morphological description is the most reliable signal."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "SP.CR_039",
+      "species_id": "SP.CR",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; cauliflower;branched;edible; source=Svampeatlas/GBIF; occurrence=5898627808; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "SP.CR",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "SP.CR",
+          "confidence": 0.35,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The tree traversal and CNN prediction both converge on a cauliflower-like appearance, which is the strongest signal. However, the database comparison indicates a low confidence in this identification, suggesting the morphological features are not sufficiently specific. The overall confidence is therefore low due to conflicting signals."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "SP.CR_040",
+      "species_id": "SP.CR",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=2 below_idx=1; cauliflower;branched;edible; source=Svampeatlas/GBIF; occurrence=5898657877; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "SP.CR",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "MO.ES",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LE.VU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The morphological traits strongly suggest Leccinum vulpinum, but the CNN and database are uncertain. The tree traversal question adds further ambiguity. A more detailed examination of the gills and cap structure would be needed for a definitive identification."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": true
+    },
+    {
+      "specimen_id": "GY.ES_041",
+      "species_id": "GY.ES",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; toxic;false_morel;brain_like;confusing_pair; source=Svampeatlas/GBIF; occurrence=4847336116; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal is the most informative, indicating a question, while the CNN and database provide no specific matches. The morphological traits – grey color, scaly surface, and ridges – are the strongest indicators for *Lactarius volemus*, but the overall uncertainty remains high."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GY.ES_042",
+      "species_id": "GY.ES",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; toxic;false_morel;brain_like;confusing_pair; source=Svampeatlas/GBIF; occurrence=4847337500; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CA.CI",
+          "confidence": 0.6,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "HY.AT",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "There is partial agreement between the extracted traits and the tree traversal, both suggesting a similar appearance. However, the CNN and database are unavailable, leading to uncertainty. The overall confidence is moderate due to the limited information."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GA.MA_043",
+      "species_id": "GA.MA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; extremely_toxic;small_brown_gills;confusing_pair; source=Svampeatlas/GBIF; occurrence=5898634047; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view; orientation_corrected: swapped above/below after visual audit",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal's 'question' status and the unavailable CNN prediction introduce significant uncertainty. However, the extracted traits – particularly the color and surface texture – provide a strong indication of *Lactarius volemus*. Further investigation would be needed to confirm this identification."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GA.MA_044",
+      "species_id": "GA.MA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=3 below_idx=2; extremely_toxic;small_brown_gills;confusing_pair; source=Svampeatlas/GBIF; occurrence=5898646261; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and extracted traits point towards *Lactarius volemus*, but the CNN is uncertain. The database comparison is missing, making a definitive assessment difficult. The morphological description is the strongest indicator."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "PL.OS_045",
+      "species_id": "PL.OS",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; oyster;shelf;gills;wood; source=Svampeatlas/GBIF; occurrence=5052245440; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "AL.OV",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal is the strongest signal, but the CNN and database are uncertain. The morphological description supports *Hydnum repandum* but the overall confidence is moderate due to the limited information and uncertain case."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "PL.OS_046",
+      "species_id": "PL.OS",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; oyster;shelf;gills;wood; source=Svampeatlas/GBIF; occurrence=6161874219; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.CA",
+          "confidence": 0.8,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CR.CO",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "There is strong agreement between the tree traversal, database comparison, and the extracted traits, all pointing towards *Black Trumpet*. The CNN's uncertainty is acknowledged but doesn't override the other evidence."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.TU_047",
+      "species_id": "CA.TU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; funnel_chanterelle;folds;hollow_stem; source=Svampeatlas/GBIF; occurrence=5898631275; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.TU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "There is partial agreement between the tree traversal and database comparison, which points towards Funnel Chanterelle. However, the CNN's uncertainty and the 'uncertain' case assessment introduce significant ambiguity. The extracted traits are the strongest supporting evidence."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.TU_048",
+      "species_id": "CA.TU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; funnel_chanterelle;folds;hollow_stem; source=Svampeatlas/GBIF; occurrence=5898654001; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.CI",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison provide the strongest support for *Hydnum repandum* (Funnel Chanterelle), while the CNN prediction is uncertain. The morphological traits align well with this species, but the overall confidence is limited by the lack of detailed information and the CNN's absence."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": true
+    },
+    {
+      "specimen_id": "HY.RE_049",
+      "species_id": "HY.RE",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; teeth;hedgehog;edible; source=Svampeatlas/GBIF; occurrence=5898630302; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "HY.RE",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The database comparison provides the strongest evidence (67.5% match) for *Hydnum rufescens* (Hedgehog Mushroom), but the CNN and tree traversal are uncertain. The morphological case is also uncertain, indicating a lack of definitive features."
+        }
+      },
+      "unified_outperforms_all": true,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.RE_050",
+      "species_id": "HY.RE",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; teeth;hedgehog;edible; source=Svampeatlas/GBIF; occurrence=5898649816; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "HY.RE",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "HY.RE",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The tree traversal is the strongest signal, but the CNN and database provide weaker support. The morphological case is uncertain, adding to the overall ambiguity. A more detailed examination of the cap's color and spine density would be needed for a definitive identification."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CAL.GI_051",
+      "species_id": "CAL.GI",
+      "scenario": "puffball",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=1; puffball has no underside view; above image intentionally reused for below; source=Svampeatlas/GBIF; occurrence=5106485911",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.TU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison provide the strongest support for Funnel Chanterelle, but the CNN and overall morphological case are uncertain. The trait match score of 35% suggests a reasonable degree of similarity, but further investigation would be needed to confirm the identification."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CAL.GI_052",
+      "species_id": "CAL.GI",
+      "scenario": "puffball",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=1; puffball has no underside view; above image intentionally reused for below; source=Svampeatlas/GBIF; occurrence=6161867576",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The morphological traits are the strongest signal, but the CNN and database lack a definitive match. The tree traversal's 'question' status reflects the uncertainty in the visual characteristics. The confidence is therefore moderate."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CAL.GI_053",
+      "species_id": "CAL.GI",
+      "scenario": "puffball",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=1; puffball has no underside view; above image intentionally reused for below; source=Svampeatlas/GBIF; occurrence=5898669530",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CA.TU",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison both converge on 'Trattkantarell' (Funnel Chanterelle), but the CNN prediction is unreliable. The overall case is uncertain, leading to a partial agreement."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RU.IN_054",
+      "species_id": "RU.IN",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; above=cap/top view; below=underside/gills view; source=Svampeatlas/GBIF; occurrence=5052267553",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "CR.CO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal and database comparison provide the strongest signals, suggesting *Svart trumpetsvamp* (Black Trumpet). However, the uncertain case and lack of CNN data introduce significant uncertainty. The morphological description is not entirely consistent with the tree's path, and the CNN is unavailable."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RU.IN_055",
+      "species_id": "RU.IN",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=3; above=cap/top view; below=underside/gills view; source=Svampeatlas/GBIF; occurrence=5898672990",
+      "agreement": "inconclusive",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "{",
+          "reasoning": "{"
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RU.BA_056",
+      "species_id": "RU.BA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; above=cap/top view; below=underside/gills view; source=Svampeatlas/GBIF; occurrence=4940915542",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.HE",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal indicates a question, suggesting the morphological characteristics are ambiguous. The CNN is unavailable, and the database comparison is skipped. The extracted traits provide the strongest evidence for *Lactarius volemus*, but the overall confidence is limited by the incomplete data."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RU.BA_057",
+      "species_id": "RU.BA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; above=cap/top view; below=underside/gills view; source=Svampeatlas/GBIF; occurrence=4940923869",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "CNN weights not found at artifacts/cnn_weights.pt",
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The tree traversal indicates a question, suggesting the morphological characteristics are ambiguous. The CNN is unavailable, and the database comparison is skipped. The morphological traits lean towards *Lactarius volemus*, but the uncertainty in the case and lack of CNN data reduce confidence. Further investigation would be needed to confirm this identification."
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    }
+  ]
+}

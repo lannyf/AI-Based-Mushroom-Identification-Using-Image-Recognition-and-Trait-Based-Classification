@@ -48,9 +48,18 @@ SPECIES: List[str] = [
     "Chanterelle",
     "False Chanterelle",
     "Porcini",
-    "Other Boletus",
+    "Bay Bolete",
     "Amanita virosa",
     "Black Trumpet",
+    "King Agaricus",
+    "Shaggy Inkcap",
+    "Birch Polypore",
+    "Lakrits Milkcap",
+    "Mandel Milkcap",
+    "Puffball",
+    "Clustered Coral",
+    "Pale Coral Fungus",
+    "Cauliflower Mushroom",
 ]
 
 # Number of output classes — derived from the species list for consistency
