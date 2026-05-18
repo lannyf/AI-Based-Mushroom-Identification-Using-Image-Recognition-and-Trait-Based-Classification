@@ -12,12 +12,11 @@ class RunnerResult:
     """
       Universal output envelope for every identification method in the benchmark.
 
-      All methods — cnn, tree_auto, tree_oracle, trait_db, llm,
-      and multimodal_final — return this same type so the benchmark engine can
-      treat them uniformly. The ranked `predictions` list is always sorted
-      best-first; `coverage` tracks whether the method abstained (e.g.
-      tree_auto got stuck on an unanswerable question); `metadata` holds
-      method-specific diagnostics without breaking the common interface.
+      All comparative methods — cnn, tree, db, and unified — return this same
+      type so the benchmark engine can treat them uniformly. The ranked
+      `predictions` list is always sorted best-first; `coverage` tracks whether
+      the method abstained; `metadata` holds method-specific diagnostics without
+      breaking the common interface.
     """
     method_name: str
     predictions: List[Tuple[str, float]]

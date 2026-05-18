@@ -1,0 +1,532 @@
+{
+  "model": "data/Yolov8/best.pt",
+  "test_images": 14,
+  "per_image": [
+    {
+      "name": "Amanita_muscaria_19_jpg.rf.q2ZC40PvpaqbuwAfYhge.jpg",
+      "size": [
+        768,
+        1024
+      ],
+      "gt_classes": [
+        "Cap"
+      ],
+      "gt_polygons": 1,
+      "preds": [
+        {
+          "class": "Cap",
+          "conf": 0.962469756603241,
+          "class_id": 0
+        }
+      ],
+      "pred_classes": [
+        "Cap"
+      ],
+      "num_preds": 1
+    },
+    {
+      "name": "Amanita_muscaria_20_jpg.rf.1vIMaqYSJumjkxRmKSlb.jpg",
+      "size": [
+        768,
+        1024
+      ],
+      "gt_classes": [
+        "Cap",
+        "Stem",
+        "Underside"
+      ],
+      "gt_polygons": 4,
+      "preds": [
+        {
+          "class": "Stem",
+          "conf": 0.7702341675758362,
+          "class_id": 2
+        },
+        {
+          "class": "Cap",
+          "conf": 0.6835288405418396,
+          "class_id": 0
+        },
+        {
+          "class": "Cap",
+          "conf": 0.6648834943771362,
+          "class_id": 0
+        },
+        {
+          "class": "Stem",
+          "conf": 0.2762657403945923,
+          "class_id": 2
+        },
+        {
+          "class": "Underside",
+          "conf": 0.2699815630912781,
+          "class_id": 3
+        }
+      ],
+      "pred_classes": [
+        "Stem",
+        "Underside",
+        "Cap"
+      ],
+      "num_preds": 5
+    },
+    {
+      "name": "Amanita_muscaria_24_jpg.rf.jxgP58imztWUJ0xBKt3c.jpg",
+      "size": [
+        734,
+        1024
+      ],
+      "gt_classes": [
+        "Cap",
+        "Stem"
+      ],
+      "gt_polygons": 2,
+      "preds": [
+        {
+          "class": "Cap",
+          "conf": 0.9529584050178528,
+          "class_id": 0
+        },
+        {
+          "class": "Stem",
+          "conf": 0.8752694725990295,
+          "class_id": 2
+        }
+      ],
+      "pred_classes": [
+        "Stem",
+        "Cap"
+      ],
+      "num_preds": 2
+    },
+    {
+      "name": "Boletus_badius_13_jpg.rf.BC1530Dhd7Rk34R0PXRp.jpg",
+      "size": [
+        768,
+        1024
+      ],
+      "gt_classes": [
+        "Cap",
+        "Stem"
+      ],
+      "gt_polygons": 2,
+      "preds": [
+        {
+          "class": "Stem",
+          "conf": 0.9410182237625122,
+          "class_id": 2
+        },
+        {
+          "class": "Cap",
+          "conf": 0.840729832649231,
+          "class_id": 0
+        },
+        {
+          "class": "Cap",
+          "conf": 0.7785207629203796,
+          "class_id": 0
+        }
+      ],
+      "pred_classes": [
+        "Stem",
+        "Cap"
+      ],
+      "num_preds": 3
+    },
+    {
+      "name": "Boletus_badius_18_jpg.rf.wKGWpK1syo6PjYefAdgP.jpg",
+      "size": [
+        768,
+        1024
+      ],
+      "gt_classes": [
+        "Cap",
+        "Stem",
+        "Underside"
+      ],
+      "gt_polygons": 3,
+      "preds": [
+        {
+          "class": "Stem",
+          "conf": 0.8765738010406494,
+          "class_id": 2
+        },
+        {
+          "class": "Underside",
+          "conf": 0.8764771223068237,
+          "class_id": 3
+        },
+        {
+          "class": "Cap",
+          "conf": 0.6780375838279724,
+          "class_id": 0
+        }
+      ],
+      "pred_classes": [
+        "Stem",
+        "Underside",
+        "Cap"
+      ],
+      "num_preds": 3
+    },
+    {
+      "name": "Boletus_badius_29_jpg.rf.CfbcLqAtZrjljpjAT79j.jpg",
+      "size": [
+        768,
+        1024
+      ],
+      "gt_classes": [
+        "Cap",
+        "Stem"
+      ],
+      "gt_polygons": 4,
+      "preds": [
+        {
+          "class": "Stem",
+          "conf": 0.9031999111175537,
+          "class_id": 2
+        },
+        {
+          "class": "Cap",
+          "conf": 0.6785295009613037,
+          "class_id": 0
+        },
+        {
+          "class": "Cap",
+          "conf": 0.28569743037223816,
+          "class_id": 0
+        },
+        {
+          "class": "Cap",
+          "conf": 0.2742275595664978,
+          "class_id": 0
+        },
+        {
+          "class": "Cap",
+          "conf": 0.25686711072921753,
+          "class_id": 0
+        }
+      ],
+      "pred_classes": [
+        "Stem",
+        "Cap"
+      ],
+      "num_preds": 5
+    },
+    {
+      "name": "Boletus_badius_2_jpg.rf.yYDfnvAnqhFJB04KspKb.jpg",
+      "size": [
+        1024,
+        768
+      ],
+      "gt_classes": [
+        "Cap",
+        "Stem",
+        "Underside"
+      ],
+      "gt_polygons": 3,
+      "preds": [],
+      "pred_classes": [],
+      "num_preds": 0
+    },
+    {
+      "name": "Boletus_badius_30_jpg.rf.hGTGkeYbXQIvpePbQ374.jpg",
+      "size": [
+        768,
+        1024
+      ],
+      "gt_classes": [
+        "Stem",
+        "Underside"
+      ],
+      "gt_polygons": 3,
+      "preds": [
+        {
+          "class": "Stem",
+          "conf": 0.6949005126953125,
+          "class_id": 2
+        },
+        {
+          "class": "Cap",
+          "conf": 0.5914835929870605,
+          "class_id": 0
+        },
+        {
+          "class": "Stem",
+          "conf": 0.5879308581352234,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.40832701325416565,
+          "class_id": 2
+        }
+      ],
+      "pred_classes": [
+        "Stem",
+        "Cap"
+      ],
+      "num_preds": 4
+    },
+    {
+      "name": "Boletus_badius_4_jpg.rf.PDtlnf91wFvEnta5Frkb.jpg",
+      "size": [
+        1024,
+        768
+      ],
+      "gt_classes": [
+        "Stem",
+        "Underside"
+      ],
+      "gt_polygons": 2,
+      "preds": [
+        {
+          "class": "Stem",
+          "conf": 0.8585483431816101,
+          "class_id": 2
+        },
+        {
+          "class": "Cap",
+          "conf": 0.37983837723731995,
+          "class_id": 0
+        }
+      ],
+      "pred_classes": [
+        "Stem",
+        "Cap"
+      ],
+      "num_preds": 2
+    },
+    {
+      "name": "Boletus_edulis_10_jpg.rf.Jyqiadq3IF4ij6mFl6ou.jpg",
+      "size": [
+        768,
+        1024
+      ],
+      "gt_classes": [
+        "Cap",
+        "Stem"
+      ],
+      "gt_polygons": 2,
+      "preds": [
+        {
+          "class": "Stem",
+          "conf": 0.8704020977020264,
+          "class_id": 2
+        },
+        {
+          "class": "Cap",
+          "conf": 0.8215577006340027,
+          "class_id": 0
+        },
+        {
+          "class": "Coral",
+          "conf": 0.6479865312576294,
+          "class_id": 1
+        },
+        {
+          "class": "Coral",
+          "conf": 0.2676689922809601,
+          "class_id": 1
+        }
+      ],
+      "pred_classes": [
+        "Coral",
+        "Stem",
+        "Cap"
+      ],
+      "num_preds": 4
+    },
+    {
+      "name": "Craterellus_cornucopioides_17_jpg.rf.QndGqn5L8zNvMeaaFv64.jpg",
+      "size": [
+        1024,
+        768
+      ],
+      "gt_classes": [
+        "Cap",
+        "Stem"
+      ],
+      "gt_polygons": 13,
+      "preds": [
+        {
+          "class": "Stem",
+          "conf": 0.9811892509460449,
+          "class_id": 2
+        },
+        {
+          "class": "Cap",
+          "conf": 0.758364737033844,
+          "class_id": 0
+        },
+        {
+          "class": "Stem",
+          "conf": 0.7553331851959229,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.7524769902229309,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.7065399885177612,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.6072825789451599,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.5786459445953369,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.5183953642845154,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.4884300231933594,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.40867915749549866,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.38863733410835266,
+          "class_id": 2
+        },
+        {
+          "class": "Cap",
+          "conf": 0.3505098223686218,
+          "class_id": 0
+        },
+        {
+          "class": "Stem",
+          "conf": 0.34690484404563904,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.3177529275417328,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.2855794131755829,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.2546381950378418,
+          "class_id": 2
+        }
+      ],
+      "pred_classes": [
+        "Stem",
+        "Cap"
+      ],
+      "num_preds": 16
+    },
+    {
+      "name": "Craterellus_cornucopioides_27_jpg.rf.HrbRr65l4uQClWkjraX1.jpg",
+      "size": [
+        768,
+        1024
+      ],
+      "gt_classes": [
+        "Cap",
+        "Stem",
+        "Underside"
+      ],
+      "gt_polygons": 11,
+      "preds": [
+        {
+          "class": "Underside",
+          "conf": 0.3064081072807312,
+          "class_id": 3
+        }
+      ],
+      "pred_classes": [
+        "Underside"
+      ],
+      "num_preds": 1
+    },
+    {
+      "name": "Hygrophoropsis_aurantiaca_22_jpg.rf.IctsEPLR5CEDSScWmrY7.jpg",
+      "size": [
+        768,
+        1024
+      ],
+      "gt_classes": [
+        "Cap",
+        "Stem"
+      ],
+      "gt_polygons": 2,
+      "preds": [
+        {
+          "class": "Cap",
+          "conf": 0.9655553698539734,
+          "class_id": 0
+        },
+        {
+          "class": "Stem",
+          "conf": 0.7871716618537903,
+          "class_id": 2
+        },
+        {
+          "class": "Stem",
+          "conf": 0.30800023674964905,
+          "class_id": 2
+        }
+      ],
+      "pred_classes": [
+        "Stem",
+        "Cap"
+      ],
+      "num_preds": 3
+    },
+    {
+      "name": "booletus edulis 107_jpg.rf.JpFwik3pUBZxmoUBp2hj.jpg",
+      "size": [
+        768,
+        1024
+      ],
+      "gt_classes": [
+        "Cap"
+      ],
+      "gt_polygons": 1,
+      "preds": [
+        {
+          "class": "Cap",
+          "conf": 0.8953340649604797,
+          "class_id": 0
+        },
+        {
+          "class": "Stem",
+          "conf": 0.31134355068206787,
+          "class_id": 2
+        }
+      ],
+      "pred_classes": [
+        "Stem",
+        "Cap"
+      ],
+      "num_preds": 2
+    }
+  ],
+  "class_frequency": {
+    "Cap": 18,
+    "Stem": 28,
+    "Underside": 3,
+    "Coral": 2
+  }
+}

@@ -1,0 +1,2733 @@
+{
+  "metadata": {
+    "timestamp": "2026-05-14T15:44:15.975882",
+    "total_specimens": 57
+  },
+  "metrics": {
+    "per_method": {
+      "cnn": {
+        "accuracy": 0.5263157894736842,
+        "coverage": 1.0,
+        "mean_time_ms": 111.4741368771176
+      },
+      "tree": {
+        "accuracy": 0.36363636363636365,
+        "coverage": 0.38596491228070173,
+        "mean_time_ms": 1038.2268720175712
+      },
+      "db": {
+        "accuracy": 0.05263157894736842,
+        "coverage": 1.0,
+        "mean_time_ms": 2.487358789550311
+      },
+      "unified": {
+        "accuracy": 0.0,
+        "coverage": 0.0,
+        "mean_time_ms": 0.0
+      }
+    },
+    "mcnemar": {
+      "unified_vs_cnn": {
+        "p_value": 1.0,
+        "n_discordant": 0,
+        "unified_wins": 0,
+        "other_wins": 0
+      },
+      "unified_vs_tree": {
+        "p_value": 1.0,
+        "n_discordant": 0,
+        "unified_wins": 0,
+        "other_wins": 0
+      },
+      "unified_vs_db": {
+        "p_value": 1.0,
+        "n_discordant": 0,
+        "unified_wins": 0,
+        "other_wins": 0
+      }
+    },
+    "agreement_stats": {
+      "agree": {
+        "count": 3,
+        "pct": 0.05263157894736842,
+        "unified_accuracy": 0.0
+      },
+      "partial": {
+        "count": 11,
+        "pct": 0.19298245614035087,
+        "unified_accuracy": 0.0
+      },
+      "disagree": {
+        "count": 43,
+        "pct": 0.7543859649122807,
+        "unified_accuracy": 0.0
+      },
+      "inconclusive": {
+        "count": 0,
+        "pct": 0.0,
+        "unified_accuracy": 0.0
+      }
+    },
+    "by_scenario": {
+      "edge_case": {
+        "n": 2,
+        "cnn_acc": 0.5,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "easy": {
+        "n": 5,
+        "cnn_acc": 0.8,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "coral": {
+        "n": 6,
+        "cnn_acc": 0.6666666666666666,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "puffball": {
+        "n": 5,
+        "cnn_acc": 0.4,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0
+      },
+      "ood": {
+        "n": 17,
+        "cnn_acc": 0.11764705882352941,
+        "tree_acc": 0.0,
+        "db_acc": 0.058823529411764705,
+        "unified_acc": 0.0
+      },
+      "confusing": {
+        "n": 22,
+        "cnn_acc": 0.7727272727272727,
+        "tree_acc": 0.8,
+        "db_acc": 0.09090909090909091,
+        "unified_acc": 0.0
+      }
+    },
+    "confusing_pairs": {
+      "AM.MU-NONE": {
+        "n": 3,
+        "cnn_acc": 1.0,
+        "tree_acc": 0.3333333333333333,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.3333333333333333
+      },
+      "AM.VI-NONE": {
+        "n": 3,
+        "cnn_acc": 1.0,
+        "tree_acc": 1.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 1.0
+      },
+      "BO.BA-BO.ED": {
+        "n": 6,
+        "cnn_acc": 0.8333333333333334,
+        "tree_acc": 0.16666666666666666,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.16666666666666666
+      },
+      "CA.CI-HY.PS": {
+        "n": 6,
+        "cnn_acc": 0.3333333333333333,
+        "tree_acc": 0.16666666666666666,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.3333333333333333
+      },
+      "CR.CO-NONE": {
+        "n": 2,
+        "cnn_acc": 1.0,
+        "tree_acc": 1.0,
+        "db_acc": 1.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 1.0
+      },
+      "NONE-SP.CR": {
+        "n": 2,
+        "cnn_acc": 1.0,
+        "tree_acc": 0.0,
+        "db_acc": 0.0,
+        "unified_acc": 0.0,
+        "agreement_rate": 0.0
+      }
+    }
+  },
+  "per_specimen": [
+    {
+      "specimen_id": "AG.AU_001",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=3; ood;cap;gills;stem; source=Svampeatlas/GBIF; occurrence=5898623767; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.6503899693489075,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "TY.FE",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_002",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=3; ood;cap;gills;stem; source=Svampeatlas/GBIF; occurrence=5898627776; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.9307426810264587,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AG.AU_003",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; ood;cap;gills;stem; source=Svampeatlas/GBIF; occurrence=5898668492; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.49102407693862915,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_004",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; toxic;cap;spots;stem; source=Svampeatlas/GBIF; occurrence=5898624502; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AM.MU",
+          "confidence": 0.824475109577179,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_005",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=2 below_idx=1; toxic;cap;spots;stem; source=Svampeatlas/GBIF; occurrence=5898635675; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AM.MU",
+          "confidence": 0.7646493911743164,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.MU_006",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=3 below_idx=1; toxic;cap;spots;stem; source=Svampeatlas/GBIF; occurrence=5898646473; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AM.MU",
+          "confidence": 0.9985697269439697,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "AM.MU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_007",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; extremely_toxic;white;gills;stem; source=Svampeatlas/GBIF; occurrence=5898622730; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.9909939169883728,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "AM.VI",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_008",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; extremely_toxic;white;gills;stem; source=Svampeatlas/GBIF; occurrence=5898634933; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.9562391638755798,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "AM.VI",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "AM.VI_009",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=3; extremely_toxic;white;gills;stem; source=Svampeatlas/GBIF; occurrence=5898657186; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.9918017983436584,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "AM.VI",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.9,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_010",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.ED",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;brown_cap; source=Svampeatlas/GBIF; occurrence=5898619230; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.7075708508491516,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.9,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_011",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.ED",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;brown_cap; source=Svampeatlas/GBIF; occurrence=5898629025; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.7749420404434204,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.BA_012",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.ED",
+      "notes": "paired above_idx=1 below_idx=2; bolete;pores;brown_cap; source=Svampeatlas/GBIF; occurrence=5898633268; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.8135859966278076,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_013",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.BA",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;edible; source=Svampeatlas/GBIF; occurrence=5898618342; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.6522645950317383,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_014",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.BA",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;edible; source=Svampeatlas/GBIF; occurrence=5898625002; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.9731849431991577,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "BO.ED",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CA.CI",
+          "confidence": 0.6,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "BO.ED_015",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.BA",
+      "notes": "paired above_idx=1 below_idx=2; bolete;pores;edible; source=Svampeatlas/GBIF; occurrence=5898640047; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.5354929566383362,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_016",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "paired above_idx=2 below_idx=1; chanterelle;folds;yellow; source=Svampeatlas/GBIF; occurrence=5898634658; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.5011789798736572,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "AR.ME",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_017",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "paired above_idx=1 below_idx=2; chanterelle;folds;yellow; source=Svampeatlas/GBIF; occurrence=5898649134; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.4031648635864258,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.CI_018",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "paired above_idx=1 below_idx=2; chanterelle;folds;yellow; source=Svampeatlas/GBIF; occurrence=5898662277; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.46019336581230164,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.9,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_019",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "paired above_idx=1 below_idx=2; confusing_pair;orange;gills; source=Svampeatlas/GBIF; occurrence=5052245313; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.9993534684181213,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "HY.PS",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.45,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_020",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "paired above_idx=3 below_idx=1; confusing_pair;orange;gills; source=Svampeatlas/GBIF; occurrence=5898629988; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.5214369297027588,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CA.CI",
+          "confidence": 0.9,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.PS_021",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "paired above_idx=1 below_idx=2; confusing_pair;orange;gills; source=Svampeatlas/GBIF; occurrence=5898632688; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.7712681889533997,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "AR.ME",
+          "confidence": 0.35,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_022",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=3 below_idx=1; milkcap;latex;toxic; source=Svampeatlas/GBIF; occurrence=4940908615; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.6725471615791321,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_023",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; milkcap;latex;toxic; source=Svampeatlas/GBIF; occurrence=5898651350; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.6550058126449585,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.45,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LA.HE_024",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; milkcap;latex;toxic; source=Svampeatlas/GBIF; occurrence=5898653100; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CO.CO",
+          "confidence": 0.3988650441169739,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_025",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; coral;branched;edible; source=Svampeatlas/GBIF; occurrence=4465862206; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.6323108077049255,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_026",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; coral;branched;edible; source=Svampeatlas/GBIF; occurrence=4465865225; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.BO",
+          "confidence": 0.9994935989379883,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.BO_027",
+      "species_id": "RA.BO",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; coral;branched;edible; source=Svampeatlas/GBIF; occurrence=5898655380; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.PA",
+          "confidence": 0.9575846195220947,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_028",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=3; coral;branched;toxic;confusing_pair; source=Svampeatlas/GBIF; occurrence=3343249350; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.PA",
+          "confidence": 0.5035651326179504,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.7,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_029",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; coral;branched;toxic;confusing_pair; source=Svampeatlas/GBIF; occurrence=4465872624; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.PA",
+          "confidence": 0.722850501537323,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RA.PA_030",
+      "species_id": "RA.PA",
+      "scenario": "coral",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=3 below_idx=2; coral;branched;toxic;confusing_pair; source=Svampeatlas/GBIF; occurrence=4465870669; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "RA.PA",
+          "confidence": 0.7651379108428955,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "PL.OS",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CO.CO_031",
+      "species_id": "CO.CO",
+      "scenario": "edge_case",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; inkcap;gills;edge_case_age; source=Svampeatlas/GBIF; occurrence=5898627048; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LA.VO",
+          "confidence": 0.1926291137933731,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CO.CO_032",
+      "species_id": "CO.CO",
+      "scenario": "edge_case",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=3; inkcap;gills;edge_case_age; source=Svampeatlas/GBIF; occurrence=5898651767; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view; orientation_corrected: swapped above/below after visual audit",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CO.CO",
+          "confidence": 0.5988227725028992,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CR.CO_033",
+      "species_id": "CR.CO",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; trumpet;dark;funnel; source=Svampeatlas/GBIF; occurrence=5052247678; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.9915709495544434,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CR.CO_034",
+      "species_id": "CR.CO",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; trumpet;dark;funnel; source=Svampeatlas/GBIF; occurrence=5052262151; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "agree",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.9217280149459839,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "FO.BE_035",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; polypore;bracket;wood; source=Svampeatlas/GBIF; occurrence=5106480117; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.8924036622047424,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.55,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "FO.BE_036",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; polypore;bracket;wood; source=Svampeatlas/GBIF; occurrence=6161868580; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.4739468991756439,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LY.PE_037",
+      "species_id": "LY.PE",
+      "scenario": "puffball",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; puffball;round;spines; source=Svampeatlas/GBIF; occurrence=5898626078; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.8680872917175293,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "LY.PE_038",
+      "species_id": "LY.PE",
+      "scenario": "puffball",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; puffball;round;spines; source=Svampeatlas/GBIF; occurrence=5898626813; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.7680544257164001,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "SP.CR_039",
+      "species_id": "SP.CR",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; cauliflower;branched;edible; source=Svampeatlas/GBIF; occurrence=5898627808; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.9970340728759766,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "SP.CR_040",
+      "species_id": "SP.CR",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=2 below_idx=1; cauliflower;branched;edible; source=Svampeatlas/GBIF; occurrence=5898657877; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.8640463948249817,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "MO.ES",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GY.ES_041",
+      "species_id": "GY.ES",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; toxic;false_morel;brain_like;confusing_pair; source=Svampeatlas/GBIF; occurrence=4847336116; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CO.CO",
+          "confidence": 0.43419867753982544,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GY.ES_042",
+      "species_id": "GY.ES",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; toxic;false_morel;brain_like;confusing_pair; source=Svampeatlas/GBIF; occurrence=4847337500; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.5005174875259399,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CA.CI",
+          "confidence": 0.6,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GA.MA_043",
+      "species_id": "GA.MA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; extremely_toxic;small_brown_gills;confusing_pair; source=Svampeatlas/GBIF; occurrence=5898634047; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view; orientation_corrected: swapped above/below after visual audit",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.765806257724762,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "GA.MA_044",
+      "species_id": "GA.MA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=3 below_idx=2; extremely_toxic;small_brown_gills;confusing_pair; source=Svampeatlas/GBIF; occurrence=5898646261; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.731982946395874,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "PL.OS_045",
+      "species_id": "PL.OS",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; oyster;shelf;gills;wood; source=Svampeatlas/GBIF; occurrence=5052245440; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.9571825265884399,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.675,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "PL.OS_046",
+      "species_id": "PL.OS",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; oyster;shelf;gills;wood; source=Svampeatlas/GBIF; occurrence=6161874219; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.354963481426239,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CR.CO",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.CA",
+          "confidence": 0.8,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.TU_047",
+      "species_id": "CA.TU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; funnel_chanterelle;folds;hollow_stem; source=Svampeatlas/GBIF; occurrence=5898631275; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.5588234066963196,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CA.TU_048",
+      "species_id": "CA.TU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; funnel_chanterelle;folds;hollow_stem; source=Svampeatlas/GBIF; occurrence=5898654001; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.4594714939594269,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.RE_049",
+      "species_id": "HY.RE",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; teeth;hedgehog;edible; source=Svampeatlas/GBIF; occurrence=5898630302; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.4762563705444336,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.AU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LA.DE",
+          "confidence": 0.9,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "HY.RE_050",
+      "species_id": "HY.RE",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; teeth;hedgehog;edible; source=Svampeatlas/GBIF; occurrence=5898649816; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.6063240170478821,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CAL.GI_051",
+      "species_id": "CAL.GI",
+      "scenario": "puffball",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=1; puffball has no underside view; above image intentionally reused for below; source=Svampeatlas/GBIF; occurrence=5106485911",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.4304361939430237,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CAL.GI_052",
+      "species_id": "CAL.GI",
+      "scenario": "puffball",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=1; puffball has no underside view; above image intentionally reused for below; source=Svampeatlas/GBIF; occurrence=6161867576",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.44405511021614075,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "GY.ES",
+          "confidence": 0.625,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "CAL.GI_053",
+      "species_id": "CAL.GI",
+      "scenario": "puffball",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=1; puffball has no underside view; above image intentionally reused for below; source=Svampeatlas/GBIF; occurrence=5898669530",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.9677783846855164,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "CA.TU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "BO.ED",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RU.IN_054",
+      "species_id": "RU.IN",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; above=cap/top view; below=underside/gills view; source=Svampeatlas/GBIF; occurrence=5052267553",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.8030478954315186,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "BO.ED",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.5,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RU.IN_055",
+      "species_id": "RU.IN",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=3; above=cap/top view; below=underside/gills view; source=Svampeatlas/GBIF; occurrence=5898672990",
+      "agreement": "disagree",
+      "results": {
+        "cnn": {
+          "top_species": "AM.MU",
+          "confidence": 0.5756257772445679,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "CR.CO",
+          "confidence": 0.4,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RU.BA_056",
+      "species_id": "RU.BA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; above=cap/top view; below=underside/gills view; source=Svampeatlas/GBIF; occurrence=4940915542",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AM.MU",
+          "confidence": 0.9857529997825623,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "AM.MU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "HY.RE",
+          "confidence": 0.525,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    },
+    {
+      "specimen_id": "RU.BA_057",
+      "species_id": "RU.BA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; above=cap/top view; below=underside/gills view; source=Svampeatlas/GBIF; occurrence=4940923869",
+      "agreement": "partial",
+      "results": {
+        "cnn": {
+          "top_species": "AM.MU",
+          "confidence": 0.9560919404029846,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "tree": {
+          "top_species": "AM.MU",
+          "confidence": 1.0,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "db": {
+          "top_species": "LE.LU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "unified": {
+          "top_species": "N/A",
+          "confidence": 0.0,
+          "coverage": false,
+          "correct": false,
+          "error": "Method not selected",
+          "reasoning": ""
+        }
+      },
+      "unified_outperforms_all": false,
+      "unified_wrong_but_standalone_right": false
+    }
+  ]
+}

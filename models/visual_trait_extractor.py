@@ -239,16 +239,27 @@ def analyse_brightness(bgr: np.ndarray) -> str:
 # Public entry point
 # ---------------------------------------------------------------------------
 
+def _bgr_pixels_to_hsv(pixels: np.ndarray) -> np.ndarray:
+    """Convert a (N, 3) BGR pixel array to (N, 3) HSV using OpenCV."""
+    # cv2.cvtColor needs a 3D image; reshape (N, 3) → (1, N, 3), convert, then flatten back
+    N = pixels.shape[0]
+    img_3d = pixels.reshape(1, N, 3).astype(np.uint8)
+    hsv_3d = cv2.cvtColor(img_3d, cv2.COLOR_BGR2HSV)
+    return hsv_3d.reshape(N, 3).astype(np.float32)
+
+
 def analyse_colours_masked(bgr: np.ndarray, mask: np.ndarray) -> Dict[str, Any]:
     # Compute colour stats only on mask-positive pixels. Fall back to full-image if mask too small.
     mask_bool = mask > 0
     if mask_bool.sum() < 50:
         return analyse_colours(bgr)
     pixels = bgr[mask_bool]
-    # reuse existing pipeline on the masked pixels
-    small = cv2.resize(pixels.reshape(-1, 3), (128, 128)) if len(pixels) >= 128 else pixels
-    hsv = cv2.cvtColor(small.reshape(-1, 3).astype(np.uint8), cv2.COLOR_BGR2HSV).astype(np.float32)
-    clusters = _dominant_hsv(hsv, n_clusters=4)
+    # Sample up to 4096 pixels to keep KMeans fast
+    if len(pixels) > 4096:
+        idx = np.random.choice(len(pixels), size=4096, replace=False)
+        pixels = pixels[idx]
+    hsv = _bgr_pixels_to_hsv(pixels)
+    clusters = _dominant_hsv(hsv, n_clusters=min(4, len(pixels)))
     colour_names = [_hsv_to_name(*c) for c in clusters]
     dominant = colour_names[0] if colour_names else "unknown"
     secondary = colour_names[1] if len(colour_names) > 1 else dominant

@@ -28,6 +28,8 @@ from api.schemas import (
     Step2StartRequest,
     Step3CompareRequest,
     Step4FinalizeRequest,
+    UnifiedIdentifyRequest,
+    UnifiedIdentifyResponse,
 )
 from models.final_aggregator import FinalAggregator
 from models.key_tree_traversal import KeyTreeEngine
@@ -35,6 +37,8 @@ from models.llm_classifier import LLMClassifier, OllamaBackend
 from models.trait_database_comparator import TraitDatabaseComparator
 from models.cnn_classifier import get_classifier
 from models.visual_trait_extractor import extract as extract_visual_traits
+from models.mushroom_segmenter import Segmenter, get_segmenter
+from models.unified_pipeline import UnifiedPipeline
 
 logger = logging.getLogger(__name__)
 
@@ -43,6 +47,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 SPECIES_CSV  = PROJECT_ROOT / "data" / "raw" / "species.csv"
 KEY_XML      = PROJECT_ROOT / "data" / "raw" / "key.xml"
 DATA_RAW_DIR = PROJECT_ROOT / "data" / "raw"
+
+# YOLO segmentation weights — prefer the fine-tuned 4-class model
+YOLO_WEIGHTS = PROJECT_ROOT / "data" / "Yolov8" / "best.pt"
+if not YOLO_WEIGHTS.exists():
+    YOLO_WEIGHTS = PROJECT_ROOT / "artifacts" / "yolov8_seg_ft.pt"
+if not YOLO_WEIGHTS.exists():
+    YOLO_WEIGHTS = PROJECT_ROOT / "artifacts" / "yolov8n-seg.pt"
 
 app = FastAPI(title="Mushroom Identification API", version="0.1.0")
 app.add_middleware(
@@ -68,17 +79,45 @@ KEY_TREE   = KeyTreeEngine(str(KEY_XML))
 COMPARATOR = TraitDatabaseComparator(str(DATA_RAW_DIR))
 AGGREGATOR = FinalAggregator(str(SPECIES_CSV))
 
-# Initialise Ollama LLM classifier — used only by the standalone /identify/llm_predict endpoint
+# Initialise Ollama LLM classifier — used by standalone and unified endpoints
 if OllamaBackend.is_available():
     try:
-        LLM = LLMClassifier(backend_type="ollama")
-        logger.info("Ollama LLM classifier ready")
+        from models.key_tree_parser import KeyTreeParser
+        _ktp = KeyTreeParser(str(KEY_XML))
+        _key_text = _ktp.get_prompt_injection()
+        LLM = LLMClassifier(backend_type="ollama", key_tree_text=_key_text)
+        logger.info("Ollama LLM classifier ready (with key.xml injection)")
     except Exception as _e:
         logger.warning("Ollama init failed: %s", _e)
         LLM = None
 else:
-    logger.info("Ollama not reachable — LLM endpoint will return 503 (start with: ollama serve)")
+    logger.info("Ollama not reachable — LLM endpoints will return 503 (start with: ollama serve)")
     LLM = None
+
+# Initialise unified pipeline (lazy segmenter loading)
+_unified_pipeline: Optional[UnifiedPipeline] = None
+
+
+def _get_unified_pipeline() -> UnifiedPipeline:
+    global _unified_pipeline
+    if _unified_pipeline is None:
+        seg = None
+        if YOLO_WEIGHTS.exists():
+            try:
+                seg = get_segmenter(model_path=str(YOLO_WEIGHTS))
+                logger.info("UnifiedPipeline: YOLO segmenter loaded from %s", YOLO_WEIGHTS)
+            except Exception as exc:
+                logger.warning("UnifiedPipeline: could not load segmenter: %s", exc)
+        else:
+            logger.warning("UnifiedPipeline: no YOLO weights found at %s", YOLO_WEIGHTS)
+        _unified_pipeline = UnifiedPipeline(
+            segmenter=seg,
+            key_xml_path=str(KEY_XML),
+            data_raw_dir=str(DATA_RAW_DIR),
+            llm_backend=LLM,
+            auto_init_llm=(LLM is None),  # only auto-init if global LLM wasn't ready
+        )
+    return _unified_pipeline
 
 
 @app.get("/health")
@@ -86,6 +125,7 @@ def health() -> Dict[str, str]:
     return {
         "status": "ok",
         "llm": "ollama" if LLM is not None else "unavailable",
+        "unified_pipeline": "ready" if _unified_pipeline is not None or YOLO_WEIGHTS.exists() else "no_segmenter",
     }
 
 
@@ -337,3 +377,46 @@ def step4_finalize(body: Step4FinalizeRequest) -> Dict[str, Any]:
         body.Species_tree_traversal_result,
         body.comparison_result,
     )
+
+
+# ---------------------------------------------------------------------------
+# Unified endpoint — two photos → full pipeline
+# ---------------------------------------------------------------------------
+
+@app.post("/identify/unified")
+async def identify_unified(
+    above_photo: UploadFile = File(..., description="Photo from above showing cap and stem"),
+    below_photo: UploadFile = File(..., description="Photo from below showing underside and stem"),
+) -> Dict[str, Any]:
+    """
+    Unified mushroom identification endpoint.
+
+    Upload **two** photos of the same mushroom:
+      * **above_photo** — taken from above, showing the cap and stem.
+      * **below_photo** — taken from below, showing the underside (gills/pores/ridges) and stem.
+
+    The pipeline runs automatically:
+      1. YOLOv8 4-class segmentation on both images
+      2. Case detection (classical / coral / puffball / uncertain)
+      3. Trait extraction per photo (masked where possible)
+      4. CNN prediction with uncertainty flags
+      5. Key-tree auto-traversal
+      6. Trait-database comparison
+      7. LLM synthesis of all signals
+      8. Agreement evaluation
+
+    Returns a complete result dict with all intermediate outputs and a
+    ``final_recommendation`` block.
+    """
+    above_bytes = await above_photo.read()
+    below_bytes = await below_photo.read()
+
+    if not above_bytes or not below_bytes:
+        raise HTTPException(
+            status_code=400,
+            detail="Both above_photo and below_photo must be provided.",
+        )
+
+    pipeline = _get_unified_pipeline()
+    result = pipeline.run(above_bytes, below_bytes)
+    return result

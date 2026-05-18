@@ -149,6 +149,75 @@ class MushroomCNN:
             return None
         return sorted(scores.items(), key=lambda x: x[1], reverse=True)[:k]
 
+    def predict_with_uncertainty(
+        self,
+        image_bytes: bytes,
+        conclusive_threshold: float = 0.40,
+        margin_threshold: float = 0.15,
+    ) -> Dict[str, Any]:
+        """
+        Always returns a structured prediction with uncertainty flags.
+
+        Returns:
+          {
+            "species": str | None,
+            "confidence": float,
+            "top_5": [(species, confidence), ...],
+            "in_distribution": bool,
+            "conclusive": bool,
+            "uncertainty_reason": str | None,
+          }
+        """
+        if self._model is None or not self._trained:
+            return {
+                "species": None,
+                "confidence": 0.0,
+                "top_5": [],
+                "in_distribution": False,
+                "conclusive": False,
+                "uncertainty_reason": "CNN not trained or unavailable.",
+            }
+
+        scores = self.predict(image_bytes)
+        if scores is None:
+            return {
+                "species": None,
+                "confidence": 0.0,
+                "top_5": [],
+                "in_distribution": False,
+                "conclusive": False,
+                "uncertainty_reason": "CNN inference failed.",
+            }
+
+        top_5 = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:5]
+        top_species, top_conf = top_5[0]
+        second_conf = top_5[1][1] if len(top_5) > 1 else 0.0
+        margin = top_conf - second_conf
+
+        in_distribution = top_species in SPECIES
+        conclusive = (
+            top_conf >= conclusive_threshold
+            and margin >= margin_threshold
+            and in_distribution
+        )
+
+        uncertainty_reason = None
+        if not in_distribution:
+            uncertainty_reason = "Top species not in training distribution."
+        elif top_conf < conclusive_threshold:
+            uncertainty_reason = f"Top confidence {top_conf:.2f} below threshold {conclusive_threshold:.2f}."
+        elif margin < margin_threshold:
+            uncertainty_reason = f"Margin {margin:.2f} below threshold {margin_threshold:.2f}."
+
+        return {
+            "species": top_species,
+            "confidence": round(top_conf, 4),
+            "top_5": [(sp, round(sc, 4)) for sp, sc in top_5],
+            "in_distribution": in_distribution,
+            "conclusive": conclusive,
+            "uncertainty_reason": uncertainty_reason,
+        }
+
 
 # Module-level singleton — imported by visual_trait_extractor
 _instance: Optional[MushroomCNN] = None

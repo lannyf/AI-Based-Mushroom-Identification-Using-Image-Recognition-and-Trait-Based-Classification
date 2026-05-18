@@ -1849,4 +1849,263 @@
       <trait name="size_cm" value_type="range" variability="varies">5-12</trait>
     </trait_group>
   </species>
+  <species id="AG.AU">
+    <trait_group category="CAP">
+      <trait name="shape" value_type="categorical" variability="convex to flat">convex|flat</trait>
+      <trait name="color" value_type="categorical" variability="light straw yellow with brown scales">straw|yellow|brown</trait>
+      <trait name="surface_texture" value_type="categorical" variability="scattered small brown scales on yellow ground">scaly</trait>
+      <trait name="size_cm" value_type="range" variability="medium to large">8-20</trait>
+      <trait name="margin" value_type="categorical" variability="even">smooth</trait>
+    </trait_group>
+    <trait_group category="FLESH">
+      <trait name="color" value_type="categorical" variability="white yellowing on bruising">white|yellow</trait>
+      <trait name="texture" value_type="categorical" variability="firm">firm</trait>
+      <trait name="smell" value_type="categorical" variability="strong almond or anise">almond|anise</trait>
+    </trait_group>
+    <trait_group category="GILLS">
+      <trait name="attachment" value_type="categorical" variability="free crowded">free</trait>
+      <trait name="density" value_type="categorical" variability="crowded">crowded</trait>
+      <trait name="color" value_type="categorical" variability="pale then pink to chocolate brown">pale|pink|brown</trait>
+      <trait name="edge" value_type="categorical" variability="smooth">smooth</trait>
+    </trait_group>
+    <trait_group category="GROWTH">
+      <trait name="pattern" value_type="categorical" variability="scattered to gregarious">scattered|gregarious</trait>
+    </trait_group>
+    <trait_group category="HABITAT">
+      <trait name="substrate_type" value_type="categorical" variability="forest soil">soil</trait>
+      <trait name="tree_association" value_type="categorical" variability="spruce and deciduous trees">coniferous|hardwood</trait>
+    </trait_group>
+    <trait_group category="SEASON">
+      <trait name="season" value_type="categorical" variability="summer to autumn">july|august|september|october</trait>
+    </trait_group>
+    <trait_group category="STEM">
+      <trait name="shape" value_type="categorical" variability="stout with large skirt-like ring">cylindrical</trait>
+      <trait name="color" value_type="categorical" variability="white">white</trait>
+      <trait name="surface" value_type="categorical" variability="smooth with large ring">smooth</trait>
+      <trait name="hollow_solid" value_type="categorical" variability="solid">solid</trait>
+      <trait name="size_cm" value_type="range" variability="stout">8-15</trait>
+    </trait_group>
+  </species>
+  <species id="CAL.GI">
+    <trait_group category="CAP">
+      <trait name="shape" value_type="categorical" variability="round to oval">round|oval</trait>
+      <trait name="color" value_type="categorical" variability="whitish">white</trait>
+      <trait name="surface_texture" value_type="categorical" variability="soft smooth cracking with age">smooth|cracked</trait>
+      <trait name="size_cm" value_type="range" variability="very large">15-60</trait>
+      <trait name="margin" value_type="categorical" variability="even">smooth</trait>
+    </trait_group>
+    <trait_group category="FLESH">
+      <trait name="color" value_type="categorical" variability="white then green-yellow and brown">white|green|brown</trait>
+      <trait name="texture" value_type="categorical" variability="soft spongy">soft</trait>
+      <trait name="smell" value_type="categorical" variability="mild pleasant">pleasant</trait>
+    </trait_group>
+    <trait_group category="GILLS">
+      <trait name="attachment" value_type="categorical" variability="no gills internal spore mass">smooth</trait>
+      <trait name="density" value_type="categorical" variability="none">none</trait>
+      <trait name="color" value_type="categorical" variability="white maturing to olive brown">white|olive|brown</trait>
+      <trait name="edge" value_type="categorical" variability="smooth">smooth</trait>
+    </trait_group>
+    <trait_group category="GROWTH">
+      <trait name="pattern" value_type="categorical" variability="solitary or scattered">solitary|scattered</trait>
+    </trait_group>
+    <trait_group category="HABITAT">
+      <trait name="substrate_type" value_type="categorical" variability="grassland and forest soil">soil</trait>
+      <trait name="tree_association" value_type="categorical" variability="meadows lawns pastures">none</trait>
+    </trait_group>
+    <trait_group category="SEASON">
+      <trait name="season" value_type="categorical" variability="late summer to autumn">august|september|october</trait>
+    </trait_group>
+    <trait_group category="STEM">
+      <trait name="shape" value_type="categorical" variability="no true stem">absent</trait>
+      <trait name="color" value_type="categorical" variability="none">white</trait>
+      <trait name="surface" value_type="categorical" variability="smooth">smooth</trait>
+      <trait name="hollow_solid" value_type="categorical" variability="solid">solid</trait>
+      <trait name="size_cm" value_type="range" variability="none">0</trait>
+    </trait_group>
+  </species>
+  <species id="FO.BE">
+    <trait_group category="CAP">
+      <trait name="shape" value_type="categorical" variability="semicircular to kidney-shaped bracket">bracket|semicircular</trait>
+      <trait name="color" value_type="categorical" variability="pale brown to yellowish">pale-brown|yellowish</trait>
+      <trait name="surface_texture" value_type="categorical" variability="velvety when young smooth with age">velvety|smooth</trait>
+      <trait name="size_cm" value_type="range" variability="medium bracket">10-25</trait>
+      <trait name="margin" value_type="categorical" variability="even to wavy">smooth|wavy</trait>
+    </trait_group>
+    <trait_group category="FLESH">
+      <trait name="color" value_type="categorical" variability="white to cream">white|cream</trait>
+      <trait name="texture" value_type="categorical" variability="tough leathery">tough</trait>
+      <trait name="smell" value_type="categorical" variability="faint pleasant">pleasant</trait>
+    </trait_group>
+    <trait_group category="GILLS">
+      <trait name="attachment" value_type="categorical" variability="fine white to cream pores">pores</trait>
+      <trait name="density" value_type="categorical" variability="small">small</trait>
+      <trait name="color" value_type="categorical" variability="white to cream">white|cream</trait>
+      <trait name="edge" value_type="categorical" variability="blunt">blunt</trait>
+    </trait_group>
+    <trait_group category="GROWTH">
+      <trait name="pattern" value_type="categorical" variability="solitary or overlapping">solitary|clustered</trait>
+    </trait_group>
+    <trait_group category="HABITAT">
+      <trait name="substrate_type" value_type="categorical" variability="dead or weakened birch wood">wood</trait>
+      <trait name="tree_association" value_type="categorical" variability="birch">hardwood</trait>
+    </trait_group>
+    <trait_group category="SEASON">
+      <trait name="season" value_type="categorical" variability="year-round perennial">january|february|march|april|may|june|july|august|september|october|november|december</trait>
+    </trait_group>
+    <trait_group category="STEM">
+      <trait name="shape" value_type="categorical" variability="bracket no stem lateral attachment">lateral|absent</trait>
+      <trait name="color" value_type="categorical" variability="none">pale-brown</trait>
+      <trait name="surface" value_type="categorical" variability="smooth">smooth</trait>
+      <trait name="hollow_solid" value_type="categorical" variability="solid">solid</trait>
+      <trait name="size_cm" value_type="range" variability="minimal">0-2</trait>
+    </trait_group>
+  </species>
+  <species id="LA.HE">
+    <trait_group category="CAP">
+      <trait name="shape" value_type="categorical" variability="convex with inrolled margin flattening to depressed">convex|flat|depressed</trait>
+      <trait name="color" value_type="categorical" variability="light brown cinnamon-brown pinkish-brown">brown|orange-brown|pinkish-brown</trait>
+      <trait name="surface_texture" value_type="categorical" variability="dry smooth or finely velvety">smooth|velvety</trait>
+      <trait name="size_cm" value_type="range" variability="medium to large">5-15</trait>
+      <trait name="margin" value_type="categorical" variability="even inrolled when young">smooth</trait>
+    </trait_group>
+    <trait_group category="FLESH">
+      <trait name="color" value_type="categorical" variability="pale pinkish or pale brownish">pale-pink|pale-brown</trait>
+      <trait name="texture" value_type="categorical" variability="firm brittle">firm</trait>
+      <trait name="smell" value_type="categorical" variability="strong curry fenugreek licorice">curry|licorice</trait>
+    </trait_group>
+    <trait_group category="GILLS">
+      <trait name="attachment" value_type="categorical" variability="adnate to slightly decurrent">adnate|decurrent</trait>
+      <trait name="density" value_type="categorical" variability="close">close</trait>
+      <trait name="color" value_type="categorical" variability="whitish becoming dirty yellowish">white|yellowish</trait>
+      <trait name="edge" value_type="categorical" variability="smooth">smooth</trait>
+    </trait_group>
+    <trait_group category="GROWTH">
+      <trait name="pattern" value_type="categorical" variability="solitary to scattered">solitary|scattered</trait>
+    </trait_group>
+    <trait_group category="HABITAT">
+      <trait name="substrate_type" value_type="categorical" variability="boggy wet mossy soil">soil|moss</trait>
+      <trait name="tree_association" value_type="categorical" variability="conifers mainly spruce and pine">coniferous</trait>
+    </trait_group>
+    <trait_group category="SEASON">
+      <trait name="season" value_type="categorical" variability="summer to autumn">july|august|september|october</trait>
+    </trait_group>
+    <trait_group category="STEM">
+      <trait name="shape" value_type="categorical" variability="cylindrical more or less equal">cylindrical</trait>
+      <trait name="color" value_type="categorical" variability="orangish pinkish or orangish-brown">orange|pinkish-brown</trait>
+      <trait name="surface" value_type="categorical" variability="smooth or finely velvety">smooth</trait>
+      <trait name="hollow_solid" value_type="categorical" variability="solid">solid</trait>
+      <trait name="size_cm" value_type="range" variability="medium">3-10</trait>
+    </trait_group>
+  </species>
+  <species id="RU.BA">
+    <trait_group category="CAP">
+      <trait name="shape" value_type="categorical" variability="convex to depressed">convex|depressed</trait>
+      <trait name="color" value_type="categorical" variability="dark red-brown dark red to coppery">red-brown|dark-red|coppery</trait>
+      <trait name="surface_texture" value_type="categorical" variability="smooth viscid when wet">smooth|viscid</trait>
+      <trait name="size_cm" value_type="range" variability="medium">3-13</trait>
+      <trait name="margin" value_type="categorical" variability="even to slightly striate">smooth</trait>
+    </trait_group>
+    <trait_group category="FLESH">
+      <trait name="color" value_type="categorical" variability="white unchanging">white</trait>
+      <trait name="texture" value_type="categorical" variability="grainy brittle">brittle</trait>
+      <trait name="smell" value_type="categorical" variability="earthy cedar">earthy</trait>
+    </trait_group>
+    <trait_group category="GILLS">
+      <trait name="attachment" value_type="categorical" variability="adnexed notched">adnexed</trait>
+      <trait name="density" value_type="categorical" variability="crowded">crowded</trait>
+      <trait name="color" value_type="categorical" variability="cream to yellowish">cream|yellowish</trait>
+      <trait name="edge" value_type="categorical" variability="smooth">smooth</trait>
+    </trait_group>
+    <trait_group category="GROWTH">
+      <trait name="pattern" value_type="categorical" variability="solitary to scattered">solitary|scattered</trait>
+    </trait_group>
+    <trait_group category="HABITAT">
+      <trait name="substrate_type" value_type="categorical" variability="acidic forest soil">soil</trait>
+      <trait name="tree_association" value_type="categorical" variability="spruce and pine in coniferous woods">coniferous</trait>
+    </trait_group>
+    <trait_group category="SEASON">
+      <trait name="season" value_type="categorical" variability="summer to autumn">july|august|september|october</trait>
+    </trait_group>
+    <trait_group category="STEM">
+      <trait name="shape" value_type="categorical" variability="cylindrical">cylindrical</trait>
+      <trait name="color" value_type="categorical" variability="white with pink or reddish-brown wash">white|pink</trait>
+      <trait name="surface" value_type="categorical" variability="smooth">smooth</trait>
+      <trait name="hollow_solid" value_type="categorical" variability="hollow or cottony hollow">hollow</trait>
+      <trait name="size_cm" value_type="range" variability="medium">3-11</trait>
+    </trait_group>
+  </species>
+  <species id="RU.IN">
+    <trait_group category="CAP">
+      <trait name="shape" value_type="categorical" variability="hemispherical then convex to flat with depressed center">convex|flat|depressed</trait>
+      <trait name="color" value_type="categorical" variability="brown to reddish-brown sometimes faded">brown|red-brown</trait>
+      <trait name="surface_texture" value_type="categorical" variability="slightly sticky when wet smooth">smooth|viscid</trait>
+      <trait name="size_cm" value_type="range" variability="medium">5-12</trait>
+      <trait name="margin" value_type="categorical" variability="even">smooth</trait>
+    </trait_group>
+    <trait_group category="FLESH">
+      <trait name="color" value_type="categorical" variability="white">white</trait>
+      <trait name="texture" value_type="categorical" variability="firm brittle">firm</trait>
+      <trait name="smell" value_type="categorical" variability="mild nut-like almond">almond|pleasant</trait>
+    </trait_group>
+    <trait_group category="GILLS">
+      <trait name="attachment" value_type="categorical" variability="notched to adnate with anastomoses">notched|adnate</trait>
+      <trait name="density" value_type="categorical" variability="crowded">crowded</trait>
+      <trait name="color" value_type="categorical" variability="white to cream-colored">white|cream</trait>
+      <trait name="edge" value_type="categorical" variability="smooth">smooth</trait>
+    </trait_group>
+    <trait_group category="GROWTH">
+      <trait name="pattern" value_type="categorical" variability="scattered to gregarious">scattered|gregarious</trait>
+    </trait_group>
+    <trait_group category="HABITAT">
+      <trait name="substrate_type" value_type="categorical" variability="forest soil litter">soil</trait>
+      <trait name="tree_association" value_type="categorical" variability="spruce in coniferous and mixed forest">coniferous</trait>
+    </trait_group>
+    <trait_group category="SEASON">
+      <trait name="season" value_type="categorical" variability="summer to autumn">july|august|september|october</trait>
+    </trait_group>
+    <trait_group category="STEM">
+      <trait name="shape" value_type="categorical" variability="cylindrical">cylindrical</trait>
+      <trait name="color" value_type="categorical" variability="white sometimes yellow to yellow-brown spots">white|yellow</trait>
+      <trait name="surface" value_type="categorical" variability="smooth">smooth</trait>
+      <trait name="hollow_solid" value_type="categorical" variability="solid">solid</trait>
+      <trait name="size_cm" value_type="range" variability="medium">4-10</trait>
+    </trait_group>
+  </species>
+  <species id="LA.VO">
+    <trait_group category="CAP">
+      <trait name="shape" value_type="categorical" variability="convex then flat to slightly funnel-shaped">convex|flat|funnel-shaped</trait>
+      <trait name="color" value_type="categorical" variability="yellow-brown to reddish-brown">yellow-brown|red-brown</trait>
+      <trait name="surface_texture" value_type="categorical" variability="finely velvety">velvety</trait>
+      <trait name="size_cm" value_type="range" variability="medium to large">6-15</trait>
+      <trait name="margin" value_type="categorical" variability="even">smooth</trait>
+    </trait_group>
+    <trait_group category="FLESH">
+      <trait name="color" value_type="categorical" variability="white">white</trait>
+      <trait name="texture" value_type="categorical" variability="hard firm">firm</trait>
+      <trait name="smell" value_type="categorical" variability="strong shellfish seafood">seafood</trait>
+    </trait_group>
+    <trait_group category="GILLS">
+      <trait name="attachment" value_type="categorical" variability="adnate to decurrent">adnate|decurrent</trait>
+      <trait name="density" value_type="categorical" variability="crowded">crowded</trait>
+      <trait name="color" value_type="categorical" variability="cream-yellow brown-spotted with age">cream|yellow|brown</trait>
+      <trait name="edge" value_type="categorical" variability="smooth">smooth</trait>
+    </trait_group>
+    <trait_group category="GROWTH">
+      <trait name="pattern" value_type="categorical" variability="scattered to gregarious">scattered|gregarious</trait>
+    </trait_group>
+    <trait_group category="HABITAT">
+      <trait name="substrate_type" value_type="categorical" variability="forest soil">soil</trait>
+      <trait name="tree_association" value_type="categorical" variability="oak and spruce mixed forest">hardwood|coniferous</trait>
+    </trait_group>
+    <trait_group category="SEASON">
+      <trait name="season" value_type="categorical" variability="summer to autumn">july|august|september|october</trait>
+    </trait_group>
+    <trait_group category="STEM">
+      <trait name="shape" value_type="categorical" variability="cylindrical hard stiff">cylindrical</trait>
+      <trait name="color" value_type="categorical" variability="same as cap or paler">yellow-brown|pale</trait>
+      <trait name="surface" value_type="categorical" variability="smooth dry">smooth</trait>
+      <trait name="hollow_solid" value_type="categorical" variability="solid">solid</trait>
+      <trait name="size_cm" value_type="range" variability="medium">4-10</trait>
+    </trait_group>
+  </species>
 </species_traits>

@@ -32,3 +32,27 @@ class Step4FinalizeRequest(BaseModel):
 
 class LLMPredictRequest(BaseModel):
     visible_traits: Dict[str, Any]
+
+
+class UnifiedIdentifyRequest(BaseModel):
+    """Request body for the unified identification endpoint.
+
+    Accepts two images: an above-view photo (showing cap + stem)
+    and a below-view photo (showing underside + stem).
+    Both are sent as multipart/form-data, not JSON.
+    """
+    # This schema is used for documentation only;
+    # the actual endpoint reads UploadFile fields directly.
+    pass
+
+
+class UnifiedIdentifyResponse(BaseModel):
+    case: Dict[str, Any]
+    traits: Dict[str, Any]
+    cnn: Dict[str, Any]
+    tree: Dict[str, Any]
+    database: Dict[str, Any]
+    llm: Dict[str, Any]
+    agreement: str
+    final_recommendation: Dict[str, Any]
+    processing_time_ms: float

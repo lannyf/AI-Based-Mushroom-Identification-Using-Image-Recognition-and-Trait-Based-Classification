@@ -9,8 +9,7 @@ from benchmarks.runners.base import BenchmarkRunner, RunnerResult
 from benchmarks.runners.cnn_runner import CNNRunner
 from benchmarks.runners.trait_db_runner import TraitDBRunner
 from benchmarks.runners.tree_runner import TreeRunner
-from benchmarks.runners.llm_runner import LLMRunner
-from benchmarks.runners.multimodal_runner import MultimodalRunner
+from benchmarks.runners.unified_runner import UnifiedRunner
 
 __all__ = [
     "BenchmarkRunner",
@@ -18,6 +17,5 @@ __all__ = [
     "CNNRunner",
     "TraitDBRunner",
     "TreeRunner",
-    "LLMRunner",
-    "MultimodalRunner",
+    "UnifiedRunner",
 ]

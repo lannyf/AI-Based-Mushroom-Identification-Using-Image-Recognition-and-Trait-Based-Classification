@@ -117,7 +117,7 @@ def write_metadata(
     metadata: Dict[str, Any] = {
         "model": "yolov8n-seg",
         "training_date": datetime.now(timezone.utc).isoformat(),
-        "dataset_version": "sam2-v1",
+        "dataset_version": "roboflow-4class",
         "dataset_yaml": str(dataset_yaml_path.resolve()),
         "train_images": train_images,
         "val_images": val_images,

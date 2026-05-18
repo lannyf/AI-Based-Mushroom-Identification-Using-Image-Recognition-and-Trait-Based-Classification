@@ -51,23 +51,22 @@ class ConfusionMatrix:
         return self.correct_predictions / self.total_predictions
 
 
-def evaluate_llm_classifier(backend_type: str = 'mock', api_key: str = None) -> Dict[str, Any]:
+def evaluate_llm_classifier(backend_type: str = 'mock') -> Dict[str, Any]:
     """
     Comprehensive evaluation of LLM classifier.
-    
+
     Args:
-        backend_type: 'mock' or 'openai'
-        api_key: API key if required
-    
+        backend_type: 'mock' or 'ollama'
+
     Returns:
         Evaluation results
     """
     from models.llm_classifier import LLMClassifier, SpeciesDatabase
-    
+
     logger.info('Initializing LLM classifier for evaluation...')
-    
+
     try:
-        classifier = LLMClassifier(backend_type=backend_type, api_key=api_key)
+        classifier = LLMClassifier(backend_type=backend_type)
         species_db = SpeciesDatabase()
     except Exception as e:
         logger.error(f'Initialization failed: {e}')
@@ -272,13 +271,9 @@ def main():
     )
     parser.add_argument(
         '--backend',
-        choices=['mock', 'openai'],
-        default='mock',
-        help='LLM backend (default: mock)'
-    )
-    parser.add_argument(
-        '--api-key',
-        help='API key for backend'
+        choices=['mock', 'ollama'],
+        default='ollama',
+        help='LLM backend (default: ollama)'
     )
     parser.add_argument(
         '--compare',
@@ -305,7 +300,7 @@ def main():
     logger.info('╚═══════════════════════════════════════════════════════════╝')
     
     # Run evaluation
-    results = evaluate_llm_classifier(args.backend, args.api_key)
+    results = evaluate_llm_classifier(args.backend)
     
     # Print summary
     logger.info('\n' + '='*60)

@@ -1,0 +1,13 @@
+specimen_id,above_image_path,below_image_path,species_id,scenario,subset,confusing_pair_with,notes
+BO.ED_001,evaluation_images/BO.ED/BO.ED_001_above.jpg,evaluation_images/BO.ED/BO.ED_001_below.jpg,BO.ED,easy,id,,good lighting clean background
+CA.CI_001,evaluation_images/CA.CI/CA.CI_001_above.jpg,evaluation_images/CA.CI/CA.CI_001_below.jpg,CA.CI,easy,id,,classic funnel shape
+AM.MU_001,evaluation_images/AM.MU/AM.MU_001_above.jpg,evaluation_images/AM.MU/AM.MU_001_below.jpg,AM.MU,easy,id,,red cap white spots visible
+CA.CI_002,evaluation_images/CA.CI/CA.CI_002_above.jpg,evaluation_images/CA.CI/CA.CI_002_below.jpg,CA.CI,confusing,id,HY.PS,false gills forked decurrent
+HY.PS_001,evaluation_images/HY.PS/HY.PS_001_above.jpg,evaluation_images/HY.PS/HY.PS_001_below.jpg,HY.PS,confusing,id,CA.CI,orange colour similar to chanterelle
+BO.ED_002,evaluation_images/BO.ED/BO.ED_002_above.jpg,evaluation_images/BO.ED/BO.ED_002_below.jpg,BO.ED,confusing,id,BO.BA,pores instead of gills
+BO.BA_001,evaluation_images/BO.BA/BO.BA_001_above.jpg,evaluation_images/BO.BA/BO.BA_001_below.jpg,BO.BA,confusing,id,BO.ED,darker cap bay bolete
+LY.PE_001,evaluation_images/LY.PE/LY.PE_001_above.jpg,evaluation_images/LY.PE/LY.PE_001_below.jpg,LY.PE,puffball,id,,round body no stem visible
+RA.BO_001,evaluation_images/RA.BO/RA.BO_001_above.jpg,evaluation_images/RA.BO/RA.BO_001_below.jpg,RA.BO,coral,id,,branched coral structure
+AG.AU_001,evaluation_images/AG.AU/AG.AU_001_above.jpg,evaluation_images/AG.AU/AG.AU_001_below.jpg,AG.AU,ood,ood,,King Agaricus almond scent
+LA.VO_001,evaluation_images/LA.VO/LA.VO_001_above.jpg,evaluation_images/LA.VO/LA.VO_001_below.jpg,LA.VO,ood,ood,,Mandel Milkcap milky latex
+AM.MU_002,evaluation_images/AM.MU/AM.MU_002_above.jpg,,AM.MU,edge_case,id,,missing below photo partial occlusion
