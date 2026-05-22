@@ -15,8 +15,7 @@ from typing import Any, Dict, List
 from benchmarks.runners.base import RunnerResult
 
 
-_SYSTEM_A_METHODS = {"cnn", "tree", "db", "llm"}
-_SYSTEM_B_METHODS = {"unified"}
+_ALL_VARIANTS = ["cnn", "a1", "a2", "b1", "b2"]
 
 
 # ---------------------------------------------------------------------------
@@ -68,7 +67,6 @@ def generate_csv_report(
         "scenario",
         "subset",
         "confusing_pair_with",
-        "agreement",
     ]
     for m in methods:
         fieldnames.extend([f"{m}_pred", f"{m}_correct", f"{m}_coverage", f"{m}_confidence"])
@@ -84,7 +82,6 @@ def generate_csv_report(
                 "scenario": entry["scenario"],
                 "subset": entry["subset"],
                 "confusing_pair_with": entry.get("confusing_pair_with", ""),
-                "agreement": entry["agreement"],
                 "notes": entry.get("notes", ""),
             }
             for m, r in entry["results"].items():
@@ -105,120 +102,69 @@ def generate_markdown_report(
     metrics: Dict[str, Any],
     output_path: Path,
 ) -> None:
-    """Write a thesis-ready Markdown report separating System A and System B."""
+    """Write a thesis-ready Markdown report with 5 tables."""
     lines: List[str] = ["# Comparative Benchmark Results\n"]
 
     per_method = metrics.get("per_method", {})
 
-    # --- 1. System A — Standalone Methods --------------------------------
-    lines.append("## 1. System A — Standalone Methods\n")
-    lines.append("*Each method operates independently without access to the others.*\n")
+    # --- 1. Overall Accuracy Table ----------------------------------------
+    lines.append("## 1. Overall Accuracy\n")
     lines.append("| Method | Accuracy | Coverage | Mean Time (ms) |")
     lines.append("|--------|----------|----------|----------------|")
-    for method, m in per_method.items():
-        if method in _SYSTEM_A_METHODS:
-            lines.append(
-                f"| {method} | {m['accuracy']:.1%} | {m['coverage']:.1%} | {m['mean_time_ms']:.1f} |"
-            )
+    for method in _ALL_VARIANTS:
+        m = per_method.get(method, {})
+        lines.append(
+            f"| {method} | {m.get('accuracy', 0):.1%} | {m.get('coverage', 0):.1%} | {m.get('mean_time_ms', 0):.1f} |"
+        )
     lines.append("")
 
-    # --- 2. System B — Unified LLM Synthesis -----------------------------
-    lines.append("## 2. System B — Unified LLM Synthesis\n")
-    lines.append("*The LLM aggregates signals from all System A subsystems into a single prediction.*\n")
-    lines.append("| Method | Accuracy | Coverage | Mean Time (ms) |")
-    lines.append("|--------|----------|----------|----------------|")
-    for method, m in per_method.items():
-        if method in _SYSTEM_B_METHODS:
-            lines.append(
-                f"| {method} | {m['accuracy']:.1%} | {m['coverage']:.1%} | {m['mean_time_ms']:.1f} |"
-            )
+    # --- 2. Accuracy by Scenario ------------------------------------------
+    lines.append("## 2. Accuracy by Scenario\n")
+    lines.append("| Scenario | N | CNN | A1 | A2 | B1 | B2 |")
+    lines.append("|----------|---|-----|----|----|----|----|")
+    for scenario, s in metrics.get("by_scenario", {}).items():
+        lines.append(
+            f"| {scenario} | {s['n']} | {s['cnn_acc']:.0%} | {s['a1_acc']:.0%} | "
+            f"{s['a2_acc']:.0%} | {s['b1_acc']:.0%} | {s['b2_acc']:.0%} |"
+        )
     lines.append("")
 
-    # --- 3. Raw Accuracy Difference: System B vs Each System A Method ---
-    lines.append("## 3. Raw Accuracy Difference: System B vs System A\n")
-    lines.append("*Simple accuracy difference between Unified and each standalone method.*\n")
-    lines.append("| Comparison | Unified Acc | Standalone Acc | Difference |")
-    lines.append("|------------|-------------|----------------|------------|")
-    unified_m = per_method.get("unified", {})
-    unified_acc = unified_m.get("accuracy", 0)
-    for method, m in per_method.items():
-        if method in _SYSTEM_A_METHODS:
-            diff = unified_acc - m["accuracy"]
-            sign = "+" if diff >= 0 else ""
-            lines.append(
-                f"| unified vs {method} | {unified_acc:.1%} | {m['accuracy']:.1%} | {sign}{diff:.1%} |"
-            )
-    lines.append("")
+    # --- 3. Oracle Impact: A2 vs A1 ---------------------------------------
+    lines.append("## 3. Oracle Impact: A2 vs A1\n")
+    lines.append("*How much raw LLM benefits from perfect vision-only trait knowledge.*\n")
+    a1_acc = per_method.get("a1", {}).get("accuracy", 0)
+    a2_acc = per_method.get("a2", {}).get("accuracy", 0)
+    delta_a = a2_acc - a1_acc
+    lines.append(f"- A1 accuracy: {a1_acc:.1%}")
+    lines.append(f"- A2 accuracy: {a2_acc:.1%}")
+    lines.append(f"- Delta (A2 - A1): {delta_a:+.1%}\n")
 
-    # --- 4. Confusing-Pair Breakdown ------------------------------------
-    lines.append("## 4. Confusing-Pair Breakdown\n")
+    # --- 4. Trait Extractor Impact: B1 vs B2 ------------------------------
+    lines.append("## 4. Trait Extractor Impact: B1 vs B2\n")
+    lines.append(
+        "*Performance lost to imperfect trait extraction. "
+        "Positive extractor_penalty = B1 performs worse than B2.*\n"
+    )
+    b1_acc = per_method.get("b1", {}).get("accuracy", 0)
+    b2_acc = per_method.get("b2", {}).get("accuracy", 0)
+    penalty = metrics.get("extractor_penalty", b1_acc - b2_acc)
+    lines.append(f"- B1 accuracy (extracted traits): {b1_acc:.1%}")
+    lines.append(f"- B2 accuracy (oracle traits): {b2_acc:.1%}")
+    lines.append(f"- Extractor penalty (B1 - B2): {penalty:+.1%}\n")
+
+    # --- 5. Confusing Pair Breakdown --------------------------------------
+    lines.append("## 5. Confusing Pair Breakdown\n")
     confusing = metrics.get("confusing_pairs", {})
     if confusing:
-        lines.append("| Pair | N | CNN | Tree | DB | LLM | Unified | Agr |")
-        lines.append("|------|---|-----|------|----|-----|---------|-----|")
+        lines.append("| Pair | N | CNN | A1 | A2 | B1 | B2 |")
+        lines.append("|------|---|-----|----|----|----|----|")
         for pair_name, p in confusing.items():
             lines.append(
-                f"| {pair_name} | {p['n']} | {p['cnn_acc']:.0%} | {p['tree_acc']:.0%} | "
-                f"{p['db_acc']:.0%} | {p.get('llm_acc', 0):.0%} | {p['unified_acc']:.0%} | {p['agreement_rate']:.0%} |"
+                f"| {pair_name} | {p['n']} | {p['cnn_acc']:.0%} | {p['a1_acc']:.0%} | "
+                f"{p['a2_acc']:.0%} | {p['b1_acc']:.0%} | {p['b2_acc']:.0%} |"
             )
     else:
         lines.append("*No confusing-pair specimens were evaluated.*")
-    lines.append("")
-
-    # --- 5. Cases Where System B Outperformed All System A ---------------
-    lines.append("## 5. Cases Where System B Outperformed All System A Methods\n")
-    wins = [e for e in per_specimen if e.get("unified_outperforms_all", False)]
-    if wins:
-        lines.append("| Specimen | GT | CNN | Tree | DB | LLM | Unified | Reasoning |")
-        lines.append("|----------|----|-----|------|----|-----|---------|-----------|")
-        for e in wins:
-            r = e["results"]
-            lines.append(
-                f"| {e['specimen_id']} | {e['species_id']} | "
-                f"{r['cnn']['top_species']} | {r['tree']['top_species']} | "
-                f"{r['db']['top_species']} | {r['llm']['top_species']} | {r['unified']['top_species']} | "
-                f"{r['unified'].get('reasoning', '')[:60]}… |"
-            )
-    else:
-        lines.append("*No such cases found.*")
-    lines.append("")
-
-    # --- 6. Cases Where System B Was Wrong But System A Was Right --------
-    lines.append("## 6. Cases Where System B Was Wrong But a System A Method Was Right\n")
-    losses = [e for e in per_specimen if e.get("unified_wrong_but_standalone_right", False)]
-    if losses:
-        lines.append("| Specimen | GT | CNN | Tree | DB | LLM | Unified | Notes |")
-        lines.append("|----------|----|-----|------|----|-----|---------|-------|")
-        for e in losses:
-            r = e["results"]
-            lines.append(
-                f"| {e['specimen_id']} | {e['species_id']} | "
-                f"{r['cnn']['top_species']} | {r['tree']['top_species']} | "
-                f"{r['db']['top_species']} | {r['llm']['top_species']} | {r['unified']['top_species']} | {e.get('notes', '')} |"
-            )
-    else:
-        lines.append("*No such cases found.*")
-    lines.append("")
-
-    # --- 7. Agreement Statistics ----------------------------------------
-    lines.append("## 7. Agreement Statistics\n")
-    lines.append("| Agreement Level | Count | % | Avg System B Accuracy |")
-    lines.append("|-----------------|-------|---|-----------------------|")
-    for level, s in metrics.get("agreement_stats", {}).items():
-        lines.append(
-            f"| {level} | {s['count']} | {s['pct']:.1%} | {s['unified_accuracy']:.1%} |"
-        )
-    lines.append("")
-
-    # --- 8. Scenario Breakdown ------------------------------------------
-    lines.append("## 8. Accuracy by Scenario\n")
-    lines.append("| Scenario | N | CNN | Tree | DB | LLM | Unified |")
-    lines.append("|----------|---|-----|------|----|-----|---------|")
-    for scenario, s in metrics.get("by_scenario", {}).items():
-        lines.append(
-            f"| {scenario} | {s['n']} | {s['cnn_acc']:.0%} | {s['tree_acc']:.0%} | "
-            f"{s['db_acc']:.0%} | {s.get('llm_acc', 0):.0%} | {s['unified_acc']:.0%} |"
-        )
     lines.append("")
 
     with open(output_path, "w", encoding="utf-8") as fh:

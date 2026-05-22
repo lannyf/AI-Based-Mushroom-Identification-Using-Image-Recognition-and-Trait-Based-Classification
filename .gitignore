@@ -25,6 +25,15 @@ data/Mushroom segmentation.coco-segmentation/
 # Roboflow annotation archives
 data/Yolov8/Manual_annotation/Roboflow_annotation/mushroom segmentation.yolov8(2).zip
 data/Yolov8/Manual_annotation/Roboflow_annotation/mushroom_yolo_v2.zip
+data/Yolov8/Manual_annotation/annotation_batch_2026_05_18/
+data/Yolov8/Manual_annotation/mushroom segmentation.yolov8maj18/
+
+# Large local archives rejected by GitHub
+data/Yolov8/Manual_annotation/mushroom_yolo_v2.zip
+data/Yolov8/Mushrooms.yolov8.zip
+mushroom-benchmark.zip
+data/Yolov8/old yolo_weights/5th/Mushrooms.yolov8.zip
+data/Yolov8/old yolo_weights/6th/Mushrooms.yolov8.zip
 
 # Large raw evaluation/background image folders
 data/raw/background/

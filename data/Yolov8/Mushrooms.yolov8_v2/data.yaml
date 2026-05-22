@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['cap', 'coral', 'stem', 'underside']
+
+roboflow:
+  workspace: ians-workspace-zjggb
+  project: ians-workspace-zjggb
+  version: dataset
+  license: Private
+  url: https://app.roboflow.com/ians-workspace-zjggb/ians-workspace-zjggb/dataset

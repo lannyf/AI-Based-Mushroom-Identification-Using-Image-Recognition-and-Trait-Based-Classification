@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Comparative benchmark runner for the unified mushroom identification pipeline.
 
-Evaluates CNN, decision-tree, trait-database, and unified-pipeline methods on the
-same specimens and produces side-by-side comparison reports.
+Evaluates CNN reference, System A (A1/A2), and System B (B1/B2) on the same
+specimens and produces side-by-side comparison reports.
 
 Usage::
 
     python -m benchmarks.run_comparative \
-        --manifest benchmarks/evaluation_manifest.csv \
+        --manifest benchmarks/evaluation_manifest_v2.csv \
+        --variants all \
         --output-dir artifacts/benchmarks/comparative
 
 The manifest is a CSV with columns:
@@ -24,9 +25,6 @@ from typing import Any, Dict, List
 from benchmarks.comparative_metrics import (
     compute_accuracy,
     compute_coverage,
-    evaluate_agreement,
-    unified_outperforms_all,
-    unified_wrong_but_standalone_right,
 )
 from benchmarks.comparative_reports import (
     generate_csv_report,
@@ -36,12 +34,10 @@ from benchmarks.comparative_reports import (
 from benchmarks.config import PROJECT_ROOT
 from benchmarks.manifest import ManifestDataset
 from benchmarks.runners.base import RunnerResult
-from benchmarks.key_tree_oracle import OracleKeyTree
 from benchmarks.runners.cnn_runner import CNNRunner
 from benchmarks.runners.llm_standalone_runner import LLMStandaloneRunner
-from benchmarks.runners.trait_db_runner import TraitDBRunner
-from benchmarks.runners.tree_runner import TreeRunner
 from benchmarks.runners.unified_runner import UnifiedRunner
+from benchmarks.species_trait_oracle import SpeciesTraitOracle
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -100,10 +96,10 @@ def _run_method(
 def _build_per_specimen_record(
     specimen,
     cnn_res: RunnerResult,
-    tree_res: RunnerResult,
-    db_res: RunnerResult,
-    llm_res: RunnerResult,
-    unified_res: RunnerResult,
+    a1_res: RunnerResult,
+    a2_res: RunnerResult,
+    b1_res: RunnerResult,
+    b2_res: RunnerResult,
 ) -> Dict[str, Any]:
     """Assemble the comparison dict for one specimen."""
     gt = specimen.species_id
@@ -118,8 +114,6 @@ def _build_per_specimen_record(
             "reasoning": r.metadata.get("llm_reasoning", "") if r.metadata else "",
         }
 
-    agreement = evaluate_agreement(cnn_res, tree_res, db_res, unified_res)
-
     return {
         "specimen_id": specimen.specimen_id,
         "species_id": gt,
@@ -127,29 +121,22 @@ def _build_per_specimen_record(
         "subset": specimen.subset,
         "confusing_pair_with": specimen.confusing_pair_with,
         "notes": specimen.notes,
-        "agreement": agreement,
         "results": {
             "cnn": _result_dict(cnn_res),
-            "tree": _result_dict(tree_res),
-            "db": _result_dict(db_res),
-            "llm": _result_dict(llm_res),
-            "unified": _result_dict(unified_res),
+            "a1": _result_dict(a1_res),
+            "a2": _result_dict(a2_res),
+            "b1": _result_dict(b1_res),
+            "b2": _result_dict(b2_res),
         },
-        "unified_outperforms_all": unified_outperforms_all(
-            unified_res, cnn_res, tree_res, db_res, llm_res, gt
-        ),
-        "unified_wrong_but_standalone_right": unified_wrong_but_standalone_right(
-            unified_res, cnn_res, tree_res, db_res, llm_res, gt
-        ),
     }
 
 
 def _compute_metrics(
     cnn_results: List[RunnerResult],
-    tree_results: List[RunnerResult],
-    db_results: List[RunnerResult],
-    llm_results: List[RunnerResult],
-    unified_results: List[RunnerResult],
+    a1_results: List[RunnerResult],
+    a2_results: List[RunnerResult],
+    b1_results: List[RunnerResult],
+    b2_results: List[RunnerResult],
     specimens: List[Any],
     per_specimen: List[Dict[str, Any]],
 ) -> Dict[str, Any]:
@@ -160,40 +147,16 @@ def _compute_metrics(
     per_method: Dict[str, Dict[str, Any]] = {}
     for name, results in (
         ("cnn", cnn_results),
-        ("tree", tree_results),
-        ("db", db_results),
-        ("llm", llm_results),
-        ("unified", unified_results),
+        ("a1", a1_results),
+        ("a2", a2_results),
+        ("b1", b1_results),
+        ("b2", b2_results),
     ):
         times = [r.inference_time_ms for r in results]
         per_method[name] = {
             "accuracy": compute_accuracy(results, ground_truth),
             "coverage": compute_coverage(results),
             "mean_time_ms": sum(times) / len(times) if times else 0.0,
-        }
-
-    # Agreement statistics
-    agreement_counts: Dict[str, Dict[str, Any]] = {
-        "agree": {"count": 0, "unified_correct": 0},
-        "partial": {"count": 0, "unified_correct": 0},
-        "disagree": {"count": 0, "unified_correct": 0},
-        "inconclusive": {"count": 0, "unified_correct": 0},
-    }
-    for entry in per_specimen:
-        level = entry["agreement"]
-        if level not in agreement_counts:
-            level = "inconclusive"
-        agreement_counts[level]["count"] += 1
-        if entry["results"]["unified"]["correct"]:
-            agreement_counts[level]["unified_correct"] += 1
-
-    total = len(per_specimen)
-    agreement_stats: Dict[str, Dict[str, Any]] = {}
-    for level, s in agreement_counts.items():
-        agreement_stats[level] = {
-            "count": s["count"],
-            "pct": s["count"] / total if total else 0.0,
-            "unified_accuracy": s["unified_correct"] / s["count"] if s["count"] else 0.0,
         }
 
     # By-scenario accuracy
@@ -206,10 +169,10 @@ def _compute_metrics(
         by_scenario[scenario] = {
             "n": n,
             "cnn_acc": compute_accuracy([cnn_results[i] for i in indices], [ground_truth[i] for i in indices]),
-            "tree_acc": compute_accuracy([tree_results[i] for i in indices], [ground_truth[i] for i in indices]),
-            "db_acc": compute_accuracy([db_results[i] for i in indices], [ground_truth[i] for i in indices]),
-            "llm_acc": compute_accuracy([llm_results[i] for i in indices], [ground_truth[i] for i in indices]),
-            "unified_acc": compute_accuracy([unified_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "a1_acc": compute_accuracy([a1_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "a2_acc": compute_accuracy([a2_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "b1_acc": compute_accuracy([b1_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "b2_acc": compute_accuracy([b2_results[i] for i in indices], [ground_truth[i] for i in indices]),
         }
 
     # Confusing-pair breakdown
@@ -225,37 +188,42 @@ def _compute_metrics(
     for pair_name, entries in pair_groups.items():
         n = len(entries)
         cnn_c = sum(1 for e in entries if e["results"]["cnn"]["correct"])
-        tree_c = sum(1 for e in entries if e["results"]["tree"]["correct"])
-        db_c = sum(1 for e in entries if e["results"]["db"]["correct"])
-        llm_c = sum(1 for e in entries if e["results"]["llm"]["correct"])
-        uni_c = sum(1 for e in entries if e["results"]["unified"]["correct"])
-        agr = sum(1 for e in entries if e["agreement"] in ("agree", "partial"))
+        a1_c = sum(1 for e in entries if e["results"]["a1"]["correct"])
+        a2_c = sum(1 for e in entries if e["results"]["a2"]["correct"])
+        b1_c = sum(1 for e in entries if e["results"]["b1"]["correct"])
+        b2_c = sum(1 for e in entries if e["results"]["b2"]["correct"])
         confusing[pair_name] = {
             "n": n,
             "cnn_acc": cnn_c / n if n else 0.0,
-            "tree_acc": tree_c / n if n else 0.0,
-            "db_acc": db_c / n if n else 0.0,
-            "llm_acc": llm_c / n if n else 0.0,
-            "unified_acc": uni_c / n if n else 0.0,
-            "agreement_rate": agr / n if n else 0.0,
+            "a1_acc": a1_c / n if n else 0.0,
+            "a2_acc": a2_c / n if n else 0.0,
+            "b1_acc": b1_c / n if n else 0.0,
+            "b2_acc": b2_c / n if n else 0.0,
         }
+
+    # Oracle impact deltas
+    extractor_penalty = per_method["b1"]["accuracy"] - per_method["b2"]["accuracy"]
+    oracle_benefit_a = per_method["a2"]["accuracy"] - per_method["a1"]["accuracy"]
+    oracle_benefit_b = per_method["b2"]["accuracy"] - per_method["b1"]["accuracy"]
 
     return {
         "per_method": per_method,
-        "agreement_stats": agreement_stats,
         "by_scenario": by_scenario,
         "confusing_pairs": confusing,
+        "extractor_penalty": extractor_penalty,
+        "oracle_benefit_a": oracle_benefit_a,
+        "oracle_benefit_b": oracle_benefit_b,
     }
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Run comparative benchmark across all identification methods"
+        description="Run comparative benchmark across all identification variants"
     )
     parser.add_argument(
         "--manifest",
         type=Path,
-        default=PROJECT_ROOT / "benchmarks" / "evaluation_manifest.csv",
+        default=PROJECT_ROOT / "benchmarks" / "evaluation_manifest_v2.csv",
         help="Path to evaluation manifest CSV",
     )
     parser.add_argument(
@@ -265,26 +233,13 @@ def main():
         help="Directory to write reports",
     )
     parser.add_argument(
-        "--methods",
+        "--variants",
         nargs="+",
-        choices=["cnn", "tree", "db", "llm", "unified", "all"],
+        choices=["cnn", "a1", "a2", "b1", "b2", "all"],
         default=["all"],
-        help="Methods to benchmark",
-    )
-    parser.add_argument(
-        "--oracle-mode",
-        action="store_true",
-        help="Enable key-tree oracle: perfect pre-answers for 5 species, none for 5 others",
+        help="Variants to benchmark",
     )
     args = parser.parse_args()
-
-    oracle = None
-    if args.oracle_mode:
-        oracle = OracleKeyTree(str(PROJECT_ROOT / "data" / "raw" / "key.xml"))
-        logger.info("Oracle mode enabled. Oracle species (n=%d): %s",
-                    len(oracle.oracle_species_ids), ", ".join(oracle.oracle_species_ids))
-        logger.info("Non-oracle species (n=%d): %s",
-                    len(oracle.non_oracle_species_ids), ", ".join(oracle.non_oracle_species_ids))
 
     if not args.manifest.exists():
         raise FileNotFoundError(f"Manifest not found: {args.manifest}")
@@ -298,35 +253,38 @@ def main():
     if not specimens:
         raise ValueError("Manifest contains no specimens.")
 
-    selected = set(args.methods)
+    selected = set(args.variants)
     if "all" in selected:
-        selected = {"cnn", "tree", "db", "llm", "unified"}
+        selected = {"cnn", "a1", "a2", "b1", "b2"}
+
+    # Initialise oracle (used by A2 and B2)
+    oracle = SpeciesTraitOracle(str(PROJECT_ROOT / "data" / "raw" / "species_traits.xml"))
 
     cnn_results: List[RunnerResult] = []
-    tree_results: List[RunnerResult] = []
-    db_results: List[RunnerResult] = []
-    llm_results: List[RunnerResult] = []
-    unified_results: List[RunnerResult] = []
+    a1_results: List[RunnerResult] = []
+    a2_results: List[RunnerResult] = []
+    b1_results: List[RunnerResult] = []
+    b2_results: List[RunnerResult] = []
 
     if "cnn" in selected:
         logger.info("Initialising CNN runner...")
         cnn_results = _run_method("cnn", CNNRunner(), specimens, single_photo=True)
 
-    if "tree" in selected:
-        logger.info("Initialising Tree runner...")
-        tree_results = _run_method("tree", TreeRunner(mode="auto", oracle=oracle), specimens, single_photo=True)
+    if "a1" in selected:
+        logger.info("Initialising A1 runner (LLM raw)...")
+        a1_results = _run_method("a1", LLMStandaloneRunner(oracle_trait_provider=None), specimens, single_photo=False)
 
-    if "db" in selected:
-        logger.info("Initialising Trait-DB runner...")
-        db_results = _run_method("db", TraitDBRunner(), specimens, single_photo=True)
+    if "a2" in selected:
+        logger.info("Initialising A2 runner (LLM + oracle traits)...")
+        a2_results = _run_method("a2", LLMStandaloneRunner(oracle_trait_provider=oracle), specimens, single_photo=False)
 
-    if "llm" in selected:
-        logger.info("Initialising Standalone LLM runner...")
-        llm_results = _run_method("llm", LLMStandaloneRunner(), specimens, single_photo=False)
+    if "b1" in selected:
+        logger.info("Initialising B1 runner (Unified)...")
+        b1_results = _run_method("b1", UnifiedRunner(oracle_trait_provider=None), specimens, single_photo=False)
 
-    if "unified" in selected:
-        logger.info("Initialising Unified runner...")
-        unified_results = _run_method("unified", UnifiedRunner(oracle=oracle), specimens, single_photo=False)
+    if "b2" in selected:
+        logger.info("Initialising B2 runner (Unified + oracle traits)...")
+        b2_results = _run_method("b2", UnifiedRunner(oracle_trait_provider=oracle), specimens, single_photo=False)
 
     def _not_selected_results(method_name: str) -> List[RunnerResult]:
         return [
@@ -334,21 +292,21 @@ def main():
                 method_name=method_name,
                 predictions=[],
                 coverage=False,
-                error="Method not selected",
+                error="Variant not selected",
             )
             for _ in specimens
         ]
 
     if not cnn_results:
         cnn_results = _not_selected_results("cnn")
-    if not tree_results:
-        tree_results = _not_selected_results("tree")
-    if not db_results:
-        db_results = _not_selected_results("db")
-    if not llm_results:
-        llm_results = _not_selected_results("llm")
-    if not unified_results:
-        unified_results = _not_selected_results("unified")
+    if not a1_results:
+        a1_results = _not_selected_results("a1")
+    if not a2_results:
+        a2_results = _not_selected_results("a2")
+    if not b1_results:
+        b1_results = _not_selected_results("b1")
+    if not b2_results:
+        b2_results = _not_selected_results("b2")
 
     per_specimen: List[Dict[str, Any]] = []
     for i, spec in enumerate(specimens):
@@ -356,15 +314,15 @@ def main():
             _build_per_specimen_record(
                 spec,
                 cnn_results[i],
-                tree_results[i],
-                db_results[i],
-                llm_results[i],
-                unified_results[i],
+                a1_results[i],
+                a2_results[i],
+                b1_results[i],
+                b2_results[i],
             )
         )
 
     metrics = _compute_metrics(
-        cnn_results, tree_results, db_results, llm_results, unified_results,
+        cnn_results, a1_results, a2_results, b1_results, b2_results,
         specimens, per_specimen,
     )
 
@@ -374,21 +332,14 @@ def main():
 
     logger.info("Benchmark complete. Reports written to %s", args.output_dir)
 
-    print("\n=== System A — Standalone Methods ===")
+    print("\n=== Overall Accuracy ===")
     for method, m in metrics["per_method"].items():
-        if method in ("cnn", "tree", "db", "llm"):
-            print(f"  {method:10s}: accuracy={m['accuracy']:.1%}, coverage={m['coverage']:.1%}")
-    print("\n=== System B — Unified LLM Synthesis ===")
-    for method, m in metrics["per_method"].items():
-        if method == "unified":
-            print(f"  {method:10s}: accuracy={m['accuracy']:.1%}, coverage={m['coverage']:.1%}")
-    print("\n=== Raw Accuracy Comparison ===")
-    unified_acc = metrics["per_method"].get("unified", {}).get("accuracy", 0)
-    for method, m in metrics["per_method"].items():
-        if method in ("cnn", "tree", "db", "llm"):
-            diff = unified_acc - m["accuracy"]
-            sign = "+" if diff >= 0 else ""
-            print(f"  unified - {method:4s}: {sign}{diff:+.1%} (U={unified_acc:.1%}, {method}={m['accuracy']:.1%})")
+        print(f"  {method:10s}: accuracy={m['accuracy']:.1%}, coverage={m['coverage']:.1%}")
+
+    print("\n=== Oracle Impact ===")
+    print(f"  A2 - A1 (raw LLM benefit from oracle traits): {metrics['oracle_benefit_a']:+.1%}")
+    print(f"  B2 - B1 (unified benefit from perfect traits): {metrics['oracle_benefit_b']:+.1%}")
+    print(f"  B1 - B2 (extractor penalty): {metrics['extractor_penalty']:+.1%}")
 
 
 if __name__ == "__main__":

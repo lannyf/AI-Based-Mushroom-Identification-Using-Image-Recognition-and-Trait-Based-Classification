@@ -233,6 +233,43 @@ def parse_key_xml(xml_path: str) -> QuestionNode:
 # Trait → answer auto-mapper
 # ---------------------------------------------------------------------------
 
+def derive_key_answers(visible_traits: Dict[str, Any]) -> Dict[str, str]:
+    """
+    Derive key.xml auto-answers from part-aware structured traits.
+    Returns a dict {question_text: answer_text} for high-confidence mappings only.
+    """
+    from config import trait_config as tc
+
+    answers: Dict[str, str] = {}
+    if not tc.ENABLE_PART_AWARE_KEY_AUTOANSWERS:
+        return answers
+
+    conf = visible_traits.get("trait_confidence", {})
+
+    # morphology_case -> root question
+    if conf.get("morphology_case", 0.0) >= tc.PART_AWARE_MIN_AUTOANSWER_CONFIDENCE:
+        morphology = visible_traits.get("morphology_case")
+        if morphology == "coral":
+            answers["Hur ser svampen ut?"] = "Den är busklik med många grenar"
+        elif morphology == "puffball":
+            answers["Hur ser svampen ut?"] = "Päronformad eller rund"
+
+    # hymenophore_type -> root question
+    hconf = visible_traits.get("hymenophore_confidence", conf.get("hymenophore_type", 0.0))
+    if hconf >= tc.PART_AWARE_MIN_AUTOANSWER_CONFIDENCE:
+        hymenophore = visible_traits.get("hymenophore_type", "unknown")
+        if hymenophore == "ridges":
+            answers["Hur ser svampen ut?"] = "Undersidan har åsar eller ådror"
+        elif hymenophore == "gills":
+            answers["Hur ser svampen ut?"] = "Undersidan har skivor"
+        elif hymenophore == "pores":
+            answers["Hur ser svampen ut?"] = "Undersidan har rör"
+        elif hymenophore == "teeth":
+            answers["Hur ser svampen ut?"] = "Undersidan har taggar"
+
+    return answers
+
+
 def _try_auto_answer(
     question: str,
     options: List[str],
@@ -293,6 +330,13 @@ def _try_auto_answer(
         hinted = ml_question_hints.get(question, {}).get(ml_species)
         if hinted in options:
             return hinted
+
+    # Try part-aware derived answers first (Phase 4)
+    derived = derive_key_answers(traits)
+    if question in derived:
+        ans = derived[question]
+        if ans in options:
+            return ans
 
     # ------------------------------------------------------------------ #
     #  Q: "Hur ser svampen ut?" (underside / overall structure)           #

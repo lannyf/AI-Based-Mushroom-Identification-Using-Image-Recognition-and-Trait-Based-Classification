@@ -62,11 +62,16 @@ def resolve_species_name(name: str) -> Optional[str]:
 
 
 class UnifiedRunner:
-    """Benchmark wrapper around the full unified pipeline (YOLO → traits → CNN → tree → DB → LLM)."""
+    """Benchmark wrapper around the full unified pipeline (YOLO → traits → CNN → tree → DB → LLM).
 
-    name = "unified"
+    Supports two modes:
+      - B1 (no oracle):  uses real trait extractor output
+      - B2 (oracle):     uses perfect oracle traits from species_traits.xml
+    """
 
-    def __init__(self, segmenter=None, llm_backend=None, oracle=None):
+    name = "unified_b1"
+
+    def __init__(self, segmenter=None, llm_backend=None, oracle_trait_provider=None):
         from models.unified_pipeline import UnifiedPipeline
         from models.mushroom_segmenter import get_segmenter
         from models.llm_classifier import OllamaBackend, LLMClassifier
@@ -105,7 +110,7 @@ class UnifiedRunner:
             llm_backend=llm_backend,
             auto_init_llm=(llm_backend is None),
         )
-        self.oracle = oracle
+        self.oracle_trait_provider = oracle_trait_provider
 
     def predict(self, specimen) -> RunnerResult:
         """Run the unified pipeline on a specimen with above + below photos.
@@ -129,14 +134,13 @@ class UnifiedRunner:
                 error="Missing above or below photo for unified pipeline",
             )
 
-        # Use oracle pre_answers if this species is in the oracle group
-        pre_answers = None
-        if self.oracle is not None:
-            pre_answers = self.oracle.get_pre_answers(specimen.species_id)
-
         t0 = time.perf_counter()
         try:
-            result = self.pipeline.run(above, below, pre_answers=pre_answers)
+            result = self.pipeline.run(
+                above, below,
+                species_id=specimen.species_id,
+                oracle_trait_provider=self.oracle_trait_provider,
+            )
         except Exception as exc:
             return RunnerResult(
                 method_name="unified",
@@ -163,7 +167,7 @@ class UnifiedRunner:
                     "case": result.get("case", {}).get("case", "unknown"),
                     "needs_clarification": llm_dict.get("needs_clarification", False),
                     "llm_reasoning": llm_dict.get("reasoning", ""),
-                    "oracle_used": pre_answers is not None,
+                    "oracle_used": self.oracle_trait_provider is not None,
                 },
             )
 
@@ -211,6 +215,6 @@ class UnifiedRunner:
                 "db_species_id": db_species_id,
                 "db_score": db_dict.get("trait_match", {}).get("score", 0.0),
                 "final_recommendation": result.get("final_recommendation", {}),
-                "oracle_used": pre_answers is not None,
+                "oracle_used": self.oracle_trait_provider is not None,
             },
         )

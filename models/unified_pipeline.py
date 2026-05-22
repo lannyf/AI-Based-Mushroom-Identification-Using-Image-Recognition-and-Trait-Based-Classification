@@ -35,12 +35,8 @@ from models.llm_classifier import LLMClassifier, UnifiedPredictionResult
 from models.tree_path_validator import TreePathValidator
 from models.mushroom_segmenter import Segmenter, detect_case
 from models.trait_database_comparator import TraitDatabaseComparator
-from models.visual_trait_extractor import (
-    analyse_brightness_masked,
-    analyse_colours_masked,
-    analyse_shape_masked,
-    analyse_texture_masked,
-)
+from models.visual_trait_extractor import extract as _extract_traits
+from models.yolo_part_masks import build_part_masks
 
 logger = logging.getLogger(__name__)
 
@@ -70,6 +66,20 @@ def _image_to_llm_b64(image_bytes: bytes, max_side: int = 256, quality: int = 80
     buf = io.BytesIO()
     pil.save(buf, format="JPEG", quality=quality, optimize=True)
     return base64.b64encode(buf.getvalue()).decode("utf-8")
+
+
+PHOTO_PREFERENCE = {
+    "cap_color": "above",
+    "cap_shape": "above",
+    "cap_surface": "above",
+    "underside_color": "below",
+    "hymenophore_type": "below",
+    "stem_color": "below",
+    "stem_ring": "below",
+    "stem_surface": "below",
+    "coral_branching": "above",
+    "puffball_surface": "above",
+}
 
 
 def _merge_traits(
@@ -110,6 +120,23 @@ def _merge_traits(
         elif key == "has_ridges":
             # Below photo often better for underside structures; use OR logic
             merged[key] = bool(a) if a is not None else bool(b) if b is not None else False
+        elif key in PHOTO_PREFERENCE:
+            pref = PHOTO_PREFERENCE[key]
+            preferred = a if pref == "above" else b
+            fallback = b if pref == "above" else a
+            if preferred is not None and preferred != "unknown":
+                merged[key] = preferred
+            else:
+                merged[key] = fallback
+        elif key in ("trait_confidence", "trait_source_by_key"):
+            # Merge dicts: above wins on overlap unless below has higher confidence
+            merged_a = dict(a) if a else {}
+            merged_b = dict(b) if b else {}
+            result = dict(merged_a)
+            for k, v in merged_b.items():
+                if k not in result:
+                    result[k] = v
+            merged[key] = result
         else:
             merged[key] = a if a is not None else b
 
@@ -123,80 +150,14 @@ def _extract_traits_masked(
     image_bytes: bytes,
     instances: List[Dict[str, Any]],
 ) -> Dict[str, Any]:
-    """Extract traits using segmentation masks when available."""
+    """Extract traits using segmentation part masks when available."""
+    if not instances:
+        return _extract_traits(image_bytes)["visible_traits"]
+
     bgr = _pil_to_bgr(image_bytes)
-
-    # Find the best instance (highest confidence, non-skin)
-    best = None
-    for inst in instances:
-        if inst.get("skin_ratio", 0.0) > 0.30:
-            continue
-        if best is None or inst.get("model_confidence", 0.0) > best.get("model_confidence", 0.0):
-            best = inst
-
-    if best is None and instances:
-        best = instances[0]
-
-    if best is None:
-        # Fallback to whole-image extraction
-        from models.visual_trait_extractor import (
-            analyse_brightness,
-            analyse_colours,
-            analyse_shape,
-            analyse_texture,
-        )
-        colour = analyse_colours(bgr)
-        shape = analyse_shape(bgr)
-        texture = analyse_texture(bgr)
-        brightness = analyse_brightness(bgr)
-        return {
-            "dominant_color": colour["dominant_color"],
-            "secondary_color": colour["secondary_color"],
-            "cap_shape": shape["cap_shape"],
-            "surface_texture": texture["surface_texture"],
-            "has_ridges": texture["has_ridges"],
-            "brightness": brightness,
-            "colour_ratios": {
-                "red": colour["red_ratio"],
-                "orange_red": colour.get("orange_red_ratio", 0.0),
-                "orange_yellow": colour["orange_yellow_ratio"],
-                "brown": colour["brown_ratio"],
-                "white": colour["white_ratio"],
-                "dark": colour["dark_ratio"],
-            },
-            "mask_used": False,
-        }
-
-    mask = best.get("cleaned_mask")
-    if mask is None:
-        mask = best.get("mask")
-    if mask is None:
-        mask = np.zeros((bgr.shape[0], bgr.shape[1]), dtype=np.uint8)
-
-    colour = analyse_colours_masked(bgr, mask)
-    shape = analyse_shape_masked(bgr, mask)
-    texture = analyse_texture_masked(bgr, mask)
-    brightness = analyse_brightness_masked(bgr, mask)
-
-    return {
-        "dominant_color": colour["dominant_color"],
-        "secondary_color": colour["secondary_color"],
-        "cap_shape": shape["cap_shape"],
-        "surface_texture": texture["surface_texture"],
-        "has_ridges": texture["has_ridges"],
-        "brightness": brightness,
-        "colour_ratios": {
-            "red": colour["red_ratio"],
-            "orange_red": colour.get("orange_red_ratio", 0.0),
-            "orange_yellow": colour.get("orange_yellow_ratio", 0.0),
-            "brown": colour.get("brown_ratio", 0.0),
-            "white": colour.get("white_ratio", 0.0),
-            "dark": colour.get("dark_ratio", 0.0),
-        },
-        "mask_used": True,
-        "detected_class": best.get("class_name", "unknown"),
-        "detection_confidence": round(float(best.get("model_confidence", 0.0)), 3),
-    }
+    H, W = bgr.shape[:2]
+    part_masks = build_part_masks(instances, (H, W))
+    return _extract_traits(image_bytes, part_masks=part_masks)["visible_traits"]
 
 
 def _evaluate_agreement(
@@ -295,10 +256,17 @@ class UnifiedPipeline:
         self,
         above_image_bytes: bytes,
         below_image_bytes: bytes,
-        pre_answers: Optional[Dict[str, str]] = None,
+        species_id: Optional[str] = None,
+        oracle_trait_provider = None,
     ) -> Dict[str, Any]:
         """
         Run the full unified pipeline on an above-photo and a below-photo.
+
+        Args:
+            above_image_bytes: Cap/top photo.
+            below_image_bytes: Underside/gills photo.
+            species_id: Target species ID (required when oracle_trait_provider is set).
+            oracle_trait_provider: Optional SpeciesTraitOracle for B2 mode.
 
         Returns a dict with:
           {
@@ -320,20 +288,65 @@ class UnifiedPipeline:
         above_seg = self._segment(above_image_bytes)
         below_seg = self._segment(below_image_bytes)
 
-        # ---- 2. Case detection ----------------------------------------------
-        case = detect_case(
-            above_seg.get("instances", []),
-            below_seg.get("instances", []),
-        )
+        # ---- 2. Case detection & 3. Trait extraction ------------------------
+        from config import trait_config as tc
+        if tc.ENABLE_PART_AWARE_TRAITS:
+            # Build part masks once, use for both case detection and traits.
+            # This guarantees detect_case and trait_extractor see the SAME
+            # evidence (Codex guardrail: no case=coral with empty detected_parts).
+            from models.yolo_part_masks import build_part_masks
+            from models.mushroom_segmenter import detect_case_from_masks
 
-        # ---- 3. Trait extraction --------------------------------------------
-        above_traits = _extract_traits_masked(
-            above_image_bytes, above_seg.get("instances", [])
-        )
-        below_traits = _extract_traits_masked(
-            below_image_bytes, below_seg.get("instances", [])
-        )
+            pil = Image.open(io.BytesIO(above_image_bytes)).convert("RGB")
+            H, W = np.array(pil).shape[:2]
+            above_masks = build_part_masks(above_seg.get("instances", []), (H, W))
+
+            pil = Image.open(io.BytesIO(below_image_bytes)).convert("RGB")
+            H, W = np.array(pil).shape[:2]
+            below_masks = build_part_masks(below_seg.get("instances", []), (H, W))
+
+            case = detect_case_from_masks(above_masks, below_masks)
+
+            above_traits = _extract_traits(above_image_bytes, part_masks=above_masks)["visible_traits"]
+            below_traits = _extract_traits(below_image_bytes, part_masks=below_masks)["visible_traits"]
+        else:
+            # Legacy path: raw instances → detect_case → build masks inside extractor
+            case = detect_case(
+                above_seg.get("instances", []),
+                below_seg.get("instances", []),
+            )
+            above_traits = _extract_traits_masked(
+                above_image_bytes, above_seg.get("instances", [])
+            )
+            below_traits = _extract_traits_masked(
+                below_image_bytes, below_seg.get("instances", [])
+            )
+
         merged_traits = _merge_traits(above_traits, below_traits, case["case"])
+
+        # Pipeline owns morphology_case confidence (Codex guardrail 8.6)
+        if "trait_confidence" not in merged_traits:
+            merged_traits["trait_confidence"] = {}
+        merged_traits["trait_confidence"]["morphology_case"] = case.get("confidence", 0.0)
+        if "trait_source_by_key" not in merged_traits:
+            merged_traits["trait_source_by_key"] = {}
+        merged_traits["trait_source_by_key"]["morphology_case"] = "pipeline_case_detection"
+        # Ensure pipeline case is authoritative (overrides extractor-derived case)
+        merged_traits["morphology_case"] = case["case"]
+        merged_traits["coarse_case"] = case["case"]
+
+        # ---- B2: swap in oracle traits if provider is given -----------------
+        traits_for_tools = merged_traits
+        oracle_used = False
+        if oracle_trait_provider is not None and species_id:
+            oracle_visible_traits = oracle_trait_provider.get_extractor_output(
+                species_id, case=case["case"]
+            )
+            # Preserve pipeline case metadata so downstream logic is consistent
+            oracle_visible_traits["morphology_case"] = case["case"]
+            oracle_visible_traits["coarse_case"] = case["case"]
+            traits_for_tools = oracle_visible_traits
+            oracle_used = True
 
         # ---- 4. CNN prediction ----------------------------------------------
         # Run on the photo with the best detection
@@ -368,11 +381,10 @@ class UnifiedPipeline:
         tree_res: Dict[str, Any]
         if self.llm is not None:
             nav_result = self.llm.navigate_tree(
-                visible_traits=merged_traits,
+                visible_traits=traits_for_tools,
                 cnn_prediction=cnn_pred,
                 case_info=case,
                 images_b64=images_b64,
-                pre_answers=pre_answers,
             )
 
             # Validate the LLM's path
@@ -419,9 +431,8 @@ class UnifiedPipeline:
                 }
             tree_res = self.key_tree.start_session(
                 session_id=None,
-                visible_traits=merged_traits,
+                visible_traits=traits_for_tools,
                 ml_hint=ml_hint,
-                pre_answers=pre_answers,
             )
 
         # If tree reached conclusion, run DB comparison
@@ -431,19 +442,19 @@ class UnifiedPipeline:
         if tree_res.get("status") == "conclusion":
             db_res = self.comparator.compare(
                 tree_res.get("species", ""),
-                merged_traits,
+                traits_for_tools,
             )
         elif cnn_pred.get("species"):
             # Fallback: compare CNN top species
             db_res = self.comparator.compare(
                 cnn_pred["species"],
-                merged_traits,
+                traits_for_tools,
             )
 
         # ---- 7. LLM synthesis -----------------------------------------------
         # Images were already encoded in step 5 for reuse.
         llm_res = self._run_llm(
-            merged_traits, cnn_pred, tree_res, db_res, case, images_b64
+            traits_for_tools, cnn_pred, tree_res, db_res, case, images_b64
         )
 
         # ---- 8. Agreement evaluation ----------------------------------------
@@ -484,6 +495,7 @@ class UnifiedPipeline:
             "agreement": agreement,
             "final_recommendation": final_rec,
             "processing_time_ms": round(processing_time, 2),
+            "oracle_used": oracle_used,
         }
 
     # ------------------------------------------------------------------

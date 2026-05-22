@@ -20,6 +20,16 @@ from benchmarks.runners.unified_runner import resolve_species_name
 
 logger = logging.getLogger(__name__)
 
+# Lazy import to avoid circular dependency at module load time
+_SpeciesTraitOracle = None
+
+def _get_oracle_class():
+    global _SpeciesTraitOracle
+    if _SpeciesTraitOracle is None:
+        from benchmarks.species_trait_oracle import SpeciesTraitOracle
+        _SpeciesTraitOracle = SpeciesTraitOracle
+    return _SpeciesTraitOracle
+
 
 def _image_to_b64(image_bytes: bytes, max_side: int = 256, quality: int = 80) -> str:
     """Downsample an image before sending to the local vision LLM."""
@@ -107,11 +117,16 @@ Be precise and prioritize safety. If the mushroom might be toxic, mention this i
 
 
 class LLMStandaloneRunner:
-    """Raw vision-LLM baseline: images → LLM → species prediction."""
+    """Raw vision-LLM baseline: images → LLM → species prediction.
 
-    name = "llm"
+    Supports two modes:
+      - A1 (no oracle):  images only
+      - A2 (oracle):     images + flat dict of vision-only ground-truth traits
+    """
 
-    def __init__(self, backend=None):
+    name = "llm_a1"
+
+    def __init__(self, backend=None, oracle_trait_provider=None):
         from models.llm_classifier import OllamaBackend, LLMClassifier
 
         if backend is not None:
@@ -120,6 +135,8 @@ class LLMStandaloneRunner:
             self.backend = LLMClassifier(backend_type="ollama")
         else:
             self.backend = None
+
+        self.oracle_trait_provider = oracle_trait_provider
 
     def predict(self, specimen) -> RunnerResult:
         """Run standalone vision LLM on above + below photos.
@@ -151,11 +168,23 @@ class LLMStandaloneRunner:
 
         images_b64 = [_image_to_b64(above), _image_to_b64(below)]
 
+        # A2: append oracle trait dict to user message
+        user_msg = "Identify the mushroom species from these two images."
+        if self.oracle_trait_provider is not None:
+            traits = self.oracle_trait_provider.get_flat_dict(specimen.species_id)
+            if traits:
+                traits_lines = "\n".join(f"  {k}: {v}" for k, v in traits.items())
+                user_msg += (
+                    f"\n\nKNOWN VISIBLE TRAITS:\n{traits_lines}\n\n"
+                    "Use these known traits as ground-truth reference. "
+                    "Compare them against your visual analysis."
+                )
+
         t0 = time.perf_counter()
         try:
             response = self.backend.backend.query(
                 system_prompt=SYSTEM_PROMPT,
-                user_observation="Identify the mushroom species from these two images.",
+                user_observation=user_msg,
                 images=images_b64,
             )
         except Exception as exc:

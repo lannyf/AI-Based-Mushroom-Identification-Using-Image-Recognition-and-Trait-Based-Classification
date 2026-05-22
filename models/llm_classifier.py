@@ -191,31 +191,48 @@ Provide your analysis as JSON with the following structure:
 Be precise, logical, and prioritize safety."""
 
     UNIFIED_SYSTEM_PROMPT = """You are an expert mycologist examining a mushroom specimen.
-Your primary task is to identify the species by looking at the provided images and reasoning through the decision key.
+Your goal is to identify the species by combining your own visual analysis with evidence from available tools.
 
-You have three assistant tools that also analyzed this specimen:
-- CNN Classifier: good at pattern matching but often overconfident
-- Trait-Based Key: follows a dichotomous key but requires precise trait extraction
-- Database Comparator: matches traits against species records but uses coarse descriptions
+=== AVAILABLE TOOLS ===
 
-These assistants are imperfect. Trust your own visual analysis first. Use the assistants only to confirm what you see, or when your own observation is ambiguous.
+1. vision_analysis — Your own expert visual examination of the provided images.
+   This is your primary source of evidence. Trust your eyes first.
+
+2. cnn_classifier — An independent AI vision system trained on mushroom images.
+   This is a separate AI that simply produces an answer. It can be overconfident,
+   especially on unusual lighting, odd angles, or out-of-distribution species.
+   Treat its output as one signal among many, not as ground truth.
+
+3. trait_extractor — A deterministic tool that measures morphological traits
+   (cap color, gill attachment, stem features, etc.) from segmented images.
+   Its output depends on segmentation quality and lighting. Verify against images.
+
+4. dichotomous_key — A deterministic tool that navigates a Swedish dichotomous
+   identification key using extracted traits. Requires precise trait matching;
+   wrong traits lead to wrong paths. May get stuck if traits are ambiguous.
+
+5. trait_database — A deterministic tool that compares extracted traits against
+   known species profiles. Uses coarse descriptions; may miss fine distinctions.
+
+=== YOUR REASONING PROCESS ===
+
+1. EXAMINE the images carefully. Form your own preliminary diagnosis.
+2. REVIEW the cnn_classifier output. Evaluate: is it plausible? What are its weaknesses?
+3. REVIEW the extracted traits from trait_extractor. Do they match what you see?
+4. REVIEW the dichotomous_key result. Does the path make sense given the traits?
+5. REVIEW the trait_database comparison. Does the best match align with your visual diagnosis?
+6. SYNTHESIZE: Which hypothesis has the strongest evidence across ALL sources?
+   - If tools agree with your visual analysis, this strengthens confidence.
+   - If tools contradict your visual analysis, critically evaluate BOTH sides.
+   - Consider: what if YOU are wrong? What if a tool is wrong? Which has stronger evidence?
+   - Use the dichotomous key to test competing hypotheses.
+7. CONCLUDE with a final species identification. Do not simply follow the majority.
+   Do not stubbornly stick to your first impression. Choose the strongest hypothesis.
 
 {key_tree_text}
 
 Available Species ({species_count} total):
 {species_list}
-
-YOUR PROCESS:
-1. First, examine the provided images carefully and form your own preliminary diagnosis.
-2. Then, review the assistant outputs as hints from your team.
-3. If the assistants agree with your visual analysis, this strengthens your confidence.
-4. If the assistants contradict what you see, do not automatically trust your own eyes. Instead:
-   - Evaluate YOUR prediction: what visual evidence supports it? what weaknesses does it have?
-   - Evaluate EACH assistant prediction: what evidence supports it? what weaknesses does it have?
-   - Consider that you might be wrong, or an assistant might be wrong, or both might be partially right.
-   - Use the decision key to test which prediction fits the morphological evidence better.
-   - Choose the prediction with the strongest overall evidence, even if it is not your initial guess.
-5. Make the final species identification yourself — do not simply vote or average the assistant outputs.
 
 RESPONSE FORMAT (strict JSON):
 {{
@@ -230,12 +247,23 @@ RESPONSE FORMAT (strict JSON):
     ],
     "all_signals": {{
         "cnn": "Species name or 'uncertain'",
-        "tree": "Species name or 'incomplete'",
-        "database": "Species name or 'no_match'",
+        "trait_extractor": "Summary of key extracted traits",
+        "dichotomous_key": "Species name or 'incomplete'",
+        "trait_database": "Species name or 'no_match'",
         "llm_own_diagnosis": "What you observed from the images yourself"
     }},
+    "tool_evaluation": {{
+        "cnn_trust": "high|medium|low",
+        "cnn_why": "Brief justification",
+        "traits_trust": "high|medium|low",
+        "traits_why": "Brief justification",
+        "key_trust": "high|medium|low",
+        "key_why": "Brief justification",
+        "database_trust": "high|medium|low",
+        "database_why": "Brief justification"
+    }},
     "agreement_state": "agree|disagree|partial|inconclusive",
-    "reasoning": "Detailed analysis: what you observed visually, what the assistants suggested, why you agree or disagree, and your final conclusion",
+    "reasoning": "Detailed analysis: visual observations, tool outputs, critical evaluation, final conclusion",
     "safety_warnings": ["Any toxicity warnings"],
     "needs_clarification": false,
     "clarification_question": null,
@@ -393,7 +421,7 @@ class MockLLMBackend(LLMBackend):
 class OllamaBackend(LLMBackend):
     """Ollama local LLM backend — no API key required."""
 
-    DEFAULT_MODEL = "gemma3:4b"
+    DEFAULT_MODEL = "gemma3:12b"
     BASE_URL      = "http://localhost:11434"
 
     def __init__(self, model: Optional[str] = None, base_url: Optional[str] = None):
@@ -430,7 +458,7 @@ class OllamaBackend(LLMBackend):
                 user_msg,
             ],
             "stream": False,
-            # NOTE: format="json" is disabled because gemma3:4b frequently
+            # NOTE: format="json" is disabled because small models frequently
             # returns malformed JSON for complex prompts. The _parse_response()
             # method handles both JSON and free-text fallback.
             # "format": "json",
@@ -464,7 +492,7 @@ class LLMClassifier:
 
         Args:
             backend_type: 'ollama' or 'mock'
-            ollama_model: Ollama model name (default: gemma3:4b)
+            ollama_model: Ollama model name (default: gemma3:12b)
             key_tree_text: Optional key.xml text to inject into unified prompts
         """
         self.species_db = SpeciesDatabase()
@@ -713,10 +741,10 @@ class LLMClassifier:
         case_info: Optional[Dict[str, Any]],
         image_descriptions: Optional[List[str]],
     ) -> str:
-        """Build user prompt: LLM as lead expert, subsystems as consultant hints."""
+        """Build user prompt: LLM as central reasoner, subsystems as tools."""
         lines: List[str] = []
         lines.append("=== SPECIMEN IMAGES ===")
-        lines.append("(Examine both images carefully before reading the assistant reports below.)\n")
+        lines.append("(Examine both images carefully before reviewing the tool outputs below.)\n")
 
         if case_info:
             lines.append(f"MORPHOLOGICAL CASE: {case_info.get('case', 'unknown')}")
@@ -729,11 +757,11 @@ class LLMClassifier:
 
         lines.append("=== YOUR PRELIMINARY DIAGNOSIS ===")
         lines.append("(Look at the images first. What species does your own visual analysis suggest?\n")
-        lines.append("Form your own opinion before reading the assistant reports below.)\n")
+        lines.append("Form your own opinion before reading the tool outputs below.)\n")
 
-        # Assistant 1: CNN
-        lines.append("=== ASSISTANT REPORT 1 — CNN Classifier ===")
-        lines.append(f"  Suggests: {cnn_prediction.get('species', 'None')} (confidence: {cnn_prediction.get('confidence', 0.0):.4f})")
+        # Tool 1: CNN (independent AI)
+        lines.append("=== TOOL OUTPUT: cnn_classifier ===")
+        lines.append(f"  Prediction: {cnn_prediction.get('species', 'None')} (confidence: {cnn_prediction.get('confidence', 0.0):.4f})")
         lines.append(f"  Conclusive: {cnn_prediction.get('conclusive', False)}")
         if cnn_prediction.get('uncertainty_reason'):
             lines.append(f"  Note: {cnn_prediction['uncertainty_reason']}")
@@ -742,8 +770,8 @@ class LLMClassifier:
             lines.append(f"  Top-5 alternatives: {top5}")
         lines.append("  WARNING: CNNs can be overconfident, especially on unusual specimens or poor lighting.\n")
 
-        # Assistant 2: Tree
-        lines.append("=== ASSISTANT REPORT 2 — Trait-Based Key Traversal ===")
+        # Tool 2: dichotomous_key
+        lines.append("=== TOOL OUTPUT: dichotomous_key ===")
         status = tree_result.get('status', 'unknown')
         lines.append(f"  Status: {status}")
         if status == 'conclusion':
@@ -757,8 +785,8 @@ class LLMClassifier:
             lines.append("  WARNING: Key traversal is incomplete — trait extraction may be missing critical features.")
         lines.append("  WARNING: The key requires precise trait matching; wrong traits lead to wrong paths.\n")
 
-        # Assistant 3: Database
-        lines.append("=== ASSISTANT REPORT 3 — Database Comparator ===")
+        # Tool 3: trait_database
+        lines.append("=== TOOL OUTPUT: trait_database ===")
         db_status = db_result.get('status', 'unknown')
         lines.append(f"  Status: {db_status}")
         if db_status == 'ok':
@@ -787,11 +815,11 @@ class LLMClassifier:
 
         lines.append("=== YOUR FINAL IDENTIFICATION ===")
         lines.append("Now make YOUR final call.")
-        lines.append("If the assistants agree with what you see, use that to strengthen your confidence.")
-        lines.append("If they contradict your visual analysis, critically evaluate BOTH your prediction and the assistant predictions.")
-        lines.append("Consider: what if YOU are wrong? What if an assistant is wrong? Which prediction has the stronger evidence?")
+        lines.append("If the tools agree with what you see, use that to strengthen your confidence.")
+        lines.append("If they contradict your visual analysis, critically evaluate BOTH your prediction and the tool predictions.")
+        lines.append("Consider: what if YOU are wrong? What if a tool is wrong? Which prediction has the stronger evidence?")
         lines.append("Use the decision key to test which hypothesis fits best. Choose the strongest hypothesis, even if it changes your mind.")
-        lines.append("Do not simply follow the majority of assistants, and do not stubbornly stick to your first impression.")
+        lines.append("Do not simply follow the majority of tools, and do not stubbornly stick to your first impression.")
         lines.append("Return your answer in the JSON format specified in your instructions.\n")
 
         return "\n".join(lines)
