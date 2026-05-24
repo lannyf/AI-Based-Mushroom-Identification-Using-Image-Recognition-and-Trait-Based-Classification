@@ -33,7 +33,7 @@ from models.key_tree_parser import KeyTreeParser
 from models.key_tree_traversal import KeyTreeEngine
 from models.llm_classifier import LLMClassifier, UnifiedPredictionResult
 from models.tree_path_validator import TreePathValidator
-from models.mushroom_segmenter import Segmenter, detect_case
+from models.mushroom_segmenter import Segmenter
 from models.trait_database_comparator import TraitDatabaseComparator
 from models.visual_trait_extractor import extract as _extract_traits
 from models.yolo_part_masks import build_part_masks
@@ -77,7 +77,6 @@ PHOTO_PREFERENCE = {
     "stem_color": "below",
     "stem_ring": "below",
     "stem_surface": "below",
-    "coral_branching": "above",
     "puffball_surface": "above",
 }
 
@@ -144,20 +143,6 @@ def _merge_traits(
     merged["photo_count"] = 2
     merged["case"] = case
     return merged
-
-
-def _extract_traits_masked(
-    image_bytes: bytes,
-    instances: List[Dict[str, Any]],
-) -> Dict[str, Any]:
-    """Extract traits using segmentation part masks when available."""
-    if not instances:
-        return _extract_traits(image_bytes)["visible_traits"]
-
-    bgr = _pil_to_bgr(image_bytes)
-    H, W = bgr.shape[:2]
-    part_masks = build_part_masks(instances, (H, W))
-    return _extract_traits(image_bytes, part_masks=part_masks)["visible_traits"]
 
 
 def _evaluate_agreement(
@@ -289,38 +274,21 @@ class UnifiedPipeline:
         below_seg = self._segment(below_image_bytes)
 
         # ---- 2. Case detection & 3. Trait extraction ------------------------
-        from config import trait_config as tc
-        if tc.ENABLE_PART_AWARE_TRAITS:
-            # Build part masks once, use for both case detection and traits.
-            # This guarantees detect_case and trait_extractor see the SAME
-            # evidence (Codex guardrail: no case=coral with empty detected_parts).
-            from models.yolo_part_masks import build_part_masks
-            from models.mushroom_segmenter import detect_case_from_masks
+        from models.yolo_part_masks import build_part_masks
+        from models.mushroom_segmenter import detect_case_from_masks
 
-            pil = Image.open(io.BytesIO(above_image_bytes)).convert("RGB")
-            H, W = np.array(pil).shape[:2]
-            above_masks = build_part_masks(above_seg.get("instances", []), (H, W))
+        pil = Image.open(io.BytesIO(above_image_bytes)).convert("RGB")
+        H, W = np.array(pil).shape[:2]
+        above_masks = build_part_masks(above_seg.get("instances", []), (H, W))
 
-            pil = Image.open(io.BytesIO(below_image_bytes)).convert("RGB")
-            H, W = np.array(pil).shape[:2]
-            below_masks = build_part_masks(below_seg.get("instances", []), (H, W))
+        pil = Image.open(io.BytesIO(below_image_bytes)).convert("RGB")
+        H, W = np.array(pil).shape[:2]
+        below_masks = build_part_masks(below_seg.get("instances", []), (H, W))
 
-            case = detect_case_from_masks(above_masks, below_masks)
+        case = detect_case_from_masks(above_masks, below_masks)
 
-            above_traits = _extract_traits(above_image_bytes, part_masks=above_masks)["visible_traits"]
-            below_traits = _extract_traits(below_image_bytes, part_masks=below_masks)["visible_traits"]
-        else:
-            # Legacy path: raw instances → detect_case → build masks inside extractor
-            case = detect_case(
-                above_seg.get("instances", []),
-                below_seg.get("instances", []),
-            )
-            above_traits = _extract_traits_masked(
-                above_image_bytes, above_seg.get("instances", [])
-            )
-            below_traits = _extract_traits_masked(
-                below_image_bytes, below_seg.get("instances", [])
-            )
+        above_traits = _extract_traits(above_image_bytes, part_masks=above_masks)["visible_traits"]
+        below_traits = _extract_traits(below_image_bytes, part_masks=below_masks)["visible_traits"]
 
         merged_traits = _merge_traits(above_traits, below_traits, case["case"])
 
@@ -375,7 +343,7 @@ class UnifiedPipeline:
             ]
 
         # ---- 5. Tree traversal (LLM navigation) -----------------------------
-        # Use the LLM to navigate the dichotomous key in one shot.
+        # Use the LLM to navigate the polytomous key in one shot.
         # The LLM receives the tree structure + traits + CNN hint and
         # returns its chosen path. A validator checks it against key.xml.
         tree_res: Dict[str, Any]

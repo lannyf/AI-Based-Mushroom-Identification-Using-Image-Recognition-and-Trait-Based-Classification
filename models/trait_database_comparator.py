@@ -357,56 +357,55 @@ def _compare_visible_to_db(
     else:
         not_comparable.append("stem_color")
 
-    # --- Part-aware soft comparisons (Phase 5) ---
+    # --- Part-aware soft comparisons ---
     from config import trait_config as tc
-    if tc.ENABLE_PART_AWARE_DB_COMPARATOR:
-        trait_conf = visible.get("trait_confidence", {})
+    trait_conf = visible.get("trait_confidence", {})
 
-        # Explicit cap colour
-        if visible.get("cap_color") and "color" in cap:
-            q = _colours_match(visible["cap_color"], cap["color"])
-            is_conflict = q == "conflict" and trait_conf.get("cap_color", 0.0) >= tc.PART_AWARE_MIN_TRAIT_CONFIDENCE
-            _record("cap_color_explicit", visible["cap_color"], cap["color"], q,
-                    _TRAIT_WEIGHTS["cap_color"] * 0.5, is_conflict)
+    # Explicit cap colour
+    if visible.get("cap_color") and "color" in cap:
+        q = _colours_match(visible["cap_color"], cap["color"])
+        is_conflict = q == "conflict" and trait_conf.get("cap_color", 0.0) >= tc.PART_AWARE_MIN_TRAIT_CONFIDENCE
+        _record("cap_color_explicit", visible["cap_color"], cap["color"], q,
+                _TRAIT_WEIGHTS["cap_color"] * 0.5, is_conflict)
 
-        # Explicit stem colour
-        if visible.get("stem_color") and "color" in stem:
-            q = _colours_match(visible["stem_color"], stem["color"])
-            is_conflict = q == "conflict" and trait_conf.get("stem_color", 0.0) >= tc.PART_AWARE_MIN_TRAIT_CONFIDENCE
-            _record("stem_color_explicit", visible["stem_color"], stem["color"], q,
-                    _TRAIT_WEIGHTS["stem_color"] * 0.5, is_conflict)
+    # Explicit stem colour
+    if visible.get("stem_color") and "color" in stem:
+        q = _colours_match(visible["stem_color"], stem["color"])
+        is_conflict = q == "conflict" and trait_conf.get("stem_color", 0.0) >= tc.PART_AWARE_MIN_TRAIT_CONFIDENCE
+        _record("stem_color_explicit", visible["stem_color"], stem["color"], q,
+                _TRAIT_WEIGHTS["stem_color"] * 0.5, is_conflict)
 
-        # Cap surface -> CAP.surface_texture
-        if visible.get("cap_surface") and "surface_texture" in cap:
-            q = _texture_match(visible["cap_surface"], cap["surface_texture"])
-            is_conflict = q == "conflict" and trait_conf.get("cap_surface", 0.0) >= tc.PART_AWARE_MIN_TRAIT_CONFIDENCE
-            _record("cap_surface", visible["cap_surface"], cap["surface_texture"], q,
-                    _TRAIT_WEIGHTS["cap_texture"] * 0.5, is_conflict)
+    # Cap surface -> CAP.surface_texture
+    if visible.get("cap_surface") and "surface_texture" in cap:
+        q = _texture_match(visible["cap_surface"], cap["surface_texture"])
+        is_conflict = q == "conflict" and trait_conf.get("cap_surface", 0.0) >= tc.PART_AWARE_MIN_TRAIT_CONFIDENCE
+        _record("cap_surface", visible["cap_surface"], cap["surface_texture"], q,
+                _TRAIT_WEIGHTS["cap_texture"] * 0.5, is_conflict)
 
-        # Stem surface -> STEM.surface
-        if visible.get("stem_surface") and "surface" in stem:
-            q = _texture_match(visible["stem_surface"], stem["surface"])
-            is_conflict = q == "conflict" and trait_conf.get("stem_surface", 0.0) >= tc.PART_AWARE_MIN_TRAIT_CONFIDENCE
-            _record("stem_surface", visible["stem_surface"], stem["surface"], q,
-                    _TRAIT_WEIGHTS["cap_texture"] * 0.3, is_conflict)
+    # Stem surface -> STEM.surface
+    if visible.get("stem_surface") and "surface" in stem:
+        q = _texture_match(visible["stem_surface"], stem["surface"])
+        is_conflict = q == "conflict" and trait_conf.get("stem_surface", 0.0) >= tc.PART_AWARE_MIN_TRAIT_CONFIDENCE
+        _record("stem_surface", visible["stem_surface"], stem["surface"], q,
+                _TRAIT_WEIGHTS["cap_texture"] * 0.3, is_conflict)
 
-        # Hymenophore type -> GILLS.attachment (soft evidence only, no hard conflicts)
-        hymenophore = visible.get("hymenophore_type", "unknown")
-        if hymenophore != "unknown" and "attachment" in gills:
-            attachment = gills["attachment"].lower()
-            if hymenophore == "ridges":
-                q = "exact" if any(w in attachment for w in {"decurrent", "ridges", "folds"}) else "partial"
-            elif hymenophore == "gills":
-                q = "exact" if any(w in attachment for w in {"free", "adnate", "attached", "notched"}) else "partial"
-            elif hymenophore == "pores":
-                q = "partial"  # pores don't map cleanly to gill attachment
-            elif hymenophore == "teeth":
-                q = "partial"
-            else:
-                q = "partial"
-            # Never create hard conflicts from hymenophore_type
-            _record("hymenophore_type", hymenophore, gills["attachment"], q,
-                    _TRAIT_WEIGHTS["ridges"] * 0.5, False)
+    # Hymenophore type -> GILLS.attachment (soft evidence only, no hard conflicts)
+    hymenophore = visible.get("hymenophore_type", "unknown")
+    if hymenophore != "unknown" and "attachment" in gills:
+        attachment = gills["attachment"].lower()
+        if hymenophore == "ridges":
+            q = "exact" if any(w in attachment for w in {"decurrent", "ridges", "folds"}) else "partial"
+        elif hymenophore == "gills":
+            q = "exact" if any(w in attachment for w in {"free", "adnate", "attached", "notched"}) else "partial"
+        elif hymenophore == "pores":
+            q = "partial"  # pores don't map cleanly to gill attachment
+        elif hymenophore == "teeth":
+            q = "partial"
+        else:
+            q = "partial"
+        # Never create hard conflicts from hymenophore_type
+        _record("hymenophore_type", hymenophore, gills["attachment"], q,
+                _TRAIT_WEIGHTS["ridges"] * 0.5, False)
 
     # --- weighted score ---
     total_weight = 0.0

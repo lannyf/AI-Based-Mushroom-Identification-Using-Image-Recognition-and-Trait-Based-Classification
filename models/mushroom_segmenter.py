@@ -29,13 +29,12 @@ _segmenter_lock = threading.Lock()
 _segmenter_instance: Optional["Segmenter"] = None
 
 
-# Class IDs from Roboflow 4-class segmentation
-# 0=Cap, 1=Coral, 2=Stem, 3=Underside
+# Class IDs from Roboflow 3-class segmentation
+# 0=Cap, 1=Stem, 2=Underside
 CLASS_NAMES = {
     0: "Cap",
-    1: "Coral",
-    2: "Stem",
-    3: "Underside",
+    1: "Stem",
+    2: "Underside",
 }
 
 
@@ -273,13 +272,9 @@ def detect_case_from_masks(
     Detect morphological case from *filtered* part masks (output of
     :func:`build_part_masks`).
 
-    Uses the same cross-view consistency rules as :func:`detect_case`, but
-    operates on quality-gated, geometrically-filtered masks so that a coral
-    mask rejected by `_is_coral_like()` cannot trigger ``case="coral"``.
-
     Returns:
         {
-            "case": "classical" | "coral" | "puffball" | "uncertain",
+            "case": "classical" | "puffball" | "uncertain",
             "confidence": float,
             "detected_parts": ["Cap", "Stem", ...],
             "reasoning": str,
@@ -292,31 +287,6 @@ def detect_case_from_masks(
     has_cap = "cap" in all_parts
     has_stem = "stem" in all_parts
     has_underside = "underside" in all_parts
-
-    # Coral presence from masks (already passed quality + geometric gates)
-    coral_above_conf = above_masks.get("coral", {}).get("confidence", 0.0)
-    coral_below_conf = below_masks.get("coral", {}).get("confidence", 0.0)
-    has_coral_above = coral_above_conf >= confidence_threshold
-    has_coral_below = coral_below_conf >= confidence_threshold
-
-    coral_in_both = has_coral_above and has_coral_below
-    max_coral_conf = max(coral_above_conf, coral_below_conf)
-
-    # Classical-structure contradiction check (Codex guardrail 8.3)
-    has_classical_structure = (has_cap and (has_stem or has_underside)) or (has_stem and has_underside)
-    coral_single_view = (
-        (has_coral_above != has_coral_below)
-        and max_coral_conf >= 0.75
-        and not has_classical_structure
-    )
-
-    if coral_in_both or coral_single_view:
-        return {
-            "case": "coral",
-            "confidence": round(min(0.85, max_coral_conf), 3),
-            "detected_parts": sorted([p.capitalize() for p in all_parts if p != "whole"]),
-            "reasoning": "Coral-like branching structure detected from part masks.",
-        }
 
     # Classical: cap + stem/underside, OR stem + underside
     if (has_cap and (has_stem or has_underside)) or (has_stem and has_underside):
@@ -354,14 +324,13 @@ def detect_case(
     Detect morphological case from YOLO segmentation outputs of above/below photos.
 
     Rules (from implementation plan):
-      - Coral detected in either photo → "coral"
       - Cap + (Stem or Underside) in either photo → "classical"
       - Cap-only in BOTH photos (no underside/stem) → "puffball"
       - Anything else → "uncertain"
 
     Returns:
       {
-        "case": "classical" | "coral" | "puffball" | "uncertain",
+        "case": "classical" | "puffball" | "uncertain",
         "confidence": float,
         "detected_parts": ["Cap", "Stem", ...],
         "reasoning": str,
@@ -380,42 +349,6 @@ def detect_case(
     has_cap = "Cap" in parts
     has_stem = "Stem" in parts
     has_underside = "Underside" in parts
-
-    # Cross-view consistency for coral.
-    # Real coral should be visible in both photos, OR in one photo with very
-    # high confidence and no contradictory classical structure (cap+stem/underside).
-    above_coral = [
-        i for i in above_instances
-        if i.get("class_name") == "Coral" and i.get("model_confidence", 0.0) >= confidence_threshold
-    ]
-    below_coral = [
-        i for i in below_instances
-        if i.get("class_name") == "Coral" and i.get("model_confidence", 0.0) >= confidence_threshold
-    ]
-    has_coral_above = len(above_coral) > 0
-    has_coral_below = len(below_coral) > 0
-
-    coral_in_both = has_coral_above and has_coral_below
-    max_coral_conf = max(
-        [i.get("model_confidence", 0.0) for i in above_coral + below_coral],
-        default=0.0,
-    )
-    # If coral is only in one view, require very high confidence (>= 0.75)
-    # AND no classical cap+stem/underside structure that would contradict it.
-    has_classical_structure = (has_cap and (has_stem or has_underside)) or (has_stem and has_underside)
-    coral_single_view = (
-        (has_coral_above != has_coral_below)
-        and max_coral_conf >= 0.75
-        and not has_classical_structure
-    )
-
-    if coral_in_both or coral_single_view:
-        return {
-            "case": "coral",
-            "confidence": round(min(0.85, max_coral_conf), 3),
-            "detected_parts": sorted(parts),
-            "reasoning": "Coral-like branching structure detected.",
-        }
 
     # Classical: cap + stem/underside, OR stem + underside (cap may be occluded/filtered)
     if (has_cap and (has_stem or has_underside)) or (has_stem and has_underside):

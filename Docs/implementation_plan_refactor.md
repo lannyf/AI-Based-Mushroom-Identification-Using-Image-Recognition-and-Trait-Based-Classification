@@ -3,7 +3,7 @@
 ## Overview
 Refactor the mushroom identification system into a unified pipeline with:
 - Two-photo input (above + below)
-- YOLOv8 **4-class segmentation** (`cap`, `stem`, `underside`, `coral`)
+- YOLOv8 **3-class segmentation** (`cap`, `stem`, `underside`)
 - **YOLO-driven case routing** — morphology determined by detected classes across both photos
 - **CNN runs for every image** — always produces a prediction with an uncertainty flag; never omitted
 - **CNN does not influence case routing** — only YOLO + two-photo check determines morphology
@@ -27,20 +27,17 @@ Refactor the mushroom identification system into a unified pipeline with:
 |------|--------|-------------|------------------|
 | Classical | 75 | `cap`, `stem`, `underside` | Separate polygons per part per mushroom. Use above photo for cap, below for underside. |
 | Puffball | 15 | `cap` only | Single polygon around whole round body. No stem/underside — case inferred from absence. |
-| Coral | 15 | `coral` only | One polygon per distinct fruiting body. No cap/stem/underside — coral is its own class. |
 
 **Total: 100 annotated images in `data/Manual_annotation/` (80 challenging + 20 basic cases).**
 
-**Important:** Coral is annotated as `coral` class — **not** broken into multiple `cap` polygons.
-
 ### 1.3 Export and Convert
-1. Export from Roboflow as **COCO Segmentation** (4 classes)
+1. Export from Roboflow as **COCO Segmentation** (3 classes)
 2. Convert to YOLO format:
    ```bash
    python scripts/convert_coco_to_yolo.py \
        --coco-json "annotations.json" \
        --images-dir "images/" \
-       --output-dir data/segmentation/yolo_4class \
+       --output-dir data/segmentation/yolo_3class \
        --rdp-epsilon 2.0
    ```
 
@@ -48,7 +45,7 @@ Refactor the mushroom identification system into a unified pipeline with:
 
 ## Phase 2: Model Training (Colab)
 
-### 2.1 Train YOLOv8n-seg (4-class)
+### 2.1 Train YOLOv8n-seg (3-class)
 - Upload dataset to Google Colab
 - Train from `yolov8n-seg.pt` pretrained weights
 - Hyperparameters: epochs=100, imgsz=640, batch=8, patience=20
@@ -57,7 +54,6 @@ Refactor the mushroom identification system into a unified pipeline with:
   - `cap` mAP ≥ 0.60
   - `stem` mAP ≥ 0.50
   - `underside` mAP ≥ 0.45
-  - `coral` mAP ≥ 0.40 (lower bar due to fewer instances)
 
 ### 2.2 CNN Retraining (13 species) — Stretch Goal
 - Update `SPECIES_ID_TO_LABEL` with 13 species (10 ground-growing + 3 new)
@@ -106,7 +102,7 @@ llm_prompt = {
 ## Phase 4: Code Implementation (Me)
 
 ### 4.1 `models/mushroom_segmenter.py`
-- Parse **4-class** YOLO output: `cap=0`, `stem=1`, `underside=2`, `coral=3`
+- Parse **3-class** YOLO output: `cap=0`, `stem=1`, `underside=2`
 - Return `instances` list with class, mask, bbox, confidence per detection
 - Aggregate detections across **both photos**:
   ```python
@@ -119,12 +115,10 @@ llm_prompt = {
   def detect_case(all_instances):
       classes = {inst["class"] for inst in all_instances}
       
-      if "coral" in classes:
-          return "coral"
       elif "cap" in classes and ("stem" in classes or "underside" in classes):
           return "classical"
       elif "cap" in classes:
-          return "puffball"  # cap only, no stem/underside/coral in either photo
+          return "puffball"  # cap only, no stem/underside in either photo
       else:
           return "uncertain"
   ```
@@ -145,14 +139,6 @@ llm_prompt = {
   }
   ```
 
-  **Coral case (`coral` detected):**
-  ```python
-  {
-      "branch_color": dominant_color(image, coral_mask),
-      "branch_count": count_branch_tips(coral_mask),
-      "branching_pattern": classify_branching(coral_mask),
-      "flesh_texture": texture(image, coral_mask),
-      "morphology": "coral"
   }
   ```
 
@@ -224,7 +210,7 @@ llm_prompt = {
   ```json
   {
     "images": [photo_above_base64, photo_below_base64],
-    "morphology": "classical" | "puffball" | "coral",
+    "morphology": "classical" | "puffball",
     "traits": { ... },
     "cnn_prediction": {
       "species": "BO.ED",
@@ -518,8 +504,8 @@ The benchmark is designed to produce evidence for these claims:
 | Day | Task | Owner | Hours |
 |-----|------|-------|-------|
 | 1 | Download new species images; annotate 105 images in Roboflow | User | 4–5 |
-| 2 | Export COCO; upload to Colab; start YOLOv8 4-class training | User | 2 + overnight |
-| 3 | Evaluate YOLOv8 mAP; **Go/No-Go decision** on 4-class | User | 2 |
+| 2 | Export COCO; upload to Colab; start YOLOv8 3-class training | User | 2 + overnight |
+| 3 | Evaluate YOLOv8 mAP; **Go/No-Go decision** on 3-class | User | 2 |
 | 4 | Pull multimodal LLM; inject key.xml; implement segmenter + trait extractor | Me | 6–8 |
 | 5 | Implement unified endpoint + LLM prompt + internal tree traversal | Me | 6–8 |
 | 6 | Benchmark + debug | Both | 4–6 |
@@ -529,11 +515,10 @@ The benchmark is designed to produce evidence for these claims:
 
 ## Go/No-Go Decision Gate (Day 3)
 
-**Continue with 4-class if:**
+**Continue with 3-class if:**
 - `cap` mAP ≥ 0.60
 - `stem` mAP ≥ 0.50
 - `underside` mAP ≥ 0.45
-- `coral` mAP ≥ 0.40
 
 **Fallback if any class below threshold:**
 - Use single-class YOLOv8 for detection
@@ -551,7 +536,7 @@ The benchmark is designed to produce evidence for these claims:
 |------|--------|
 | `api/main.py` | Add `/identify/unified`, agreement evaluator |
 | `api/schemas.py` | Add unified request/response schemas |
-| `models/mushroom_segmenter.py` | Parse **4-class** output, class-driven case detection (no CNN) |
+| `models/mushroom_segmenter.py` | Parse **3-class** output, class-driven case detection (no CNN) |
 | `models/visual_trait_extractor.py` | Part-specific extraction, **CNN-independent**, case routing |
 | `models/cnn_classifier.py` | Always runs; return prediction + uncertainty flags for all images |
 | `models/key_tree_traversal.py` | Export tree structure for LLM injection; keep standalone engine |
@@ -566,11 +551,10 @@ The benchmark is designed to produce evidence for these claims:
 ```
 Two Photos
     │
-    ├──→ YOLOv8 Segmentation (4-class)
+    ├──→ YOLOv8 Segmentation (3-class)
     │         │
     │         ↓
     │    Case Router (class-driven, both photos)
-    │    ├─ coral detected      → coral traits
     │    ├─ cap+stem+underside  → classical traits
     │    ├─ cap only (both)     → puffball traits
     │    └─ uncertain           → heuristic fallback

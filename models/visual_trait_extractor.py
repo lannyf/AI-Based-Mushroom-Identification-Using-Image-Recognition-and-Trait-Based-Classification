@@ -23,8 +23,6 @@ import numpy as np
 from PIL import Image
 from sklearn.cluster import KMeans
 
-from config import trait_config as tc
-
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
@@ -553,69 +551,6 @@ def analyse_puffball_traits(bgr: np.ndarray, whole_mask: np.ndarray) -> Dict[str
     }
 
 
-def analyse_coral_traits(bgr: np.ndarray, coral_mask: np.ndarray) -> Dict[str, Any]:
-    """Extract coral-specific traits from the coral mask."""
-    colour = analyse_colours_masked(bgr, coral_mask)
-    brightness = analyse_brightness_masked(bgr, coral_mask)
-
-    mask_u = (coral_mask > 0).astype(np.uint8) * 255
-
-    # Skeletonize
-    skeleton = None
-    try:
-        if hasattr(cv2, "ximgproc"):
-            skeleton = cv2.ximgproc.thinning(mask_u)
-    except Exception:
-        pass
-    if skeleton is None or cv2.countNonZero(skeleton) == 0:
-        # Fallback if cv2.ximgproc is not available: distance-transform ridge
-        dist = cv2.distanceTransform(mask_u, cv2.DIST_L2, 5)
-        _, skeleton = cv2.threshold(dist, dist.max() * 0.5, 255, cv2.THRESH_BINARY)
-        skeleton = skeleton.astype(np.uint8)
-
-    # Count branch endpoints and junctions
-    endpoints = 0
-    junctions = 0
-    ys, xs = np.where(skeleton > 0)
-    for y, x in zip(ys, xs):
-        neighborhood = skeleton[max(0, y-1):y+2, max(0, x-1):x+2]
-        neighbors = np.count_nonzero(neighborhood > 0) - 1
-        if neighbors == 1:
-            endpoints += 1
-        elif neighbors >= 3:
-            junctions += 1
-
-    # Branch density
-    mask_area = np.count_nonzero(coral_mask > 0)
-    branch_density = (endpoints + junctions) / max(mask_area, 1) * 1000
-
-    # Classify finger-like vs cauliflower-like
-    contours, _ = cv2.findContours(mask_u, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    contour_complexity = 0.0
-    if contours:
-        perimeters = [cv2.arcLength(c, True) for c in contours]
-        areas = [cv2.contourArea(c) for c in contours]
-        total_area = sum(areas)
-        total_perim = sum(perimeters)
-        contour_complexity = (total_perim ** 2) / (4 * np.pi * total_area) - 1.0 if total_area > 0 else 0.0
-
-    if endpoints > 20 and branch_density > 2.0 and contour_complexity < 1.5:
-        coral_branching = "finger_like"
-    elif contour_complexity > 2.0 or branch_density < 1.0:
-        coral_branching = "cauliflower_like"
-    else:
-        coral_branching = "unknown"
-
-    return {
-        "coral_color": colour["dominant_color"],
-        "coral_brightness": brightness,
-        "coral_branching": coral_branching,
-        "coral_endpoints": endpoints,
-        "coral_junctions": junctions,
-        "coral_branch_density": round(branch_density, 3),
-    }
-
-
 # ---------------------------------------------------------------------------
 # Morphology case derivation
 # ---------------------------------------------------------------------------
@@ -633,8 +568,6 @@ def derive_morphology_case(
     cap_shape: str,
     whole_shape_metrics: Dict[str, float],
 ) -> str:
-    if "coral" in detected_parts:
-        return "coral"
     if is_puffball_like(detected_parts, whole_shape_metrics):
         return "puffball"
     if "cap" in detected_parts and ("stem" in detected_parts or "underside" in detected_parts):
@@ -644,107 +577,6 @@ def derive_morphology_case(
             return "classical_convex"
         return "classical_unknown"
     return "uncertain"
-
-
-# ---------------------------------------------------------------------------
-# Legacy extraction path
-# ---------------------------------------------------------------------------
-
-def _legacy_extract(image_bytes: bytes) -> Dict[str, Any]:
-    """Original single-mask / whole-image extraction (preserved exactly)."""
-    import io as _io
-    from config import segmentation_config as seg_cfg
-
-    pil_img = Image.open(_io.BytesIO(image_bytes)).convert("RGB")
-    bgr = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
-
-    # --- CV analysis (always runs — needed for visible_traits) ---
-    colour = analyse_colours(bgr)
-    shape = analyse_shape(bgr)
-    texture = analyse_texture(bgr)
-    brightness = analyse_brightness(bgr)
-
-    visible_traits: Dict[str, Any] = {
-        "dominant_color": colour["dominant_color"],
-        "secondary_color": colour["secondary_color"],
-        "cap_shape": shape["cap_shape"],
-        "surface_texture": texture["surface_texture"],
-        "has_ridges": texture["has_ridges"],
-        "brightness": brightness,
-        "colour_ratios": {
-            "red": colour["red"],
-            "orange_red": colour.get("orange_red", 0.0),
-            "orange_yellow": colour["orange_yellow"],
-            "brown": colour["brown"],
-            "white": colour["white"],
-            "dark": colour["dark"],
-        },
-    }
-
-    # --- Segmentation metadata and optional masked trait replacement ---
-    selected_mask = None
-    try:
-        if seg_cfg.USE_MASK_FOR_TRAITS or getattr(seg_cfg, "RUN_SEGMENTATION_METADATA", False):
-            from models.mushroom_segmenter import get_segmenter
-            seg = get_segmenter()
-            seg_res = seg.segment(image_bytes)
-            instances = seg_res.get("instances", [])
-            sel_idx = seg_res.get("selected_index")
-            if sel_idx is not None and instances:
-                sel = instances[sel_idx]
-                if getattr(seg_cfg, "RUN_SEGMENTATION_METADATA", False):
-                    visible_traits["localization_source"] = "segmentation"
-                    visible_traits["localization_confidence"] = round(float(sel.get("model_confidence", 0.0)), 3)
-                    visible_traits["bbox"] = sel.get("bbox")
-                    visible_traits["mask_used"] = False
-                    visible_traits["localization_metadata"] = {
-                        "foreground_area_ratio": sel.get("area_ratio"),
-                        "mask_fragment_count": sel.get("fragment_count"),
-                        "hole_ratio": sel.get("hole_ratio"),
-                        "boundary_irregularity": sel.get("boundary_irregularity"),
-                    }
-                selected_mask = sel.get("cleaned_mask")
-    except ImportError:
-        logger.debug("Segmentation dependency not installed; skipping segmentation metadata")
-    except Exception as exc:
-        logger.debug("Segmentation failed: %s", exc)
-
-    # Condition to accept masked traits
-    try:
-        if selected_mask is not None and seg_cfg.USE_MASK_FOR_TRAITS:
-            sel_ok = (
-                float(visible_traits.get("localization_confidence", 0.0)) >= seg_cfg.MIN_MASK_CONFIDENCE
-                and float(visible_traits.get("localization_metadata", {}).get("foreground_area_ratio", 0.0)) >= seg_cfg.MIN_FOREGROUND_AREA_RATIO
-                and float(visible_traits.get("localization_metadata", {}).get("foreground_area_ratio", 0.0)) <= seg_cfg.MAX_NEAR_FULL_FRAME_RATIO
-                and int(visible_traits.get("localization_metadata", {}).get("fragment_count", 99)) <= seg_cfg.MAX_FRAGMENTATION
-                and float(visible_traits.get("localization_metadata", {}).get("hole_ratio", 1.0)) <= seg_cfg.MAX_HOLE_RATIO
-                and float(visible_traits.get("localization_metadata", {}).get("boundary_irregularity", 1.0)) <= seg_cfg.MAX_BOUNDARY_IRREGULARITY
-            )
-            if sel_ok:
-                mask_for_traits = selected_mask
-                m_colour = analyse_colours_masked(bgr, mask_for_traits)
-                m_shape = analyse_shape_masked(bgr, mask_for_traits)
-                m_texture = analyse_texture_masked(bgr, mask_for_traits)
-                m_brightness = analyse_brightness_masked(bgr, mask_for_traits)
-                visible_traits["dominant_color"] = m_colour["dominant_color"]
-                visible_traits["secondary_color"] = m_colour["secondary_color"]
-                visible_traits["colour_ratios"]["red"] = m_colour["red"]
-                visible_traits["colour_ratios"]["orange_red"] = m_colour.get("orange_red", 0.0)
-                visible_traits["colour_ratios"]["orange_yellow"] = m_colour.get("orange_yellow", 0.0)
-                visible_traits["colour_ratios"]["brown"] = m_colour.get("brown", 0.0)
-                visible_traits["colour_ratios"]["white"] = m_colour.get("white", 0.0)
-                visible_traits["colour_ratios"]["dark"] = m_colour.get("dark", 0.0)
-                visible_traits["cap_shape"] = m_shape.get("cap_shape", visible_traits.get("cap_shape"))
-                visible_traits["surface_texture"] = m_texture.get("surface_texture", visible_traits.get("surface_texture"))
-                visible_traits["has_ridges"] = m_texture.get("has_ridges", visible_traits.get("has_ridges"))
-                visible_traits["brightness"] = m_brightness
-                visible_traits["mask_used"] = True
-                visible_traits["trait_source_by_key"] = {k: "mask" for k in ["dominant_color", "cap_shape", "surface_texture", "has_ridges", "brightness"]}
-    except Exception as exc:
-        logger.debug("Error applying masked traits: %s", exc)
-
-    logger.debug("Step-1: extracted %d traits", len(visible_traits))
-    return {"visible_traits": visible_traits}
 
 
 # ---------------------------------------------------------------------------
@@ -824,6 +656,7 @@ def _part_aware_extract(
     # Collect detected part names
     detected_parts = set(part_masks.keys())
     detected_parts.discard("whole")
+    detected_parts.discard("coral")
 
     # Run part-specific analysers
     traits_by_part: Dict[str, Dict[str, Any]] = {}
@@ -833,7 +666,6 @@ def _part_aware_extract(
     cap_mask_info = part_masks.get("cap")
     stem_mask_info = part_masks.get("stem")
     underside_mask_info = part_masks.get("underside")
-    coral_mask_info = part_masks.get("coral")
     whole_mask_info = part_masks.get("whole")
 
     whole_metrics = _contour_metrics(whole_mask_info["mask"]) if whole_mask_info else {}
@@ -870,16 +702,6 @@ def _part_aware_extract(
             )
             trait_sources[k] = "yolo_underside_mask"
 
-    # Coral traits
-    if coral_mask_info:
-        coral_traits = analyse_coral_traits(bgr, coral_mask_info["mask"])
-        traits_by_part.update(coral_traits)
-        for k in coral_traits:
-            trait_confidences[k] = round(
-                trait_confidence(coral_mask_info["quality"], 0.80), 3
-            )
-            trait_sources[k] = "yolo_coral_mask"
-
     # Puffball / whole traits
     if whole_mask_info:
         puffball_traits = analyse_puffball_traits(bgr, whole_mask_info["mask"])
@@ -895,9 +717,7 @@ def _part_aware_extract(
     morphology_case = derive_morphology_case(detected_parts, cap_shape, whole_metrics)
 
     # Determine coarse case
-    if "coral" in detected_parts:
-        coarse_case = "coral"
-    elif morphology_case == "puffball":
+    if morphology_case == "puffball":
         coarse_case = "puffball"
     elif "cap" in detected_parts or "stem" in detected_parts or "underside" in detected_parts:
         coarse_case = "classical"
@@ -937,7 +757,6 @@ def _part_aware_extract(
         "cap_surface": cap_surface,
         "stem_ring": traits_by_part.get("stem_ring", "unknown"),
         "stem_surface": traits_by_part.get("stem_surface", "unknown"),
-        "coral_branching": traits_by_part.get("coral_branching", "unknown"),
         "puffball_surface": traits_by_part.get("puffball_surface", "unknown"),
         "clustered_growth": clustered_growth,
         "trait_confidence": trait_confidences,
@@ -976,7 +795,4 @@ def extract(
     Returns:
         {"visible_traits": {...}}
     """
-    if not tc.ENABLE_PART_AWARE_TRAITS:
-        return _legacy_extract(image_bytes)
-
     return _part_aware_extract(image_bytes, part_masks)

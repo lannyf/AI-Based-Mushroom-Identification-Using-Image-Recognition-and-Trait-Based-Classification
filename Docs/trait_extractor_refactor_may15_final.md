@@ -1,3 +1,6 @@
+> **UPDATE (2026-05-22):** The `Coral` class has been removed from the pipeline. The YOLO model is now **3-class** (Cap, Stem, Underside), and the trait extractor always runs in part-aware mode. The `ENABLE_PART_AWARE_*` feature flags have been removed. This document is kept for historical context.
+
+
 # Trait Extractor Refactor Plan - Final Rewrite - May 15, 2026
 
 > Superseded: the deployment-ready rewrite is in

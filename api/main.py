@@ -48,7 +48,7 @@ SPECIES_CSV  = PROJECT_ROOT / "data" / "raw" / "species.csv"
 KEY_XML      = PROJECT_ROOT / "data" / "raw" / "key.xml"
 DATA_RAW_DIR = PROJECT_ROOT / "data" / "raw"
 
-# YOLO segmentation weights — prefer the fine-tuned 4-class model
+# YOLO segmentation weights — prefer the fine-tuned 3-class model
 YOLO_WEIGHTS = PROJECT_ROOT / "data" / "Yolov8" / "best.pt"
 if not YOLO_WEIGHTS.exists():
     YOLO_WEIGHTS = PROJECT_ROOT / "artifacts" / "yolov8_seg_ft.pt"
@@ -396,8 +396,8 @@ async def identify_unified(
       * **below_photo** — taken from below, showing the underside (gills/pores/ridges) and stem.
 
     The pipeline runs automatically:
-      1. YOLOv8 4-class segmentation on both images
-      2. Case detection (classical / coral / puffball / uncertain)
+      1. YOLOv8 3-class segmentation on both images
+      2. Case detection (classical / puffball / uncertain)
       3. Trait extraction per photo (masked where possible)
       4. CNN prediction with uncertainty flags
       5. Key-tree auto-traversal

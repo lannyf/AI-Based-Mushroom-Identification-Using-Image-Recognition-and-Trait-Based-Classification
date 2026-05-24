@@ -241,17 +241,12 @@ def derive_key_answers(visible_traits: Dict[str, Any]) -> Dict[str, str]:
     from config import trait_config as tc
 
     answers: Dict[str, str] = {}
-    if not tc.ENABLE_PART_AWARE_KEY_AUTOANSWERS:
-        return answers
-
     conf = visible_traits.get("trait_confidence", {})
 
     # morphology_case -> root question
     if conf.get("morphology_case", 0.0) >= tc.PART_AWARE_MIN_AUTOANSWER_CONFIDENCE:
         morphology = visible_traits.get("morphology_case")
-        if morphology == "coral":
-            answers["Hur ser svampen ut?"] = "Den är busklik med många grenar"
-        elif morphology == "puffball":
+        if morphology == "puffball":
             answers["Hur ser svampen ut?"] = "Päronformad eller rund"
 
     # hymenophore_type -> root question

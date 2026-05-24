@@ -93,14 +93,23 @@ class SpeciesDatabase:
         """Get all species."""
         return self.species
     
-    def get_species_list_formatted(self) -> str:
-        """Get formatted species list for prompt."""
+    def get_species_list_formatted(self, compact: bool = False) -> str:
+        """Get formatted species list for prompt.
+        
+        Args:
+            compact: If True, return a condensed list (english + scientific only)
+                     to reduce token usage in vision-LLM prompts.
+        """
         lines = []
-        for i, (species_id, data) in enumerate(self.species.items(), 1):
-            lines.append(
-                f"{i}. {data['english']} ({data['swedish']}) - {data['scientific']} "
-                f"[{'EDIBLE' if data['edible'] else 'TOXIC: ' + data['toxicity']}]"
-            )
+        if compact:
+            for i, (species_id, data) in enumerate(self.species.items(), 1):
+                lines.append(f"{i}. {data['english']} ({data['scientific']})")
+        else:
+            for i, (species_id, data) in enumerate(self.species.items(), 1):
+                lines.append(
+                    f"{i}. {data['english']} ({data['swedish']}) - {data['scientific']} "
+                    f"[{'EDIBLE' if data['edible'] else 'TOXIC: ' + data['toxicity']}]"
+                )
         return '\n'.join(lines)
 
 
@@ -155,123 +164,73 @@ class UnifiedPredictionResult:
 class LLMPromptTemplate:
     """Manages system prompts and few-shot examples for mushroom classification."""
 
-    MUSHROOM_SYSTEM_PROMPT = """You are an expert mycologist specializing in mushroom identification from the Nordic region (Sweden).
-You will analyze descriptions of mushrooms and predict the most likely species based on morphological characteristics.
+    MUSHROOM_SYSTEM_PROMPT = """You are an expert mycologist identifying Nordic mushrooms.
 
-SAFETY DISCLAIMER: This system is for educational purposes only. Never use it as the sole basis for determining if a mushroom is safe to eat.
-When in doubt, consult a professional mycologist or poison control.
+SAFETY: This is for educational purposes only. Do not rely on it for edibility decisions.
 
 Available Species ({species_count} total):
 {species_list}
 
-IDENTIFICATION GUIDELINES:
-1. Consider all observable characteristics: cap shape/color, gill structure, stem, flesh, habitat, season
-2. Match against the available species list only - do not suggest species outside this list
-3. Provide confidence scores (0-1 scale) based on how well the description matches known traits
-4. Flag any toxic or dangerous species
-5. Explain your reasoning with specific morphological evidence
-6. Indicate if the description is ambiguous or matches multiple species
-7. Always include safety warnings for toxic species
+GUIDELINES:
+- Match only against the species above.
+- Return confidence 0-1 and brief reasoning.
+- Flag toxic species.
 
-RESPONSE FORMAT:
-Provide your analysis as JSON with the following structure:
+RESPONSE FORMAT (JSON):
 {{
     "top_prediction": {{"species": "English name", "confidence": 0.85, "reasoning": "..."}},
     "predictions": [
-        {{"species": "Species 1", "confidence": 0.85, "reasoning": "Key features observed"}},
+        {{"species": "Species 1", "confidence": 0.85, "reasoning": "..."}},
         {{"species": "Species 2", "confidence": 0.10, "reasoning": "..."}}
     ],
-    "reasoning": "Overall analysis of the observation",
-    "safety_warnings": ["WARNING: Species X is TOXIC if found"],
+    "reasoning": "Overall analysis",
+    "safety_warnings": [],
     "confidence_in_id": 0.85,
     "ambiguous": false,
     "needs_clarification": []
-}}
+}}"""
 
-Be precise, logical, and prioritize safety."""
+    UNIFIED_SYSTEM_PROMPT = """You are an expert mycologist. Examine the images and tool outputs, then identify the mushroom species.
 
-    UNIFIED_SYSTEM_PROMPT = """You are an expert mycologist examining a mushroom specimen.
-Your goal is to identify the species by combining your own visual analysis with evidence from available tools.
-
-=== AVAILABLE TOOLS ===
-
-1. vision_analysis — Your own expert visual examination of the provided images.
-   This is your primary source of evidence. Trust your eyes first.
-
-2. cnn_classifier — An independent AI vision system trained on mushroom images.
-   This is a separate AI that simply produces an answer. It can be overconfident,
-   especially on unusual lighting, odd angles, or out-of-distribution species.
-   Treat its output as one signal among many, not as ground truth.
-
-3. trait_extractor — A deterministic tool that measures morphological traits
-   (cap color, gill attachment, stem features, etc.) from segmented images.
-   Its output depends on segmentation quality and lighting. Verify against images.
-
-4. dichotomous_key — A deterministic tool that navigates a Swedish dichotomous
-   identification key using extracted traits. Requires precise trait matching;
-   wrong traits lead to wrong paths. May get stuck if traits are ambiguous.
-
-5. trait_database — A deterministic tool that compares extracted traits against
-   known species profiles. Uses coarse descriptions; may miss fine distinctions.
-
-=== YOUR REASONING PROCESS ===
-
-1. EXAMINE the images carefully. Form your own preliminary diagnosis.
-2. REVIEW the cnn_classifier output. Evaluate: is it plausible? What are its weaknesses?
-3. REVIEW the extracted traits from trait_extractor. Do they match what you see?
-4. REVIEW the dichotomous_key result. Does the path make sense given the traits?
-5. REVIEW the trait_database comparison. Does the best match align with your visual diagnosis?
-6. SYNTHESIZE: Which hypothesis has the strongest evidence across ALL sources?
-   - If tools agree with your visual analysis, this strengthens confidence.
-   - If tools contradict your visual analysis, critically evaluate BOTH sides.
-   - Consider: what if YOU are wrong? What if a tool is wrong? Which has stronger evidence?
-   - Use the dichotomous key to test competing hypotheses.
-7. CONCLUDE with a final species identification. Do not simply follow the majority.
-   Do not stubbornly stick to your first impression. Choose the strongest hypothesis.
+TOOLS (trust your eyes first; tools can be wrong):
+- cnn_classifier: AI vision prediction (may be overconfident).
+- trait_extractor: measured traits from segmentation.
+- identification_key: Swedish key traversal result.
+- trait_database: trait-profile match.
 
 {key_tree_text}
 
 Available Species ({species_count} total):
 {species_list}
 
-RESPONSE FORMAT (strict JSON):
+RESPONSE FORMAT (JSON):
 {{
-    "top_prediction": {{
-        "species": "English name",
-        "confidence": 0.82,
-        "reasoning": "Why this species fits best"
-    }},
+    "top_prediction": {{"species": "English name", "confidence": 0.82, "reasoning": "..."}},
     "predictions": [
         {{"species": "English name", "confidence": 0.82, "reasoning": "..."}},
         {{"species": "Alternative", "confidence": 0.10, "reasoning": "..."}}
     ],
     "all_signals": {{
-        "cnn": "Species name or 'uncertain'",
-        "trait_extractor": "Summary of key extracted traits",
-        "dichotomous_key": "Species name or 'incomplete'",
-        "trait_database": "Species name or 'no_match'",
-        "llm_own_diagnosis": "What you observed from the images yourself"
+        "cnn": "...",
+        "trait_extractor": "...",
+        "identification_key": "...",
+        "trait_database": "...",
+        "llm_own_diagnosis": "..."
     }},
     "tool_evaluation": {{
-        "cnn_trust": "high|medium|low",
-        "cnn_why": "Brief justification",
-        "traits_trust": "high|medium|low",
-        "traits_why": "Brief justification",
-        "key_trust": "high|medium|low",
-        "key_why": "Brief justification",
-        "database_trust": "high|medium|low",
-        "database_why": "Brief justification"
+        "cnn_trust": "high|medium|low", "cnn_why": "...",
+        "traits_trust": "high|medium|low", "traits_why": "...",
+        "key_trust": "high|medium|low", "key_why": "...",
+        "database_trust": "high|medium|low", "database_why": "..."
     }},
     "agreement_state": "agree|disagree|partial|inconclusive",
-    "reasoning": "Detailed analysis: visual observations, tool outputs, critical evaluation, final conclusion",
-    "safety_warnings": ["Any toxicity warnings"],
+    "reasoning": "...",
+    "safety_warnings": [],
     "needs_clarification": false,
     "clarification_question": null,
     "confidence_in_id": 0.82,
     "ambiguous": false
-}}
-
-Be concise but thorough. Prioritize safety."""
+}}"""
 
     FEW_SHOT_EXAMPLES = [
         {
@@ -306,49 +265,45 @@ Be concise but thorough. Prioritize safety."""
         self.species_db = species_db
         self.key_tree_text = key_tree_text or ""
 
-    def get_system_prompt(self) -> str:
-        """Get system prompt with species list."""
-        species_list = self.species_db.get_species_list_formatted()
+    def get_system_prompt(self, compact: bool = False) -> str:
+        """Get system prompt with species list.
+        
+        Args:
+            compact: Use condensed species list to save tokens.
+        """
+        species_list = self.species_db.get_species_list_formatted(compact=compact)
         return self.MUSHROOM_SYSTEM_PROMPT.format(
             species_list=species_list,
             species_count=len(self.species_db.get_all_species()),
         )
 
-    def get_unified_system_prompt(self) -> str:
-        """Get the unified system prompt with key tree injected."""
-        species_list = self.species_db.get_species_list_formatted()
+    def get_unified_system_prompt(self, compact: bool = False) -> str:
+        """Get the unified system prompt with key tree injected.
+        
+        Args:
+            compact: Use condensed species list to save tokens.
+        """
+        species_list = self.species_db.get_species_list_formatted(compact=compact)
         return self.UNIFIED_SYSTEM_PROMPT.format(
             key_tree_text=self.key_tree_text,
             species_list=species_list,
             species_count=len(self.species_db.get_all_species()),
         )
 
-    TREE_NAVIGATION_PROMPT = """You are an expert mycologist navigating a Swedish dichotomous key to identify a mushroom.
-
-Use the observed traits and images to choose the correct answer at each question in the key.
-Work through the key step-by-step until you reach a species decision.
+    TREE_NAVIGATION_PROMPT = """Navigate the Swedish polytomous key below using the observed traits and images.
+Return the path and final species.
 
 {key_tree_text}
 
-INSTRUCTIONS:
-1. Read each question carefully.
-2. Compare the observed traits against both possible answers.
-3. Select the answer that best matches the mushroom.
-4. Continue to the next question until you reach a final species decision.
-5. If you cannot confidently answer a question, indicate uncertainty.
-
-RESPONSE FORMAT (strict JSON):
+RESPONSE FORMAT (JSON):
 {{
     "tree_path": [
-        {{"question": "Exact question text from the key", "answer": "The answer you chose"}},
-        ...
+        {{"question": "...", "answer": "..."}}
     ],
-    "conclusion": "Swedish species name from the decision node",
+    "conclusion": "Swedish species name",
     "confidence": 0.85,
-    "reasoning": "Explain why this path matches the observed traits"
-}}
-
-Be precise. Use the exact question and answer texts from the key above."""
+    "reasoning": "Why this path matches"
+}}"""
 
     def get_tree_navigation_prompt(self) -> str:
         """Get the system prompt for LLM tree navigation."""
@@ -465,6 +420,7 @@ class OllamaBackend(LLMBackend):
             "options": {
                 "temperature": float(os.environ.get("OLLAMA_TEMPERATURE", "0")),
                 "num_predict": int(os.environ.get("OLLAMA_NUM_PREDICT", "512")),
+                "num_ctx": int(os.environ.get("OLLAMA_NUM_CTX", "4096")),
             },
             "keep_alive": os.environ.get("OLLAMA_KEEP_ALIVE", "10m"),
         }
@@ -522,7 +478,7 @@ class LLMClassifier:
         import time
         start_time = time.time()
 
-        system_prompt = self.prompt_template.get_system_prompt()
+        system_prompt = self.prompt_template.get_system_prompt(compact=True)
         user_input = self._format_user_input(observation, context)
 
         try:
@@ -563,7 +519,7 @@ class LLMClassifier:
         """One-shot LLM tree navigation.
 
         The LLM receives the tree structure + observed traits + CNN hint
-        and returns its chosen path through the dichotomous key.
+        and returns its chosen path through the polytomous key.
 
         Args:
             visible_traits: Extracted visual traits.
@@ -581,26 +537,23 @@ class LLMClassifier:
 
         system_prompt = self.prompt_template.get_tree_navigation_prompt()
 
-        # Build user input with traits and optional CNN hint
-        lines = ["=== OBSERVED TRAITS ==="]
+        # Build compact user input with traits and optional CNN hint
+        lines = ["TRAITS:"]
         for k, v in visible_traits.items():
             lines.append(f"  {k}: {v}")
 
         if cnn_prediction and cnn_prediction.get("species"):
-            lines.append(f"\nCNN HINT (uncertain, use with caution):")
-            lines.append(f"  Predicted: {cnn_prediction['species']} (confidence: {cnn_prediction.get('confidence', 0)})")
+            lines.append(f"\nCNN: {cnn_prediction['species']} (conf: {cnn_prediction.get('confidence', 0):.2f})")
 
         if case_info:
-            lines.append(f"\nMORPHOLOGICAL CASE: {case_info.get('case', 'unknown')}")
-            lines.append(f"  Detected parts: {case_info.get('detected_parts', [])}")
+            lines.append(f"CASE: {case_info.get('case', 'unknown')} | parts: {case_info.get('detected_parts', [])}")
 
         if pre_answers:
-            lines.append("\n=== ORACLE PATH (use these answers) ===")
+            lines.append("\nORACLE PATH:")
             for q, a in pre_answers.items():
-                lines.append(f"  Q: {q} → A: {a}")
-            lines.append("Navigate the tree using the oracle answers above and report the final species.")
+                lines.append(f"  {q} → {a}")
         else:
-            lines.append("\nNavigate the key using the observed traits. Reach a final species decision.")
+            lines.append("\nNavigate the key and return the final species.")
 
         user_input = "\n".join(lines)
 
@@ -661,7 +614,7 @@ class LLMClassifier:
         import time
         start_time = time.time()
 
-        system_prompt = self.prompt_template.get_unified_system_prompt()
+        system_prompt = self.prompt_template.get_unified_system_prompt(compact=True)
         user_input = self._build_unified_user_input(
             visible_traits, cnn_prediction, tree_result, db_result,
             case_info, image_descriptions,
@@ -741,86 +694,53 @@ class LLMClassifier:
         case_info: Optional[Dict[str, Any]],
         image_descriptions: Optional[List[str]],
     ) -> str:
-        """Build user prompt: LLM as central reasoner, subsystems as tools."""
+        """Build compact user prompt: LLM as central reasoner, subsystems as tools."""
         lines: List[str] = []
-        lines.append("=== SPECIMEN IMAGES ===")
-        lines.append("(Examine both images carefully before reviewing the tool outputs below.)\n")
 
         if case_info:
-            lines.append(f"MORPHOLOGICAL CASE: {case_info.get('case', 'unknown')}")
-            lines.append(f"Detected parts: {case_info.get('detected_parts', [])}\n")
+            lines.append(f"CASE: {case_info.get('case', 'unknown')} | parts: {case_info.get('detected_parts', [])}")
 
         if image_descriptions:
             for i, desc in enumerate(image_descriptions, 1):
-                lines.append(f"IMAGE {i} DESCRIPTION: {desc}")
-            lines.append("")
+                lines.append(f"IMAGE {i}: {desc}")
 
-        lines.append("=== YOUR PRELIMINARY DIAGNOSIS ===")
-        lines.append("(Look at the images first. What species does your own visual analysis suggest?\n")
-        lines.append("Form your own opinion before reading the tool outputs below.)\n")
-
-        # Tool 1: CNN (independent AI)
-        lines.append("=== TOOL OUTPUT: cnn_classifier ===")
-        lines.append(f"  Prediction: {cnn_prediction.get('species', 'None')} (confidence: {cnn_prediction.get('confidence', 0.0):.4f})")
-        lines.append(f"  Conclusive: {cnn_prediction.get('conclusive', False)}")
+        # CNN
+        lines.append(f"\nCNN: {cnn_prediction.get('species', 'None')} (conf: {cnn_prediction.get('confidence', 0.0):.2f}, conclusive: {cnn_prediction.get('conclusive', False)})")
         if cnn_prediction.get('uncertainty_reason'):
-            lines.append(f"  Note: {cnn_prediction['uncertainty_reason']}")
+            lines.append(f"  note: {cnn_prediction['uncertainty_reason']}")
         top5 = cnn_prediction.get('top_5', [])
         if top5:
-            lines.append(f"  Top-5 alternatives: {top5}")
-        lines.append("  WARNING: CNNs can be overconfident, especially on unusual specimens or poor lighting.\n")
+            lines.append(f"  top-5: {top5}")
 
-        # Tool 2: dichotomous_key
-        lines.append("=== TOOL OUTPUT: dichotomous_key ===")
+        # Tree
         status = tree_result.get('status', 'unknown')
-        lines.append(f"  Status: {status}")
         if status == 'conclusion':
-            lines.append(f"  Conclusion: {tree_result.get('species', 'unknown')}")
             path = tree_result.get('path', [])
-            if path:
-                lines.append(f"  Path taken: {' → '.join(path)}")
+            path_str = f" | path: {' → '.join(path[-3:])}" if path else ""
+            lines.append(f"TREE: {tree_result.get('species', 'unknown')}{path_str}")
         elif status == 'question':
-            lines.append(f"  Stuck at question: {tree_result.get('question', '')}")
-            lines.append(f"  Options: {tree_result.get('options', [])}")
-            lines.append("  WARNING: Key traversal is incomplete — trait extraction may be missing critical features.")
-        lines.append("  WARNING: The key requires precise trait matching; wrong traits lead to wrong paths.\n")
+            lines.append(f"TREE: stuck at '{tree_result.get('question', '')}' | options: {tree_result.get('options', [])}")
+        else:
+            lines.append(f"TREE: {status}")
 
-        # Tool 3: trait_database
-        lines.append("=== TOOL OUTPUT: trait_database ===")
+        # Database
         db_status = db_result.get('status', 'unknown')
-        lines.append(f"  Status: {db_status}")
         if db_status == 'ok':
             cand = db_result.get('candidate', {})
-            lines.append(f"  Best match: {cand.get('swedish_name', 'unknown')} ({cand.get('english_name', 'unknown')})")
             tm = db_result.get('trait_match', {})
-            lines.append(f"  Trait match score: {tm.get('score', 0.0)}")
-            lines.append(f"  Conflicts: {len(tm.get('conflicts', []))}")
+            lines.append(f"DB: {cand.get('english_name', 'unknown')} (score: {tm.get('score', 0.0):.2f}, conflicts: {len(tm.get('conflicts', []))})")
             lookalikes = db_result.get('lookalikes', [])
             if lookalikes:
-                lines.append(f"  Lookalikes found: {len(lookalikes)}")
-                for la in lookalikes[:3]:
-                    lines.append(f"    - {la.get('swedish_name', '')} (toxicity: {la.get('toxicity_level', 'unknown')})")
+                lines.append(f"  lookalikes: {', '.join(la.get('swedish_name', '') for la in lookalikes[:3])}")
         else:
-            lines.append("  No database match found.")
-        lines.append("  WARNING: Database matching uses coarse trait descriptions and may miss fine distinctions.\n")
+            lines.append(f"DB: {db_status}")
 
-        # Traits reference
-        lines.append("=== EXTRACTED TRAITS (for reference) ===")
+        # Traits
+        lines.append("\nTRAITS:")
         for k, v in visible_traits.items():
-            if k == "colour_ratios":
-                lines.append(f"  {k}: {v}")
-            else:
-                lines.append(f"  {k}: {v}")
-        lines.append("")
+            lines.append(f"  {k}: {v}")
 
-        lines.append("=== YOUR FINAL IDENTIFICATION ===")
-        lines.append("Now make YOUR final call.")
-        lines.append("If the tools agree with what you see, use that to strengthen your confidence.")
-        lines.append("If they contradict your visual analysis, critically evaluate BOTH your prediction and the tool predictions.")
-        lines.append("Consider: what if YOU are wrong? What if a tool is wrong? Which prediction has the stronger evidence?")
-        lines.append("Use the decision key to test which hypothesis fits best. Choose the strongest hypothesis, even if it changes your mind.")
-        lines.append("Do not simply follow the majority of tools, and do not stubbornly stick to your first impression.")
-        lines.append("Return your answer in the JSON format specified in your instructions.\n")
+        lines.append("\nIdentify the species and return JSON.")
 
         return "\n".join(lines)
 

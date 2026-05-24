@@ -367,8 +367,7 @@ class SpeciesTraitOracle:
         if case == "puffball":
             visible_traits["puffball_surface"] = cap_surface
             visible_traits["puffball_roundness"] = 0.85  # approximate high roundness
-        elif case == "coral":
-            visible_traits["coral_branching"] = "finger_like"  # generic safe default
+
 
         # Size keys (optional, present when available)
         if cap_size != "unknown":

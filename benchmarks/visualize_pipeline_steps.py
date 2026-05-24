@@ -162,7 +162,7 @@ def draw_trait_text(ax, traits, case_info):
     for k in ["dominant_color", "cap_color", "cap_shape", "cap_surface",
               "stem_color", "stem_surface", "stem_ring",
               "underside_color", "hymenophore_type",
-              "whole_color", "coral_branching", "puffball_surface",
+              "whole_color", "puffball_surface",
               "surface_texture", "brightness"]:
         v = traits.get(k)
         if v is not None and v != "unknown":

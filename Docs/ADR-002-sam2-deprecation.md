@@ -16,9 +16,9 @@ The project initially used SAM2 (Segment Anything Model 2) to generate ~350 auto
 
 ### 1. SAM2 is single-class
 SAM2 produces binary masks (`mushroom` vs `background`). It cannot distinguish:
-- `Cap` vs `Stem` vs `Underside` vs `Coral`
+- `Cap` vs `Stem` vs `Underside`
 
-Converting SAM2 masks into 4-class training data requires the same manual tracing effort as annotating from scratch in Roboflow.
+Converting SAM2 masks into 3-class training data requires the same manual tracing effort as annotating from scratch in Roboflow.
 
 ### 2. Zero image overlap
 | Dataset | Images | Source | Overlap with Roboflow |
@@ -65,5 +65,5 @@ scripts/prepare_yolo_seg_dataset.py        # SAM2 masks → YOLO converter
 ## Updated Artifacts
 
 ```
-scripts/train_yolov8_seg.py                # Metadata label changed: "sam2-v1" → "roboflow-4class"
+scripts/train_yolov8_seg.py                # Metadata label changed: "sam2-v1" → "roboflow-3class"
 ```

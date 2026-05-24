@@ -16,7 +16,7 @@ KEY_XML = PROJECT_ROOT / "data" / "raw" / "key.xml"
 DATA_RAW_DIR = PROJECT_ROOT / "data" / "raw"
 OUTPUT_DIR = PROJECT_ROOT / "artifacts" / "benchmarks"
 
-# YOLO segmentation weights — fine-tuned 4-class model (Cap, Coral, Stem, Underside)
+# YOLO segmentation weights — fine-tuned 3-class model (Cap, Stem, Underside)
 YOLO_WEIGHTS = PROJECT_ROOT / "data" / "Yolov8" / "best.pt"
 
 # -----------------------------------------------------------------------------

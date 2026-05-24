@@ -193,32 +193,81 @@ class KeyTreeParser:
             lines.append(f"{i}. {' | '.join(parts)}")
         return "\n".join(lines)
 
-    def get_prompt_injection(self, max_chars: int = 12000) -> str:
+    @property
+    def grouped_paths(self) -> str:
+        """Most compact: group paths by shared prefixes to eliminate repetition."""
+        paths: List[List[Dict[str, str]]] = []
+        _collect_paths(self._root_dict, [], paths)
+
+        # Build a trie: each node maps label -> child node.
+        # A child node is either another dict (intermediate) or a set of leaf decisions.
+        from typing import Union
+        TrieNode = Dict[str, Union["TrieNode", set]]
+
+        def _insert(root: TrieNode, path: List[Dict[str, str]]) -> None:
+            node = root
+            for step in path:
+                if "decision" in step:
+                    # Leaf — add to a special "_decisions" set
+                    node.setdefault("_decisions", set()).add(step["decision"])
+                else:
+                    label = step["answer"]
+                    if label not in node:
+                        node[label] = {}
+                    node = node[label]
+
+        trie: TrieNode = {}
+        for path in paths:
+            _insert(trie, path)
+
+        def _render(node: TrieNode, depth: int = 0) -> List[str]:
+            lines: List[str] = []
+            indent = "  " * depth
+            # Render regular child nodes first, then decisions
+            items = [(k, v) for k, v in node.items() if k != "_decisions"]
+            decisions = node.get("_decisions", set())
+            for label, child in sorted(items):
+                lines.append(f"{indent}{label}")
+                if isinstance(child, dict):
+                    lines.extend(_render(child, depth + 1))
+            if decisions:
+                d_indent = "  " * (depth + 1) if items else indent
+                lines.append(f"{d_indent}→ {', '.join(sorted(decisions))}")
+            return lines
+
+        return "\n".join(_render(trie))
+
+    def get_prompt_injection(self, max_chars: int = 8500) -> str:
         """
         Return a single string suitable for stuffing into an LLM system prompt.
-        Prefers compact paths; falls back to text tree if still too long.
+        Prefers grouped paths (most compact, no repetition), then compact paths,
+        then text tree. Falls back to truncation only as a last resort.
         """
+        grouped = self.grouped_paths
+        if len(grouped) <= max_chars:
+            return (
+                "=== KEY TREE ===\n"
+                f"{grouped}\n"
+                "=== END KEY ==="
+            )
         compact = self.compact_paths
         if len(compact) <= max_chars:
             return (
-                "=== SVAMPGUIDEN DECISION TREE ===\n"
-                "The following are ALL possible identification paths from root to leaf.\n"
-                "Each path ends in a species decision. Use these paths to reason about\n"
-                "which species matches the observed traits.\n\n"
+                "=== KEY TREE ===\n"
                 f"{compact}\n"
-                "=== END TREE ==="
+                "=== END KEY ==="
             )
         text = self.text_tree
         if len(text) <= max_chars:
             return (
-                "=== SVAMPGUIDEN DECISION TREE ===\n\n"
+                "=== KEY TREE ===\n"
                 f"{text}\n"
-                "=== END TREE ==="
+                "=== END KEY ==="
             )
         # Hard truncate with a warning
         truncated = text[:max_chars]
         return (
-            "=== SVAMPGUIDEN DECISION TREE (TRUNCATED) ===\n\n"
+            "=== KEY TREE (TRUNCATED) ===\n"
             f"{truncated}\n... [truncated]\n"
-            "=== END TREE ==="
+            "=== END KEY ==="
         )

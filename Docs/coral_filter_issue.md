@@ -1,3 +1,6 @@
+> **UPDATE (2026-05-22):** The `Coral` class has been removed from the pipeline. The YOLO model is now **3-class** (Cap, Stem, Underside), and the trait extractor always runs in part-aware mode. The `ENABLE_PART_AWARE_*` feature flags have been removed. This document is kept for historical context.
+
+
 # Coral False-Positive Filter — Issue Documentation
 
 > **Context:** The fine-tuned 4-class YOLO model (`data/Yolov8/best.pt`) occasionally predicts the `Coral` class on non-coral specimens. A geometric post-filter was implemented in `models/yolo_part_masks.py` to reject blob-like false positives while preserving real coral masks. This document records the findings and the unresolved trade-offs.

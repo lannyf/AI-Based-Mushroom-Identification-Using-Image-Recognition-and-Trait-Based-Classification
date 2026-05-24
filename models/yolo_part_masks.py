@@ -2,7 +2,7 @@
 YOLO Part Mask Builder
 
 Converts raw YOLOv8 segmentation instances into normalized, quality-gated
-part masks: cap, stem, underside, coral, and a whole-body union.
+part masks: cap, stem, underside, and a whole-body union.
 """
 
 from __future__ import annotations
@@ -21,7 +21,6 @@ RAW_TO_PART_KEY = {
     "Cap": "cap",
     "Stem": "stem",
     "Underside": "underside",
-    "Coral": "coral",
 }
 
 
@@ -97,15 +96,6 @@ def _mask_quality(mask: np.ndarray, confidence: float) -> Dict[str, Any]:
 
 
 def _passes_quality_gate(q: Dict[str, Any], part_key: str = "") -> bool:
-    # Coral masks are naturally fragmented and holey (gaps between branches).
-    if part_key == "coral":
-        return (
-            q["area_ratio"] >= tc.MIN_AREA_RATIO
-            and q["fragmentation"] <= tc.CORAL_MAX_FRAGMENTATION
-            and q["hole_ratio"] <= tc.CORAL_MAX_HOLE_RATIO
-            and q["yolo_confidence"] >= tc.MIN_CONFIDENCE
-        )
-
     # Part-specific overrides for classical mushroom parts.
     min_area = getattr(tc, "STEM_MIN_AREA_RATIO", tc.MIN_AREA_RATIO) if part_key == "stem" else tc.MIN_AREA_RATIO
     if part_key == "underside":
@@ -121,42 +111,6 @@ def _passes_quality_gate(q: Dict[str, Any], part_key: str = "") -> bool:
     )
 
 
-def _is_coral_like(mask: np.ndarray) -> bool:
-    """Geometric sanity check: coral should be branching, non-compact, and concave."""
-    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    if not contours:
-        return False
-
-    total_area = sum(cv2.contourArea(c) for c in contours)
-    if total_area <= 0:
-        return False
-
-    # Solidity check: coral has lots of gaps between branches → low solidity.
-    all_points = np.vstack(contours)
-    hull = cv2.convexHull(all_points)
-    hull_area = cv2.contourArea(hull)
-    solidity = total_area / hull_area if hull_area > 0 else 1.0
-    if solidity > tc.CORAL_MAX_SOLIDITY:
-        logger.debug(
-            "Coral mask rejected: solidity %.3f > threshold %.3f",
-            solidity, tc.CORAL_MAX_SOLIDITY,
-        )
-        return False
-
-    # Complexity check: coral has very high perimeter relative to area.
-    # Circle = 0, square ≈ 0.27; branching coral should be well above 1.0.
-    total_perim = sum(cv2.arcLength(c, True) for c in contours)
-    complexity = (total_perim ** 2) / (4 * np.pi * total_area) - 1.0
-    if complexity < tc.CORAL_MIN_COMPLEXITY:
-        logger.debug(
-            "Coral mask rejected: complexity %.3f < threshold %.3f",
-            complexity, tc.CORAL_MIN_COMPLEXITY,
-        )
-        return False
-
-    return True
-
-
 def build_part_masks(
     instances: List[Dict[str, Any]],
     image_shape: Tuple[int, int],
@@ -164,15 +118,12 @@ def build_part_masks(
     """
     Convert YOLO instances into normalized part masks.
 
-    Returns a dict with keys: cap, stem, underside, coral, whole.
+    Returns a dict with keys: cap, stem, underside, whole.
     Each value contains: mask, confidence, bbox, class_name, quality,
     instance_count, rejected_count, accepted_clusters.
     If a part is absent or fails quality gates, the entry is omitted.
 
     Cluster handling:
-      - coral: each instance is validated independently; all accepted clusters
-        are unioned. This preserves real coral branches that may be spatially
-        separated.
       - cap / stem / underside: tight-cluster merge (IoU > 0.05 or centroid
         distance < 50 px) to avoid multi-mushroom noise.
     """
@@ -183,7 +134,6 @@ def build_part_masks(
         "cap": [],
         "stem": [],
         "underside": [],
-        "coral": [],
     }
 
     for inst in instances:
@@ -226,84 +176,36 @@ def build_part_masks(
         rejected_count = 0
         accepted_clusters: List[Dict[str, Any]] = []
 
-        if part_key == "coral":
-            # Coral: validate each cluster independently, union all accepted
-            accepted_items: List[Dict[str, Any]] = []
-            for item in items:
-                q = _mask_quality(item["mask"], item["confidence"])
-                if not _passes_quality_gate(q, part_key):
-                    rejected_count += 1
-                    continue
-                if not _is_coral_like(item["mask"]):
-                    rejected_count += 1
-                    continue
-                accepted_items.append(item)
-                accepted_clusters.append({
-                    "confidence": round(item["confidence"], 3),
-                    "bbox": item["bbox"],
-                    "quality": q,
-                })
+        # Cap / stem / underside: keep tight-cluster merge behavior
+        merged_mask = items[0]["mask"].copy()
+        merged_bbox = list(items[0]["bbox"])
+        merged_conf = items[0]["confidence"]
+        instance_count = 1
 
-            if not accepted_items:
-                continue
+        for item in items[1:]:
+            iou = _bbox_iou(tuple(merged_bbox), item["bbox"])
+            dist = _bbox_distance(tuple(merged_bbox), item["bbox"])
+            if iou > 0.05 or dist < 50:
+                merged_mask = np.logical_or(merged_mask > 0, item["mask"] > 0).astype(np.uint8) * 255
+                # Update enclosing bbox
+                mx1, my1, mx2, my2 = _bbox_to_corners(tuple(merged_bbox))
+                ix1, iy1, ix2, iy2 = _bbox_to_corners(item["bbox"])
+                nx1, ny1 = min(mx1, ix1), min(my1, iy1)
+                nx2, ny2 = max(mx2, ix2), max(my2, iy2)
+                merged_bbox = [nx1, ny1, nx2 - nx1, ny2 - ny1]
+                # Weighted average confidence by area
+                m_area = np.count_nonzero(merged_mask > 0)
+                i_area = np.count_nonzero(item["mask"] > 0)
+                total_area = m_area + i_area
+                merged_conf = (merged_conf * m_area + item["confidence"] * i_area) / total_area if total_area > 0 else merged_conf
+            else:
+                instance_count += 1
+                rejected_count += 1
 
-            # Union all accepted masks
-            merged_mask = np.logical_or.reduce([it["mask"] > 0 for it in accepted_items]).astype(np.uint8) * 255
-
-            # Union bbox
-            all_bboxes = [it["bbox"] for it in accepted_items]
-            x1s = [b[0] for b in all_bboxes]
-            y1s = [b[1] for b in all_bboxes]
-            x2s = [b[0] + b[2] for b in all_bboxes]
-            y2s = [b[1] + b[3] for b in all_bboxes]
-            merged_bbox = [min(x1s), min(y1s), max(x2s) - min(x1s), max(y2s) - min(y1s)]
-
-            # Confidence weighted by area
-            total_area = 0
-            weighted_conf = 0.0
-            for it in accepted_items:
-                area = np.count_nonzero(it["mask"] > 0)
-                total_area += area
-                weighted_conf += it["confidence"] * area
-            merged_conf = weighted_conf / total_area if total_area > 0 else accepted_items[0]["confidence"]
-            instance_count = len(accepted_items)
-
-            # Re-check quality on the union
-            quality = _mask_quality(merged_mask, merged_conf)
-            if not _passes_quality_gate(quality, part_key):
-                logger.debug("%s merged mask failed quality gate after union: %s", part_key, quality)
-                continue
-        else:
-            # Cap / stem / underside: keep tight-cluster merge behavior
-            merged_mask = items[0]["mask"].copy()
-            merged_bbox = list(items[0]["bbox"])
-            merged_conf = items[0]["confidence"]
-            instance_count = 1
-
-            for item in items[1:]:
-                iou = _bbox_iou(tuple(merged_bbox), item["bbox"])
-                dist = _bbox_distance(tuple(merged_bbox), item["bbox"])
-                if iou > 0.05 or dist < 50:
-                    merged_mask = np.logical_or(merged_mask > 0, item["mask"] > 0).astype(np.uint8) * 255
-                    # Update enclosing bbox
-                    mx1, my1, mx2, my2 = _bbox_to_corners(tuple(merged_bbox))
-                    ix1, iy1, ix2, iy2 = _bbox_to_corners(item["bbox"])
-                    nx1, ny1 = min(mx1, ix1), min(my1, iy1)
-                    nx2, ny2 = max(mx2, ix2), max(my2, iy2)
-                    merged_bbox = [nx1, ny1, nx2 - nx1, ny2 - ny1]
-                    # Weighted average confidence by area
-                    m_area = np.count_nonzero(merged_mask > 0)
-                    i_area = np.count_nonzero(item["mask"] > 0)
-                    total_area = m_area + i_area
-                    merged_conf = (merged_conf * m_area + item["confidence"] * i_area) / total_area if total_area > 0 else merged_conf
-                else:
-                    instance_count += 1
-                    rejected_count += 1
-
-            quality = _mask_quality(merged_mask, merged_conf)
-            if not _passes_quality_gate(quality, part_key):
-                logger.debug("%s mask failed quality gate: %s", part_key, quality)
-                continue
+        quality = _mask_quality(merged_mask, merged_conf)
+        if not _passes_quality_gate(quality, part_key):
+            logger.debug("%s mask failed quality gate: %s", part_key, quality)
+            continue
 
         result[part_key] = {
             "mask": merged_mask,

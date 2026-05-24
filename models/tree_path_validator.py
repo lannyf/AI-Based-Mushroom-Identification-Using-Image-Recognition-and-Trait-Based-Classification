@@ -1,7 +1,7 @@
 """Tree Path Validator — validates an LLM-outputted navigation path against key.xml.
 
 The LLM produces a list of {question, answer} steps. This module checks whether
-those steps form a valid root-to-leaf path in the dichotomous key and returns
+those steps form a valid root-to-leaf path in the polytomous key and returns
 the corresponding species decision.
 """
 
