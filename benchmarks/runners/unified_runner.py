@@ -17,12 +17,16 @@ from benchmarks.runners.base import RunnerResult
 def _build_name_resolver() -> Dict[str, str]:
     """Build a comprehensive name → species_id lookup.
 
-    Covers English names, Swedish names, scientific names, and the existing
-    CNN output-name mappings so that LLM responses can be normalised reliably.
+    Covers English names, Swedish names, scientific names, CNN output names,
+    species codes, and common aliases so that LLM responses can be normalised
+    reliably.
     """
     from benchmarks.config import CNN_NAME_TO_SPECIES_ID
 
-    resolver: Dict[str, str] = dict(CNN_NAME_TO_SPECIES_ID)
+    # Start with CNN names, but ensure they are lowercased so that
+    # resolve_species_name (which lowercases input) can match them.
+    resolver: Dict[str, str] = {k.lower(): v for k, v in CNN_NAME_TO_SPECIES_ID.items()}
+
     with open(SPECIES_CSV, newline="", encoding="utf-8") as fh:
         for row in csv.DictReader(fh):
             sid = row["species_id"]
@@ -31,6 +35,50 @@ def _build_name_resolver() -> Dict[str, str]:
                     resolver[key.lower().strip()] = sid
                     # Strip common suffixes that LLMs may drop
                     resolver[key.lower().strip().replace(" mushroom", "")] = sid
+
+    # Species IDs should resolve to themselves (A2 sometimes emits raw codes)
+    for sid in set(resolver.values()):
+        resolver[sid.lower()] = sid
+
+    # Extra English aliases that LLMs use but aren't in the CSV
+    extra_aliases: Dict[str, str] = {
+        # LA.HE — multiple English common names
+        "licorice milkcap": "LA.HE",
+        "licorice milk cap": "LA.HE",
+        "lacrymus milkcap": "LA.HE",
+        "lacrymus milk cap": "LA.HE",
+        "grey milkcap": "LA.HE",
+        # LA.DE
+        "saffron milk cap": "LA.DE",
+        "saffron milkcap": "LA.DE",
+        # AM.VI
+        "destroying angel": "AM.VI",
+        # AM.PH
+        "death cap": "AM.PH",
+        # AU.AU
+        "wood ear": "AU.AU",
+        "jelly ear": "AU.AU",
+        # AR.ME
+        "honey mushroom": "AR.ME",
+        # PL.OS
+        "oyster mushroom": "PL.OS",
+        # CO.CO
+        "lawyer\'s wig": "CO.CO",
+        # HY.RE
+        "hedgehog mushroom": "HY.RE",
+        "wood hedgehog": "HY.RE",
+        # LY.PE
+        "common puffball": "LY.PE",
+        "warted puffball": "LY.PE",
+        # CR.CO
+        "black trumpet": "CR.CO",
+        "horn of plenty": "CR.CO",
+        # SP.CR
+        "cauliflower fungus": "SP.CR",
+    }
+    for alias, sid in extra_aliases.items():
+        resolver[alias] = sid
+
     return resolver
 
 
@@ -152,31 +200,30 @@ class UnifiedRunner:
         elapsed = (time.perf_counter() - t0) * 1000
 
         llm_dict = result.get("llm", {})
-        top_species_raw = llm_dict.get("top_species", "Unknown")
-        top_conf = float(llm_dict.get("confidence", 0.0))
+        llm_raw_species = llm_dict.get("top_species", "Unknown")
+        llm_conf = float(llm_dict.get("confidence", 0.0))
 
-        if str(top_species_raw).lower() in ("unknown", "error", "unable to parse", "none", "n/a"):
-            return RunnerResult(
-                method_name="unified",
-                predictions=[],
-                coverage=False,
-                error=llm_dict.get("reasoning", "Unified LLM produced no usable prediction"),
-                inference_time_ms=elapsed,
-                metadata={
-                    "agreement": result.get("agreement", "inconclusive"),
-                    "case": result.get("case", {}).get("case", "unknown"),
-                    "needs_clarification": llm_dict.get("needs_clarification", False),
-                    "llm_reasoning": llm_dict.get("reasoning", ""),
-                    "oracle_used": self.oracle_trait_provider is not None,
-                },
-            )
+        # Always use the pipeline's final recommendation if LLM is unusable.
+        # This preserves the LLM's raw answer in metadata while ensuring the
+        # benchmark records the best available signal (tree → CNN → DB).
+        final_rec = result.get("final_recommendation", {})
+        fallback_species = final_rec.get("species", "Unknown")
+        fallback_conf = float(final_rec.get("confidence", 0.0))
+
+        if str(llm_raw_species).lower() in ("unknown", "error", "unable to parse", "none", "n/a"):
+            top_species_raw = fallback_species
+            top_conf = fallback_conf
+            used_fallback = True
+        else:
+            top_species_raw = llm_raw_species
+            top_conf = llm_conf
+            used_fallback = False
 
         species_id = resolve_species_name(top_species_raw)
         top_label = species_id if species_id else top_species_raw
-
         predictions = [(top_label, top_conf)] if top_label else []
 
-        # Pull intermediate signals for metadata / agreement analysis
+        # Pull intermediate signals for metadata / reporting
         cnn_dict = result.get("cnn", {})
         tree_dict = result.get("tree", {})
         db_dict = result.get("database", {})
@@ -206,6 +253,8 @@ class UnifiedRunner:
                 "case": result.get("case", {}).get("case", "unknown"),
                 "case_confidence": result.get("case", {}).get("confidence", 0.0),
                 "llm_reasoning": llm_dict.get("reasoning", ""),
+                "llm_raw_species": llm_raw_species,
+                "llm_confidence": llm_conf,
                 "needs_clarification": llm_dict.get("needs_clarification", False),
                 "cnn_pred": cnn_pred,
                 "cnn_conclusive": cnn_dict.get("conclusive", False),
@@ -214,7 +263,8 @@ class UnifiedRunner:
                 "db_pred": db_pred,
                 "db_species_id": db_species_id,
                 "db_score": db_dict.get("trait_match", {}).get("score", 0.0),
-                "final_recommendation": result.get("final_recommendation", {}),
+                "final_recommendation": final_rec,
                 "oracle_used": self.oracle_trait_provider is not None,
+                "used_fallback": used_fallback,
             },
         )

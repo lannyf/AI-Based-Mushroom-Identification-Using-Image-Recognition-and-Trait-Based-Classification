@@ -1,50 +1,76 @@
 """Benchmark runner for the trait-database comparator.
 
-Scores every species in the database against the visually extracted
-traits and returns the full ranked list.
+Scores every species in the database against the provided traits
+(extracted or oracle) and returns the top-ranked species.
 """
 
 import time
 
 from benchmarks.config import DATA_RAW_DIR
 from benchmarks.runners.base import BenchmarkRunner, RunnerResult
-from benchmarks.runners._extract_cache import extract
+from benchmarks.runners._trait_helper import get_merged_extracted_traits
 
 
 class TraitDBRunner(BenchmarkRunner):
     """Wrapper around ``models.trait_database_comparator.TraitDatabaseComparator``.
 
-    Uses the shared extraction cache so YOLO/CV work is not repeated
-    when this runner is invoked alongside tree or multimodal runners.
+    Supports two trait sources:
+      - "extracted" (a1_db): merged computer-vision traits
+      - "oracle"    (a2_db): ground-truth traits from SpeciesTraitOracle
     """
 
     name = "trait_db"
 
-    def __init__(self):
+    def __init__(self, trait_source: str = "extracted", oracle_trait_provider=None):
+        if trait_source not in ("extracted", "oracle"):
+            raise ValueError(f"TraitDBRunner trait_source must be 'extracted' or 'oracle', got {trait_source}")
+
         from models.trait_database_comparator import TraitDatabaseComparator
 
+        self.trait_source = trait_source
+        self.oracle_trait_provider = oracle_trait_provider
         self.comparator = TraitDatabaseComparator(str(DATA_RAW_DIR))
 
-    def predict(self, sample) -> RunnerResult:
-        """Rank all 50 species by trait-match score.
+    def predict(self, specimen) -> RunnerResult:
+        """Rank all species by trait-match score and return the top hit.
 
         Args:
-            sample: ``BenchmarkSample`` with ``image_bytes``.
+            specimen: BenchmarkSpecimen with ``above_path``, ``below_path``,
+                and ``species_id``.
 
         Returns:
-            ``RunnerResult`` where ``predictions`` contains all 50 species
-            sorted by descending match score.
+            ``RunnerResult`` where ``predictions`` contains the top-ranked
+            species (highest database match score).
         """
         t0 = time.perf_counter()
-        visible_traits = extract(sample.image_bytes)["visible_traits"]
+
+        if self.trait_source == "extracted":
+            visible_traits = get_merged_extracted_traits(specimen)
+        elif self.trait_source == "oracle" and self.oracle_trait_provider is not None:
+            visible_traits = self.oracle_trait_provider.get_extractor_output(
+                specimen.species_id, case="classical"
+            )
+        else:
+            visible_traits = {}
+
         ranked = self.comparator.rank_all_species(visible_traits)
         elapsed = (time.perf_counter() - t0) * 1000
 
-        predictions = [(r["species_id"], r["score"]) for r in ranked]
+        # Return top prediction only (the species with highest match score)
+        if ranked:
+            top = ranked[0]
+            predictions = [(top["species_id"], top["score"])]
+        else:
+            predictions = []
+
         return RunnerResult(
-            method_name="trait_db",
+            method_name=f"trait_db_{self.trait_source}",
             predictions=predictions,
             coverage=True,
             inference_time_ms=elapsed,
-            metadata={"visible_traits": visible_traits},
+            metadata={
+                "visible_traits": visible_traits,
+                "trait_source": self.trait_source,
+                "all_ranked": ranked,
+            },
         )

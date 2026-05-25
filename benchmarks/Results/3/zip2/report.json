@@ -1,0 +1,1600 @@
+{
+  "metadata": {
+    "timestamp": "2026-05-24T18:22:06.605303",
+    "total_specimens": 30
+  },
+  "metrics": {
+    "per_method": {
+      "cnn": {
+        "accuracy": 0.5333333333333333,
+        "coverage": 1.0,
+        "mean_time_ms": 157.92689179998737
+      },
+      "a1": {
+        "accuracy": 0.2,
+        "coverage": 1.0,
+        "mean_time_ms": 17856.754980166665
+      },
+      "a2": {
+        "accuracy": 0.3,
+        "coverage": 1.0,
+        "mean_time_ms": 14811.726126799993
+      },
+      "b1": {
+        "accuracy": 0.4,
+        "coverage": 1.0,
+        "mean_time_ms": 74277.64109733333
+      },
+      "b2": {
+        "accuracy": 0.43333333333333335,
+        "coverage": 1.0,
+        "mean_time_ms": 79308.60901539992
+      }
+    },
+    "by_scenario": {
+      "easy": {
+        "n": 10,
+        "cnn_acc": 0.8,
+        "a1_acc": 0.1,
+        "a2_acc": 0.0,
+        "b1_acc": 0.3,
+        "b2_acc": 0.4
+      },
+      "ood": {
+        "n": 10,
+        "cnn_acc": 0.2,
+        "a1_acc": 0.2,
+        "a2_acc": 0.2,
+        "b1_acc": 0.1,
+        "b2_acc": 0.1
+      },
+      "confusing": {
+        "n": 10,
+        "cnn_acc": 0.6,
+        "a1_acc": 0.3,
+        "a2_acc": 0.7,
+        "b1_acc": 0.8,
+        "b2_acc": 0.8
+      }
+    },
+    "confusing_pairs": {
+      "AM.MU-NONE": {
+        "n": 1,
+        "cnn_acc": 1.0,
+        "a1_acc": 1.0,
+        "a2_acc": 1.0,
+        "b1_acc": 1.0,
+        "b2_acc": 1.0
+      },
+      "AM.VI-NONE": {
+        "n": 1,
+        "cnn_acc": 1.0,
+        "a1_acc": 0.0,
+        "a2_acc": 1.0,
+        "b1_acc": 1.0,
+        "b2_acc": 1.0
+      },
+      "BO.BA-BO.ED": {
+        "n": 4,
+        "cnn_acc": 0.75,
+        "a1_acc": 0.0,
+        "a2_acc": 0.75,
+        "b1_acc": 0.75,
+        "b2_acc": 0.75
+      },
+      "CA.CI-HY.PS": {
+        "n": 4,
+        "cnn_acc": 0.25,
+        "a1_acc": 0.5,
+        "a2_acc": 0.5,
+        "b1_acc": 0.75,
+        "b2_acc": 0.75
+      }
+    },
+    "extractor_penalty": -0.033333333333333326,
+    "oracle_benefit_a": 0.09999999999999998,
+    "oracle_benefit_b": 0.033333333333333326
+  },
+  "per_specimen": [
+    {
+      "specimen_id": "AG.AU_001",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=3; ood;cap;gills;stem; source=Svampeatlas/GBIF; occurrence=5898623767; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.6503903269767761,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Shaggy Ink Cap (Coprinus comatus)",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The distinctive shaggy cap, which appears to be deliquescing (turning into inky liquid) in the second image, is a key characteristic of *Coprinus comatus*. The cap's texture and the gill structure visible in the second image are also consistent with this species. It's important to note that while not deadly, Shaggy Ink Caps can cause a reaction when consumed with alcohol."
+        },
+        "a2": {
+          "top_species": "CO.CO",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics of *Coprinus comatus*. The cap is initially bell-shaped and then flattens, displaying a scaly surface and a pale, straw-like color, which aligns with the provided traits. The gills are free from the stem and appear crowded, with a pinkish-brown hue, which is consistent with the species. The stem is white and smooth. Most importantly, Shaggy Inkcaps are known for their distinctive 'ink' production as they mature, which isn't visible in the image but is a defining feature. While the stem ring is absent, this is a variable trait. **Important Note:** While generally considered edible when young and before the inky liquid develops, consuming them with alcohol can cause a reaction. Therefore, positive identification is crucial before consumption."
+        },
+        "b1": {
+          "top_species": "LA.HE",
+          "confidence": 0.64,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's high confidence in *Lactarius helvus* is the primary driver of this identification. While the key traversal stalled and the database shows conflicts, the overall picture aligns with the characteristics of this species. Further investigation, particularly examining the underside and stem, would be needed to confirm the identification."
+        },
+        "b2": {
+          "top_species": "LA.HE",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN and trait extractor largely agree on the identification of *Lactarius helvus*. While the key traversal was inconclusive, the overall evidence supports this conclusion. The database provides a secondary, less likely possibility."
+        }
+      }
+    },
+    {
+      "specimen_id": "AG.AU_002",
+      "species_id": "AG.AU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=3; ood;cap;gills;stem; source=Svampeatlas/GBIF; occurrence=5898627776; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "AG.AU",
+          "confidence": 0.9307430982589722,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Field Blewit",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several characteristics consistent with *Clitocybe fieldii*, commonly known as the Field Blewit. The cap is initially convex, becoming more flattened with age, and displays a brownish hue with a slightly velvety texture, as seen in the first image. The gills are adnate to decurrent, and the spore print is a distinctive pale blue-green, which isn't visible in the images but is a key diagnostic feature. The stem is white and relatively slender. While Field Blewits are considered edible, misidentification can be dangerous, and positive identification requires careful examination of spore print and other features. There are other similar-looking mushrooms, some of which are poisonous, so caution is advised."
+        },
+        "a2": {
+          "top_species": "HY.RE",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The most striking feature is the absence of true gills; instead, it has 'teeth' or spines on the underside of the cap. This is a key characteristic of the Hydnum genus. The cap color and texture (scaly) are consistent with Hydnum repandum. The white stem and overall morphology also align with this species. While some other Hydnum species exist, H. repandum is the most common and recognizable. **Important Note:** While generally considered edible, proper identification is crucial before consumption. Misidentification can lead to adverse reactions."
+        },
+        "b1": {
+          "top_species": "AG.AU",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of *Agaricus augustus* is the primary driver of this identification. While the trait extractor and database raise concerns with low confidence and conflicts, the visual characteristics (fibrous texture, black color, wavy cap) are consistent with this species. The stalled key traversal suggests the mushroom doesn't neatly fit into the defined categories, which is not uncommon."
+        },
+        "b2": {
+          "top_species": "AG.AU",
+          "confidence": 0.93,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The strong agreement between the CNN, trait extractor, and database strongly suggests that the mushroom is a King Agaricus (Agaricus augustus)."
+        }
+      }
+    },
+    {
+      "specimen_id": "AM.MU_004",
+      "species_id": "AM.MU",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; toxic;cap;spots;stem; source=Svampeatlas/GBIF; occurrence=5898624502; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "AM.MU",
+          "confidence": 0.8244751691818237,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "AM.MU",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The bright orange cap with white spots, the white stipe (stem), and the bulbous base (volva) are all characteristic of *Amanita muscaria*, commonly known as the Fly Agaric. While color variations can occur (yellow, red, or even white caps), the overall morphology strongly suggests this species. **This mushroom is poisonous and potentially deadly. Do not consume.**"
+        },
+        "a2": {
+          "top_species": "AM.MU",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The bright red cap, white stem, and prominent ring (annulus) are classic characteristics of *Amanita muscaria*, commonly known as the Fly Agaric. The cap appears convex and smooth, consistent with this species. The gills are likely white and free, although not clearly visible in the provided image.  **Important Note:** *Amanita muscaria* is considered poisonous and should not be consumed.  Misidentification can be dangerous."
+        },
+        "b1": {
+          "top_species": "AM.MU",
+          "confidence": 0.82,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's prediction of Fly Agaric is strongly supported by the visual appearance of the mushroom. The trait extractor's data is inconsistent with the visual observation, likely due to image processing or lighting issues. The key traversal was incomplete, and the database shows conflicting information. Therefore, while the traits are not entirely supportive, the visual identification is the most reliable indicator."
+        },
+        "b2": {
+          "top_species": "AM.MU",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The combination of visual characteristics, CNN prediction, trait extraction, and database match strongly indicates that the mushroom is *Amanita muscaria* (Fly Agaric)."
+        }
+      }
+    },
+    {
+      "specimen_id": "AM.VI_007",
+      "species_id": "AM.VI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; extremely_toxic;white;gills;stem; source=Svampeatlas/GBIF; occurrence=5898622730; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.9909939169883728,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "GA.MA",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits a white to pale grey cap, a slender white stipe, and appears to be growing on decaying wood. This combination of features is consistent with *Galerina marginata*, commonly known as the Deadly Dapperling. *Galerina marginata* is a highly toxic species containing amatoxins, similar to Death Caps (*Amanita phalloides*). **Extreme caution is advised; this mushroom should not be consumed.** While the images are not definitive, the overall appearance raises a strong suspicion. Further microscopic examination of spores would be needed for a definitive identification."
+        },
+        "a2": {
+          "top_species": "AM.VI",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Amanita virosa*, commonly known as the Destroying Angel. The all-white appearance (cap, gills, stem, and ring) is a primary indicator. The free gills, smooth cap margin, and cylindrical stem further support this identification. The presence of a ring on the stem is also a diagnostic feature of *Amanita* species. **Crucially, this mushroom is highly toxic and potentially lethal. Consumption can cause severe liver damage and death.  Do not consume this mushroom under any circumstances.** While other all-white mushrooms exist, the combination of these features strongly suggests *Amanita virosa*. Further microscopic examination of spores would be needed for definitive confirmation."
+        },
+        "b1": {
+          "top_species": "AM.VI",
+          "confidence": 0.99,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of *Amanita virosa* is the primary factor in this identification. While the trait extractor's color information is slightly inconsistent, the overall appearance aligns with the Destroying Angel.  The key's inability to progress highlights the difficulty in identifying mushrooms based solely on visual characteristics."
+        },
+        "b2": {
+          "top_species": "AM.VI",
+          "confidence": 0.98,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's high confidence prediction of *Amanita virosa* is strongly supported by the extracted traits. The key's inability to progress is likely due to the limited information available from the image and the key's structure. The trait database's failure to find a match is a point of concern, but the overall evidence points towards *Amanita virosa*."
+        }
+      }
+    },
+    {
+      "specimen_id": "BO.BA_010",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.ED",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;brown_cap; source=Svampeatlas/GBIF; occurrence=5898619230; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.7075716257095337,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Russula emetica (The Sickener)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits characteristics consistent with *Russula emetica*. The cap is initially reddish-orange, often darkening with age, and the gills are white. The stem is also reddish-orange. *Russula emetica* is known for its bitter taste and can cause gastrointestinal distress, hence the common name 'The Sickener'. While Russula identification can be tricky due to the many similar species, the color combination and overall morphology strongly suggest this species. **Important Note:** Russula mushrooms are notoriously difficult to identify definitively without microscopic examination and chemical tests. This identification is based on visual cues and should not be taken as a definitive confirmation for consumption. **Do not consume this mushroom without expert confirmation.**"
+        },
+        "a2": {
+          "top_species": "BO.BA",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The mushroom exhibits several characteristics consistent with *Boletus badius*. The cap color (bay-brown), smooth cap surface, pore-like gills (yellow in color), and a brownish stem are all key features. The absence of a ring on the stem also aligns with this species. While the cap shape can vary, it appears convex in the image. *Boletus badius* is edible but can cause mild gastric upset in some individuals. It's crucial to confirm identification with multiple sources before consumption."
+        },
+        "b1": {
+          "top_species": "BO.BA",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of a Bay Bolete, supported by the trait extractor's findings, outweighs the limitations of the identification key and the database's low score. The mushroom's color and smooth cap are consistent with a Bay Bolete."
+        },
+        "b2": {
+          "top_species": "BO.BA",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The combination of visual characteristics, CNN prediction, and trait database match strongly suggests the mushroom is a Bay Bolete. While other possibilities exist, the evidence overwhelmingly supports this identification."
+        }
+      }
+    },
+    {
+      "specimen_id": "BO.BA_011",
+      "species_id": "BO.BA",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.ED",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;brown_cap; source=Svampeatlas/GBIF; occurrence=5898629025; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.7749417424201965,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Birch Bolete (Leccinum scabrum)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Leccinum scabrum*. The cap color is a pale yellowish-brown, which is typical. The stipe (stem) is robust and covered in dark, rough scales, a defining feature of this bolete. The overall appearance aligns with descriptions and images of *Leccinum scabrum*. It's important to note that boletes can be tricky to identify, and some species are toxic. While *Leccinum scabrum* is considered edible by some, caution is advised, and proper identification is crucial before consumption. It is also important to note that other *Leccinum* species exist, some of which are toxic."
+        },
+        "a2": {
+          "top_species": "BO.BA",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Boletus badius*. The cap color (bay-brown), smooth cap surface, pore surface (instead of gills), and the pale stem all align with this species. The cap shape is convex to flat, and the stem color is a pale brown. While the gill color is listed as yellow in the provided traits, this is likely a misinterpretation of the pore surface color. *Boletus badius* is edible but can cause mild gastrointestinal upset in some individuals. It's crucial to confirm identification with multiple sources before consumption."
+        },
+        "b1": {
+          "top_species": "BO.ED",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of a Porcini, supported by the trait extractor's description of color and texture, makes this the most likely identification. The key's inability to progress and the database's low score are noted but do not outweigh the other evidence."
+        },
+        "b2": {
+          "top_species": "BO.ED",
+          "confidence": 0.88,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The combination of a high CNN confidence, consistent trait data (particularly the pore-like hymenophore), and a strong database match strongly suggests the mushroom is a Porcini. The key's inability to progress further highlights the potential for misidentification if relying solely on visual keys."
+        }
+      }
+    },
+    {
+      "specimen_id": "BO.ED_013",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.BA",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;edible; source=Svampeatlas/GBIF; occurrence=5898618342; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.6522642970085144,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Birch Bolete (Leccinum scabrum)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits key characteristics of a bolete, with a stout stem and a cap that appears to be slightly sticky. The cap color is a brownish-grey, and the pores on the underside are whitish to greyish, which is consistent with *Leccinum scabrum*. The stem has a distinctive dark, net-like pattern (reticulation) which is a diagnostic feature of this species. It's important to note that some *Leccinum* species can cause gastrointestinal upset, so caution is advised if considering consumption. Further microscopic examination would be needed for definitive confirmation."
+        },
+        "a2": {
+          "top_species": "Birch Bolete (Leccinum scabrum)",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Leccinum scabrum*. The cap is brown and convex, with a smooth surface. The most diagnostic feature is the reticulate (net-like) pattern on the stem, which is a hallmark of boletes in the *Leccinum* genus. The pores are visible on the underside, and the stem appears bulbous. The stem color is consistent with the species. While the gill color is listed as yellow in the provided traits, boletes have pores, not gills. *Leccinum scabrum* is generally considered edible, but caution is always advised when foraging for mushrooms, and proper identification is crucial. There are look-alikes that can cause gastrointestinal distress."
+        },
+        "b1": {
+          "top_species": "BO.ED",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The mushroom exhibits characteristics consistent with a Porcini, including the cap shape, stem structure, and overall appearance. The CNN supports this identification. However, the low database score, the key getting stuck, and the presence of lookalikes (like Bitter karljohan) introduce uncertainty. Further examination of the underside (pores vs. gills) would be crucial for definitive identification."
+        },
+        "b2": {
+          "top_species": "BO.ED",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The combination of visual characteristics, trait extraction, and database matching strongly suggests a Porcini. While the identification key encountered an issue, the other signals are consistent with this identification."
+        }
+      }
+    },
+    {
+      "specimen_id": "BO.ED_014",
+      "species_id": "BO.ED",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "BO.BA",
+      "notes": "paired above_idx=2 below_idx=1; bolete;pores;edible; source=Svampeatlas/GBIF; occurrence=5898625002; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.9731847047805786,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Birch Bolete (Leccinum scabrum)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits key characteristics of a bolete. The cap is a brownish color, and the pores are visible on the underside, rather than gills. The stem is thick and whitish, with a dark reticulum (net-like pattern) visible on the upper portion. This pattern is a diagnostic feature of *Leccinum* species, particularly *Leccinum scabrum*, which is commonly associated with birch trees. While *Leccinum* boletes are generally considered edible, some can cause gastrointestinal upset in sensitive individuals, so caution is advised. Positive identification requires microscopic examination of spores."
+        },
+        "a2": {
+          "top_species": "BO.ED",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The mushroom exhibits several characteristics consistent with *Boletus edulis*, commonly known as the Porcini. The cap is brown and convex, transitioning to flatter with age, which aligns with the described cap shape. The pore surface (instead of gills) is a key feature of boletes. The stem is bulbous and reticulate, and the flesh is white. While the stem color is described as white/brown, the image shows a lighter stem.  The absence of a ring is also consistent with *B. edulis*.  However, without a spore print, definitive identification is difficult.  **Important Note:** While *B. edulis* is considered choice edible, misidentification can be dangerous. Always be 100% certain before consuming any wild mushroom."
+        },
+        "b1": {
+          "top_species": "BO.ED",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of Porcini, supported by the trait extractor's description of color and texture, makes this the most likely identification. The key's inability to progress suggests a lack of definitive features for classification, but the overall visual appearance aligns with a Porcini."
+        },
+        "b2": {
+          "top_species": "BO.ED",
+          "confidence": 0.98,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The overwhelming evidence from the CNN, trait extractor, and trait database points towards a Porcini (Boletus edulis) identification. While the key initially showed some uncertainty, the observed characteristics ultimately align with this species."
+        }
+      }
+    },
+    {
+      "specimen_id": "CA.CI_016",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "paired above_idx=2 below_idx=1; chanterelle;folds;yellow; source=Svampeatlas/GBIF; occurrence=5898634658; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.5011798739433289,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "CA.CI",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The images show a mushroom with a funnel-shaped cap and deep, forked gills that run down the stem. The color is a vibrant yellow-orange. These are characteristic features of *Cantharellus cibarius*, commonly known as the Golden Chanterelle. While visually similar to Jack O'Lantern mushrooms (*Omphalotus olearius*), which are poisonous, Chanterelles lack true gills and have a fruity aroma. Jack O'Lanterns have true, sharp gills and often grow in clusters on wood. The overall appearance and habitat (leaf litter) strongly suggest a Golden Chanterelle. **However, misidentification can be dangerous. Positive identification requires expert confirmation before consumption.**"
+        },
+        "a2": {
+          "top_species": "CA.CI",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Cantharellus cibarius*, the Golden Chanterelle. The funnel-shaped cap, yellow-orange coloration, decurrent gills (running down the stem), and smooth cap and stem surfaces are all diagnostic features. The wavy cap margin is also typical. While the absence of a ring is noted, this is not uncommon in chanterelles. The gill density appears relatively distant, which is also consistent. It's important to note that while generally considered edible, misidentification can be dangerous.  Careful comparison with reliable field guides and expert consultation is always recommended before consumption."
+        },
+        "b1": {
+          "top_species": "CA.CI",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of Chanterelle, supported by the trait extractor's findings of yellow color and ridges, makes this the most likely identification. The database's lower score and mention of a lookalike are noted but do not outweigh the other evidence."
+        },
+        "b2": {
+          "top_species": "CA.CI",
+          "confidence": 0.98,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The overwhelming consensus from the CNN, trait extractor, and trait database points towards a Chanterelle identification. While the key is stuck, the initial assessment aligns with Chanterelle characteristics."
+        }
+      }
+    },
+    {
+      "specimen_id": "CA.CI_017",
+      "species_id": "CA.CI",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "HY.PS",
+      "notes": "paired above_idx=1 below_idx=2; chanterelle;folds;yellow; source=Svampeatlas/GBIF; occurrence=5898649134; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "BO.ED",
+          "confidence": 0.40316393971443176,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "CA.CI",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The overall color, funnel-shaped cap, and forked, blunt gills are characteristic of *Cantharellus cibarius*. The cap color is a vibrant yellow-orange, and the gills appear to be decurrent (running down the stem). While there are other chanterelle look-alikes, the overall morphology strongly suggests this species. It's important to note that some false chanterelles exist, but they typically have more sharply defined, knife-like gills that don't fork as prominently. This mushroom is considered edible, but positive identification is crucial before consumption."
+        },
+        "a2": {
+          "top_species": "CA.CI",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Cantharellus cibarius*, the Golden Chanterelle. The funnel-shaped cap, yellow-orange coloration, decurrent gills (gills running down the stem), and smooth cap and stem surfaces are all diagnostic features. The wavy cap margin is also typical. While the absence of a ring is noted, this is not uncommon in chanterelles. The size range also aligns with typical Golden Chanterelle dimensions. It's important to note that while generally considered edible, misidentification can be dangerous. Always be 100% certain before consuming any wild mushroom."
+        },
+        "b1": {
+          "top_species": "HY.PS",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of False Chanterelle, supported by the trait extractor's findings, outweighs the key's uncertainty and the database's weak match. While visual similarities to Chanterelle exist, the CNN's confidence in the False Chanterelle identification is higher."
+        },
+        "b2": {
+          "top_species": "HY.PS",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The combination of CNN prediction, trait extractor data, and database support strongly indicates that this is a False Chanterelle. While it shares some visual similarities with a true Chanterelle, the overall characteristics point towards Hygrophorellus pseudoaurantiacus."
+        }
+      }
+    },
+    {
+      "specimen_id": "HY.PS_019",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "paired above_idx=1 below_idx=2; confusing_pair;orange;gills; source=Svampeatlas/GBIF; occurrence=5052245313; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "HY.PS",
+          "confidence": 0.9993534684181213,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "AR.ME",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The cap color (yellowish-brown to orange-brown) and the appearance of the gills (adnate to slightly decurrent, with a yellowish-brown hue) are consistent with several *Armillaria* species, commonly known as Honey Mushrooms. The presence of a ring on the stem (though not clearly visible in the images) is also a characteristic feature of this genus. *Armillaria* species can be variable, and some are considered edible, while others can cause gastrointestinal upset. **Due to the potential for confusion with other, potentially toxic species, it is crucial to positively identify this mushroom with expert guidance before consumption.**"
+        },
+        "a2": {
+          "top_species": "Jack O'Lantern Mushroom (Omphalotus olearius)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The orange cap color, decurrent gills (running down the stem), and overall morphology strongly suggest *Omphalotus olearius*, commonly known as the Jack O'Lantern mushroom. The inrolled cap margin and orange stem are also consistent with this species.  It's important to note that *Omphalotus* species are bioluminescent (glow in the dark), which isn't visible in the image, but is a key diagnostic feature. **This mushroom is poisonous and should not be consumed.** It can be confused with chanterelles, so accurate identification is crucial."
+        },
+        "b1": {
+          "top_species": "HY.PS",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's high confidence prediction, combined with the trait extractor's identification of key features (ridges, grey color), strongly supports the identification of this mushroom as a False Chanterelle. While the database score is low, the other signals are consistent with this identification."
+        },
+        "b2": {
+          "top_species": "HY.PS",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's high confidence prediction, combined with the trait extractor's supporting characteristics and the database's confirmation, strongly suggests the mushroom is a False Chanterelle. While the database notes Chanterelle as a lookalike, the overall evidence points towards the False Chanterelle identification."
+        }
+      }
+    },
+    {
+      "specimen_id": "HY.PS_020",
+      "species_id": "HY.PS",
+      "scenario": "confusing",
+      "subset": "id",
+      "confusing_pair_with": "CA.CI",
+      "notes": "paired above_idx=3 below_idx=1; confusing_pair;orange;gills; source=Svampeatlas/GBIF; occurrence=5898629988; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "BO.BA",
+          "confidence": 0.5214365124702454,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Field Blewit (Clitocybe cerina)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Clitocybe cerina*. The cap is a pale cream to yellowish-brown color, often with a slightly depressed center, which is visible in the first image. The gills are adnate to decurrent, and a pale cream color, as seen in the second image. The stem is slender and pale. *Clitocybe cerina* is considered to be mildly toxic and should not be consumed. While it can be confused with edible mushrooms, positive identification requires expert knowledge."
+        },
+        "a2": {
+          "top_species": "Jack O'Lantern Mushroom (Omphalotus olearius)",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The combination of a bright orange cap, decurrent orange gills, and a smooth stem strongly suggests *Omphalotus olearius*, commonly known as the Jack O'Lantern mushroom. The cap shape appears convex to funnel-shaped, and the gill attachment is consistent with decurrent gills. The stem color matches the cap and gills. It's important to note that this mushroom is bioluminescent (glows in the dark), which isn't visible in the images, but is a key diagnostic feature. **This mushroom is poisonous and should not be consumed.**"
+        },
+        "b1": {
+          "top_species": "HY.PS",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN and trait database both point towards a False Chanterelle. While the key traversal was problematic, the other signals are consistent with this identification. The color, smooth cap, and ridges are key features."
+        },
+        "b2": {
+          "top_species": "HY.PS",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN and trait database both strongly suggest a False Chanterelle. While the key traversal was inconclusive, the overall evidence supports this identification. The orange color, convex cap, smooth surface, and presence of gills are all characteristic of this species."
+        }
+      }
+    },
+    {
+      "specimen_id": "LA.HE_022",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=3 below_idx=1; milkcap;latex;toxic; source=Svampeatlas/GBIF; occurrence=4940908615; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.6725483536720276,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Field Blewit",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The cap color and texture, along with the pale stem and gill coloration (appearing pale yellow to cream in the gill image) are consistent with *Clitocybe multihoculata*, commonly known as the Field Blewit. The cap has a slightly depressed center and a brownish tinge, which is also characteristic. However, Field Blewits can be confused with other similar species, some of which are poisonous. Therefore, positive identification requires microscopic examination of spores. **Do not consume this mushroom without expert confirmation.**"
+        },
+        "a2": {
+          "top_species": "Field Blewit (Clitocybe cerina)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several characteristics consistent with *Clitocybe cerina*, commonly known as the Field Blewit. The cap color (brownish-pinkish), smooth cap surface, adnate gill attachment, and pale stem color are all indicative of this species. The gills appear close and whitish, which is also typical. While the stem color can vary, the overall appearance aligns well. **Important Note:** *Clitocybe cerina* has been historically confused with poisonous species like *Galerina marginata*. While *Clitocybe cerina* is considered edible by some, caution is advised, and proper identification by an expert is crucial before consumption. Misidentification can lead to serious illness."
+        },
+        "b1": {
+          "top_species": "Licorice Milkcap",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN, trait extractor, and database all converge on *Lactarius helvus* (Licorice Milkcap) as the most probable identification. While the key traversal was inconclusive, the overall evidence strongly supports this conclusion."
+        },
+        "b2": {
+          "top_species": "LA.HE",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The combined evidence from the CNN, trait extractor, identification key, and trait database strongly supports the identification of *Lactarius helvus* (Lakrits Milkcap). While other species are possible, the overall consensus points towards this identification."
+        }
+      }
+    },
+    {
+      "specimen_id": "LA.HE_023",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; milkcap;latex;toxic; source=Svampeatlas/GBIF; occurrence=5898651350; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.6550055146217346,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Meager Inkcap (Coprinellus micaceus)",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The cap color and texture, along with the gill structure visible in the second image, are consistent with *Coprinellus micaceus*. The cap appears slightly granular, which is a characteristic feature of this species. The gills are crowded and adnate to decurrent. The cap also has a slightly depressed center. This species is considered edible when young, before the gills begin to autolyze (turn black and inky), but caution is advised as some individuals may experience gastrointestinal upset. It's crucial to confirm identification with multiple sources before consumption."
+        },
+        "a2": {
+          "top_species": "Horticultural Mushroom (Psilocybe cyanescens)",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "Based on the provided images and the given traits, this mushroom appears to be *Psilocybe cyanescens*, commonly known as the Horticultural Mushroom. The cap color (brownish-pinkish) and smooth cap surface align with this species. The gills are likely adnate or slightly decurrent, which is consistent with *Psilocybe* species. The stem color is also consistent.  It's important to note that *Psilocybe cyanescens* is a psychoactive mushroom, and its identification should be confirmed by an expert before consumption.  There are other similar-looking mushrooms, and misidentification can be dangerous."
+        },
+        "b1": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The identification is based on a combination of visual traits (grey cap, scaly surface), the trait extractor's findings, and a database match. The CNN's low confidence and the key's inability to progress highlight the uncertainty. *Lactarius volemus* is the most probable species, but other possibilities cannot be entirely ruled out without more information about the underside."
+        },
+        "b2": {
+          "top_species": "Lacrymus Milkcap",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The combination of the mushroom's brown coloration, gill structure, pale pink flesh, and the strong match in the trait database strongly suggests that this is a Lacrymus Milkcap (Lactarius helvus). While the CNN's confidence is low, the other signals are consistent with this identification."
+        }
+      }
+    },
+    {
+      "specimen_id": "LA.HE_024",
+      "species_id": "LA.HE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; milkcap;latex;toxic; source=Svampeatlas/GBIF; occurrence=5898653100; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "CO.CO",
+          "confidence": 0.3988661468029022,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Field Blewit (Clitocybe cerina)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several characteristics consistent with *Clitocybe cerina*, commonly known as the Field Blewit. The cap color is a pale lilac-grey to brownish-grey, which is typical. The gills are adnate to slightly decurrent, and appear cream-colored to pale yellow, as seen in the second image. The stem is slender and pale. While *Clitocybe cerina* is considered edible by some, it can be confused with poisonous look-alikes, so positive identification is crucial. There are other *Clitocybe* species that are toxic, so caution is advised. Further microscopic examination would be needed for definitive confirmation."
+        },
+        "a2": {
+          "top_species": "Hypholoma fasciculare (Sulfur Tuft)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Hypholoma fasciculare*. The cap color (orange-brown to pinkish-brown), smooth cap surface, adnate gill attachment, yellowish gills, and orange-pink stem are all indicative of this species. The stem ring is absent, which is also a characteristic.  *Hypholoma fasciculare* is a poisonous mushroom, and should not be consumed.  The cap size and stem color align with the provided traits. While the gill density appears relatively close, it's difficult to be certain from the image alone. Further microscopic examination would be needed for definitive confirmation."
+        },
+        "b1": {
+          "top_species": "LA.VO",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's strong prediction, combined with the trait data supporting a Mandel Milkcap, leads to a confident identification. While the key traversal was inconclusive and the database has conflicts, the overall evidence points towards this species."
+        },
+        "b2": {
+          "top_species": "LA.VO",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The strong agreement between the CNN, trait extractor, and database, all pointing to *Lactarius volemus* (Mandel Milkcap), makes this a highly likely identification. The key's inability to progress further suggests it's not a useful tool for this specific mushroom."
+        }
+      }
+    },
+    {
+      "specimen_id": "CO.CO_031",
+      "species_id": "CO.CO",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; inkcap;gills;edge_case_age; source=Svampeatlas/GBIF; occurrence=5898627048; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "LA.VO",
+          "confidence": 0.19262893497943878,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Lactarius pallidus",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Lactarius pallidus* (commonly known as the Grey Lactarius). The cap is a pale cream color, often with a slightly depressed center. The gills are adnate to decurrent, and appear white to pale cream. Most importantly, *Lactarius pallidus* exudes a copious, milky-white latex when cut or broken. This latex is a diagnostic feature. While not considered deadly poisonous, *Lactarius pallidus* is generally considered to have an unpleasant taste and is not recommended for consumption. There are other *Lactarius* species that can be confused with this one, so positive identification requires careful examination of all features, including spore print and latex color."
+        },
+        "a2": {
+          "top_species": "BO.SA",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several characteristics consistent with *Boletus satanas*. The cap shape is conical to cylindrical, and the cap surface appears scaly, which aligns with descriptions of this species. The gills are free and initially white, potentially darkening with age, which is also a feature of *B. satanas*. The stem is white and cylindrical.  Crucially, *Boletus satanas* is a highly poisonous mushroom, and should not be consumed.  While other boletes exist, the combination of these features points towards this identification. Further microscopic examination would be needed for definitive confirmation."
+        },
+        "b1": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN and trait database both suggest Mandel Milkcap, but the key traversal stalled, indicating uncertainty. The traits are generally consistent with this species, but some are unknown. Given the available information, Mandel Milkcap is the most likely identification, but with a degree of caution."
+        },
+        "b2": {
+          "top_species": "LA.VO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "While the CNN's confidence is low, the trait extractor provides a strong and consistent profile that aligns with the visual observations and the database provides a reasonable match. The key's inability to progress suggests the mushroom may have unusual characteristics that don't fit neatly into the key's categories. Therefore, Mandel Milkcap is the most likely identification."
+        }
+      }
+    },
+    {
+      "specimen_id": "CO.CO_032",
+      "species_id": "CO.CO",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=3; inkcap;gills;edge_case_age; source=Svampeatlas/GBIF; occurrence=5898651767; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view; orientation_corrected: swapped above/below after visual audit",
+      "results": {
+        "cnn": {
+          "top_species": "CO.CO",
+          "confidence": 0.5988212823867798,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "GA.MA",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits a brownish cap with a slightly depressed center and a finely textured surface, consistent with *Galerina marginata*. The habitat (growing in grass) is also typical. *Galerina marginata* is a deadly poisonous mushroom containing amatoxins, similar to *Amanita* species. **Do not consume this mushroom.** It is crucial to confirm identification with a mycologist before consumption of any wild mushroom."
+        },
+        "a2": {
+          "top_species": "AM.VI",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Amanita virosa*, commonly known as the Destroying Angel. The cap shape is conical to cylindrical, and the cap color is white, which aligns with the provided traits. The gills are free and crowded, and the stem is white and smooth. The absence of a ring is also a characteristic feature.  *Amanita virosa* is a deadly poisonous mushroom, and misidentification can be fatal. **Extreme caution is advised; do not consume this mushroom.**"
+        },
+        "b1": {
+          "top_species": "BO.BA",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The identification is primarily based on the visual characteristics (color and texture) extracted by the trait extractor and corroborated by the CNN, despite the CNN's low confidence. The key traversal's inability to progress limits its usefulness. The database match is weak."
+        },
+        "b2": {
+          "top_species": "BO.BA",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN and trait database offer some support for a Bay Bolete identification. The key traversal's inability to progress and the moderate confidence levels from the CNN suggest some uncertainty. The presence of gills is a key characteristic, aligning with the Bolete family. However, the white color could also be consistent with other species."
+        }
+      }
+    },
+    {
+      "specimen_id": "FO.BE_035",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; polypore;bracket;wood; source=Svampeatlas/GBIF; occurrence=5106480117; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.8924039602279663,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Birch Polypore (Piptoporus betulinus)",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom is growing directly on a birch tree, which is a key diagnostic feature of *Piptoporus betulinus*. The cap is a reddish-brown color and appears to be zoned, which is characteristic of this species. The underside shows a pore surface rather than gills, further confirming the identification. *Piptoporus betulinus* is not considered edible, and while not acutely toxic, it's best avoided."
+        },
+        "a2": {
+          "top_species": "Birch Polypore (Piptoporus betulinus)",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Piptoporus betulinus*. The bracket-like shape, growing directly on a birch tree (visible in the image), is a defining feature. The cap color is a pale brown/yellowish, and the surface appears velvety. Critically, the underside shows pores instead of gills, which is diagnostic for polypores. The absence of a stem is also characteristic. While some polypores can be toxic, *Piptoporus betulinus* is considered non-toxic, though not particularly palatable."
+        },
+        "b1": {
+          "top_species": "Birch Polypore",
+          "confidence": 0.89,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of Birch Polypore, combined with the mushroom's location on a birch tree and the extracted traits, strongly suggests this identification. The key's inability to provide a conclusive path is less important given the CNN's confidence."
+        },
+        "b2": {
+          "top_species": "Birch Polypore",
+          "confidence": 0.9,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's high confidence prediction of Birch Polypore is strongly supported by the extracted traits, which indicate a bracket fungus with pores on the underside and a velvety cap. The key traversal, while not conclusive, also points towards polypores. The database match is weak and likely inaccurate."
+        }
+      }
+    },
+    {
+      "specimen_id": "FO.BE_036",
+      "species_id": "FO.BE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; polypore;bracket;wood; source=Svampeatlas/GBIF; occurrence=6161868580; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "FO.BE",
+          "confidence": 0.47394728660583496,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Birch Polypore (Piptoporus betulinus)",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom's growth on birch wood, the distinctive pinkish-orange to reddish-brown cap color, and the white pores on the underside (rather than gills) are all characteristic of *Piptoporus betulinus*. The texture of the cap also appears consistent with this species. This mushroom is not considered edible, and while not acutely toxic, it's best avoided."
+        },
+        "a2": {
+          "top_species": "Birch Polypore (Piptoporus betulinus)",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Piptoporus betulinus*. The bracket-like, semicircular cap shape, pale brown to yellowish coloration, velvety cap surface, and the absence of a stem are all diagnostic features. The pore surface (rather than gills) is a crucial identifier. The mushroom appears to be growing on birch, which is also a typical habitat for this species. While some *Piptoporus* species can cause allergic reactions in sensitive individuals, *Piptoporus betulinus* is generally considered non-toxic, though not recommended for consumption."
+        },
+        "b1": {
+          "top_species": "Birch Polypore",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's prediction of a Birch Polypore is strongly supported by the observed traits, particularly the scaly cap and olive-brown color. While the identification key stalled, the overall evidence points towards this species."
+        },
+        "b2": {
+          "top_species": "Birch Polypore",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The combination of the CNN prediction, the extracted traits, and the visual appearance strongly suggests *Fomitopsis betulinus* (Birch Polypore). While the key traversal was inconclusive and the database match was weak, the overall evidence points to this identification."
+        }
+      }
+    },
+    {
+      "specimen_id": "LY.PE_037",
+      "species_id": "LY.PE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; puffball;round;spines; source=Svampeatlas/GBIF; occurrence=5898626078; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.8680877685546875,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "CO.CO",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The most striking feature is the shaggy, deliquescing cap, which is characteristic of *Coprinus comatus* and related species (now often placed in the genus *Coprinopsis*). The cap appears white to pale grey, and the stem is white and hollow. The deliquescence (liquefaction) of the cap is a key diagnostic feature. While not deadly, Shaggy Inkcaps can cause a reaction when consumed with alcohol, so caution is advised."
+        },
+        "a2": {
+          "top_species": "Scaly Violet Coral Fungus (Lentaria nigrescens)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Lentaria nigrescens*. The cap is round/pear-shaped and white with a scaly surface, matching the provided traits. Most importantly, it lacks gills entirely, which is a defining feature of coral fungi. The stem is also white and tapering. While the color might shift to violet with age (hence the name), the initial stage often presents as white. It's important to note that while not considered highly toxic, some individuals may experience gastrointestinal upset if consumed. Positive identification requires microscopic examination of spores."
+        },
+        "b1": {
+          "top_species": "LY.PE",
+          "confidence": 0.87,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's high confidence prediction of a Puffball, combined with the trait extractor's description of a white, smooth-capped mushroom with ridges, strongly suggests this is a Puffball. While the identification key couldn't proceed due to uncertainty, the overall evidence points towards this identification."
+        },
+        "b2": {
+          "top_species": "LY.PE",
+          "confidence": 0.92,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The combination of a high-confidence CNN prediction, consistent trait extraction, and a supportive database entry strongly indicates that this is a puffball. While the key traversal was inconclusive, the other signals are overwhelming."
+        }
+      }
+    },
+    {
+      "specimen_id": "LY.PE_038",
+      "species_id": "LY.PE",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=2 below_idx=1; puffball;round;spines; source=Svampeatlas/GBIF; occurrence=5898626813; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "LY.PE",
+          "confidence": 0.7680541276931763,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "LY.PE",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The most striking feature is the densely pitted cap, characteristic of *Lycoperdon* species. The overall shape and color (pale beige/white) are also consistent with powdery puffballs. While a definitive identification would require spore print analysis (which would show white to pale yellow spores), the visual characteristics strongly suggest this group. **Important Note:** While many *Lycoperdon* species are edible when young and white inside, misidentification can be dangerous. Never consume a mushroom unless you are 100% certain of its identity."
+        },
+        "a2": {
+          "top_species": "Star Bolete (Boletus stellaris)",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Boletus stellaris*. The most striking feature is the granular, almost 'starry' appearance of the cap, which is diagnostic for this species. The white cap and stem, lack of gills (typical of boletes), and the overall morphology align with descriptions of *B. stellaris*. While the cap size and stem characteristics are consistent with the provided traits, the granular cap surface is the most compelling feature. **Important Note:** While *Boletus stellaris* is considered edible by some, caution is advised. There are other bolete species that can cause gastrointestinal distress, and proper identification is crucial before consumption. Always consult with an expert before eating wild mushrooms."
+        },
+        "b1": {
+          "top_species": "LY.PE",
+          "confidence": 0.88,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of a Puffball, supported by the trait extractor's description of a fibrous, white surface, makes this the most likely identification. The inability of the identification key to progress highlights the lack of information needed for a more precise determination. The database score is lower and lists a dangerous lookalike, but the CNN's confidence outweighs this concern."
+        },
+        "b2": {
+          "top_species": "LY.PE",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The consensus from the CNN, trait extractor, and trait database strongly supports the identification of this mushroom as a Puffball. The key traversal's inability to progress highlights the limitations of relying solely on a key without more detailed information."
+        }
+      }
+    },
+    {
+      "specimen_id": "SP.CR_039",
+      "species_id": "SP.CR",
+      "scenario": "easy",
+      "subset": "id",
+      "confusing_pair_with": "NONE",
+      "notes": "paired above_idx=1 below_idx=2; cauliflower;branched;edible; source=Svampeatlas/GBIF; occurrence=5898627808; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.9970340728759766,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Sulphur Tuft (Tyromyces sulphureus)",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits a striking sulphur-yellow to orange color, a characteristic feature of *Tyromyces sulphureus*. The pileus (cap) appears brain-like or convoluted, which is typical for this species. It is a bracket fungus, growing on wood, which aligns with the observed substrate. While not considered dangerously toxic, it is not edible and should not be consumed. There are other *Tyromyces* species, but the color and overall morphology strongly suggest *T. sulphureus*."
+        },
+        "a2": {
+          "top_species": "Saffron Milk Cap",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits a distinctive cauliflower-like or frond-like appearance with a wavy cap surface and a thick base. The color is consistent with the Saffron Milk Cap (Lactarius deliciosus), which can range from cream to pale yellow. The absence of gills is also a key characteristic. While the color can vary, and some Lactarius species can be toxic, the overall morphology strongly suggests this species. **Caution:** While edible when young and properly identified, some Lactarius species are toxic. Positive identification by an expert is crucial before consumption."
+        },
+        "b1": {
+          "top_species": "SP.CR",
+          "confidence": 0.98,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The CNN's extremely high confidence in identifying the mushroom as a Cauliflower Mushroom is the primary factor in this identification. The trait extractor provides supporting evidence, despite the database having a low score. The key's inability to progress is not a significant factor."
+        },
+        "b2": {
+          "top_species": "SP.CR",
+          "confidence": 0.98,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The consensus from all tools is overwhelmingly in favor of *Sparassis crispa* (Cauliflower Mushroom). The visual appearance and extracted traits are highly characteristic of this species. The key's inability to progress is likely due to the unusual morphology."
+        }
+      }
+    },
+    {
+      "specimen_id": "GY.ES_041",
+      "species_id": "GY.ES",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; toxic;false_morel;brain_like;confusing_pair; source=Svampeatlas/GBIF; occurrence=4847336116; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "CO.CO",
+          "confidence": 0.4341960549354553,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Devil's Bolete (Polyporus sulphureus)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits a striking, bright orange-red to reddish-brown color and a distinctive, convoluted, almost brain-like appearance. This, combined with the apparent lack of gills (it appears to have pores instead), strongly suggests *Polyporus sulphureus*, commonly known as the Devil's Bolete. It is a bracket fungus that grows on wood. While not considered acutely toxic, it is not edible and should not be consumed. It's important to note that color can vary with age and environmental conditions, but the overall morphology is consistent with this species."
+        },
+        "a2": {
+          "top_species": "BO.ED",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several characteristics consistent with a Boletus species, particularly the King Bolete (Boletus edulis). The irregular, brain-like cap shape, reddish-brown coloration, and wrinkled cap surface are all indicative of this group. The gills appear as folds rather than true gills, which is a key feature of boletes. The stem is relatively pale and smooth. While the provided traits mention a hollow flesh, this can vary with age.  It's important to note that while *Boletus edulis* is generally considered edible, misidentification can be dangerous.  Careful comparison with reliable field guides and expert consultation is always recommended before consumption."
+        },
+        "b1": {
+          "top_species": "CR.CO",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The combination of visual characteristics (trumpet shape, scaly surface), key traversal, and CNN/database support strongly indicates a Black Trumpet. While the CNN confidence is not high, the other signals are consistent."
+        },
+        "b2": {
+          "top_species": "CR.CO",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The combination of visual characteristics (dark brown, irregular shape, ridged underside) and the supporting evidence from the trait extractor and the CNN strongly suggests a Black Trumpet. While the CNN's confidence is low, the trait data is highly consistent with this identification."
+        }
+      }
+    },
+    {
+      "specimen_id": "GY.ES_042",
+      "species_id": "GY.ES",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; toxic;false_morel;brain_like;confusing_pair; source=Svampeatlas/GBIF; occurrence=4847337500; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "SP.CR",
+          "confidence": 0.5005183815956116,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "AU.AU",
+          "confidence": 0.95,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The distinctive ear-like shape, the brown/pinkish-brown coloration, and the gelatinous texture are all characteristic of *Auricularia auricula-judae*, commonly known as Wood Ear. The images show a clustered growth on a decaying log, which is typical for this species. It lacks gills, which is a key feature. This mushroom is edible, but it's important to be absolutely certain of identification before consumption, as similar-looking species exist. It is generally considered safe to eat when properly identified."
+        },
+        "a2": {
+          "top_species": "Angel's Bonnet (Amanita violacea)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The irregular, brain-like cap shape, reddish-brown color, and wrinkled surface strongly suggest an *Amanita* species. The folds instead of gills are characteristic of this group. The pale stem and lack of a ring are also consistent with *Amanita violacea*.  It's important to note that *Amanita* species can be highly toxic, and positive identification requires expert confirmation. The cap size and stem characteristics align with the provided traits. While the cap margin is described as attached, it's difficult to definitively assess from the image. "
+        },
+        "b1": {
+          "top_species": "SP.CR",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The visual appearance of the mushroom is the most important factor. The branching, coral-like structure and orange color are characteristic of a Cauliflower Mushroom. While the trait database score is low, the CNN and visual assessment strongly support this identification."
+        },
+        "b2": {
+          "top_species": "SP.CR",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The combination of visual characteristics, CNN prediction, trait extraction, and key traversal strongly supports the identification of this mushroom as a Cauliflower Mushroom. While the database score is low, the other signals are consistent."
+        }
+      }
+    },
+    {
+      "specimen_id": "GA.MA_043",
+      "species_id": "GA.MA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; extremely_toxic;small_brown_gills;confusing_pair; source=Svampeatlas/GBIF; occurrence=5898634047; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view; orientation_corrected: swapped above/below after visual audit",
+      "results": {
+        "cnn": {
+          "top_species": "AM.VI",
+          "confidence": 0.7658061981201172,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "AR.ME",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits a honey-colored cap, which is a characteristic feature of Armillaria species. The stem appears to be relatively smooth and lacks a ring, which is consistent with some Armillaria species, particularly those that have lost their ring with age. The growth habit on mossy substrate is also typical. However, Armillaria species can be difficult to identify definitively without microscopic examination of spores and cystidia. Some Armillaria species are poisonous, so caution is advised. Further investigation would be needed to confirm the species."
+        },
+        "a2": {
+          "top_species": "AR.ME",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several characteristics consistent with *Armillaria* species, commonly known as Honey Mushrooms. The honey-brown cap color, smooth cap surface, adnate gill attachment, and presence of a ring on the stem are all indicative of this genus. The cap shape is convex to flat, and the gills appear crowded. While *Armillaria* species can be variable, the overall appearance aligns well. **Important Note:** *Armillaria* species can be poisonous, and some are quite bitter. Positive identification requires microscopic examination of spores and other features. Do not consume this mushroom without expert confirmation."
+        },
+        "b1": {
+          "top_species": "AM.VI",
+          "confidence": 0.77,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of *Amanita virosa* is the primary driver of this identification. While the key failed and the database didn't find a match, the visual characteristics align with the CNN's suggestion.  It's crucial to exercise extreme caution, as *Amanita virosa* is deadly poisonous."
+        },
+        "b2": {
+          "top_species": "AM.VI",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's strong prediction of *Amanita virosa* (Destroying Angel) is the primary driver of this identification. The observed traits, such as the brown coloration, smooth cap and stem, and the presence of a ring, are consistent with this species. While the key traversal stalled, the CNN's confidence outweighs this uncertainty.  It's crucial to note that *Amanita* species can be highly toxic, and positive identification is essential before consumption."
+        }
+      }
+    },
+    {
+      "specimen_id": "GA.MA_044",
+      "species_id": "GA.MA",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=3 below_idx=2; extremely_toxic;small_brown_gills;confusing_pair; source=Svampeatlas/GBIF; occurrence=5898646261; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "CA.CI",
+          "confidence": 0.7319832444190979,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "GA.MA",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The small size, brownish cap color, and the appearance of the gills (which are likely adnate or slightly decurrent, though this is difficult to confirm from the image) are consistent with *Galerina marginata*. This mushroom is highly toxic, containing amatoxins similar to those found in *Amanita* species. It's crucial to avoid consumption under any circumstances. The clustered growth pattern is also characteristic. However, without a spore print and more detailed examination of the stem and other features, a definitive identification is challenging. There are other small brown mushrooms that could resemble this, so extreme caution is advised."
+        },
+        "a2": {
+          "top_species": "AR.ME",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several characteristics consistent with *Armillaria* species, commonly known as Honey Mushrooms. The honey-brown cap color, smooth cap surface, adnate gill attachment, crowded gills, and a visible ring on the stem are all typical features. The stem's fibrous texture also aligns with *Armillaria*. However, *Armillaria* species can be variable, and definitive identification often requires microscopic examination of spores. **Important Note:** Some *Armillaria* species are poisonous and can cause gastrointestinal distress. Therefore, positive identification by an expert is crucial before consumption."
+        },
+        "b1": {
+          "top_species": "HY.PS",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN and trait extractor provide converging evidence for False Chanterelle, despite the key traversal's inability to progress. The database listing adds further support, albeit with caveats. The wavy cap shape is a key characteristic."
+        },
+        "b2": {
+          "top_species": "HY.PS",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's low confidence and the key's inability to progress are limitations. However, the consistent traits extracted and the database match strongly suggest a False Chanterelle.  Further examination of the gills and spore print would be helpful for confirmation."
+        }
+      }
+    },
+    {
+      "specimen_id": "PL.OS_045",
+      "species_id": "PL.OS",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; oyster;shelf;gills;wood; source=Svampeatlas/GBIF; occurrence=5052245440; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "CR.CO",
+          "confidence": 0.9571826457977295,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "PL.OS",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics of *Pleurotus ostreatus*, commonly known as the Oyster Mushroom. The cap shape is broadly fan-shaped to oyster-shaped, which is consistent with this species. The gills are adnate to decurrent (running down the stem), and appear crowded, which is also typical. The color is a pale tan to grayish-brown, which aligns with the range seen in *P. ostreatus*. It appears to be growing on wood, which is a common substrate for this species. While there are other *Pleurotus* species, the overall morphology strongly suggests *P. ostreatus*. **Important Note:** While many Oyster Mushrooms are edible, misidentification can be dangerous. Always be 100% certain of identification before consumption. There are look-alikes that can be toxic."
+        },
+        "a2": {
+          "top_species": "PL.OS",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Pleurotus ostreatus*, commonly known as the Oyster Mushroom. The fan-shaped cap, decurrent gills (running down the stem), smooth cap surface, and white gills are all diagnostic features. The lateral stem and lack of a ring further support this identification. The color is also consistent with the range seen in this species. While there are other *Pleurotus* species, this combination of traits strongly suggests *P. ostreatus*. **Important Note:** While many Oyster Mushrooms are edible, misidentification can be dangerous. Always be 100% certain of identification before consumption. There are look-alikes that can be toxic."
+        },
+        "b1": {
+          "top_species": "CR.CO",
+          "confidence": 0.96,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's high confidence in the Black Trumpet identification, combined with the trait extractor's confirmation of key features (smooth surface, ridges), strongly supports this conclusion. While the key traversal was inconclusive and the database match weak, the CNN's prediction is the most reliable signal."
+        },
+        "b2": {
+          "top_species": "CR.CO",
+          "confidence": 0.97,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The overwhelming consensus from the CNN, trait extractor, and the general direction of the identification key points towards *Craterellus cornucopioides* (Black Trumpet). While the database has some conflicts, the other signals are strong enough to confidently identify the mushroom."
+        }
+      }
+    },
+    {
+      "specimen_id": "PL.OS_046",
+      "species_id": "PL.OS",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; oyster;shelf;gills;wood; source=Svampeatlas/GBIF; occurrence=6161874219; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.35496383905410767,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "Field Blewit (Clitocybe cerina)",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The cap color (greyish-brown to lilac-grey) and the crowded, adnate gills that are initially white and later become lilac-grey are characteristic of *Clitocybe cerina*. The stem also appears to be a pale color, consistent with this species. *Clitocybe cerina* is considered edible, but there are similar-looking poisonous mushrooms, so positive identification is crucial before consumption. It's important to note that some individuals may experience gastrointestinal upset after consuming this mushroom."
+        },
+        "a2": {
+          "top_species": "PL.OS",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": true,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics of *Pleurotus ostreatus*, commonly known as the Oyster Mushroom. The fan-shaped cap, decurrent gills (running down the stem), smooth cap surface, and white gills are all consistent with this species. The lateral stem and lack of a ring also align with *Pleurotus* characteristics. The color is also consistent with the range seen in this species. While color can vary, the overall morphology strongly suggests Oyster Mushroom. It's important to note that some *Pleurotus* species can be confused with other look-alikes, and proper identification requires careful examination of microscopic features. This mushroom is generally considered edible, but positive identification is crucial before consumption."
+        },
+        "b1": {
+          "top_species": "HY.PS",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN and trait extractor provide converging evidence for *Hygrophorellus pseudoaurantiacus*. While the key traversal was problematic, the traits are characteristic of this species. The database match is supportive, despite the noted conflicts."
+        },
+        "b2": {
+          "top_species": "HY.PS",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN and trait extractor largely agree on the identification of a False Chanterelle. While the key traversal was inconclusive, the traits provide strong support for this identification. The database score is lower, but the overall evidence points towards Hygrophorellus pseudoaurantiacus."
+        }
+      }
+    },
+    {
+      "specimen_id": "CA.TU_047",
+      "species_id": "CA.TU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; funnel_chanterelle;folds;hollow_stem; source=Svampeatlas/GBIF; occurrence=5898631275; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.558824896812439,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "CA.CI",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The distinctive funnel shape, the vibrant yellow-orange color of the stem and gills, and the overall appearance strongly suggest a Golden Chanterelle. The cap color is a bit darker than typical, which can vary with age and environmental conditions. Chanterelles are edible and highly prized, but it's crucial to be absolutely certain of identification before consumption, as there are look-alikes, some of which can be toxic. A definitive identification would require microscopic examination of the gill structure and spore print."
+        },
+        "a2": {
+          "top_species": "CA.CI",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics of *Cantharellus cibarius*, the Golden Chanterelle. The funnel-shaped cap, yellow to yellow-brown coloration, decurrent gills (running down the stem), and smooth stem are all consistent with this species. The wavy cap margin is also a common feature. While the cap color can vary, the overall appearance strongly suggests a chanterelle. It's important to note that there are look-alikes, some of which can be toxic, so positive identification requires careful examination of microscopic features and spore prints. This mushroom is considered edible when properly identified."
+        },
+        "b1": {
+          "top_species": "CA.CI",
+          "confidence": 0.65,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN and key strongly suggest a Chanterelle. The trait extractor's color assessment is likely inaccurate due to lighting. The database highlights potential lookalikes, but the overall visual evidence points towards a Chanterelle."
+        },
+        "b2": {
+          "top_species": "CA.CI",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The combination of CNN prediction, trait analysis, and key traversal strongly suggests a Chanterelle. While the key got stuck, the traits are highly indicative of this species. The possibility of a False Chanterelle is acknowledged, but less likely given the overall profile."
+        }
+      }
+    },
+    {
+      "specimen_id": "CA.TU_048",
+      "species_id": "CA.TU",
+      "scenario": "ood",
+      "subset": "ood",
+      "confusing_pair_with": null,
+      "notes": "paired above_idx=1 below_idx=2; funnel_chanterelle;folds;hollow_stem; source=Svampeatlas/GBIF; occurrence=5898654001; above=cap/top/whole view; below=underside/gills/pores/folds/stem/base view",
+      "results": {
+        "cnn": {
+          "top_species": "LA.HE",
+          "confidence": 0.45947179198265076,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": ""
+        },
+        "a1": {
+          "top_species": "CA.CI",
+          "confidence": 0.85,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The first image shows a cluster of yellow-orange mushrooms with a funnel-shaped cap and relatively smooth, decurrent gills. The second image provides a closer view, clearly showing the distinctive, forked, and vein-like gill structure characteristic of chanterelles. The color and overall morphology strongly suggest *Cantharellus cibarius*, the Golden Chanterelle. While there are other yellow chanterelle look-alikes, the gill structure is a key diagnostic feature. **Important Note:** While generally considered edible, misidentification can be dangerous. Always be 100% certain of identification before consumption. There are poisonous look-alikes, such as *Hygrophoropsis aurantiaca* (False Chanterelle), which can cause gastrointestinal distress."
+        },
+        "a2": {
+          "top_species": "GA.MA",
+          "confidence": 0.75,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The mushroom exhibits several key characteristics consistent with *Galerina marginata* (Deadly Galerina). The funnel-shaped cap, yellow-brown to gray-brown coloration, decurrent gills (running down the stem), and yellow stem are all indicative of this species. The wavy cap margin is also a characteristic feature.  Crucially, *Galerina marginata* is highly toxic, containing amatoxins similar to those found in *Amanita* species. **Extreme caution is advised; this mushroom should not be consumed.** While the absence of a ring is noted, this feature can be variable. The gill density and stem surface align with descriptions of *Galerina marginata*."
+        },
+        "b1": {
+          "top_species": "CA.CI",
+          "confidence": 0.93,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's high confidence in a Chanterelle identification, supported by the trait extractor's findings of yellow color, scaly cap, and ridges, makes this the most probable identification. The key's inability to progress further suggests some ambiguity, but the overall evidence points towards a Chanterelle."
+        },
+        "b2": {
+          "top_species": "CA.CI",
+          "confidence": 0.93,
+          "coverage": true,
+          "correct": false,
+          "error": null,
+          "reasoning": "The CNN's high confidence and the consistent trait profile strongly suggest a Chanterelle identification. While the database notes potential conflicts and the key traversal was not definitive, the overall evidence points towards this species."
+        }
+      }
+    }
+  ]
+}

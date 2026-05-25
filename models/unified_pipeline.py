@@ -35,7 +35,8 @@ from models.llm_classifier import LLMClassifier, UnifiedPredictionResult
 from models.tree_path_validator import TreePathValidator
 from models.mushroom_segmenter import Segmenter
 from models.trait_database_comparator import TraitDatabaseComparator
-from models.visual_trait_extractor import extract as _extract_traits
+from benchmarks.runners._extract_cache import extract as _extract_traits
+from benchmarks.runners._trait_helper import _merge_traits, PHOTO_PREFERENCE
 from models.yolo_part_masks import build_part_masks
 
 logger = logging.getLogger(__name__)
@@ -55,7 +56,7 @@ def _pil_to_bgr(image_bytes: bytes) -> np.ndarray:
     return cv2.cvtColor(np.array(pil), cv2.COLOR_RGB2BGR)
 
 
-def _image_to_llm_b64(image_bytes: bytes, max_side: int = 256, quality: int = 80) -> str:
+def _image_to_llm_b64(image_bytes: bytes, max_side: int = 896, quality: int = 85) -> str:
     """Downsample an image before sending it to the local vision LLM."""
     import base64
 
@@ -66,83 +67,6 @@ def _image_to_llm_b64(image_bytes: bytes, max_side: int = 256, quality: int = 80
     buf = io.BytesIO()
     pil.save(buf, format="JPEG", quality=quality, optimize=True)
     return base64.b64encode(buf.getvalue()).decode("utf-8")
-
-
-PHOTO_PREFERENCE = {
-    "cap_color": "above",
-    "cap_shape": "above",
-    "cap_surface": "above",
-    "underside_color": "below",
-    "hymenophore_type": "below",
-    "stem_color": "below",
-    "stem_ring": "below",
-    "stem_surface": "below",
-    "puffball_surface": "above",
-}
-
-
-def _merge_traits(
-    above_traits: Dict[str, Any],
-    below_traits: Dict[str, Any],
-    case: str,
-) -> Dict[str, Any]:
-    """
-    Merge trait dicts from above and below photos, preferring the most
-    informative value for each key.
-    """
-    merged: Dict[str, Any] = {}
-    all_keys = set(above_traits.keys()) | set(below_traits.keys())
-
-    for key in all_keys:
-        a = above_traits.get(key)
-        b = below_traits.get(key)
-        if key == "colour_ratios":
-            if a and b:
-                all_ratio_keys = set(a.keys()) | set(b.keys())
-                merged[key] = {
-                    k: round((a.get(k, 0.0) + b.get(k, 0.0)) / 2, 3)
-                    for k in all_ratio_keys
-                }
-            elif a:
-                merged[key] = dict(a)
-            elif b:
-                merged[key] = dict(b)
-        elif key in ("dominant_color", "secondary_color", "cap_shape",
-                     "surface_texture", "brightness"):
-            if case == "classical":
-                if key in ("dominant_color", "cap_shape", "surface_texture"):
-                    merged[key] = a if a and a != "unknown" else (b if b and b != "unknown" else (a or b))
-                else:
-                    merged[key] = a if a and a != "unknown" else (b if b and b != "unknown" else (a or b))
-            else:
-                merged[key] = a if a and a != "unknown" else (b if b and b != "unknown" else (a or b))
-        elif key == "has_ridges":
-            # Below photo often better for underside structures; use OR logic
-            merged[key] = bool(a) if a is not None else bool(b) if b is not None else False
-        elif key in PHOTO_PREFERENCE:
-            pref = PHOTO_PREFERENCE[key]
-            preferred = a if pref == "above" else b
-            fallback = b if pref == "above" else a
-            if preferred is not None and preferred != "unknown":
-                merged[key] = preferred
-            else:
-                merged[key] = fallback
-        elif key in ("trait_confidence", "trait_source_by_key"):
-            # Merge dicts: above wins on overlap unless below has higher confidence
-            merged_a = dict(a) if a else {}
-            merged_b = dict(b) if b else {}
-            result = dict(merged_a)
-            for k, v in merged_b.items():
-                if k not in result:
-                    result[k] = v
-            merged[key] = result
-        else:
-            merged[key] = a if a is not None else b
-
-    # Add provenance
-    merged["photo_count"] = 2
-    merged["case"] = case
-    return merged
 
 
 def _evaluate_agreement(

@@ -21,7 +21,7 @@ from config.image_model_config import (
     INPUT_SIZE,     #   e.g. 300 (EfficientNet-B3 default input size)
     IMAGENET_MEAN,  # e.g. [0.485, 0.456, 0.406] (standard ImageNet mean for normalization)
     IMAGENET_STD,   #  e.g. [0.229, 0.224, 0.225] (standard ImageNet std for normalization)
-    NUM_CLASSES,    # e.g. 7 (number of mushroom species)
+    NUM_CLASSES,    # 16 (number of mushroom species)
     RESIZE_SIZE,    # e.g. 320 (resize shorter side to this before center cropping to INPUT_SIZE)
     SPECIES,        # e.g. ["Amanita muscaria", "Boletus edulis", ...] (list of species in same order as model output)
     WEIGHTS_PATH,   # e.g. Path("artifacts/cnn_weights.pt"
@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 class MushroomCNN:
     """
-    EfficientNet-B3 classifier for the 7 target mushroom species.
+    EfficientNet-B3 classifier for the 16 target mushroom species.
 
     Usage
     -----

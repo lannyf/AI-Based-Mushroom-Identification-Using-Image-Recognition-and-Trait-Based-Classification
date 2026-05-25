@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Comparative benchmark runner for the unified mushroom identification pipeline.
 
-Evaluates CNN reference, System A (A1/A2), and System B (B1/B2) on the same
-specimens and produces side-by-side comparison reports.
+Evaluates CNN reference, System A (A1 sub-tests), System A2 (A2 sub-tests),
+and System B (B1/B2) on the same specimens and produces side-by-side
+comparison reports.
 
 Usage::
 
@@ -17,10 +18,12 @@ The manifest is a CSV with columns:
 """
 
 import argparse
+import json
 import logging
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Set, Tuple
 
 from benchmarks.comparative_metrics import (
     compute_accuracy,
@@ -36,6 +39,8 @@ from benchmarks.manifest import ManifestDataset
 from benchmarks.runners.base import RunnerResult
 from benchmarks.runners.cnn_runner import CNNRunner
 from benchmarks.runners.llm_standalone_runner import LLMStandaloneRunner
+from benchmarks.runners.tree_runner import TreeRunner
+from benchmarks.runners.trait_db_runner import TraitDBRunner
 from benchmarks.runners.unified_runner import UnifiedRunner
 from benchmarks.species_trait_oracle import SpeciesTraitOracle
 
@@ -51,53 +56,186 @@ class _SimpleSample:
         self.species_id = species_id
 
 
+# ---------------------------------------------------------------------------
+# Checkpoint helpers
+# ---------------------------------------------------------------------------
+
+def _load_checkpoint(checkpoint_path: Path) -> Dict[str, List[RunnerResult]]:
+    """Load completed method results from checkpoint file."""
+    if not checkpoint_path.exists():
+        return {}
+    try:
+        with open(checkpoint_path, "r", encoding="utf-8") as fh:
+            data = json.load(fh)
+        # Rehydrate RunnerResult objects
+        results: Dict[str, List[RunnerResult]] = {}
+        for method_name, raw_results in data.items():
+            results[method_name] = [
+                RunnerResult(
+                    method_name=r["method_name"],
+                    predictions=[(p[0], p[1]) for p in r["predictions"]],
+                    coverage=r["coverage"],
+                    inference_time_ms=r["inference_time_ms"],
+                    error=r.get("error"),
+                    metadata=r.get("metadata", {}),
+                )
+                for r in raw_results
+            ]
+        logger.info("Loaded checkpoint with %d completed methods", len(results))
+        return results
+    except Exception as exc:
+        logger.warning("Failed to load checkpoint: %s", exc)
+        return {}
+
+
+def _save_checkpoint(checkpoint_path: Path, all_results: Dict[str, List[RunnerResult]]) -> None:
+    """Save all completed method results to checkpoint file."""
+    serializable: Dict[str, List[Dict[str, Any]]] = {}
+    for method_name, results in all_results.items():
+        serializable[method_name] = [
+            {
+                "method_name": r.method_name,
+                "predictions": r.predictions,
+                "coverage": r.coverage,
+                "inference_time_ms": r.inference_time_ms,
+                "error": r.error,
+                "metadata": r.metadata,
+            }
+            for r in results
+        ]
+    try:
+        with open(checkpoint_path, "w", encoding="utf-8") as fh:
+            json.dump(serializable, fh, indent=2)
+    except Exception as exc:
+        logger.warning("Failed to save checkpoint: %s", exc)
+
+
+# ---------------------------------------------------------------------------
+# Specimen runner
+# ---------------------------------------------------------------------------
+
+def _run_one_specimen(
+    method_name: str,
+    runner,
+    spec: Any,
+    single_photo: bool,
+    dual_photo_best: bool,
+) -> RunnerResult:
+    """Run a method on a single specimen."""
+    try:
+        if single_photo:
+            above_bytes = spec.load_above_bytes()
+            below_bytes = spec.load_below_bytes()
+
+            if above_bytes is None and below_bytes is None:
+                return RunnerResult(
+                    method_name=method_name,
+                    predictions=[],
+                    coverage=False,
+                    error="No image available",
+                )
+
+            if dual_photo_best and above_bytes and below_bytes:
+                best_result = None
+                best_conf = -1.0
+                for photo_bytes in (above_bytes, below_bytes):
+                    sample = _SimpleSample(
+                        image_bytes=photo_bytes, species_id=spec.species_id
+                    )
+                    res = runner.predict(sample)
+                    top_conf = res.top_confidence if res.coverage else -1.0
+                    if top_conf > best_conf:
+                        best_conf = top_conf
+                        best_result = res
+                return best_result  # type: ignore[return-value]
+            else:
+                photo_bytes = above_bytes or below_bytes
+                sample = _SimpleSample(
+                    image_bytes=photo_bytes, species_id=spec.species_id
+                )
+                return runner.predict(sample)
+        else:
+            return runner.predict(spec)
+    except Exception as exc:
+        logger.warning("%s failed on %s: %s", method_name, spec.specimen_id, exc)
+        return RunnerResult(
+            method_name=method_name,
+            predictions=[],
+            coverage=False,
+            error=str(exc),
+        )
+
+
 def _run_method(
     method_name: str,
     runner,
     specimens: List[Any],
     single_photo: bool = True,
+    dual_photo_best: bool = False,
+    workers: int = 1,
 ) -> List[RunnerResult]:
-    """Run a single method on every specimen, logging progress."""
-    results: List[RunnerResult] = []
-    for i, spec in enumerate(specimens, 1):
-        try:
-            if single_photo:
-                photo_bytes = spec.load_above_bytes() or spec.load_below_bytes()
-                if photo_bytes is None:
-                    results.append(
-                        RunnerResult(
-                            method_name=method_name,
-                            predictions=[],
-                            coverage=False,
-                            error="No image available",
-                        )
+    """Run a single method on every specimen, logging progress.
+
+    Args:
+        method_name: Identifier for logging.
+        runner: The benchmark runner instance.
+        specimens: List of BenchmarkSpecimen objects.
+        single_photo: If True, the runner expects a single image.
+        dual_photo_best: If True *and* single_photo is True, run the runner on
+            both above and below photos and keep the result with the higher
+            top-1 confidence.
+        workers: Number of parallel threads for specimen processing.
+            Values > 1 are useful for CPU/GPU-bound runners (e.g. CNN).
+            LLM-based runners should use workers=1.
+    """
+    results: List[RunnerResult] = [None] * len(specimens)  # type: ignore[list-item]
+
+    if workers > 1 and single_photo:
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            futures = {
+                executor.submit(
+                    _run_one_specimen,
+                    method_name,
+                    runner,
+                    spec,
+                    single_photo,
+                    dual_photo_best,
+                ): idx
+                for idx, spec in enumerate(specimens)
+            }
+            completed = 0
+            for future in as_completed(futures):
+                idx = futures[future]
+                results[idx] = future.result()
+                completed += 1
+                if completed % 10 == 0 or completed == len(specimens):
+                    logger.info(
+                        "%s: %d/%d completed", method_name, completed, len(specimens)
                     )
-                    continue
-                sample = _SimpleSample(image_bytes=photo_bytes, species_id=spec.species_id)
-                result = runner.predict(sample)
-            else:
-                result = runner.predict(spec)
-            results.append(result)
-        except Exception as exc:
-            logger.warning("%s failed on %s: %s", method_name, spec.specimen_id, exc)
-            results.append(
-                RunnerResult(
-                    method_name=method_name,
-                    predictions=[],
-                    coverage=False,
-                    error=str(exc),
-                )
+    else:
+        for i, spec in enumerate(specimens, 1):
+            results[i - 1] = _run_one_specimen(
+                method_name, runner, spec, single_photo, dual_photo_best
             )
-        if i % 10 == 0 or i == len(specimens):
-            logger.info("%s: %d/%d completed", method_name, i, len(specimens))
+            if i % 10 == 0 or i == len(specimens):
+                logger.info("%s: %d/%d completed", method_name, i, len(specimens))
     return results
 
+
+# ---------------------------------------------------------------------------
+# Result aggregation
+# ---------------------------------------------------------------------------
 
 def _build_per_specimen_record(
     specimen,
     cnn_res: RunnerResult,
-    a1_res: RunnerResult,
-    a2_res: RunnerResult,
+    a1_vision_res: RunnerResult,
+    a1_llm_res: RunnerResult,
+    a1_tree_res: RunnerResult,
+    a1_db_res: RunnerResult,
+    a2_llm_res: RunnerResult,
+    a2_tree_res: RunnerResult,
+    a2_db_res: RunnerResult,
     b1_res: RunnerResult,
     b2_res: RunnerResult,
 ) -> Dict[str, Any]:
@@ -105,7 +243,7 @@ def _build_per_specimen_record(
     gt = specimen.species_id
 
     def _result_dict(r: RunnerResult) -> Dict[str, Any]:
-        return {
+        d: Dict[str, Any] = {
             "top_species": r.top_species if r.coverage else "N/A",
             "confidence": r.top_confidence if r.coverage else 0.0,
             "coverage": r.coverage,
@@ -113,6 +251,21 @@ def _build_per_specimen_record(
             "error": r.error,
             "reasoning": r.metadata.get("llm_reasoning", "") if r.metadata else "",
         }
+        if r.metadata:
+            d["signals"] = {
+                "llm_raw": r.metadata.get("llm_raw_species"),
+                "llm_confidence": r.metadata.get("llm_confidence"),
+                "cnn": r.metadata.get("cnn_pred"),
+                "cnn_confidence": r.metadata.get("cnn_confidence"),
+                "tree": r.metadata.get("tree_pred"),
+                "db": r.metadata.get("db_pred"),
+                "db_species_id": r.metadata.get("db_species_id"),
+                "db_score": r.metadata.get("db_score"),
+                "final_recommendation": r.metadata.get("final_recommendation"),
+                "used_fallback": r.metadata.get("used_fallback", False),
+                "agreement": r.metadata.get("agreement"),
+            }
+        return d
 
     return {
         "specimen_id": specimen.specimen_id,
@@ -123,8 +276,13 @@ def _build_per_specimen_record(
         "notes": specimen.notes,
         "results": {
             "cnn": _result_dict(cnn_res),
-            "a1": _result_dict(a1_res),
-            "a2": _result_dict(a2_res),
+            "a1_vision": _result_dict(a1_vision_res),
+            "a1_llm": _result_dict(a1_llm_res),
+            "a1_tree": _result_dict(a1_tree_res),
+            "a1_db": _result_dict(a1_db_res),
+            "a2_llm": _result_dict(a2_llm_res),
+            "a2_tree": _result_dict(a2_tree_res),
+            "a2_db": _result_dict(a2_db_res),
             "b1": _result_dict(b1_res),
             "b2": _result_dict(b2_res),
         },
@@ -133,8 +291,13 @@ def _build_per_specimen_record(
 
 def _compute_metrics(
     cnn_results: List[RunnerResult],
-    a1_results: List[RunnerResult],
-    a2_results: List[RunnerResult],
+    a1_vision_results: List[RunnerResult],
+    a1_llm_results: List[RunnerResult],
+    a1_tree_results: List[RunnerResult],
+    a1_db_results: List[RunnerResult],
+    a2_llm_results: List[RunnerResult],
+    a2_tree_results: List[RunnerResult],
+    a2_db_results: List[RunnerResult],
     b1_results: List[RunnerResult],
     b2_results: List[RunnerResult],
     specimens: List[Any],
@@ -147,8 +310,13 @@ def _compute_metrics(
     per_method: Dict[str, Dict[str, Any]] = {}
     for name, results in (
         ("cnn", cnn_results),
-        ("a1", a1_results),
-        ("a2", a2_results),
+        ("a1_vision", a1_vision_results),
+        ("a1_llm", a1_llm_results),
+        ("a1_tree", a1_tree_results),
+        ("a1_db", a1_db_results),
+        ("a2_llm", a2_llm_results),
+        ("a2_tree", a2_tree_results),
+        ("a2_db", a2_db_results),
         ("b1", b1_results),
         ("b2", b2_results),
     ):
@@ -169,8 +337,13 @@ def _compute_metrics(
         by_scenario[scenario] = {
             "n": n,
             "cnn_acc": compute_accuracy([cnn_results[i] for i in indices], [ground_truth[i] for i in indices]),
-            "a1_acc": compute_accuracy([a1_results[i] for i in indices], [ground_truth[i] for i in indices]),
-            "a2_acc": compute_accuracy([a2_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "a1_vision_acc": compute_accuracy([a1_vision_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "a1_llm_acc": compute_accuracy([a1_llm_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "a1_tree_acc": compute_accuracy([a1_tree_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "a1_db_acc": compute_accuracy([a1_db_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "a2_llm_acc": compute_accuracy([a2_llm_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "a2_tree_acc": compute_accuracy([a2_tree_results[i] for i in indices], [ground_truth[i] for i in indices]),
+            "a2_db_acc": compute_accuracy([a2_db_results[i] for i in indices], [ground_truth[i] for i in indices]),
             "b1_acc": compute_accuracy([b1_results[i] for i in indices], [ground_truth[i] for i in indices]),
             "b2_acc": compute_accuracy([b2_results[i] for i in indices], [ground_truth[i] for i in indices]),
         }
@@ -187,34 +360,59 @@ def _compute_metrics(
 
     for pair_name, entries in pair_groups.items():
         n = len(entries)
-        cnn_c = sum(1 for e in entries if e["results"]["cnn"]["correct"])
-        a1_c = sum(1 for e in entries if e["results"]["a1"]["correct"])
-        a2_c = sum(1 for e in entries if e["results"]["a2"]["correct"])
-        b1_c = sum(1 for e in entries if e["results"]["b1"]["correct"])
-        b2_c = sum(1 for e in entries if e["results"]["b2"]["correct"])
         confusing[pair_name] = {
             "n": n,
-            "cnn_acc": cnn_c / n if n else 0.0,
-            "a1_acc": a1_c / n if n else 0.0,
-            "a2_acc": a2_c / n if n else 0.0,
-            "b1_acc": b1_c / n if n else 0.0,
-            "b2_acc": b2_c / n if n else 0.0,
+            "cnn_acc": sum(1 for e in entries if e["results"]["cnn"]["correct"]) / n if n else 0.0,
+            "a1_vision_acc": sum(1 for e in entries if e["results"]["a1_vision"]["correct"]) / n if n else 0.0,
+            "a1_llm_acc": sum(1 for e in entries if e["results"]["a1_llm"]["correct"]) / n if n else 0.0,
+            "a1_tree_acc": sum(1 for e in entries if e["results"]["a1_tree"]["correct"]) / n if n else 0.0,
+            "a1_db_acc": sum(1 for e in entries if e["results"]["a1_db"]["correct"]) / n if n else 0.0,
+            "a2_llm_acc": sum(1 for e in entries if e["results"]["a2_llm"]["correct"]) / n if n else 0.0,
+            "a2_tree_acc": sum(1 for e in entries if e["results"]["a2_tree"]["correct"]) / n if n else 0.0,
+            "a2_db_acc": sum(1 for e in entries if e["results"]["a2_db"]["correct"]) / n if n else 0.0,
+            "b1_acc": sum(1 for e in entries if e["results"]["b1"]["correct"]) / n if n else 0.0,
+            "b2_acc": sum(1 for e in entries if e["results"]["b2"]["correct"]) / n if n else 0.0,
         }
 
-    # Oracle impact deltas
+    # Oracle benefit per component
+    oracle_benefit_llm = per_method["a2_llm"]["accuracy"] - per_method["a1_llm"]["accuracy"]
+    oracle_benefit_tree = per_method["a2_tree"]["accuracy"] - per_method["a1_tree"]["accuracy"]
+    oracle_benefit_db = per_method["a2_db"]["accuracy"] - per_method["a1_db"]["accuracy"]
+
+    # Synthesis value: does B beat the best standalone in its system?
+    best_a1 = max(
+        per_method["a1_vision"]["accuracy"],
+        per_method["a1_llm"]["accuracy"],
+        per_method["a1_tree"]["accuracy"],
+        per_method["a1_db"]["accuracy"],
+    )
+    best_a2 = max(
+        per_method["a2_llm"]["accuracy"],
+        per_method["a2_tree"]["accuracy"],
+        per_method["a2_db"]["accuracy"],
+    )
+    synthesis_benefit_b1 = per_method["b1"]["accuracy"] - best_a1
+    synthesis_benefit_b2 = per_method["b2"]["accuracy"] - best_a2
     extractor_penalty = per_method["b1"]["accuracy"] - per_method["b2"]["accuracy"]
-    oracle_benefit_a = per_method["a2"]["accuracy"] - per_method["a1"]["accuracy"]
-    oracle_benefit_b = per_method["b2"]["accuracy"] - per_method["b1"]["accuracy"]
 
     return {
         "per_method": per_method,
         "by_scenario": by_scenario,
         "confusing_pairs": confusing,
+        "oracle_benefit_llm": oracle_benefit_llm,
+        "oracle_benefit_tree": oracle_benefit_tree,
+        "oracle_benefit_db": oracle_benefit_db,
+        "best_a1": best_a1,
+        "best_a2": best_a2,
+        "synthesis_benefit_b1": synthesis_benefit_b1,
+        "synthesis_benefit_b2": synthesis_benefit_b2,
         "extractor_penalty": extractor_penalty,
-        "oracle_benefit_a": oracle_benefit_a,
-        "oracle_benefit_b": oracle_benefit_b,
     }
 
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
 
 def main():
     parser = argparse.ArgumentParser(
@@ -235,9 +433,21 @@ def main():
     parser.add_argument(
         "--variants",
         nargs="+",
-        choices=["cnn", "a1", "a2", "b1", "b2", "all"],
+        choices=[
+            "cnn",
+            "a1_vision", "a1_llm", "a1_tree", "a1_db",
+            "a2_llm", "a2_tree", "a2_db",
+            "b1", "b2",
+            "all",
+        ],
         default=["all"],
         help="Variants to benchmark",
+    )
+    parser.add_argument(
+        "--checkpoint",
+        type=Path,
+        default=None,
+        help="Optional JSON checkpoint file to resume from",
     )
     args = parser.parse_args()
 
@@ -255,91 +465,145 @@ def main():
 
     selected = set(args.variants)
     if "all" in selected:
-        selected = {"cnn", "a1", "a2", "b1", "b2"}
+        selected = {
+            "cnn",
+            "a1_vision", "a1_llm", "a1_tree", "a1_db",
+            "a2_llm", "a2_tree", "a2_db",
+            "b1", "b2",
+        }
 
     # Initialise oracle (used by A2 and B2)
     oracle = SpeciesTraitOracle(str(PROJECT_ROOT / "data" / "raw" / "species_traits.xml"))
 
-    cnn_results: List[RunnerResult] = []
-    a1_results: List[RunnerResult] = []
-    a2_results: List[RunnerResult] = []
-    b1_results: List[RunnerResult] = []
-    b2_results: List[RunnerResult] = []
+    # Load checkpoint if provided
+    checkpoint_path = args.checkpoint or (args.output_dir / "checkpoint.json")
+    checkpoint = _load_checkpoint(checkpoint_path)
 
-    if "cnn" in selected:
+    # Result containers
+    all_results: Dict[str, List[RunnerResult]] = {}
+
+    def _maybe_run(
+        method_name: str,
+        runner,
+        single_photo: bool = True,
+        dual_photo_best: bool = False,
+        workers: int = 1,
+    ) -> List[RunnerResult]:
+        """Run a method if selected and not already in checkpoint."""
+        if method_name not in selected:
+            logger.info("Skipping %s (not selected)", method_name)
+            return [
+                RunnerResult(
+                    method_name=method_name,
+                    predictions=[],
+                    coverage=False,
+                    error="Variant not selected",
+                )
+                for _ in specimens
+            ]
+        if method_name in checkpoint:
+            logger.info("Resuming %s from checkpoint (%d results)", method_name, len(checkpoint[method_name]))
+            return checkpoint[method_name]
+
+        logger.info("Running %s...", method_name)
+        results = _run_method(
+            method_name, runner, specimens,
+            single_photo=single_photo,
+            dual_photo_best=dual_photo_best,
+            workers=workers,
+        )
+        all_results[method_name] = results
+        _save_checkpoint(checkpoint_path, all_results)
+        return results
+
+    # Run CNN in background (parallel with LLM methods)
+    cnn_future = None
+    cnn_executor = None
+    if "cnn" in selected and "cnn" not in checkpoint:
         logger.info("Initialising CNN runner...")
-        cnn_results = _run_method("cnn", CNNRunner(), specimens, single_photo=True)
+        cnn_executor = ThreadPoolExecutor(max_workers=1)
+        cnn_future = cnn_executor.submit(
+            _run_method,
+            "cnn",
+            CNNRunner(),
+            specimens,
+            single_photo=True,
+            dual_photo_best=True,
+            workers=4,
+        )
 
-    if "a1" in selected:
-        logger.info("Initialising A1 runner (LLM raw)...")
-        a1_results = _run_method("a1", LLMStandaloneRunner(oracle_trait_provider=None), specimens, single_photo=False)
+    # System A1 — extracted traits
+    a1_vision_results = _maybe_run("a1_vision", LLMStandaloneRunner(trait_source="none"), single_photo=False)
+    a1_llm_results = _maybe_run("a1_llm", LLMStandaloneRunner(trait_source="extracted"), single_photo=False)
+    a1_tree_results = _maybe_run("a1_tree", TreeRunner(trait_source="extracted"), single_photo=False)
+    a1_db_results = _maybe_run("a1_db", TraitDBRunner(trait_source="extracted"), single_photo=False)
 
-    if "a2" in selected:
-        logger.info("Initialising A2 runner (LLM + oracle traits)...")
-        a2_results = _run_method("a2", LLMStandaloneRunner(oracle_trait_provider=oracle), specimens, single_photo=False)
+    # System A2 — oracle traits
+    a2_llm_results = _maybe_run("a2_llm", LLMStandaloneRunner(trait_source="oracle", oracle_trait_provider=oracle), single_photo=False)
+    a2_tree_results = _maybe_run("a2_tree", TreeRunner(trait_source="oracle", oracle_trait_provider=oracle), single_photo=False)
+    a2_db_results = _maybe_run("a2_db", TraitDBRunner(trait_source="oracle", oracle_trait_provider=oracle), single_photo=False)
 
-    if "b1" in selected:
-        logger.info("Initialising B1 runner (Unified)...")
-        b1_results = _run_method("b1", UnifiedRunner(oracle_trait_provider=None), specimens, single_photo=False)
+    # System B — unified pipeline
+    b1_results = _maybe_run("b1", UnifiedRunner(oracle_trait_provider=None), single_photo=False)
+    b2_results = _maybe_run("b2", UnifiedRunner(oracle_trait_provider=oracle), single_photo=False)
 
-    if "b2" in selected:
-        logger.info("Initialising B2 runner (Unified + oracle traits)...")
-        b2_results = _run_method("b2", UnifiedRunner(oracle_trait_provider=oracle), specimens, single_photo=False)
+    # Wait for CNN
+    if cnn_future is not None:
+        cnn_results = cnn_future.result()
+        all_results["cnn"] = cnn_results
+        _save_checkpoint(checkpoint_path, all_results)
+        if cnn_executor:
+            cnn_executor.shutdown(wait=False)
+    else:
+        cnn_results = checkpoint.get("cnn", _maybe_run("cnn", CNNRunner(), single_photo=True, dual_photo_best=True, workers=4))
 
-    def _not_selected_results(method_name: str) -> List[RunnerResult]:
-        return [
-            RunnerResult(
-                method_name=method_name,
-                predictions=[],
-                coverage=False,
-                error="Variant not selected",
-            )
-            for _ in specimens
-        ]
-
-    if not cnn_results:
-        cnn_results = _not_selected_results("cnn")
-    if not a1_results:
-        a1_results = _not_selected_results("a1")
-    if not a2_results:
-        a2_results = _not_selected_results("a2")
-    if not b1_results:
-        b1_results = _not_selected_results("b1")
-    if not b2_results:
-        b2_results = _not_selected_results("b2")
-
+    # Assemble per-specimen records
     per_specimen: List[Dict[str, Any]] = []
     for i, spec in enumerate(specimens):
         per_specimen.append(
             _build_per_specimen_record(
                 spec,
                 cnn_results[i],
-                a1_results[i],
-                a2_results[i],
+                a1_vision_results[i],
+                a1_llm_results[i],
+                a1_tree_results[i],
+                a1_db_results[i],
+                a2_llm_results[i],
+                a2_tree_results[i],
+                a2_db_results[i],
                 b1_results[i],
                 b2_results[i],
             )
         )
 
     metrics = _compute_metrics(
-        cnn_results, a1_results, a2_results, b1_results, b2_results,
+        cnn_results,
+        a1_vision_results, a1_llm_results, a1_tree_results, a1_db_results,
+        a2_llm_results, a2_tree_results, a2_db_results,
+        b1_results, b2_results,
         specimens, per_specimen,
     )
 
     generate_json_report(per_specimen, metrics, args.output_dir / "report.json")
-    generate_csv_report(per_specimen, args.output_dir / "report.csv")
+    generate_csv_report(per_specimen, metrics, args.output_dir / "report.csv")
     generate_markdown_report(per_specimen, metrics, args.output_dir / "report.md")
 
     logger.info("Benchmark complete. Reports written to %s", args.output_dir)
 
+    # Print summary
     print("\n=== Overall Accuracy ===")
     for method, m in metrics["per_method"].items():
-        print(f"  {method:10s}: accuracy={m['accuracy']:.1%}, coverage={m['coverage']:.1%}")
+        print(f"  {method:15s}: accuracy={m['accuracy']:.1%}, coverage={m['coverage']:.1%}")
 
-    print("\n=== Oracle Impact ===")
-    print(f"  A2 - A1 (raw LLM benefit from oracle traits): {metrics['oracle_benefit_a']:+.1%}")
-    print(f"  B2 - B1 (unified benefit from perfect traits): {metrics['oracle_benefit_b']:+.1%}")
-    print(f"  B1 - B2 (extractor penalty): {metrics['extractor_penalty']:+.1%}")
+    print("\n=== Oracle Benefit (A2 − A1) ===")
+    print(f"  LLM:  {metrics['oracle_benefit_llm']:+.1%}")
+    print(f"  Tree: {metrics['oracle_benefit_tree']:+.1%}")
+    print(f"  DB:   {metrics['oracle_benefit_db']:+.1%}")
+
+    print("\n=== Synthesis Benefit (B − best standalone) ===")
+    print(f"  B1 − best A1: {metrics['synthesis_benefit_b1']:+.1%}")
+    print(f"  B2 − best A2: {metrics['synthesis_benefit_b2']:+.1%}")
+    print(f"  B1 − B2 (extractor penalty): {metrics['extractor_penalty']:+.1%}")
 
 
 if __name__ == "__main__":

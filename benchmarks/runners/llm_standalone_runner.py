@@ -17,6 +17,7 @@ from PIL import Image
 
 from benchmarks.runners.base import RunnerResult
 from benchmarks.runners.unified_runner import resolve_species_name
+from benchmarks.runners._trait_helper import get_merged_extracted_traits
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +32,7 @@ def _get_oracle_class():
     return _SpeciesTraitOracle
 
 
-def _image_to_b64(image_bytes: bytes, max_side: int = 256, quality: int = 80) -> str:
+def _image_to_b64(image_bytes: bytes, max_side: int = 896, quality: int = 85) -> str:
     """Downsample an image before sending to the local vision LLM."""
     pil = Image.open(io.BytesIO(image_bytes)).convert("RGB")
     resampling = getattr(getattr(Image, "Resampling", Image), "LANCZOS")
@@ -117,17 +118,30 @@ Be precise and prioritize safety. If the mushroom might be toxic, mention this i
 
 
 class LLMStandaloneRunner:
-    """Raw vision-LLM baseline: images → LLM → species prediction.
+    """Standalone vision-LLM benchmark runner.
 
-    Supports two modes:
-      - A1 (no oracle):  images only
-      - A2 (oracle):     images + flat dict of vision-only ground-truth traits
+    Supports three modes:
+      - a1_vision (trait_source="none"):      images only, forced guess
+      - a1_llm    (trait_source="extracted"): images + merged extracted traits
+      - a2_llm    (trait_source="oracle"):    images + oracle ground-truth traits
     """
 
-    name = "llm_a1"
+    name = "llm_standalone"
 
-    def __init__(self, backend=None, oracle_trait_provider=None):
+    def __init__(self, trait_source: str = "none", oracle_trait_provider=None, backend=None):
+        """
+        Args:
+            trait_source: "none" | "extracted" | "oracle"
+            oracle_trait_provider: SpeciesTraitOracle instance (required for "oracle" mode)
+            backend: Optional pre-initialized LLM backend
+        """
         from models.llm_classifier import OllamaBackend, LLMClassifier
+
+        if trait_source not in ("none", "extracted", "oracle"):
+            raise ValueError(f"Invalid trait_source: {trait_source}")
+
+        self.trait_source = trait_source
+        self.oracle_trait_provider = oracle_trait_provider
 
         if backend is not None:
             self.backend = backend
@@ -135,8 +149,6 @@ class LLMStandaloneRunner:
             self.backend = LLMClassifier(backend_type="ollama")
         else:
             self.backend = None
-
-        self.oracle_trait_provider = oracle_trait_provider
 
     def predict(self, specimen) -> RunnerResult:
         """Run standalone vision LLM on above + below photos.
@@ -152,7 +164,7 @@ class LLMStandaloneRunner:
 
         if not above or not below:
             return RunnerResult(
-                method_name="llm",
+                method_name=f"llm_{self.trait_source}",
                 predictions=[],
                 coverage=False,
                 error="Missing above or below photo",
@@ -160,7 +172,7 @@ class LLMStandaloneRunner:
 
         if self.backend is None:
             return RunnerResult(
-                method_name="llm",
+                method_name=f"llm_{self.trait_source}",
                 predictions=[],
                 coverage=False,
                 error="LLM backend not available",
@@ -168,17 +180,29 @@ class LLMStandaloneRunner:
 
         images_b64 = [_image_to_b64(above), _image_to_b64(below)]
 
-        # A2: append oracle trait dict to user message
+        # Build user message based on trait_source
         user_msg = "Identify the mushroom species from these two images."
-        if self.oracle_trait_provider is not None:
-            traits = self.oracle_trait_provider.get_flat_dict(specimen.species_id)
+
+        if self.trait_source == "extracted":
+            traits = get_merged_extracted_traits(specimen)
             if traits:
-                traits_lines = "\n".join(f"  {k}: {v}" for k, v in traits.items())
+                traits_lines = "\n".join(f"  {k}: {v}" for k, v in traits.items() if not isinstance(v, dict))
                 user_msg += (
-                    f"\n\nKNOWN VISIBLE TRAITS:\n{traits_lines}\n\n"
-                    "Use these known traits as ground-truth reference. "
-                    "Compare them against your visual analysis."
+                    f"\n\nEXTRACTED VISIBLE TRAITS:\n{traits_lines}\n\n"
+                    "Use these extracted traits as additional evidence. "
+                    "Note that they may contain errors from computer-vision analysis."
                 )
+
+        elif self.trait_source == "oracle":
+            if self.oracle_trait_provider is not None:
+                traits = self.oracle_trait_provider.get_flat_dict(specimen.species_id)
+                if traits:
+                    traits_lines = "\n".join(f"  {k}: {v}" for k, v in traits.items())
+                    user_msg += (
+                        f"\n\nKNOWN VISIBLE TRAITS:\n{traits_lines}\n\n"
+                        "Use these known traits as ground-truth reference. "
+                        "Compare them against your visual analysis."
+                    )
 
         t0 = time.perf_counter()
         try:
@@ -189,7 +213,7 @@ class LLMStandaloneRunner:
             )
         except Exception as exc:
             return RunnerResult(
-                method_name="llm",
+                method_name=f"llm_{self.trait_source}",
                 predictions=[],
                 coverage=False,
                 error=f"LLM query failed: {exc}",
@@ -204,7 +228,7 @@ class LLMStandaloneRunner:
 
         if str(species_raw).lower() in ("unknown", "error", "none", "n/a", ""):
             return RunnerResult(
-                method_name="llm",
+                method_name=f"llm_{self.trait_source}",
                 predictions=[],
                 coverage=False,
                 error="LLM could not identify the species",
@@ -216,7 +240,7 @@ class LLMStandaloneRunner:
         top_label = species_id if species_id else species_raw
 
         return RunnerResult(
-            method_name="llm",
+            method_name=f"llm_{self.trait_source}",
             predictions=[(top_label, confidence)] if top_label else [],
             coverage=True,
             inference_time_ms=elapsed,

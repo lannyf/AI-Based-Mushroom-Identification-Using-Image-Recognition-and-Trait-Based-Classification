@@ -57,7 +57,7 @@ help:
 	@echo "  make ollama           Start Ollama server in background"
 	@echo ""
 	@echo "  make benchmark        Run full benchmark (all variants)"
-	@echo "  make benchmark-all    Run all benchmark variants (cnn a1 a2 b1 b2)"
+	@echo "  make benchmark-all    Run all benchmark variants (cnn + a1_*/a2_*/b1/b2)"
 	@echo "  make benchmark-validate Check manifest, weights, and leakage"
 	@echo ""
 	@echo "  make clean            Remove build artefacts"

@@ -190,20 +190,29 @@ RESPONSE FORMAT (JSON):
     "needs_clarification": []
 }}"""
 
-    UNIFIED_SYSTEM_PROMPT = """You are an expert mycologist. Examine the images and tool outputs, then identify the mushroom species.
+    UNIFIED_SYSTEM_PROMPT = """You are an expert mycologist. Identify the mushroom species from the photographs and structured evidence provided.
 
-TOOLS (trust your eyes first; tools can be wrong):
-- cnn_classifier: AI vision prediction (may be overconfident).
-- trait_extractor: measured traits from segmentation.
-- identification_key: Swedish key traversal result.
-- trait_database: trait-profile match.
+REASONING PROCESS — perform these steps in order:
+1. DIRECT VISUAL ANALYSIS: Examine the above-view and below-view photographs carefully BEFORE reading any tool outputs. Form your own preliminary diagnosis based solely on visual evidence: cap colour, shape, and texture; underside structure (gills, pores, teeth, or smooth); stem features; and any distinctive markings.
 
+2. CRITICAL EVALUATION: Review the tool outputs below. Each tool has known failure modes:
+   • CNN classifier: AI vision model, often overconfident on unusual lighting, odd angles, or species outside its 16-class training set. High confidence does NOT guarantee correctness.
+   • Trait extractor: computer-vision measurements (colour, shape, texture). Approximate; affected by segmentation errors, shadows, and background clutter.
+   • Identification key: Swedish polytomous key traversal. Sensitive to trait precision — one wrong auto-answered trait can misroute the entire path.
+   • Trait database: morphological profile comparison. Coarse-grained; cannot distinguish between similar species with overlapping traits.
+   Compare each tool output with your Phase 1 visual analysis. Flag contradictions.
+
+3. SYNTHESIS: Do NOT simply vote or average the tool outputs. Use the identification key below to test competing hypotheses when evidence conflicts. Choose the species with the strongest overall evidence, even if this contradicts your preliminary diagnosis. If no species has strong evidence, return "Unknown".
+
+The identification key is provided below for reference:
 {key_tree_text}
 
 Available Species ({species_count} total):
 {species_list}
 
-RESPONSE FORMAT (JSON):
+SAFETY: Some species in this list are deadly poisonous. When evidence is ambiguous and a toxic lookalike is possible, be conservative — prefer "Unknown" over a risky guess.
+
+RESPONSE FORMAT (JSON only):
 {{
     "top_prediction": {{"species": "English name", "confidence": 0.82, "reasoning": "..."}},
     "predictions": [
@@ -224,7 +233,7 @@ RESPONSE FORMAT (JSON):
         "database_trust": "high|medium|low", "database_why": "..."
     }},
     "agreement_state": "agree|disagree|partial|inconclusive",
-    "reasoning": "...",
+    "reasoning": "Concise overall summary",
     "safety_warnings": [],
     "needs_clarification": false,
     "clarification_question": null,
@@ -290,8 +299,15 @@ RESPONSE FORMAT (JSON):
             species_count=len(self.species_db.get_all_species()),
         )
 
-    TREE_NAVIGATION_PROMPT = """Navigate the Swedish polytomous key below using the observed traits and images.
-Return the path and final species.
+    TREE_NAVIGATION_PROMPT = """You are an expert mycologist navigating a Swedish polytomous identification key.
+
+TASK: Using the observed traits and photographs provided, determine the correct path through the key and identify the final species.
+
+INSTRUCTIONS:
+- Read each question carefully and select the answer that best matches the observed traits.
+- If a question cannot be answered definitively from the traits, choose the most likely branch.
+- Continue answering until you reach a leaf node (a species decision).
+- Return the complete sequence of question→answer pairs and the final Swedish species name.
 
 {key_tree_text}
 
@@ -302,7 +318,7 @@ RESPONSE FORMAT (JSON):
     ],
     "conclusion": "Swedish species name",
     "confidence": 0.85,
-    "reasoning": "Why this path matches"
+    "reasoning": "Why this path matches the observed traits"
 }}"""
 
     def get_tree_navigation_prompt(self) -> str:
@@ -419,8 +435,8 @@ class OllamaBackend(LLMBackend):
             # "format": "json",
             "options": {
                 "temperature": float(os.environ.get("OLLAMA_TEMPERATURE", "0")),
-                "num_predict": int(os.environ.get("OLLAMA_NUM_PREDICT", "512")),
-                "num_ctx": int(os.environ.get("OLLAMA_NUM_CTX", "4096")),
+                "num_predict": int(os.environ.get("OLLAMA_NUM_PREDICT", "256")),
+                "num_ctx": int(os.environ.get("OLLAMA_NUM_CTX", "4096"))
             },
             "keep_alive": os.environ.get("OLLAMA_KEEP_ALIVE", "10m"),
         }
@@ -694,53 +710,63 @@ class LLMClassifier:
         case_info: Optional[Dict[str, Any]],
         image_descriptions: Optional[List[str]],
     ) -> str:
-        """Build compact user prompt: LLM as central reasoner, subsystems as tools."""
+        """Build structured user prompt for the unified LLM classifier."""
         lines: List[str] = []
 
         if case_info:
-            lines.append(f"CASE: {case_info.get('case', 'unknown')} | parts: {case_info.get('detected_parts', [])}")
+            lines.append(f"MORPHOLOGICAL CASE: {case_info.get('case', 'unknown')}")
+            lines.append(f"DETECTED PARTS: {case_info.get('detected_parts', [])}")
 
         if image_descriptions:
             for i, desc in enumerate(image_descriptions, 1):
-                lines.append(f"IMAGE {i}: {desc}")
+                lines.append(f"IMAGE {i} DESCRIPTION: {desc}")
 
-        # CNN
-        lines.append(f"\nCNN: {cnn_prediction.get('species', 'None')} (conf: {cnn_prediction.get('confidence', 0.0):.2f}, conclusive: {cnn_prediction.get('conclusive', False)})")
+        # CNN assistant report
+        lines.append("\n--- CNN CLASSIFIER ---")
+        lines.append(f"Predicted species: {cnn_prediction.get('species', 'None')}")
+        lines.append(f"Confidence: {cnn_prediction.get('confidence', 0.0):.2f}")
+        lines.append(f"Conclusive: {cnn_prediction.get('conclusive', False)}")
         if cnn_prediction.get('uncertainty_reason'):
-            lines.append(f"  note: {cnn_prediction['uncertainty_reason']}")
+            lines.append(f"Uncertainty note: {cnn_prediction['uncertainty_reason']}")
         top5 = cnn_prediction.get('top_5', [])
         if top5:
-            lines.append(f"  top-5: {top5}")
+            lines.append(f"Top-5 alternatives: {top5}")
 
-        # Tree
+        # Key-traversal assistant report
+        lines.append("\n--- IDENTIFICATION KEY ---")
         status = tree_result.get('status', 'unknown')
         if status == 'conclusion':
             path = tree_result.get('path', [])
-            path_str = f" | path: {' → '.join(path[-3:])}" if path else ""
-            lines.append(f"TREE: {tree_result.get('species', 'unknown')}{path_str}")
+            path_str = f" | Path: {' → '.join(path[-3:])}" if path else ""
+            lines.append(f"Conclusion: {tree_result.get('species', 'unknown')}{path_str}")
         elif status == 'question':
-            lines.append(f"TREE: stuck at '{tree_result.get('question', '')}' | options: {tree_result.get('options', [])}")
+            lines.append(f"Status: incomplete — stalled at '{tree_result.get('question', '')}'")
+            lines.append(f"Available options: {tree_result.get('options', [])}")
         else:
-            lines.append(f"TREE: {status}")
+            lines.append(f"Status: {status}")
 
-        # Database
+        # Database comparator report
+        lines.append("\n--- TRAIT DATABASE ---")
         db_status = db_result.get('status', 'unknown')
         if db_status == 'ok':
             cand = db_result.get('candidate', {})
             tm = db_result.get('trait_match', {})
-            lines.append(f"DB: {cand.get('english_name', 'unknown')} (score: {tm.get('score', 0.0):.2f}, conflicts: {len(tm.get('conflicts', []))})")
+            lines.append(f"Best match: {cand.get('english_name', 'unknown')}")
+            lines.append(f"Match score: {tm.get('score', 0.0):.2f}")
+            lines.append(f"Conflicts: {len(tm.get('conflicts', []))}")
             lookalikes = db_result.get('lookalikes', [])
             if lookalikes:
-                lines.append(f"  lookalikes: {', '.join(la.get('swedish_name', '') for la in lookalikes[:3])}")
+                lines.append(f"Documented lookalikes: {', '.join(la.get('swedish_name', '') for la in lookalikes[:3])}")
         else:
-            lines.append(f"DB: {db_status}")
+            lines.append(f"Status: {db_status}")
 
-        # Traits
-        lines.append("\nTRAITS:")
+        # Extracted traits reference
+        lines.append("\n--- EXTRACTED VISIBLE TRAITS ---")
         for k, v in visible_traits.items():
-            lines.append(f"  {k}: {v}")
+            lines.append(f"{k}: {v}")
 
-        lines.append("\nIdentify the species and return JSON.")
+        lines.append("\nFollow the three-phase reasoning process in your system instructions.")
+        lines.append("Return ONLY the JSON response specified in your system instructions.")
 
         return "\n".join(lines)
 
