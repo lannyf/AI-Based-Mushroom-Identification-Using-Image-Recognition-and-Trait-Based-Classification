@@ -617,41 +617,8 @@ def _part_aware_extract(
     if part_masks is None:
         part_masks = _build_part_masks_from_segmentation(image_bytes)
 
-    if not part_masks:
-        # No valid part masks — fall back to whole-image classical analysis
-        colour = analyse_colours(bgr)
-        shape = analyse_shape(bgr)
-        texture = analyse_texture(bgr)
-        brightness = analyse_brightness(bgr)
-        visible_traits = {
-            "dominant_color": colour["dominant_color"],
-            "secondary_color": colour["secondary_color"],
-            "cap_shape": shape["cap_shape"],
-            "surface_texture": texture["surface_texture"],
-            "has_ridges": texture["has_ridges"],
-            "brightness": brightness,
-            "colour_ratios": {
-                "red": colour["red"],
-                "orange_red": colour.get("orange_red", 0.0),
-                "orange_yellow": colour["orange_yellow"],
-                "brown": colour["brown"],
-                "white": colour["white"],
-                "dark": colour["dark"],
-            },
-            "mask_used": False,
-            "morphology_case": "uncertain",
-            "coarse_case": "uncertain",
-            "detected_parts": [],
-            # Fallback aliases for downstream consumers
-            "cap_color": colour["dominant_color"],
-            "whole_color": colour["dominant_color"],
-            "stem_color": "unknown",
-            "underside_color": "unknown",
-            "cap_surface": texture["surface_texture"],
-            "stem_surface": "unknown",
-            "hymenophore_type": "unknown",
-        }
-        return {"visible_traits": visible_traits}
+    if part_masks is None:
+        part_masks = {}
 
     # Collect detected part names
     detected_parts = set(part_masks.keys())
@@ -761,7 +728,7 @@ def _part_aware_extract(
         "clustered_growth": clustered_growth,
         "trait_confidence": trait_confidences,
         "trait_source_by_key": trait_sources,
-        "mask_used": True,
+        "mask_used": bool(detected_parts),
     }
 
     # Ensure colour_ratios is never empty
